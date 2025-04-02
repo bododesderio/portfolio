@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" >
+<head>
+
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Monica</title>
+
+    <script>
+        document.documentElement.classList.remove('no-js');
+        document.documentElement.classList.add('js');
+    </script>
+
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/styles.css">
+
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+</head>
+
+
+<body id="top">
+
+    
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+
+    <!-- page wrap
+    ================================================== -->
+    <div id="page" class="s-pagewrap ss-home">
+
+
+        <!-- # site header 
+        ================================================== -->
+        <header class="s-header">
+
+            <div class="row s-header__inner width-sixteen-col">
+
+                <div class="s-header__block">
+                    <div class="s-header__logo">
+                        <a class="logo" href="index.html">
+                            <img src="images/logo.png" alt="Homepage">
+                        </a>
+                    </div>
+
+                    <a class="s-header__menu-toggle" href="#0"><span>Menu</span></a>
+                </div> <!-- end s-header__block -->
+
+                <nav class="s-header__nav">
+    
+                    <ul class="s-header__menu-links">
+                        <li class="current"><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Journal</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul> <!-- s-header__menu-links -->
+
+                    <div class="s-header__contact">
+                        <a href="Docs/Bodo Desderio - Resume.pdf" 
+                           download="Bodo-Desderio-Resume.pdf" 
+                           class="btn btn--primary s-header__contact-btn resume-download-btn"
+                           onclick="return handleResumeDownload(event)">
+                            <i class="fas fa-download"></i> Download Resume
+                        </a>                        
+                    </div> <!-- s-header__contact -->
+
+                    <script>
+                        function handleResumeDownload(e) {
+                // Option 1: Direct download (works for same-origin files)
+                // For cross-origin files, we'll need the alternative approach
+    
+                // Option 2: Better handling with fallback
+                if (!e.currentTarget.href.endsWith('.pdf')) {
+                e.preventDefault();
+                console.error('Invalid resume file');
+                return false;
+            }
+    
+                // Track download (optional)
+                console.log('Resume download initiated');
+    
+                // For Ctrl+Click or Cmd+Click, open in new tab
+                if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                return false;
+            }
+    
+                return true; // Allow default download behavior
+            }
+                    </script>
+    
+                </nav> <!-- end s-header__nav -->
+
+            </div> <!-- end s-header__inner -->
+
+        </header> <!-- end s-header -->
+
+
+        <!-- # site main content
+        ================================================== -->
+        <section id="content" class="s-content">
+
+            <!-- intro
+            ----------------------------------------------- -->
+            <section id="intro" class="s-intro">
+
+                <div class="row s-intro__content width-sixteen-col">
+
+                    <div class="column lg-12 s-intro__content-inner grid-block">
+                        
+                        <div class="s-intro__content-text">
+                            <div class="s-intro__content-pretitle text-pretitle">Hello, I'm Bodo Desderio</div>
+                            <h1 class="s-intro__content-title">
+                            Software engineer.<br>
+                            SEO Specialist & strategist.<br>
+                            Entrepreneur &<br>
+                            innovator.
+                            </h1>
+                        </div> <!-- s-intro__content-text -->
+
+                        <div class="s-intro__content-media"> 
+                            <div class="s-intro__content-media-inner">                               
+                                <img src="images/intro-bg.jpg" srcset="images/intro-bg.jpg 1x, images/intro-bg@2x.jpg 2x" alt="">
+                                <div class="lines">                               
+                                    <span></span>                                  
+                                </div>
+                            </div>
+                        </div> <!-- s-intro__content-media -->                      
+
+                        <div class="s-intro__scroll-down">
+                            <a href="#about" class="smoothscroll">
+                                <div class="scroll-icon">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="36" height="36" fill="none" stroke="#97b34a" stroke-width="1" stroke-linecap="round" stroke-linejoin="round">&lt;!--!  Atomicons Free 1.00 by @atisalab License - https://atomicons.com/license/ (Icons: CC BY 4.0) Copyright 2021 Atomicons --&gt;<polyline points="7 13 12 18 17 13"></polyline><line x1="12" y1="18" x2="12" y2="6"></line></svg>
+                                </div>
+                                <span>Scroll for more</span>
+                            </a>
+                        </div> <!-- s-intro__scroll-down -->
+                        
+                    </div> <!-- s-intro__content-inner -->
+
+                </div> <!-- s-intro__content -->
+
+            </section> <!-- end s-intro -->
+
+            <!-- about
+            ----------------------------------------------- -->
+            <section id="about" class="s-about target-section">
+
+                <div class="row s-about__content width-sixteen-col">
+                    <div class="column grid-block grid-section-split">
+
+                        <img src="images/geometric_shape.svg" alt="" class="s-about__content-imgbg">
+
+                        <div class="section-header grid-section-split__header">
+                            <div class="text-pretitle">About</div>                           
+                            <h2 class="text-display-title">
+                                Coding, SEO & Chill 🚀.
+                            </h2>                           
+                        </div> <!-- end section-header -->
+
+                        <div class="s-about__content-main grid-section-split__primary">
+                            <p class="attention-getter">
+                                I architect scalable software solutions that blend technical excellence with business strategy. 
+                                With expertise spanning full-stack development and technical SEO, I build systems that perform 
+                                technically and commercially.
+                            </p>
+
+                            <p class="attention-getter">
+                                My entrepreneurial journey bridges code and commerce, creating digital products that rank well, 
+                                convert better, and scale effortlessly. I specialize in JavaScript ecosystems, search algorithm 
+                                optimization, and growth-focused product design.
+                            </p>
+
+                            <p class="attention-getter">
+                                As a founder-developer, I bring engineering rigor and growth marketing principles to projects—from 
+                                MVPs to enterprise platforms—focusing on measurable business impact.
+                            </p>
+                        </div> <!-- end s-about__content-main -->
+
+                        <div class="s-about__content-btn grid-section-split__bottom">
+                            <a href="about.html" class="btn btn--stroke u-fullwidth">More About Me</a>
+
+                            <ul class="s-footer__social social-list">
+                                <li>
+                                    <a href="https://www.facebook.com/bododesderio1/" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-facebook-f"></i>
+                                        <span class="u-screen-reader-text">Facebook</span>
+                                    </a>
+                                    <br>
+                                </li>
+                                <li>
+                                    <a href="https://x.com/bodo_desderio/" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-twitter"></i>
+                                        <span class="u-screen-reader-text">Twitter</span>
+                                    </a>
+                                    <br>
+                                    <br>
+                                </li>
+                                <li>
+                                    <a href="https://www.instagram.com/bodo_desderio/" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-instagram"></i>
+                                        <span class="u-screen-reader-text">Instagram</span>
+                                    </a>
+                                    <br>
+                                </li>
+                                <li>
+                                    <a href="https://www.linkedin.com/in/bododesderio/" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-linkedin-in"></i>
+                                        <span class="u-screen-reader-text">LinkedIn</span>
+                                    </a>
+                                    <br>
+                                    <br>
+                                </li>
+                                <li>
+                                    <a href="https://github.com/bododesderio/" target="_blank" rel="noopener noreferrer">
+                                        <i class="fab fa-github"></i>
+                                        <span class="u-screen-reader-text">GitHub</span>
+                                    </a>
+                                    <br>
+                                </li>
+                            </ul> <!-- end s-footer__social -->
+                        </div> <!-- end s-about__content-btn -->
+                    
+                    </div> <!-- content-inner -->
+                </div>
+                
+            </section> <!-- end s-about -->
+
+            <!-- expertise
+            ----------------------------------------------- -->
+            <section id="expertise" class="s-expertise">
+                <div class="row s-expertise__content width-sixteen-col">
+                    <div class="column xl-12 grid-block grid-section-split">
+            
+                        <div class="section-header grid-section-split__header">
+                            <div class="text-pretitle">Expertise</div>                           
+                            <h2 class="text-display-title">
+                            My Key Areas of Expertise
+                            </h2>     
+                            
+                            <p class="lead">
+                            I combine technical skills with strategic thinking to deliver high-impact digital solutions. My expertise covers development, optimization, and consulting to help businesses grow online.
+                            </p>
+                        </div> <!-- end section-header -->
+            
+                        <div class="s-expertise__content-main grid-section-split__primary">
+            
+                            <div class="grid-list-items list-items show-ctr">
+                                <!-- 1. Web Development -->
+                                <div class="grid-list-items__item list-items__item">
+                                    <div class="grid-list-items__title list-items__item-header">
+                                        <h3 class="list-items__item-title">Web Development</h3>
+                                    </div>
+                                    <div class="grid-list-items__text list-items__item-text">
+                                        <p>
+                                        Full-stack development with expertise in JavaScript (React, Node.js), responsive design, and API integrations. I build fast, secure, and scalable web applications following modern best practices in performance and maintainability.
+                                        </p>
+                                    </div>
+                                </div> <!-- list-item -->
+                                
+                                <!-- 2. SEO Specialist -->
+                                <div class="grid-list-items__item list-items__item">
+                                    <div class="grid-list-items__title list-items__item-header">
+                                        <h3 class="list-items__item-title">SEO Specialist</h3>
+                                    </div>
+                                    <div class="grid-list-items__text list-items__item-text">
+                                        <p>
+                                        End-to-end SEO strategy, from keyword research to technical optimization. Proven track record in improving rankings, organic traffic, and conversions through on-page SEO, content strategy, and performance enhancements.
+                                        </p>
+                                    </div>
+                                </div> <!-- list-item -->
+                                
+                                <!-- 3. UI/UX Design -->
+                                <div class="grid-list-items__item list-items__item">
+                                    <div class="grid-list-items__title list-items__item-header">
+                                        <h3 class="list-items__item-title">UI/UX Design</h3>
+                                    </div>
+                                    <div class="grid-list-items__text list-items__item-text">
+                                        <p>
+                                        User-centered design with a focus on intuitive interfaces and seamless experiences. Skilled in wireframing, prototyping, and accessibility standards to create engaging digital products.
+                                        </p>
+                                    </div>
+                                </div> <!-- list-item -->
+                                
+                                <!-- 4. Technical Consulting -->
+                                <div class="grid-list-items__item list-items__item">
+                                    <div class="grid-list-items__title list-items__item-header">
+                                        <h3 class="list-items__item-title">Technical Consulting</h3>
+                                    </div>
+                                    <div class="grid-list-items__text list-items__item-text">
+                                        <p>
+                                        Strategic guidance for digital projects, from planning to execution. I help businesses optimize their tech stack, improve workflows, and implement scalable solutions for long-term growth.
+                                        </p>
+                                    </div>
+                                </div> <!-- list-item -->
+                                
+                                <!-- 5. Technical SEO -->
+                                <div class="grid-list-items__item list-items__item">
+                                    <div class="grid-list-items__title list-items__item-header">
+                                        <h3 class="list-items__item-title">Technical SEO</h3>
+                                    </div>
+                                    <div class="grid-list-items__text list-items__item-text">
+                                        <p>
+                                        Deep expertise in site architecture, crawl optimization, and JavaScript SEO. I ensure websites meet search engine guidelines while improving Core Web Vitals and overall performance.
+                                        </p>
+                                    </div>
+                                </div> <!-- list-item -->
+                            </div> <!-- grid-list-items -->
+                        </div> <!-- end s-expertise__content-main -->
+            
+                        <div class="s-expertise__content-btn grid-section-split__bottom">
+                            <a href="services.html" class="btn btn--stroke u-fullwidth">View All Services</a>
+                        </div> <!-- end s-about__content-btn -->
+            
+                    </div> <!-- end grid-block-->
+                </div> <!-- end s-expertise__content -->
+            </section> <!-- end s-expertise -->
+
+            <!-- clients
+            ----------------------------------------------- -->
+            <section id="clients" class="s-clients">          
+
+                <div class="row s-clients__content-block width-sixteen-col">
+                    <div class="column xl-12 grid-block grid-section-split">
+                    
+                        <div class="section-header grid-section-split__header">
+                            <div class="text-pretitle">Clients</div>                           
+                            <h2 class="text-display-title">
+                            I have had the privilege of working with these incredible brands.
+                            </h2>       
+                        </div> <!-- end section-header -->
+                    
+                        <div class="grid-section-split__primary">
+                            <p class="lead">
+                                Throughout my career, I've had the privilege of working with innovative organizations that are 
+                                shaping industries and transforming lives. Here's what these partnerships have meant to me.
+                            </p>   
+
+                            <p>
+                                <strong>Why These Clients Matter</strong><br>
+                                Each of these organizations taught me something invaluable—whether it was Keri Naturals’s technical ambition, 
+                                Kakebe’s youth-centric energy, or BetterLife’s humanitarian drive. These partnerships have shaped my 
+                                approach to problem-solving, reminding me that technology is at its best when serving a greater purpose.<br>
+                                
+                                <br><em>"Alone we can do so little; together we can do so much."</em>
+                                <br>— Bodo Desderio
+                            </p>
+                        </div> <!-- end grid-section-split__primary -->
+                    
+                    </div> <!-- end column -->
+                </div> <!-- end row -->
+
+                <div class="row s-clients__content-block width-sixteen-col">
+                    <div class="column xl-12">
+                    
+                        <div class="clients-list">                            
+                            <div class="clients-list__item">
+                                <a href="https://www.forusfoundation.com">
+                                    <img src="images/clients/IMG_0959.JPG" alt="">
+                                </a>
+                            </div>
+                            <div class="clients-list__item">
+                                <a href="https://www.kakebe.tech">
+                                    <img src="images/clients/kakebe.jpg" alt="">
+                                </a>
+                            </div>
+                            <div class="clients-list__item">
+                                <a href="https://www.kerinaturals.com">
+                                    <img src="images/clients/tuy.jpg" alt="">
+                                </a>
+                            </div>
+                            <div class="clients-list__item">
+                                <a href="https://www.betterlifeint.org">
+                                    <img src="images/clients/abetterlife.avif" alt="">
+                                </a>
+                            </div>
+
+                            <div class="clients-list__item">
+                                <a href="https://www.lirauni.ac.ug">
+                                    <img src="images/clients/lira uni.png" alt="">
+                                </a>
+                            </div>
+                            <div class="clients-list__item">
+                                <a href="http://www.jerusalemheritageschool.ac.ug/">
+                                    <img src="images/clients/jerusalem.png" alt="">
+                                </a>
+                            </div>
+                            <div class="clients-list__item">
+                                <a href="http://jerusaleminstitutelira.ac.ug/">
+                                    <img src="images/clients/jeru insitiute.png" alt="">
+                                </a>
+                            </div>
+                            <div class="clients-list__item">
+                                <a href="https://www.kerinaturals.com">
+                                    <img src="images/clients/keri.png" alt="">
+                                </a>
+                            </div>
+                        </div> <!-- end clients-list -->
+
+                    </div> <!-- end column -->
+                </div> <!-- end row -->
+                                
+                <div class="row s-clients__content-block width-sixteen-col">
+                    <div class="column xl-12 testimonials">
+                    
+                        <div class="swiper-container testimonials__slider home-slider">
+
+                            <div class="swiper-wrapper">
+                                <div class="testimonials__slide swiper-slide">
+                                    <p>
+                                        From day one, Desderio understood our ethos of sustainability. 
+                                        His e-commerce solution reflected our brand’s purity—intuitive, 
+                                        transparent, and scalable. A partner who aligns technology with values..
+                                    </p>
+                                    <div class="testimonials__author">
+                                        <cite class="testimonials__cite">
+                                            <strong>Immy Immaculate</strong>
+                                            <span>Keri Naturals.</span>
+                                        </cite>
+                                    </div>
+                                </div>
+                                <div class="testimonials__slide swiper-slide">
+                                    <p>
+                                        Your technical expertise elevated our global outreach. 
+                                        He built systems that connected communities across borders, 
+                                        always with a focus on human-centered design. A rare blend of skill and empathy.
+                                    </p>
+                                    <div class="testimonials__author">
+                                        <cite class="testimonials__cite">
+                                            <strong>Denise Ayebare</strong>
+                                            <span>Program Lead, BetterLife</span>
+                                        </cite>
+                                    </div>
+                                </div>
+                                <div class="testimonials__slide swiper-slide">
+                                    <p>
+                                        Working with Bodo was a game-changer. He didn’t just build a platform—he amplified 
+                                        our mission to empower youth. His strategic thinking and attention to detail made 
+                                        our digital presence as dynamic as our community.
+                                    </p>
+                                    <div class="testimonials__author">
+                                        <cite class="testimonials__cite">
+                                            <strong>Otolo Sedrick</strong>
+                                            <span>Team Lead</span>
+                                        </cite>
+                                    </div>
+                                </div>
+                                <div class="testimonials__slide swiper-slide">
+                                    <p>
+                                        Desderio’s work modernized our institution’s digital footprint. 
+                                        He listened to our needs as educators and delivered tools that 
+                                        enhanced learning accessibility. A partner who truly understands the 
+                                        intersection of technology and education..
+                                    </p>
+                                    <div class="testimonials__author">
+                                        <cite class="testimonials__cite">
+                                            <strong>Director of IT</strong>
+                                            <span>Lira University</span>
+                                        </cite>
+                                    </div>
+                                </div> 
+                            </div> <!-- end swiper-wrapper --> 
+
+                            <div class="swiper-pagination"></div>
+
+                        </div> <!--end testimonials__slider -->                    
+                    
+                    </div> <!-- end column -->
+                </div> <!-- end row -->
+
+
+            </section> <!-- end s-clients -->            
+
+        </section> <!-- s-content-->
+
+        <!-- # cta
+        ================================================== -->
+        <section id="cta" class="s-cta">
+            <div class="row row-x-center text-center">
+                <div class="column xl-8 lg-12">
+                    <div class="s-cta__content">
+                        <h2 class="text-display-title">
+                        Transform Your Digital Presence Today
+                        </h2>
+                        <p class="lead">
+                        Ready to optimize your technology stack? Whether you need custom software solutions, IT infrastructure consulting, or data-driven SEO strategies, I'll help you build systems that deliver results. Let's discuss how we can enhance your efficiency, visibility, and growth.
+                        </p>
+                        <div class="service-highlights">
+                            <div class="service-item">
+                                <i class="fas fa-laptop-code"></i>
+                                <span>Custom Software Development</span>
+                            </div>
+                            <div class="service-item">
+                                <i class="fas fa-network-wired"></i>
+                                <span>IT Infrastructure Solutions</span>
+                            </div>
+                            <div class="service-item">
+                                <i class="fas fa-search-plus"></i>
+                                <span>SEO & Digital Visibility</span>
+                            </div>
+                        </div>
+                        <a href="https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio" class="btn btn--primary" target="_blank">Schedule Your Free Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </section><!-- end s-cta -->
+
+        <!-- # journal
+        ================================================== -->
+        <section id="journal" class="s-journal">
+            <div class="row s-journal__content width-sixteen-col">
+                <div class="column xl-12 grid-block">
+        
+                    <div class="grid-full section-header text-center">
+                        <div class="text-pretitle">Tech Insights</div>                           
+                        <h2 class="text-display-title">
+                        Latest Articles on Tech, STEM & Sustainability
+                        </h2>  
+                    </div> <!-- end section-header --> 
+        
+                    <div class="grid-full s-journal__content-main grid-list-items">
+        
+                        <div class="grid-list-items__item blog-card">
+                            <div class="blog-card__header">
+                                <div class="blog-card__cat-links">
+                                    <a href="blog.html">Green Tech</a>
+                                </div>
+                                <h3 class="blog-card__title"><a href="single.html">Sustainable Web Design: Reducing Digital Carbon Footprints</a></h3>
+                            </div>
+                            <div class="blog-card__text">
+                                <p>
+                                How energy-efficient coding practices, optimized assets, and green hosting can make your website more environmentally friendly. Learn practical strategies to reduce your site's carbon emissions while improving performance and user experience.
+                                </p>
+                            </div>
+                        </div> <!-- end blog-card -->
+                        
+                        <div class="grid-list-items__item blog-card">
+                            <div class="blog-card__header">
+                                <div class="blog-card__cat-links">
+                                    <a href="blog.html">AI Ethics</a>
+                                </div>
+                                <h3 class="blog-card__title"><a href="single.html">Responsible AI Development: Balancing Innovation and Ethics</a></h3>
+                            </div>
+                            <div class="blog-card__text">
+                                <p>
+                                Exploring the ethical frameworks needed for AI development, including bias mitigation, transparency, and environmental impact. Case studies on how leading tech companies are implementing ethical AI practices in their products.
+                                </p>
+                            </div>
+                        </div> <!-- end blog-card -->
+                        
+                        <div class="grid-list-items__item blog-card">
+                            <div class="blog-card__header">
+                                <div class="blog-card__cat-links">
+                                    <a href="blog.html">STEM Education</a>
+                                </div>
+                                <h3 class="blog-card__title"><a href="single.html">Closing the Gender Gap in Computer Science Education</a></h3>
+                            </div>
+                            <div class="blog-card__text">
+                                <p>
+                                Analysis of successful programs that have increased female participation in STEM fields. Practical recommendations for educators and parents to encourage girls in technology from early education through university.
+                                </p>
+                            </div>
+                        </div> <!-- end blog card -->
+                        
+                        <div class="grid-list-items__item blog-card">
+                            <div class="blog-card__header">
+                                <div class="blog-card__cat-links">
+                                    <a href="blog.html">Future Tech</a>
+                                </div>
+                                <h3 class="blog-card__title"><a href="single.html">Quantum Computing Breakthroughs and Practical Applications</a></h3>
+                            </div>
+                            <div class="blog-card__text">
+                                <p>
+                                Recent advancements in quantum computing and how they're solving real-world problems in medicine, climate modeling, and cryptography. Understanding the current state of quantum technology and its near-future implications.
+                                </p>
+                            </div>
+                        </div> <!-- end blog-card -->
+        
+                        <div class="grid-list-items__item blog-card">
+                            <div class="blog-card__header">
+                                <div class="blog-card__cat-links">
+                                    <a href="blog.html">E-Waste Solutions</a>
+                                </div>
+                                <h3 class="blog-card__title"><a href="single.html">Innovative Approaches to Tech Recycling and Circular Economy</a></h3>
+                            </div>
+                            <div class="blog-card__text">
+                                <p>
+                                Cutting-edge methods for recovering rare earth metals from electronics, modular device design for easier repair, and global initiatives reducing e-waste. How consumers and businesses can participate in more sustainable tech consumption.
+                                </p>
+                            </div>
+                        </div> <!-- end blog-card -->
+                        
+                        <div class="grid-list-items__item blog-card">
+                            <div class="blog-card__header">
+                                <div class="blog-card__cat-links">
+                                    <a href="blog.html">Renewable Energy</a>
+                                </div>
+                                <h3 class="blog-card__title"><a href="single.html">How Data Centers Are Transitioning to 100% Renewable Energy</a></h3>
+                            </div>
+                            <div class="blog-card__text">
+                                <p>
+                                Case studies of major tech companies achieving carbon-neutral cloud operations. The technological and logistical challenges of powering the internet with renewable energy sources, and what this means for the future of web services.
+                                </p>
+                            </div>
+                        </div> <!-- end blog-card -->
+        
+                    </div> <!-- end grid-list-items -->
+        
+                    <div class="s-journal__content-btn grid-full text-center">
+                        <a href="blog.html" class="btn btn--stroke">View All Tech Articles</a>
+                    </div>
+        
+                </div> <!-- end grid-block-->
+            </div> <!-- end s-journal__content -->
+        </section> <!-- end s-journal -->
+
+
+        <!-- # footer 
+        ================================================== -->
+        <footer class="s-footer">
+            <div class="row s-footer__content">
+                <div class="column xl-6 lg-6 md-12 s-footer__block s-footer__about">                    
+                    <h3>About Bodo Desderio</h3>
+                    <p>
+                    Full-stack developer and digital solutions expert specializing in custom software development, 
+                    IT infrastructure optimization, and data-driven SEO strategies. With a passion for building 
+                    efficient systems and enhancing online visibility, I help businesses transform their digital 
+                    presence through tailored technology solutions.
+                    </p>               
+                </div>                
+                <div class="column xl-3 lg-6 md-12 s-footer__block s-footer__site-links">
+                    <h3>Services</h3>
+                    <ul class="link-list">
+                        <li><a href="services.html#software">Custom Software Development</a></li>
+                        <li><a href="services.html#it">IT Infrastructure Solutions</a></li>
+                        <li><a href="services.html#seo">SEO & Digital Marketing</a></li>
+                        <li><a href="services.html#consulting">Technology Consulting</a></li>
+                        <li><a href="services.html#web">Web Application Development</a></li>
+                        <li><a href="services.html">View All Services</a></li>
+                    </ul>
+                </div>
+                <div class="column xl-3 lg-6 md-12 tab-12 s-footer__block s-footer__newsletter">
+                    <h3>Tech Insights</h3>
+                    <p>
+                    Get my latest articles on software trends, IT best practices, and SEO strategies delivered to your inbox.
+                    </p>
+                    <div class="subscribe-form">
+                        <form id="mc-form" class="mc-form">
+                            <input type="email" name="EMAIL" id="mce-EMAIL" class="u-fullwidth text-center" placeholder="Your Email Address" required>
+                            <input type="submit" name="subscribe" value="Subscribe" class="btn btn--primary btn--small u-fullwidth">
+                            <div class="mc-status"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>    
+                    
+            <div class="row s-footer__bottom">
+                <div class="column xl-6 lg-12">
+                    <ul class="s-footer__social social-list">
+                        <li>
+                            <a href="https://www.facebook.com/bododesderio1/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-facebook-f"></i>
+                                <span class="u-screen-reader-text">Facebook</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://x.com/bodo_desderio/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-twitter"></i>
+                                <span class="u-screen-reader-text">Twitter</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/bodo_desderio/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-instagram"></i>
+                                <span class="u-screen-reader-text">Instagram</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/bododesderio/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin-in"></i>
+                                <span class="u-screen-reader-text">LinkedIn</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/bododesderio/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i>
+                                <span class="u-screen-reader-text">GitHub</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="column xl-12 lg-12 text-center">
+                    <p class="ss-copyright">
+                        <span>© <script>document.write(new Date().getFullYear())</script> <a href="https://bododesderio.com" target="_blank" rel="noopener noreferrer">Bodo Desderio</a>. All rights reserved.</span>
+                        <span>Designed by <a href="https://kakebe.tech" target="_blank" rel="noopener noreferrer">Kakebe Technologies Limited</a></span>
+                    </p>
+                </div>
+        
+                <div class="ss-go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top">
+                        <i class="fas fa-arrow-up"></i>
+                        <span class="u-screen-reader-text">Back to Top</span>
+                    </a>
+                </div>
+            </div>
+        </footer> <!-- end s-footer -->
+
+    </div> <!-- end page-wrap -->
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
+</html>

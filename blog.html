@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tech Blog - Monica</title>
+
+    <script>
+        document.documentElement.classList.remove('no-js');
+        document.documentElement.classList.add('js');
+    </script>
+
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .blog-page {
+            display: none;
+        }
+        .blog-page.active {
+            display: block;
+        }
+        .pgn__num.current {
+            font-weight: bold;
+            color: var(--color-primary);
+        }
+        .pgn__prev.disabled,
+        .pgn__next.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body id="top">
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+    </div>
+
+    <div id="page" class="s-pagewrap">
+        <header class="s-header">
+
+            <div class="row s-header__inner width-sixteen-col">
+
+                <div class="s-header__block">
+                    <div class="s-header__logo">
+                        <a class="logo" href="index.html">
+                            <img src="images/logo.png" alt="Homepage">
+                        </a>
+                    </div>
+
+                    <a class="s-header__menu-toggle" href="#0"><span>Menu</span></a>
+                </div> <!-- end s-header__block -->
+
+                <nav class="s-header__nav">
+    
+                    <ul class="s-header__menu-links">
+                        <li class="current"><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="blog.html">Journal</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul> <!-- s-header__menu-links -->
+
+                    <div class="s-header__contact">
+                        <a href="Docs/Bodo Desderio - Resume.pdf" 
+                           download="Bodo-Desderio-Resume.pdf" 
+                           class="btn btn--primary s-header__contact-btn resume-download-btn"
+                           onclick="return handleResumeDownload(event)">
+                            <i class="fas fa-download"></i> Download Resume
+                        </a>                        
+                    </div> <!-- s-header__contact -->
+
+                    <script>
+                        function handleResumeDownload(e) {
+                // Option 1: Direct download (works for same-origin files)
+                // For cross-origin files, we'll need the alternative approach
+    
+                // Option 2: Better handling with fallback
+                if (!e.currentTarget.href.endsWith('.pdf')) {
+                e.preventDefault();
+                console.error('Invalid resume file');
+                return false;
+            }
+    
+                // Track download (optional)
+                console.log('Resume download initiated');
+    
+                // For Ctrl+Click or Cmd+Click, open in new tab
+                if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                window.open(e.currentTarget.href, '_blank');
+                return false;
+            }
+    
+                return true; // Allow default download behavior
+            }
+                    </script>
+    
+                </nav> <!-- end s-header__nav -->
+
+            </div> <!-- end s-header__inner -->
+
+        </header>
+
+        <section id="content" class="s-content">
+            <section class="s-pageheader pageheader">
+                <div class="row">
+                    <div class="column xl-12">
+                        <h1 class="page-title">
+                            <span class="page-title__small-type text-pretitle">Tech Insights</span>
+                            STEM, Sustainability & Innovation
+                        </h1>
+                    </div>
+                </div>
+            </section>   
+
+            <section class="s-pagecontent pagecontent">
+                <div class="row">
+                    <div class="column xl-12 grid-block">          
+                        <div class="grid-full grid-list-items">
+                            <!-- Page 1 -->
+                            <div class="blog-page active" data-page="1">
+                                <div class="grid-list-items__item blog-card">
+                                    <div class="blog-card__header">
+                                        <div class="blog-card__cat-links">
+                                            <a href="blog.html">Green Computing</a>
+                                        </div>
+                                        <h3 class="blog-card__title"><a href="single.html">Sustainable Web Development</a></h3>
+                                    </div>
+                                    <div class="blog-card__text">
+                                        <p>Exploring energy-efficient coding practices and green hosting solutions to reduce digital carbon emissions.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid-list-items__item blog-card">
+                                    <div class="blog-card__header">
+                                        <div class="blog-card__cat-links">
+                                            <a href="blog.html">AI Ethics</a>
+                                        </div>
+                                        <h3 class="blog-card__title"><a href="single.html">Responsible AI Development</a></h3>
+                                    </div>
+                                    <div class="blog-card__text">
+                                        <p>Examining ethical frameworks for AI including bias mitigation and environmental impact considerations.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Page 2 -->
+                            <div class="blog-page" data-page="2">
+                                <div class="grid-list-items__item blog-card">
+                                    <div class="blog-card__header">
+                                        <div class="blog-card__cat-links">
+                                            <a href="blog.html">STEM Education</a>
+                                        </div>
+                                        <h3 class="blog-card__title"><a href="single.html">Closing the Gender Gap in Tech</a></h3>
+                                    </div>
+                                    <div class="blog-card__text">
+                                        <p>Analysis of successful programs increasing female participation in STEM fields.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid-list-items__item blog-card">
+                                    <div class="blog-card__header">
+                                        <div class="blog-card__cat-links">
+                                            <a href="blog.html">Quantum Computing</a>
+                                        </div>
+                                        <h3 class="blog-card__title"><a href="single.html">Quantum Breakthroughs</a></h3>
+                                    </div>
+                                    <div class="blog-card__text">
+                                        <p>Recent advancements in quantum computing and their real-world applications.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Page 3 -->
+                            <div class="blog-page" data-page="3">
+                                <div class="grid-list-items__item blog-card">
+                                    <div class="blog-card__header">
+                                        <div class="blog-card__cat-links">
+                                            <a href="blog.html">E-Waste</a>
+                                        </div>
+                                        <h3 class="blog-card__title"><a href="single.html">Tech Recycling Solutions</a></h3>
+                                    </div>
+                                    <div class="blog-card__text">
+                                        <p>Innovative methods for recovering rare earth metals and reducing e-waste.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid-list-items__item blog-card">
+                                    <div class="blog-card__header">
+                                        <div class="blog-card__cat-links">
+                                            <a href="blog.html">Renewable Energy</a>
+                                        </div>
+                                        <h3 class="blog-card__title"><a href="single.html">Green Data Centers</a></h3>
+                                    </div>
+                                    <div class="blog-card__text">
+                                        <p>How tech companies are achieving carbon-neutral cloud operations.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Page 4 -->
+                            <div class="blog-page" data-page="4">
+                                <div class="grid-list-items__item blog-card">
+                                    <div class="blog-card__header">
+                                        <div class="blog-card__cat-links">
+                                            <a href="blog.html">Biotechnology</a>
+                                        </div>
+                                        <h3 class="blog-card__title"><a href="single.html">Tech-Bio Convergence</a></h3>
+                                    </div>
+                                    <div class="blog-card__text">
+                                        <p>How AI is revolutionizing biological research and drug discovery.</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="grid-list-items__item blog-card">
+                                    <div class="blog-card__header">
+                                        <div class="blog-card__cat-links">
+                                            <a href="blog.html">Smart Cities</a>
+                                        </div>
+                                        <h3 class="blog-card__title"><a href="single.html">Sustainable Urban Tech</a></h3>
+                                    </div>
+                                    <div class="blog-card__text">
+                                        <p>Implementing IoT and AI solutions for more sustainable cities.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row navigation pagination">
+                    <div class="column xl-12">
+                        <nav class="pgn">
+                            <ul>
+                                <li>
+                                    <a class="pgn__prev" href="#0" onclick="changePage('prev'); return false;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12.707 17.293L8.414 13H18v-2H8.414l4.293-4.293-1.414-1.414L4.586 12l6.707 6.707z"/></svg>
+                                    </a>
+                                </li>
+                                <li><a class="pgn__num" href="#0" onclick="changePage(1); return false;">1</a></li>
+                                <li><a class="pgn__num" href="#0" onclick="changePage(2); return false;">2</a></li>
+                                <li><a class="pgn__num" href="#0" onclick="changePage(3); return false;">3</a></li>
+                                <li><a class="pgn__num" href="#0" onclick="changePage(4); return false;">4</a></li>
+                                <li><span class="pgn__num dots">…</span></li>
+                                <li><a class="pgn__num" href="#0" onclick="changePage(8); return false;">8</a></li>
+                                <li>
+                                    <a class="pgn__next" href="#0" onclick="changePage('next'); return false;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M11.293 17.293l1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"/></svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <section id="cta" class="s-cta">
+            <div class="row row-x-center text-center">
+                <div class="column xl-8 lg-12">
+                    <div class="s-cta__content">
+                        <h2 class="text-display-title">
+                        Transform Your Digital Presence Today
+                        </h2>
+                        <p class="lead">
+                        Ready to optimize your technology stack? Whether you need custom software solutions, IT infrastructure consulting, or data-driven SEO strategies, I'll help you build systems that deliver results. Let's discuss how we can enhance your efficiency, visibility, and growth.
+                        </p>
+                        <div class="service-highlights">
+                            <div class="service-item">
+                                <i class="fas fa-laptop-code"></i>
+                                <span>Custom Software Development</span>
+                            </div>
+                            <div class="service-item">
+                                <i class="fas fa-network-wired"></i>
+                                <span>IT Infrastructure Solutions</span>
+                            </div>
+                            <div class="service-item">
+                                <i class="fas fa-search-plus"></i>
+                                <span>SEO & Digital Visibility</span>
+                            </div>
+                        </div>
+                        <a href="https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio" class="btn btn--primary">Schedule Your Free Consultation</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- # footer -->
+        <footer class="s-footer">
+            <div class="row s-footer__content">
+                <div class="column xl-6 lg-6 md-12 s-footer__block s-footer__about">                    
+                    <h3>About Bodo Desderio</h3>
+                    <p>
+                    Full-stack developer and digital solutions expert specializing in custom software development, 
+                    IT infrastructure optimization, and data-driven SEO strategies. With a passion for building 
+                    efficient systems and enhancing online visibility, I help businesses transform their digital 
+                    presence through tailored technology solutions.
+                    </p>               
+                </div>                
+                <div class="column xl-3 lg-6 md-12 s-footer__block s-footer__site-links">
+                    <h3>Services</h3>
+                    <ul class="link-list">
+                        <li><a href="services.html#software">Custom Software Development</a></li>
+                        <li><a href="services.html#it">IT Infrastructure Solutions</a></li>
+                        <li><a href="services.html#seo">SEO & Digital Marketing</a></li>
+                        <li><a href="services.html#consulting">Technology Consulting</a></li>
+                        <li><a href="services.html#web">Web Application Development</a></li>
+                        <li><a href="services.html">View All Services</a></li>
+                    </ul>
+                </div>
+                <div class="column xl-3 lg-6 md-12 tab-12 s-footer__block s-footer__newsletter">
+                    <h3>Tech Insights</h3>
+                    <p>
+                    Get my latest articles on software trends, IT best practices, and SEO strategies delivered to your inbox.
+                    </p>
+                    <div class="subscribe-form">
+                        <form id="mc-form" class="mc-form">
+                            <input type="email" name="EMAIL" id="mce-EMAIL" class="u-fullwidth text-center" placeholder="Your Email Address" required>
+                            <input type="submit" name="subscribe" value="Subscribe" class="btn btn--primary btn--small u-fullwidth">
+                            <div class="mc-status"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>    
+                    
+            <div class="row s-footer__bottom">
+                <div class="column xl-6 lg-12">
+                    <ul class="s-footer__social social-list">
+                        <li>
+                            <a href="https://www.facebook.com/bododesderio1/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-facebook-f"></i>
+                                <span class="u-screen-reader-text">Facebook</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://x.com/bodo_desderio/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-twitter"></i>
+                                <span class="u-screen-reader-text">Twitter</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.instagram.com/bodo_desderio/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-instagram"></i>
+                                <span class="u-screen-reader-text">Instagram</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://www.linkedin.com/in/bododesderio/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-linkedin-in"></i>
+                                <span class="u-screen-reader-text">LinkedIn</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/bododesderio/" target="_blank" rel="noopener noreferrer">
+                                <i class="fab fa-github"></i>
+                                <span class="u-screen-reader-text">GitHub</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="column xl-12 lg-12 text-center">
+                    <p class="ss-copyright">
+                        <span>© <script>document.write(new Date().getFullYear())</script> <a href="https://bododesderio.com" target="_blank" rel="noopener noreferrer">Bodo Desderio</a>. All rights reserved.</span>
+                        <span>Designed by <a href="https://kakebe.tech" target="_blank" rel="noopener noreferrer">Kakebe Technologies Limited</a></span>
+                    </p>
+                </div>
+        
+                <div class="ss-go-top">
+                    <a class="smoothscroll" title="Back to Top" href="#top">
+                        <i class="fas fa-arrow-up"></i>
+                        <span class="u-screen-reader-text">Back to Top</span>
+                    </a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        let currentPage = 1;
+        const totalPages = 4; // Update this if you add more pages
+
+        function changePage(page) {
+            // Handle previous/next buttons
+            if (page === 'prev') {
+                page = Math.max(1, currentPage - 1);
+            } else if (page === 'next') {
+                page = Math.min(totalPages, currentPage + 1);
+            }
+
+            // Hide all blog pages
+            document.querySelectorAll('.blog-page').forEach(el => {
+                el.classList.remove('active');
+            });
+
+            // Show selected page
+            const pageToShow = document.querySelector(`.blog-page[data-page="${page}"]`);
+            if (pageToShow) {
+                pageToShow.classList.add('active');
+                currentPage = page;
+                updatePaginationUI();
+            }
+        }
+
+        function updatePaginationUI() {
+            // Update active page number
+            document.querySelectorAll('.pgn__num').forEach(el => {
+                el.classList.remove('current');
+                if (el.textContent == currentPage) {
+                    el.classList.add('current');
+                }
+            });
+
+            // Update prev/next buttons
+            document.querySelector('.pgn__prev').classList.toggle('disabled', currentPage === 1);
+            document.querySelector('.pgn__next').classList.toggle('disabled', currentPage === totalPages);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            updatePaginationUI();
+        });
+    </script>
+</body>
+</html>
