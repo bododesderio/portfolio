@@ -1,9 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" class="no-js" >
+<html lang="en" class="no-js">
 <head>
-
-    <!--- basic page needs
-    ================================================== -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>About Bodo Desderio | Software Engineer, Entrepreneur, and Advocate</title>
@@ -13,28 +10,20 @@
         document.documentElement.classList.add('js');
     </script>
 
-    <!-- CSS
-    ================================================== -->
+    <!-- CSS -->
     <link rel="stylesheet" href="css/vendor.css">
     <link rel="stylesheet" href="css/styles.css">
 
-    <!-- favicons
-    ================================================== -->
+    <!-- favicons -->
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
 </head>
 
-
 <body id="top">
-
-
-    <!-- preloader
-    ================================================== -->
+    <!-- preloader -->
     <div id="preloader">
         <div id="loader" class="dots-fade">
             <div></div>
@@ -43,30 +32,21 @@
         </div>
     </div>
 
-
-    <!-- page wrap
-    ================================================== -->
+    <!-- page wrap -->
     <div id="page" class="s-pagewrap">
-
-
-        <!-- # site header 
-        ================================================== -->
+        <!-- site header -->
         <header class="s-header">
-
             <div class="row s-header__inner width-sixteen-col">
-
                 <div class="s-header__block">
                     <div class="s-header__logo">
                         <a class="logo" href="index.html">
                             <img src="images/logo.png" alt="Homepage">
                         </a>
                     </div>
-
                     <a class="s-header__menu-toggle" href="#0"><span>Menu</span></a>
-                </div> <!-- end s-header__block -->
+                </div>
 
                 <nav class="s-header__nav">
-    
                     <ul class="s-header__menu-links">
                         <li class="current"><a href="index.html">Home</a></li>
                         <li><a href="about.html">About</a></li>
@@ -74,7 +54,7 @@
                         <li><a href="services.html">Services</a></li>
                         <li><a href="blog.html">Journal</a></li>
                         <li><a href="contact.html">Contact</a></li>
-                    </ul> <!-- s-header__menu-links -->
+                    </ul>
 
                     <div class="s-header__contact">
                         <a href="Docs/Bodo Desderio - Resume.pdf" 
@@ -83,258 +63,203 @@
                            onclick="return handleResumeDownload(event)">
                             <i class="fas fa-download"></i> Download Resume
                         </a>                        
-                    </div> <!-- s-header__contact -->
+                    </div>
 
                     <script>
                         function handleResumeDownload(e) {
-                // Option 1: Direct download (works for same-origin files)
-                // For cross-origin files, we'll need the alternative approach
-    
-                // Option 2: Better handling with fallback
-                if (!e.currentTarget.href.endsWith('.pdf')) {
-                e.preventDefault();
-                console.error('Invalid resume file');
-                return false;
-            }
-    
-                // Track download (optional)
-                console.log('Resume download initiated');
-    
-                // For Ctrl+Click or Cmd+Click, open in new tab
-                if (e.ctrlKey || e.metaKey) {
-                e.preventDefault();
-                window.open(e.currentTarget.href, '_blank');
-                return false;
-            }
-    
-                return true; // Allow default download behavior
-            }
+                            if (!e.currentTarget.href.endsWith('.pdf')) {
+                                e.preventDefault();
+                                console.error('Invalid resume file');
+                                return false;
+                            }
+                            console.log('Resume download initiated');
+                            if (e.ctrlKey || e.metaKey) {
+                                e.preventDefault();
+                                window.open(e.currentTarget.href, '_blank');
+                                return false;
+                            }
+                            return true;
+                        }
                     </script>
-    
-                </nav> <!-- end s-header__nav -->
+                </nav>
+            </div>
+        </header>
 
-            </div> <!-- end s-header__inner -->
-
-        </header> <!-- end s-header -->
-
-
-        <!-- # site main content
-        ================================================== -->
+        <!-- site main content -->
         <section id="content" class="s-content">
+            <section class="s-pageheader pageheader">
+                <div class="row">
+                    <div class="column xl-12">
+                        <h1 class="page-title">
+                            <span class="page-title__small-type text-pretitle">About</span>
+                            Hi, I'm Desderio
+                        </h1>
+                    </div>
+                </div>
+            </section>
 
-               <section class="s-pageheader pageheader">
-                    <div class="row">
-                        <div class="column xl-12">
-                            <h1 class="page-title">
-                                <span class="page-title__small-type text-pretitle">About</span>
-                                Hi, I'm Desderio
-                            </h1>
-                            
+            <section class="s-pagecontent pagecontent">
+                <div class="row pageintro">
+                    <div class="column xl-6 lg-12">
+                        <h2 class="text-display-title">Building Bridges Between Technology & Social Impact</h2>
+                    </div>
+                    <div class="column xl-6 lg-12 u-flexitem-x-right">
+                        <p class="lead">
+                        From the challenges of Northern Uganda to the forefront of tech innovation, my journey has been fueled by resilience and a commitment to creating solutions that empower communities. As a software engineer, entrepreneur, and advocate, I bridge the digital divide through sustainable technology and grassroots initiatives.
+                        </p>
+                    </div>                       
+                </div>
+
+                <div class="row pagemedia">
+                    <d class="column xl-12">
+                        <figure class="page-media">                                
+                            <img src="images/thumbs/about/about-1200.jpg" 
+                                 srcset="images/thumbs/about/about-2400.jpg 2400w, 
+                                         images/thumbs/about/about-1200.jpg 1200w, 
+                                         images/thumbs/about/about-600.jpg 600w" sizes="(max-width: 2400px) 100vw, 2400px" alt="">
+                        </figure>
+                    </d>
+                </div>
+
+                <div class="row width-narrower pagemain">
+                    <div class="column xl-12"> 
+                        <h2>How I Got Here</h2>
+                        <p>
+                        Born in Lira City to a Protestant mother who owned a local salon, I grew up witnessing the intersection of poverty, education gaps, and mental health challenges in post-conflict Northern Uganda. My childhood—marked by financial hardship but fueled by relentless curiosity—forged my twin passions: technology as a tool for change and community empowerment as a lifelong mission. Despite the obstacles, I pursued education with determination, first in Electrical Installation and Maintenance, then pivoting to computer science where I discovered my calling at the intersection of code and social impact.
+                        </p>
+
+                        <h2 class="u-add-bottom">My Values & Beliefs</h2>
+
+                        <div class="grid-list-items list-items">
+                            <div class="grid-list-items__item list-items__item u-remove-bottom">
+                                <div class="list-items__item-header">
+                                    <h6 class="list-items__item-small-title">Sustainable Innovation</h6>
+                                </div>
+                                <p>
+                                Technology should solve real problems without creating new ones. I build solutions that are environmentally conscious, economically viable, and socially inclusive—designed to last and adapt to future needs.
+                                </p>
+                            </div>
+                            <div class="grid-list-items__item list-items__item u-remove-bottom">
+                                <div class="list-items__item-header">
+                                    <h6 class="list-items__item-small-title">Community First</h6>
+                                </div>
+                                <p> 
+                                Lasting change comes from empowering people, not just deploying technology. My work with For-Us Foundation and African Youth Congress reflects this belief—creating tools and programs that enable communities to shape their own futures.
+                                </p>
+                            </div>
+                            <div class="grid-list-items__item list-items__item u-remove-bottom">
+                                <div class="list-items__item-header">
+                                    <h6 class="list-items__item-small-title">Radical Collaboration</h6>
+                                </div>
+                                <p>
+                                The complex challenges we face require multidisciplinary approaches. I actively seek partnerships across sectors—from tech companies to NGOs—because transformative solutions emerge at these intersections.
+                                </p>
+                            </div>
+                            <div class="grid-list-items__item list-items__item u-remove-bottom">
+                                <div class="list-items__item-header">
+                                    <h6 class="list-items__item-small-title">Lifelong Learning</h6>
+                                </div>
+                                <p>
+                                In our rapidly evolving digital landscape, staying curious is non-negotiable. I dedicate time weekly to exploring emerging technologies, from quantum computing to AI ethics, ensuring my solutions leverage cutting-edge yet responsible innovation.
+                                </p>
+                            </div>
+                        </div>
+
+                        <h2>Why Work With Me</h2>
+                        <p>
+                        What sets my approach apart is the fusion of technical expertise with deep community understanding. As Senior Software Developer at Kakebe Technologies, I've engineered solutions used by 300K+ users while maintaining a commitment to accessibility. My SEO strategies have boosted client visibility by 40-200%, and my leadership at For-Us Foundation has created tangible social impact through technology. This dual perspective allows me to build systems that are both technically robust and genuinely user-centered.
+                        </p>
+
+                        <p>
+                        Whether developing the For-Us Mental Health App to bridge Uganda's mental health resource gap or advocating for youth employment policies as President of the African Youth Congress, I measure success by real-world impact. My work proves that sustainable development starts with local innovators who understand both the technology and the cultural context.
+                        </p>                   
+
+                        <h2>A Few More Words About Myself</h2>
+                        <p>
+                        Beyond code and committees, you'll find me volunteering with Journey International to support families affected by Nodding Syndrome, or designing low-bandwidth educational apps for offline refugee settlements. My vision includes establishing a tech hub in Northern Uganda to nurture the next generation of innovators, and scaling For-Us Foundation into an internationally recognized organization. I believe the future belongs to those who can align technological advancement with human dignity—this belief shapes every project I undertake.
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="s-testimonials">
+                <div class="s-testimonials__header row row-x-center text-center">
+                    <div class="column xl-8 lg-12">
+                        <p class="text-pretitle">
+                        Testimonials
+                        </p>
+                        <h3>
+                        Reviews From Real Clients
+                        </h3>                        
+                    </div>
+                </div>
+
+                <div class="row s-testimonials__content">
+                    <div class="column xl-12 testimonials">
+                        <div class="swiper-container testimonials__slider page-slider">
+                            <div class="swiper-wrapper">
+                                <div class="testimonials__slide swiper-slide">
+                                    <p>
+                                        From day one, Desderio understood our ethos of sustainability. 
+                                        His e-commerce solution reflected our brand's purity—intuitive, 
+                                        transparent, and scalable. A partner who aligns technology with values.
+                                    </p>
+                                    <div class="testimonials__author">
+                                        <cite class="testimonials__cite">
+                                            <strong>Immy Immaculate</strong>
+                                            <span>Keri Naturals.</span>
+                                        </cite>
+                                    </div>
+                                </div>
+                                <div class="testimonials__slide swiper-slide">
+                                    <p>
+                                        Your technical expertise elevated our global outreach. 
+                                        He built systems that connected communities across borders, 
+                                        always with a focus on human-centered design. A rare blend of skill and empathy.
+                                    </p>
+                                    <div class="testimonials__author">
+                                        <cite class="testimonials__cite">
+                                            <strong>Denise Ayebare</strong>
+                                            <span>Program Lead, BetterLife</span>
+                                        </cite>
+                                    </div>
+                                </div>
+                                <div class="testimonials__slide swiper-slide">
+                                    <p>
+                                        Working with Bodo was a game-changer. He didn't just build a platform—he amplified 
+                                        our mission to empower youth. His strategic thinking and attention to detail made 
+                                        our digital presence as dynamic as our community.
+                                    </p>
+                                    <div class="testimonials__author">
+                                        <cite class="testimonials__cite">
+                                            <strong>Otolo Sedrick</strong>
+                                            <span>Team Lead</span>
+                                        </cite>
+                                    </div>
+                                </div>
+                                <div class="testimonials__slide swiper-slide">
+                                    <p>
+                                        Desderio's work modernized our institution's digital footprint. 
+                                        He listened to our needs as educators and delivered tools that 
+                                        enhanced learning accessibility. A partner who truly understands the 
+                                        intersection of technology and education.
+                                    </p>
+                                    <div class="testimonials__author">
+                                        <cite class="testimonials__cite">
+                                            <strong>Director of IT</strong>
+                                            <span>Lira University</span>
+                                        </cite>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="swiper-pagination"></div>
                         </div>
                     </div>
-               </section> <!-- end pageheader --> 
+                </div>
+            </section>
+        </section>
 
-               <section class="s-pagecontent pagecontent">
-
-                    <div class="row pageintro">
-                        <div class="column xl-6 lg-12">
-                            <h2 class="text-display-title">Some inspiring words to describe yourself</h2>
-                        </div>
-                        <div class="column xl-6 lg-12 u-flexitem-x-right">
-                            <p class="lead">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Alias eos quas blanditiis, quos sint nostrum fugit aperiam 
-                            inventore optio itaque molestias corporis, ipsa tenetur eligendi nihil iste porro, natus culpa consequuntur? Maxime, 
-                            corporis tempore. Sed tenetur veritatis velit recusandae eum, molestiae voluptate ducimus laudantium esse illo 
-                            doloribus atque eligendi deleniti iusto. 
-                            </p>
-                        </div>                       
-                    </div> <!-- end pageintro -->   
-                    
-                    <div class="row pagemedia">
-                        <d class="column xl-12">
-                            <figure class="page-media">                                
-                                <img src="images/thumbs/about/about-1200.jpg" 
-                                     srcset="images/thumbs/about/about-2400.jpg 2400w, 
-                                             images/thumbs/about/about-1200.jpg 1200w, 
-                                             images/thumbs/about/about-600.jpg 600w" sizes="(max-width: 2400px) 100vw, 2400px" alt="">
-                            </figure>
-                        </d>
-                    </div> <!-- end pagemedia -->
-
-                    <div class="row width-narrower pagemain">
-                        <div class="column xl-12"> 
-
-                            <h2>How I Got Here</h2>
-                            <p>
-                            Eaque temporibus culpa perferendis expedita assumenda mollitia magnam. Lorem ipsum dolor sit amet consectetur adipisicing elit
-                            facilis voluptates voluptatum animi numquam quas ea praesentium quaerat maxime sunt odit inventore itaque est et autem sequi nulla. 
-                            Distinctio obcaecati nesciunt asperiores dolorum tenetur voluptates, nemo alias doloremque. Quos cumque ipsum laudantium odio vero 
-                            aut odit nostrum aliquam? Nostrum in facilis, minus fuga quasi voluptas explicabo possimus incidunt, expedita tempora eius rem nobis sequi. 
-                            Doloribus esse sint suscipit quam nisi blanditiis voluptate explicabo.
-                            </p>
-
-                            <h2 class="u-add-bottom">My Values & Beliefs</h2>
-
-                            <div class="grid-list-items list-items">
-                                <div class="grid-list-items__item list-items__item u-remove-bottom">
-                                    <div class="list-items__item-header">
-                                        <h6 class="list-items__item-small-title">Consectetur</h6>
-                                    </div>
-                                    <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia accusamus consectetur adipisicing elit excepturi corrupti 
-                                    nam quae exercitationem cupiditate, provident ipsa delectus vero possimus reprehenderit quas ut officiis tempora voluptatum 
-                                    quibusdam consectetur commodi.
-                                    </p>
-                                </div>
-                                <div class="grid-list-items__item list-items__item u-remove-bottom">
-                                    <div class="list-items__item-header">
-                                        <h6 class="list-items__item-small-title">Adipisicing</h6>
-                                    </div>
-                                    <p> 
-                                    Molestias, autem impedit culpa dolores excepturi, quidem unde ducimus, rerum commodi deserunt earum, minus voluptatum.
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe doloremque provident quas quae exercitationem laboriosam.
-                                    </p>
-                                </div>
-                                <div class="grid-list-items__item list-items__item u-remove-bottom">
-                                    <div class="list-items__item-header">
-                                        <h6 class="list-items__item-small-title">Doloremque</h6>
-                                    </div>
-                                    <p>
-                                    Mollitia accusamus consectetur. Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisicing elit excepturi corrupti 
-                                    nam quae exercitationem cupiditate, provident ipsa delectus vero possimus reprehenderit quas ut officiis tempora voluptatum 
-                                    quibusdam consectetur commodi!
-                                    </p>
-                                </div>
-                                <div class="grid-list-items__item list-items__item u-remove-bottom">
-                                    <div class="list-items__item-header">
-                                        <h6 class="list-items__item-small-title">Assumenda</h6>
-                                    </div>
-                                    <p>
-                                    Lorem ipsum dolor sit amet consectetur, adipisicing elit. Saepe doloremque provident quas quae exercitationem laboriosam. 
-                                    Molestias, autem? Impedit culpa dolores excepturi, quidem unde ducimus, rerum commodi deserunt earum, minus voluptatum?
-                                    </p>
-                                </div>
-                            </div> <!--grid-list-items -->
-
-                            <h2>Why Work With Me</h2>
-                            <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque temporibus culpa perferendis expedita assumenda mollitia magnam, 
-                            facilis voluptates voluptatum animi numquam quas ea praesentium quaerat maxime sunt odit inventore itaque est et autem sequi nulla. 
-                            Distinctio obcaecati nesciunt asperiores dolorum tenetur voluptates, nemo alias doloremque. Quos cumque ipsum laudantium odio vero aut 
-                            odit nostrum aliquam? Nostrum in facilis, minus fuga quasi voluptas explicabo possimus incidunt, expedita tempora eius rem nobis sequi. 
-                            Doloribus esse sint suscipit quam nisi blanditiis voluptate explicabo.
-                            </p>
-
-                            <p>
-                            Quibusdam quis autem voluptatibus earum vel ex error ea magni. Rerum quam quos. Aut asperiores sit mollitia. Rem neque et voluptatem 
-                            eos quia sed eligendi et. Eaque velit eligendi ut magnam. Cumque ducimus laborum doloribus facere maxime vel earum quidem enim suscipit. 
-                            Numquam, corporis accusamus commodi saepe nostrum nesciunt nisi rem necessitatibus unde laboriosam molestias, quam ipsa voluptatum sed 
-                            ex cumque facilis assumenda maiores tempore reiciendis enim accusantium?
-                            </p>                   
-
-                            <h2>A Few More Words About Myself</h2>
-                            <p>
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Et assumenda debitis aut quidem ad voluptates quibusdam soluta temporibus, 
-                            eveniet nobis tempore sunt, provident sapiente accusamus dignissimos voluptatum fugiat nulla dicta nihil molestiae aspernatur error in. 
-                            Ut quo porro voluptatum delectus asperiores culpa non cum facere minima nesciunt assumenda, praesentium reprehenderit accusamus, quam 
-                            repellat nobis nemo? Ut magnam unde culpa pariatur possimus sunt fugiat ea maxime praesentium eaque quo odio sed eligendi harum dolor, 
-                            repellendus reprehenderit facere nihil quam. Saepe, magni.
-                            </p>
-
-                        </div> <!-- end grid-block-->
-                    </div> <!-- end pagemain -->
-
-               </section> <!-- pagecontent -->
-
-               <section class="s-testimonials">
-
-                    <div class="s-testimonials__header row row-x-center text-center">
-                        <div class="column xl-8 lg-12">
-        
-                            <p class="text-pretitle">
-                            Testimonials
-                            </p>
-                            <h3>
-                            Reviews From Real Clients
-                            </h3>                        
-        
-                        </div>
-                    </div> <!--end s-testimonials__header -->
-
-                    <div class="row s-testimonials__content">
-                        <div class="column xl-12 testimonials">
-
-                            <div class="swiper-container testimonials__slider page-slider">
-
-                                <div class="swiper-wrapper">
-                                    <div class="testimonials__slide swiper-slide">
-                                        <p>
-                                            From day one, Desderio understood our ethos of sustainability. 
-                                            His e-commerce solution reflected our brand’s purity—intuitive, 
-                                            transparent, and scalable. A partner who aligns technology with values..
-                                        </p>
-                                        <div class="testimonials__author">
-                                            <cite class="testimonials__cite">
-                                                <strong>Immy Immaculate</strong>
-                                                <span>Keri Naturals.</span>
-                                            </cite>
-                                        </div>
-                                    </div>
-                                    <div class="testimonials__slide swiper-slide">
-                                        <p>
-                                            Your technical expertise elevated our global outreach. 
-                                            He built systems that connected communities across borders, 
-                                            always with a focus on human-centered design. A rare blend of skill and empathy.
-                                        </p>
-                                        <div class="testimonials__author">
-                                            <cite class="testimonials__cite">
-                                                <strong>Denise Ayebare</strong>
-                                                <span>Program Lead, BetterLife</span>
-                                            </cite>
-                                        </div>
-                                    </div>
-                                    <div class="testimonials__slide swiper-slide">
-                                        <p>
-                                            Working with Bodo was a game-changer. He didn’t just build a platform—he amplified 
-                                            our mission to empower youth. His strategic thinking and attention to detail made 
-                                            our digital presence as dynamic as our community.
-                                        </p>
-                                        <div class="testimonials__author">
-                                            <cite class="testimonials__cite">
-                                                <strong>Otolo Sedrick</strong>
-                                                <span>Team Lead</span>
-                                            </cite>
-                                        </div>
-                                    </div>
-                                    <div class="testimonials__slide swiper-slide">
-                                        <p>
-                                            Desderio’s work modernized our institution’s digital footprint. 
-                                            He listened to our needs as educators and delivered tools that 
-                                            enhanced learning accessibility. A partner who truly understands the 
-                                            intersection of technology and education..
-                                        </p>
-                                        <div class="testimonials__author">
-                                            <cite class="testimonials__cite">
-                                                <strong>Director of IT</strong>
-                                                <span>Lira University</span>
-                                            </cite>
-                                        </div>
-                                    </div> 
-                                </div> <!-- end swiper-wrapper --> 
-
-                                <div class="swiper-pagination"></div>
-
-                            </div> <!--end testimonials__slider --> 
-
-                        </div> <!-- testimonials -->
-                    </div> <!--end s-testimonials__content -->
-
-               </section> <!-- end s-testimonials -->
-
-        </section> <!-- s-content-->
-
-        <!-- # cta
-        ================================================== -->
+        <!-- cta -->
         <section id="cta" class="s-cta">
             <div class="row row-x-center text-center">
                 <div class="column xl-8 lg-12">
@@ -363,11 +288,9 @@
                     </div>
                 </div>
             </div>
-        </section><!-- end s-cta -->
+        </section>
 
-
-        <!-- # footer 
-        ================================================== -->
+        <!-- footer -->
         <footer class="s-footer">
             <div class="row s-footer__content">
                 <div class="column xl-6 lg-6 md-12 s-footer__block s-footer__about">                    
@@ -454,14 +377,11 @@
                     </a>
                 </div>
             </div>
-        </footer> <!-- end s-footer -->
+        </footer>
+    </div>
 
-    </div> <!-- end page-wrap -->
-
-    <!-- Java Script
-    ================================================== -->
+    <!-- Java Script -->
     <script src="js/plugins.js"></script>
     <script src="js/main.js"></script>
-
 </body>
 </html>
