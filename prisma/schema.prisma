@@ -1,0 +1,290 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model SiteContent {
+  id         String   @id @default(cuid())
+  page       String
+  section    String
+  fieldKey   String   @map("field_key")
+  value      String   @db.Text
+  fieldType  String   @default("text") @map("field_type") // text | html | image | json | bool
+  updatedAt  DateTime @updatedAt @map("updated_at")
+
+  @@unique([page, section, fieldKey])
+  @@map("site_content")
+}
+
+model SiteSettings {
+  key       String   @id
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("site_settings")
+}
+
+model Media {
+  id           String   @id @default(cuid())
+  filename     String
+  url          String
+  cloudinaryId String   @map("cloudinary_id")
+  type         String   // image | document
+  size         Int
+  width        Int?
+  height       Int?
+  altText      String?  @map("alt_text")
+  tags         String[] @default([])
+  uploadedAt   DateTime @default(now()) @map("uploaded_at")
+
+  // Relations
+  clients      Client[]
+  testimonials Testimonial[]
+  galleryItems GalleryItem[]
+
+  @@map("media")
+}
+
+model Service {
+  id           String   @id @default(cuid())
+  title        String
+  description  String   @db.Text
+  icon         String
+  homeFeatured Boolean  @default(true) @map("home_featured")
+  order        Int      @default(0)
+  visible      Boolean  @default(true)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  @@map("services")
+}
+
+model Client {
+  id          String   @id @default(cuid())
+  name        String
+  logoMediaId String?  @map("logo_media_id")
+  website     String?
+  visible     Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+
+  logo Media? @relation(fields: [logoMediaId], references: [id])
+
+  @@map("clients")
+}
+
+model Testimonial {
+  id           String   @id @default(cuid())
+  body         String   @db.Text
+  author       String
+  role         String
+  company      String?
+  photoMediaId String?  @map("photo_media_id")
+  pages        String[] @default([])
+  visible      Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now()) @map("created_at")
+
+  photo Media? @relation(fields: [photoMediaId], references: [id])
+
+  @@map("testimonials")
+}
+
+model BlogPost {
+  id                       String    @id @default(cuid())
+  title                    String
+  slug                     String    @unique
+  body                     String    @db.Text
+  excerpt                  String    @db.Text
+  featuredImageUrl         String    @map("featured_image_url")
+  featuredImageAlt         String    @map("featured_image_alt")
+  featuredImageAttribution Json?     @map("featured_image_attribution")
+  status                   String    @default("draft") // draft | published | scheduled
+  category                 String?
+  tags                     String[]  @default([])
+  publishedAt              DateTime? @map("published_at")
+  createdAt                DateTime  @default(now()) @map("created_at")
+  updatedAt                DateTime  @updatedAt @map("updated_at")
+
+  @@map("blog_posts")
+}
+
+model GalleryItem {
+  id        String   @id @default(cuid())
+  mediaId   String   @map("media_id")
+  caption   String?
+  category  String?
+  tags      String[] @default([])
+  featured  Boolean  @default(false)
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  media Media @relation(fields: [mediaId], references: [id])
+
+  @@map("gallery_items")
+}
+
+model Subscriber {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String?
+  confirmed    Boolean  @default(true)
+  source       String   @default("footer")
+  subscribedAt DateTime @default(now()) @map("subscribed_at")
+
+  @@map("subscribers")
+}
+
+model NewsletterCampaign {
+  id             String    @id @default(cuid())
+  subject        String
+  bodyHtml       String    @db.Text @map("body_html")
+  status         String    @default("draft") // draft | sent
+  sentAt         DateTime? @map("sent_at")
+  recipientCount Int       @default(0) @map("recipient_count")
+  createdAt      DateTime  @default(now()) @map("created_at")
+
+  @@map("newsletter_campaigns")
+}
+
+model Message {
+  id         String   @id @default(cuid())
+  name       String
+  email      String
+  subject    String
+  body       String   @db.Text
+  read       Boolean  @default(false)
+  archived   Boolean  @default(false)
+  receivedAt DateTime @default(now()) @map("received_at")
+
+  @@map("messages")
+}
+
+model AdminUser {
+  id              String   @id @default(cuid())
+  email           String   @unique
+  passwordHash    String   @map("password_hash")
+  lastLogin       DateTime? @map("last_login")
+  themePreference String   @default("system") @map("theme_preference")  // light | dark | system
+  createdAt       DateTime @default(now()) @map("created_at")
+
+  @@map("admin_users")
+}
+
+model PageView {
+  id            String   @id @default(cuid())
+  path          String
+  referrer      String?
+  userAgentHash String?  @map("user_agent_hash")
+  country       String?
+  sessionId     String   @map("session_id")
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([path, createdAt])
+  @@map("page_views")
+}
+
+// Runtime-editable integration config (stored encrypted in DB, overrides env vars)
+model AppConfig {
+  key       String   @id
+  value     String   @db.Text
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("app_config")
+}
+
+model SeoSettings {
+  page        String  @id
+  metaTitle   String? @map("meta_title")
+  metaDesc    String? @map("meta_desc") @db.Text
+  ogImage     String? @map("og_image")
+  canonical   String?
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("seo_settings")
+}
+
+/// Admin-managed press items: essays, articles, awards, speaking engagements.
+model PressItem {
+  id            String   @id @default(cuid())
+  type          String   @default("article")       // essay | article | award | speaking
+  title         String
+  description   String   @db.Text
+  source        String                              // e.g. "@NDCUganda", "Daily Monitor"
+  sourceUrl     String?  @map("source_url")
+  imageUrl      String?  @map("image_url")
+  imageAlt      String?  @map("image_alt")
+  externalUrl   String?  @map("external_url")
+  downloadUrl   String?  @map("download_url")
+  date          String?                              // e.g. "2024", "March 2024"
+  visible       Boolean  @default(true)
+  order         Int      @default(0)
+  createdAt     DateTime @default(now()) @map("created_at")
+
+  @@map("press_items")
+}
+
+/// Social embeds pinned to public pages in named sections (e.g. "testimonials", "press-mentions").
+model PageEmbed {
+  id          String   @id @default(cuid())
+  page        String                           // about | home | services | contact
+  section     String                           // admin-defined slug, e.g. "testimonials"
+  sortOrder   Int      @default(0) @map("sort_order")
+  platform    String                           // twitter | instagram | linkedin | facebook | tiktok | youtube | vimeo
+  postId      String   @map("post_id")         // platform-specific post identifier
+  originalUrl String   @map("original_url")
+  caption     String?  @db.Text
+  isPublished Boolean  @default(true) @map("is_published")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@index([page, section, sortOrder])
+  @@map("page_embeds")
+}
+
+/// Admin-managed banners: announcement bars, cookie consent, newsletter prompts, promo modals.
+model Banner {
+  id               String   @id @default(cuid())
+  name             String                                                 // admin label (not shown to visitors)
+  kind             String                                                 // topbar | bottombar | modal | corner | cookie
+  placement        String   @default("bottom")                             // top | bottom | left | right | center
+  title            String?
+  body             String?  @db.Text                                       // supports simple HTML
+  imageUrl         String?  @map("image_url")
+  ctaLabel         String?  @map("cta_label")
+  ctaUrl           String?  @map("cta_url")
+  ctaVariant       String   @default("primary") @map("cta_variant")       // primary | outline | invert
+  dismissable      Boolean  @default(true)
+  requireConsent   Boolean  @default(false) @map("require_consent")       // cookie-type banners block analytics
+  theme            String   @default("auto")                               // auto | light | dark | brand
+
+  enabled          Boolean  @default(false)
+  priority         Int      @default(0)
+  startsAt         DateTime? @map("starts_at")
+  endsAt           DateTime? @map("ends_at")
+  pagesInclude     String[] @default([]) @map("pages_include")             // path prefixes; empty = all
+  pagesExclude     String[] @default([]) @map("pages_exclude")
+  devices          String[] @default([])                                   // mobile | tablet | desktop; empty = all
+
+  showOnce         Boolean  @default(false) @map("show_once")
+  cooldownHours    Int      @default(0)     @map("cooldown_hours")
+  delaySeconds     Int      @default(0)     @map("delay_seconds")
+  scrollTrigger    Int?     @map("scroll_trigger")                         // show after scrolling N%
+  exitIntent       Boolean  @default(false) @map("exit_intent")
+  newsletterHook   Boolean  @default(false) @map("newsletter_hook")        // embed subscribe form
+
+  impressionCount  Int      @default(0) @map("impression_count")
+  clickCount       Int      @default(0) @map("click_count")
+  dismissCount     Int      @default(0) @map("dismiss_count")
+  conversionCount  Int      @default(0) @map("conversion_count")
+
+  createdAt        DateTime @default(now()) @map("created_at")
+  updatedAt        DateTime @updatedAt      @map("updated_at")
+
+  @@index([enabled, priority])
+  @@map("banners")
+}

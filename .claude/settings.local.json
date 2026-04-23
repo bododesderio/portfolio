@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E \"\\\\.tsx$\")",
+      "Bash(npx tsc:*)",
+      "Bash(npx eslint:*)",
+      "Bash(npx prisma:*)",
+      "Bash(mkdir:*)",
+      "WebFetch(domain:www.sedrickotolo.com)",
+      "WebFetch(domain:medium.com)",
+      "WebFetch(domain:photos.google.com)",
+      "mcp__plugin_claude-mem_mcp-search__get_observations",
+      "Bash(wc -l E:/Projects/portfolio/app/api/admin/press/route.ts E:/Projects/portfolio/app/api/admin/press/[id]/route.ts E:/Projects/portfolio/components/admin/PressManager.tsx)",
+      "Bash(grep -l \"medium\" E:/Projects/portfolio/lib/*.ts)",
+      "Bash(grep:*)",
+      "Bash(cp \"C:/Users/derri/Downloads/hero2.png\" E:/Projects/portfolio/public/images/hero/portrait-home.png)",
+      "Bash(cp \"C:/Users/derri/Downloads/hero.png\" E:/Projects/portfolio/public/images/hero/portrait-about.png)",
+      "Bash(node -e \"const {imageSize} = require\\('image-size'\\); console.log\\(typeof imageSize\\)\")"
+    ]
+  }
+}

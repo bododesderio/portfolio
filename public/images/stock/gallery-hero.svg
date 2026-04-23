@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a1c"/>
+      <stop offset="100%" stop-color="#0a0a0b"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="60%" cy="35%" r="50%">
+      <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.28"/>
+      <stop offset="60%" stop-color="#0a0a0b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <rect width="1920" height="1080" fill="url(#halo)"/>
+  <!-- Stacked rectangles suggesting masonry -->
+  <g fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1">
+    <rect x="380"  y="320" width="240" height="320"/>
+    <rect x="660"  y="240" width="240" height="400"/>
+    <rect x="940"  y="320" width="240" height="320"/>
+    <rect x="1220" y="200" width="240" height="440"/>
+  </g>
+  <!-- Brand accent dot in second tile -->
+  <circle cx="780" cy="440" r="4" fill="#C9A84C"/>
+  <rect width="1920" height="1080" filter="url(#noise)" opacity="0.5"/>
+</svg>

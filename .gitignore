@@ -1,0 +1,51 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Build outputs
+.next/
+out/
+dist/
+*.tsbuildinfo
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editor directories
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Testing
+coverage/
+
+# Misc
+.cache/
+
+# Runtime uploads (login backgrounds etc.)
+public/uploads/*
+!public/uploads/.gitkeep
+
+# Stock photo pack (fetched via scripts/fetch-stock-pack.mjs)
+public/stock/*.jpg
+public/stock/*.jpeg
+public/stock/*.png
+public/stock/*.webp
+!public/stock/manifest.json
+!public/stock/README.md

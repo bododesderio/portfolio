@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#15171c"/>
+      <stop offset="100%" stop-color="#0a0a0b"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="80%" cy="40%" r="55%">
+      <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.30"/>
+      <stop offset="60%" stop-color="#0a0a0b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <rect width="1920" height="1080" fill="url(#halo)"/>
+  <!-- Diagonal lines -->
+  <g stroke="rgba(201,168,76,0.08)" stroke-width="1">
+    <line x1="0" y1="900" x2="1920" y2="180"/>
+    <line x1="0" y1="1080" x2="1920" y2="360"/>
+    <line x1="0" y1="720" x2="1920" y2="0"/>
+  </g>
+  <!-- Five squares (one per service) -->
+  <g fill="rgba(201,168,76,0.7)">
+    <rect x="540"  y="540" width="12" height="12"/>
+    <rect x="780"  y="540" width="12" height="12"/>
+    <rect x="1020" y="540" width="12" height="12"/>
+    <rect x="1260" y="540" width="12" height="12"/>
+    <rect x="1500" y="540" width="12" height="12"/>
+  </g>
+  <rect width="1920" height="1080" filter="url(#noise)" opacity="0.5"/>
+</svg>

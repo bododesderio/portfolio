@@ -1,0 +1,14 @@
+{
+  "queries": [
+    { "q": "technology", "count": 5 },
+    { "q": "software",   "count": 5 },
+    { "q": "team",       "count": 5 },
+    { "q": "leadership", "count": 5 },
+    { "q": "africa",     "count": 5 },
+    { "q": "community",  "count": 5 },
+    { "q": "business",   "count": 5 },
+    { "q": "workspace",  "count": 5 },
+    { "q": "abstract",   "count": 5 },
+    { "q": "city",       "count": 5 }
+  ]
+}

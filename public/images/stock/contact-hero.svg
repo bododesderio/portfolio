@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" preserveAspectRatio="xMidYMid slice">
+  <defs>
+    <linearGradient id="g" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#15171c"/>
+      <stop offset="100%" stop-color="#0a0a0b"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="50%" cy="80%" r="55%">
+      <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.30"/>
+      <stop offset="65%" stop-color="#0a0a0b" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.05 0"/></filter>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#g)"/>
+  <rect width="1920" height="1080" fill="url(#halo)"/>
+  <!-- Concentric arcs centered low (signal pulse) -->
+  <g fill="none" stroke="rgba(201,168,76,0.18)" stroke-width="1">
+    <circle cx="960" cy="900" r="200"/>
+    <circle cx="960" cy="900" r="320"/>
+    <circle cx="960" cy="900" r="440"/>
+    <circle cx="960" cy="900" r="560"/>
+  </g>
+  <circle cx="960" cy="900" r="6" fill="#C9A84C"/>
+  <rect width="1920" height="1080" filter="url(#noise)" opacity="0.5"/>
+</svg>

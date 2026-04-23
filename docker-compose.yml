@@ -1,0 +1,51 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: bodo_db_prod
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-bodo_portfolio}
+      POSTGRES_USER: ${POSTGRES_USER:-bodo}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-bodo} -d ${POSTGRES_DB:-bodo_portfolio}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bodo_app_prod
+    ports:
+      - "3001:3000"
+    environment:
+      # Always use the internal DB for this containerised stack; the host .env
+      # may point at a different (e.g. Supabase) URL for local `pnpm dev`.
+      DATABASE_URL: postgresql://${POSTGRES_USER:-bodo}:${POSTGRES_PASSWORD:-secret}@db:5432/${POSTGRES_DB:-bodo_portfolio}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_URL: http://localhost:3001
+      AUTH_URL: http://localhost:3001
+      AUTH_TRUST_HOST: "true"
+      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
+      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
+      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+      RESEND_API_KEY: ${RESEND_API_KEY}
+      ADMIN_EMAIL: ${ADMIN_EMAIL}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
+      NEXT_PUBLIC_SITE_URL: http://localhost:3001
+    volumes:
+      - uploads_data:/app/public/uploads
+    depends_on:
+      db:
+        condition: service_healthy
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  uploads_data:
