@@ -16,9 +16,19 @@ const OPTIONS: Array<{ value: ThemePreference; label: string; icon: React.Elemen
 export function AdminThemeSelector({ initial }: { initial: ThemePreference }) {
   const [pref, setPref] = useState<ThemePreference>(initial)
   const [open, setOpen] = useState(false)
-  const { setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
   const { update } = useSession()
   const ref = useRef<HTMLDivElement>(null)
+
+  useEffect(() => { setMounted(true) }, [])
+
+  // Keep local state in sync with next-themes (e.g. after AdminThemeApplier runs)
+  useEffect(() => {
+    if (mounted && theme && theme !== pref) {
+      setPref(theme as ThemePreference)
+    }
+  }, [mounted, theme])
 
   useEffect(() => {
     const onClick = (e: MouseEvent) => {

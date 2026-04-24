@@ -8,6 +8,8 @@ const nextConfig = {
     remotePatterns: [
       { protocol: 'https', hostname: 'res.cloudinary.com' },
       { protocol: 'https', hostname: '*.cloudinary.com' },
+      { protocol: 'https', hostname: 'miro.medium.com' },
+      { protocol: 'https', hostname: 'cdn-images-1.medium.com' },
     ],
     localPatterns: [
       { pathname: '/images/**' },
@@ -53,7 +55,7 @@ const nextConfig = {
           "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
           "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
           "font-src 'self' fonts.gstatic.com data:",
-          "img-src 'self' data: blob: https://res.cloudinary.com https://*.cloudinary.com",
+          "img-src 'self' data: blob: https://res.cloudinary.com https://*.cloudinary.com https://miro.medium.com https://cdn-images-1.medium.com",
           "media-src 'self' https://res.cloudinary.com",
           "connect-src 'self' https://api.resend.com https://*.cloudinary.com https://api.cloudinary.com https://api.calendly.com",
           "frame-src 'self' https://calendly.com https://*.calendly.com",

@@ -45,11 +45,15 @@
 }
 
 html {
-  color-scheme: light dark;
+  color-scheme: light;
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+html.dark {
+  color-scheme: dark;
 }
 
 body {
@@ -82,6 +86,9 @@ h1, h2, h3, h4, h5, h6 {
 
   .border-hairline {
     border-color: rgb(var(--hairline) / var(--hairline-a));
+  }
+  .bg-hairline {
+    background-color: rgb(var(--hairline) / var(--hairline-a));
   }
 
   /* Subtle grain overlay — apply as ::before pseudo on a positioned container */

@@ -158,6 +158,14 @@ async function main() {
       { title: 'Focused on outcomes', description: 'I don\'t ship features — I ship results. Every engagement is measured against the problem it was hired to solve.' },
       { title: 'Long-term collaboration', description: 'I\'m not a contractor looking for the next gig. The clients I work with tend to stay for years.' },
     ]), fieldType: 'json' },
+    { page: 'about', section: 'faq', fieldKey: 'items', value: JSON.stringify([
+      { question: 'What kind of work does Bodo usually take on?', answer: 'Most engagements sit somewhere between product thinking, software delivery, and strategic problem-solving. That can mean building a digital product, shaping a technical roadmap, advising a founder, or helping a team move from scattered ideas to a clearer system.' },
+      { question: 'Is he only available for software engineering work?', answer: 'No. Engineering is a big part of the work, but not the whole thing. Bodo also works on company building, technical consulting, digital strategy, and initiatives that combine technology with education, community, or public-interest work.' },
+      { question: 'Does he work with organisations outside Uganda?', answer: 'Yes. He is based in Kampala, but collaborates with teams across East Africa and beyond. The work is shaped by African contexts first, while still being comfortable in cross-border product and partnership environments.' },
+      { question: 'What is it like to work with him?', answer: 'Direct, thoughtful, and outcome-focused. Bodo tends to work best with people who value clarity, momentum, and honest collaboration. The goal is not just to ship something quickly, but to leave the work stronger, clearer, and more sustainable than it was before.' },
+      { question: 'How do I get started?', answer: 'Head to the contact page and send a message. Describe what you are working on, what kind of help you need, and any timeline constraints. Bodo reads every message personally and will respond if there is a fit.' },
+    ]), fieldType: 'json' },
+
     { page: 'about', section: 'cta', fieldKey: 'heading', value: 'Want to build something together?', fieldType: 'text' },
     { page: 'about', section: 'cta', fieldKey: 'lead', value: 'I\'m always open to conversations about meaningful work — whether that\'s a product, a programme, or a partnership.', fieldType: 'text' },
     { page: 'about', section: 'cta', fieldKey: 'button_label', value: 'Start a conversation', fieldType: 'text' },

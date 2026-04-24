@@ -185,18 +185,39 @@ export function PressSection({ items, mediumPosts = [] }: { items?: PressItem[];
                   transition={{ duration: 0.7, ease: EASE, delay: idx * 0.08 }}
                   className="group flex flex-col rounded-2xl border border-hairline bg-card p-5 shadow-sm hover:border-brand/40 hover:shadow-md transition-all"
                 >
-                  {post.thumbnail && (
-                    <div className="relative aspect-[16/9] rounded-xl overflow-hidden mb-4 bg-muted">
-                      <Image
-                        src={post.thumbnail}
-                        alt={post.title}
-                        fill
-                        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                        unoptimized
-                      />
-                    </div>
-                  )}
+                  <div className="relative mb-4 w-full flex-shrink-0 overflow-hidden rounded-xl bg-muted" style={{ aspectRatio: '16 / 9' }}>
+                    {post.thumbnail ? (
+                      <>
+                        <Image
+                          src={post.thumbnail}
+                          alt={post.title}
+                          fill
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                          className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                          unoptimized
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            // Hide broken image and show fallback
+                            const target = e.currentTarget as HTMLImageElement
+                            target.style.display = 'none'
+                            const fallback = target.parentElement?.querySelector('[data-fallback]') as HTMLElement | null
+                            if (fallback) fallback.style.display = 'flex'
+                          }}
+                        />
+                        <div data-fallback className="absolute inset-0 hidden items-end bg-[radial-gradient(circle_at_top_left,rgba(201,168,76,0.22),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0))] p-4">
+                          <span className="rounded-full border border-hairline bg-black/20 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-fg">
+                            Medium
+                          </span>
+                        </div>
+                      </>
+                    ) : (
+                      <div className="flex h-full items-end bg-[radial-gradient(circle_at_top_left,rgba(201,168,76,0.22),transparent_42%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0))] p-4">
+                        <span className="rounded-full border border-hairline bg-black/20 px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-fg">
+                          Medium
+                        </span>
+                      </div>
+                    )}
+                  </div>
                   {post.pubDate && (
                     <p className="text-[10px] uppercase tracking-brand text-fg-muted mb-2">
                       {new Date(post.pubDate).toLocaleDateString('en-US', {

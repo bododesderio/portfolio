@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useTheme } from 'next-themes'
 import { useSession } from 'next-auth/react'
 import { Sun, Moon, Monitor } from 'lucide-react'
@@ -16,8 +16,18 @@ const OPTIONS: Array<{ value: ThemePreference; label: string; icon: React.Elemen
 export function ThemePreferenceSection({ initial }: { initial: ThemePreference }) {
   const [pref, setPref] = useState<ThemePreference>(initial)
   const [saving, setSaving] = useState(false)
-  const { setTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+  const { theme, setTheme } = useTheme()
   const { update } = useSession()
+
+  useEffect(() => { setMounted(true) }, [])
+
+  // Keep local state in sync with next-themes
+  useEffect(() => {
+    if (mounted && theme && theme !== pref) {
+      setPref(theme as ThemePreference)
+    }
+  }, [mounted, theme])
 
   async function choose(next: ThemePreference) {
     if (next === pref) return

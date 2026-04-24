@@ -28,63 +28,71 @@ export async function fetchMediumPosts(): Promise<MediumPost[]> {
 
 function parseMediumRSS(xml: string): MediumPost[] {
   const items: MediumPost[] = []
-
-  // Match each <item>…</item> block
   const itemRegex = /<item>([\s\S]*?)<\/item>/g
   let match: RegExpExecArray | null
 
   while ((match = itemRegex.exec(xml)) !== null) {
     const block = match[1]
-
-    const title = extractTag(block, 'title')
-    const link = extractTag(block, 'link')
-    const pubDate = extractTag(block, 'pubDate')
+    const title = decodeEntities(extractTag(block, 'title'))
+    const link = decodeEntities(extractTag(block, 'link'))
+    const pubDate = decodeEntities(extractTag(block, 'pubDate'))
     const contentEncoded =
       extractCDATA(block, 'content:encoded') || extractTag(block, 'content:encoded') || ''
 
-    // Extract thumbnail from content:encoded (first <img> src)
-    const imgMatch = contentEncoded.match(/<img[^>]+src=["']([^"']+)["']/)
-    const thumbnail = imgMatch ? imgMatch[1] : null
+    const thumbnail = extractThumbnail(block, contentEncoded)
+    const plainText = decodeEntities(
+      contentEncoded
+        .replace(/<[^>]+>/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim()
+    )
 
-    // Build a plain-text excerpt from content:encoded
-    const plainText = contentEncoded
-      .replace(/<[^>]+>/g, '')   // strip HTML tags
-      .replace(/&nbsp;/g, ' ')
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"')
-      .replace(/&#39;/g, "'")
-      .replace(/\s+/g, ' ')
-      .trim()
-
-    const excerpt = plainText.length > 150
-      ? plainText.slice(0, 150).replace(/\s+\S*$/, '') + '...'
-      : plainText
+    const excerpt =
+      plainText.length > 150
+        ? `${plainText.slice(0, 150).replace(/\s+\S*$/, '')}...`
+        : plainText
 
     if (title && link) {
-      items.push({ title, link, pubDate: pubDate || '', excerpt, thumbnail })
+      items.push({ title, link, pubDate, excerpt, thumbnail })
     }
   }
 
   return items
 }
 
-/** Extract text content from a simple XML tag */
+function extractThumbnail(block: string, contentEncoded: string): string | null {
+  const mediaThumbnailMatch = block.match(/<media:thumbnail[^>]+url=["']([^"']+)["']/i)
+  const contentImgMatch = contentEncoded.match(/<img[^>]+src=["']([^"']+)["']/i)
+  const rawUrl = mediaThumbnailMatch?.[1] || contentImgMatch?.[1]
+
+  if (!rawUrl) return null
+
+  const cleaned = decodeEntities(rawUrl).trim()
+  return cleaned.startsWith('http://') || cleaned.startsWith('https://') ? cleaned : null
+}
+
 function extractTag(xml: string, tag: string): string {
-  // Try CDATA first, then plain text
   const cdataRegex = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>`)
   const cdataMatch = xml.match(cdataRegex)
   if (cdataMatch) return cdataMatch[1].trim()
 
   const regex = new RegExp(`<${tag}[^>]*>([\\s\\S]*?)<\\/${tag}>`)
-  const m = xml.match(regex)
-  return m ? m[1].trim() : ''
+  const match = xml.match(regex)
+  return match ? match[1].trim() : ''
 }
 
-/** Extract CDATA content specifically */
 function extractCDATA(xml: string, tag: string): string {
   const regex = new RegExp(`<${tag}[^>]*><!\\[CDATA\\[([\\s\\S]*?)\\]\\]><\\/${tag}>`)
-  const m = xml.match(regex)
-  return m ? m[1].trim() : ''
+  const match = xml.match(regex)
+  return match ? match[1].trim() : ''
+}
+
+function decodeEntities(value: string): string {
+  return value
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&quot;/g, '"')
+    .replace(/&#39;/g, "'")
 }
