@@ -4,9 +4,9 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import {
-  LayoutDashboard, BarChart3, FileText, FolderOpen,
+  LayoutDashboard, FileText, FolderOpen,
   PenLine, Mail, MessageSquare, Users, Palette, Plug,
-  User, LogOut, ChevronRight,
+  User, LogOut, ChevronRight, Megaphone,
   Quote, Briefcase, X as XIcon, Newspaper, Settings as SettingsIcon,
 } from 'lucide-react'
 
@@ -17,8 +17,7 @@ const groups: NavGroup[] = [
   {
     label: 'Overview',
     items: [
-      { label: 'Dashboard', href: '/admin', icon: LayoutDashboard, exact: true },
-      { label: 'Analytics', href: '/admin/analytics', icon: BarChart3 },
+      { label: 'Overview', href: '/admin', icon: LayoutDashboard, exact: true },
     ],
   },
   {
@@ -28,8 +27,15 @@ const groups: NavGroup[] = [
       { label: 'Pages',         href: '/admin/content',      icon: PenLine },
       { label: 'Press',         href: '/admin/press',        icon: Newspaper },
       { label: 'Media Library', href: '/admin/media',        icon: FolderOpen },
+    ],
+  },
+  {
+    label: 'Engage',
+    items: [
       { label: 'Services',      href: '/admin/services',     icon: Briefcase },
       { label: 'Testimonials',  href: '/admin/testimonials', icon: Quote },
+      { label: 'Clients',       href: '/admin/clients',      icon: Users },
+      { label: 'Banners',       href: '/admin/banners',      icon: Megaphone },
     ],
   },
   {
@@ -37,7 +43,6 @@ const groups: NavGroup[] = [
     items: [
       { label: 'Subscribers', href: '/admin/newsletter', icon: Mail },
       { label: 'Messages',    href: '/admin/messages',   icon: MessageSquare },
-      { label: 'Clients',     href: '/admin/clients',    icon: Users },
     ],
   },
   {

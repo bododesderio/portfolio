@@ -16,8 +16,6 @@ interface Embed {
   isPublished: boolean
 }
 
-const PLATFORMS = ['twitter', 'instagram', 'linkedin', 'facebook', 'tiktok', 'youtube', 'vimeo']
-
 const platformLabels: Record<string, string> = {
   twitter: 'Twitter / X',
   instagram: 'Instagram',

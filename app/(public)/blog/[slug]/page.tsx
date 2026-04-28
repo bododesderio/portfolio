@@ -129,7 +129,7 @@ export default async function BlogPostPage({ params }: Props) {
       {post.featuredImageUrl && (
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 mb-16">
           <div className="relative h-64 md:h-[500px] rounded-2xl overflow-hidden">
-            <Image src={post.featuredImageUrl} alt={post.featuredImageAlt} fill className="object-cover" priority />
+            <Image src={post.featuredImageUrl} alt={post.featuredImageAlt} fill sizes="(max-width: 768px) 100vw, 80vw" className="object-cover" priority />
           </div>
           {attribution?.photographer && (
             <p className="mt-3 text-xs text-fg-muted text-center">

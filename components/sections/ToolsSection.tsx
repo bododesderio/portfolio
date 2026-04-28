@@ -19,7 +19,7 @@ const tools = [
 
 export function ToolsSection() {
   return (
-    <section className="py-24 bg-white dark:bg-slate-950">
+    <section className="py-24 bg-surface-2 dark:bg-ink-900">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

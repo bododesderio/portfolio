@@ -4,10 +4,10 @@ import { EmailLayout } from './Layout'
 const h1 = { fontSize: '28px', color: '#0f172a', margin: '0 0 16px 0', fontWeight: 'normal' as const }
 const p = { color: '#475569', fontSize: '16px', lineHeight: '26px', margin: '0 0 16px 0' }
 
-export function WelcomeEmail({ name }: { name?: string }) {
+export function WelcomeEmail({ name, unsubscribeUrl }: { name?: string; unsubscribeUrl?: string }) {
   const greeting = name ? `Hi ${name},` : 'Hi,'
   return (
-    <EmailLayout preview="Welcome — you're in the loop.">
+    <EmailLayout preview="Welcome — you're in the loop." unsubscribeUrl={unsubscribeUrl}>
       <Heading style={h1}>Welcome.</Heading>
       <Text style={p}>{greeting}</Text>
       <Text style={p}>

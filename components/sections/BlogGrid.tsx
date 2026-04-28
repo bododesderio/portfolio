@@ -111,7 +111,7 @@ export function BlogGrid({ posts }: { posts: Post[] }) {
                 >
                   {post.featuredImageUrl && (
                     <div className="relative h-48 w-full">
-                      <Image src={post.featuredImageUrl} alt={post.featuredImageAlt} fill className="object-cover" />
+                      <Image src={post.featuredImageUrl} alt={post.featuredImageAlt} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
                     </div>
                   )}
                   <div className="p-6 flex-1 flex flex-col">

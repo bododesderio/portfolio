@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { resend } from '@/lib/resend'
 import { renderNewsletterCampaign } from '@/lib/emails'
+import { unsubscribeUrl } from '@/lib/unsubscribe'
 
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -16,17 +17,16 @@ export async function POST(req: NextRequest) {
     if (subscribers.length === 0) return NextResponse.json({ error: 'No subscribers.' }, { status: 400 })
 
     const from = process.env.ADMIN_EMAIL!
-    const html = await renderNewsletterCampaign(subject, body)
     const batchSize = 50
 
     for (let i = 0; i < subscribers.length; i += batchSize) {
       const batch = subscribers.slice(i, i + batchSize)
-      await resend.emails.send({
-        from,
-        to: batch.map(s => s.email),
-        subject,
-        html,
-      })
+      await Promise.all(
+        batch.map(async (subscriber) => {
+          const html = await renderNewsletterCampaign(subject, body, unsubscribeUrl(subscriber.email))
+          return resend.emails.send({ from, to: subscriber.email, subject, html }).catch(() => null)
+        })
+      )
     }
 
     await prisma.newsletterCampaign.create({

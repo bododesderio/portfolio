@@ -96,9 +96,11 @@ export function GalleryPageClient({ items }: GalleryPageProps) {
                     src={optimizedUrl(item.media.url, 1200)}
                     alt={item.caption || 'Gallery image'}
                     fill
+                    sizes="(max-width: 768px) 100vw, 50vw"
                     className="object-cover hover:scale-105 transition-transform duration-500"
                     placeholder="blur"
                     blurDataURL={blurUrl(item.media.url)}
+                    loading="lazy"
                   />
                   {item.caption && (
                     <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
@@ -133,9 +135,11 @@ export function GalleryPageClient({ items }: GalleryPageProps) {
                     src={thumbnailUrl(item.media.url)}
                     alt={item.caption || 'Gallery image'}
                     fill
+                    sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                     className="object-cover"
                     placeholder="blur"
                     blurDataURL={blurUrl(item.media.url)}
+                    loading="lazy"
                   />
                   {item.caption && (
                     <div className="absolute inset-0 bg-black/60 opacity-0 hover:opacity-100 transition-opacity flex items-end p-4">

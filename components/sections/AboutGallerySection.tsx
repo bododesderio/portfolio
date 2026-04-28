@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
@@ -30,7 +33,13 @@ export function AboutGallerySection({ items }: { items: AboutGalleryItem[] }) {
   return (
     <Section className="bg-surface-2 border-y border-hairline overflow-hidden" spacing="compact">
       <Container>
-        <div className="mb-10 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7 }}
+          className="mb-10 flex flex-col gap-5 md:mb-12 md:flex-row md:items-end md:justify-between"
+        >
           <div className="max-w-2xl">
             <Eyebrow className="mb-3">In the field</Eyebrow>
             <h2 className="font-serif text-4xl text-fg md:text-5xl">
@@ -49,12 +58,16 @@ export function AboutGallerySection({ items }: { items: AboutGalleryItem[] }) {
             View full gallery
             <ArrowUpRight className="h-4 w-4" />
           </Link>
-        </div>
+        </motion.div>
 
         <div className="grid grid-cols-2 gap-4 md:auto-rows-[190px] md:grid-cols-12 md:gap-5">
           {items.slice(0, 6).map((item, idx) => (
-            <figure
+            <motion.figure
               key={item.id}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.1 }}
+              transition={{ duration: 0.6, delay: idx * 0.08 }}
               className={`group relative overflow-hidden rounded-[18px] border border-hairline bg-card ${
                 TILE_SPANS[idx] ?? 'md:col-span-4 md:row-span-1'
               } ${idx === 0 ? 'col-span-2 aspect-[4/5] md:aspect-auto' : 'aspect-[4/3] md:aspect-auto'}`}
@@ -69,6 +82,7 @@ export function AboutGallerySection({ items }: { items: AboutGalleryItem[] }) {
                     : '(max-width: 768px) 50vw, 33vw'
                 }
                 className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                loading="lazy"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent" />
               {(item.caption || item.category) && (
@@ -85,7 +99,7 @@ export function AboutGallerySection({ items }: { items: AboutGalleryItem[] }) {
                   )}
                 </figcaption>
               )}
-            </figure>
+            </motion.figure>
           ))}
         </div>
       </Container>

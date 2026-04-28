@@ -66,6 +66,7 @@ export function AvailabilityCard({ initial }: { initial: { status: string; label
           id="av-label"
           value={label}
           onChange={e => setLabel(e.target.value)}
+          placeholder="e.g. Available for projects"
           className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
         />
       </div>
@@ -76,6 +77,7 @@ export function AvailabilityCard({ initial }: { initial: { status: string; label
           value={note}
           onChange={e => setNote(e.target.value)}
           rows={3}
+          placeholder="e.g. Currently taking on 1-2 new clients per quarter..."
           className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm resize-none"
         />
       </div>

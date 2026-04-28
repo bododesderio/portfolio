@@ -8,6 +8,9 @@ async function main() {
 
   // Clear existing data (in reverse order due to dependencies)
   console.log('🗑️  Clearing existing data...')
+  await prisma.banner.deleteMany()
+  await prisma.heroImage.deleteMany()
+  await prisma.pageEmbed.deleteMany()
   await prisma.galleryItem.deleteMany()
   await prisma.testimonial.deleteMany()
   await prisma.blogPost.deleteMany()
@@ -133,43 +136,7 @@ async function main() {
     { page: 'global', section: 'footer', fieldKey: 'newsletter_text', value: 'Updates on what I\'m building, thinking, and doing — delivered to your inbox.', fieldType: 'text' },
     { page: 'global', section: 'footer', fieldKey: 'copyright', value: '© {year} Bodo Desderio. All rights reserved.', fieldType: 'text' },
 
-    // ABOUT PAGE
-    { page: 'about', section: 'hero', fieldKey: 'heading', value: 'About', fieldType: 'text' },
-    { page: 'about', section: 'hero', fieldKey: 'subtitle', value: 'The story behind the work — where I come from, what drives me, and who I build with.', fieldType: 'text' },
-    { page: 'about', section: 'hero', fieldKey: 'image', value: '/images/hero/portrait-about.png', fieldType: 'image' },
-    { page: 'about', section: 'mission', fieldKey: 'statement', value: 'I build technology that moves people forward — companies, communities, and careers rooted in Africa and reaching beyond.', fieldType: 'text' },
-    { page: 'about', section: 'story', fieldKey: 'items', value: JSON.stringify([
-      { year: 'Early years', title: 'A curiosity that wouldn\'t sit still', organization: 'Childhood', description: 'Long before I ever wrote a line of code, I was the kid buried in books — self-help, science, novels, anything that promised a new way of seeing the world. I had questions that wouldn\'t leave me alone: Why do we behave the way we do? Are we alone out here? What happens at the edge of a black hole? That restless hunger to understand things became the thread that connects everything I\'ve done since.', icon: 'calendar' },
-      { year: '2018', title: 'Finding my lane at university', organization: 'Kampala International University', description: 'I enrolled at KIU to study computer science and business, and something clicked. For the first time, engineering and entrepreneurship stopped feeling like separate worlds. University wasn\'t just coursework — it was where the seed was planted that technology built by Africans could genuinely serve African markets.', icon: 'calendar' },
-      { year: '2021', title: 'Becoming a software engineer', organization: 'Kakebe Technologies Limited', description: 'I joined Kakebe as a full-stack developer and quickly fell in love with the craft of building real products for real people. Before long I was leading the software department — managing a team, shipping digital products across East Africa, and learning that the hardest problems are never purely technical.', icon: 'briefcase' },
-      { year: '2023', title: 'Leading a youth movement', organization: 'African Youth Congress — Uganda Chapter', description: 'Being elected president of the AYC Uganda Chapter changed me. I organised tech camps, ran school outreaches, and pulled together hackathons that brought technology within reach of young people who\'d never had the chance. It taught me that the most powerful thing you can build isn\'t a product — it\'s the people around you.', icon: 'award' },
-      { year: '2024', title: 'A voice against corruption', organization: 'National Debate Council Uganda \u00b7 VNSAC234', description: 'I was selected to contribute to the Virtual National Students\' Anti-Corruption Challenge — a collaboration with the Auditor General, Parliament, and GIZ. Writing about the rot in Uganda\'s health sector felt personal. It reminded me why I build: not for the sake of technology, but for the sake of the people it should protect.', icon: 'award' },
-      { year: '2024', title: 'Starting my own company', organization: 'Rooibok Technologies Limited', description: 'Founding Rooibok was the moment years of thinking and building crystallised into something of my own. The company exists to create software, digital products, and tech infrastructure for African businesses — born from a simple conviction that we should be building the tools that serve our own markets, not waiting for someone else to do it.', icon: 'briefcase' },
-      { year: 'Present', title: 'Writing, wondering, building', organization: 'medium.com/@bodo_desderio', description: 'These days I split my time between running Rooibok, engineering at Kakebe, and writing on Medium about the things that keep me curious — technology, leadership, space, philosophy, and the question of what kind of future is actually worth building.', icon: 'calendar' },
-    ]), fieldType: 'json' },
-    { page: 'about', section: 'values', fieldKey: 'items', value: JSON.stringify([
-      { title: 'Build with purpose', description: 'Technology is a means, not the mission. Every project I take on has to serve someone, solve something, or move something forward.', icon: 'heart' },
-      { title: 'Prefer clarity over complexity', description: 'The best systems — and teams — are the ones you can actually understand. Simplicity is a discipline, not a shortcut.', icon: 'lightbulb' },
-      { title: 'Invest in people', description: 'The most powerful thing you can build isn\'t a product — it\'s the people around you. Mentor, teach, hire well, stay loyal.', icon: 'users' },
-    ]), fieldType: 'json' },
-    { page: 'about', section: 'why', fieldKey: 'items', value: JSON.stringify([
-      { title: 'Technical depth, business fluency', description: 'I speak both engineer and founder — which means I can translate between them when things get hard.' },
-      { title: 'Built across Africa', description: 'Every project I\'ve shipped was built for African contexts first. I understand the constraints, infrastructure, and user behaviours others miss.' },
-      { title: 'Focused on outcomes', description: 'I don\'t ship features — I ship results. Every engagement is measured against the problem it was hired to solve.' },
-      { title: 'Long-term collaboration', description: 'I\'m not a contractor looking for the next gig. The clients I work with tend to stay for years.' },
-    ]), fieldType: 'json' },
-    { page: 'about', section: 'faq', fieldKey: 'items', value: JSON.stringify([
-      { question: 'What kind of work does Bodo usually take on?', answer: 'Most engagements sit somewhere between product thinking, software delivery, and strategic problem-solving. That can mean building a digital product, shaping a technical roadmap, advising a founder, or helping a team move from scattered ideas to a clearer system.' },
-      { question: 'Is he only available for software engineering work?', answer: 'No. Engineering is a big part of the work, but not the whole thing. Bodo also works on company building, technical consulting, digital strategy, and initiatives that combine technology with education, community, or public-interest work.' },
-      { question: 'Does he work with organisations outside Uganda?', answer: 'Yes. He is based in Kampala, but collaborates with teams across East Africa and beyond. The work is shaped by African contexts first, while still being comfortable in cross-border product and partnership environments.' },
-      { question: 'What is it like to work with him?', answer: 'Direct, thoughtful, and outcome-focused. Bodo tends to work best with people who value clarity, momentum, and honest collaboration. The goal is not just to ship something quickly, but to leave the work stronger, clearer, and more sustainable than it was before.' },
-      { question: 'How do I get started?', answer: 'Head to the contact page and send a message. Describe what you are working on, what kind of help you need, and any timeline constraints. Bodo reads every message personally and will respond if there is a fit.' },
-    ]), fieldType: 'json' },
-
-    { page: 'about', section: 'cta', fieldKey: 'heading', value: 'Want to build something together?', fieldType: 'text' },
-    { page: 'about', section: 'cta', fieldKey: 'lead', value: 'I\'m always open to conversations about meaningful work — whether that\'s a product, a programme, or a partnership.', fieldType: 'text' },
-    { page: 'about', section: 'cta', fieldKey: 'button_label', value: 'Start a conversation', fieldType: 'text' },
-    { page: 'about', section: 'cta', fieldKey: 'button_url', value: '/contact', fieldType: 'text' },
+    // About page content is seeded in the dedicated aboutContentRows block below
 
     // SERVICES PAGE
     { page: 'services', section: 'hero', fieldKey: 'heading', value: 'Services', fieldType: 'text' },
@@ -220,6 +187,12 @@ async function main() {
     { key: 'site.location', value: 'Kampala, Uganda' },
     { key: 'site.calendly_url', value: 'https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio' },
     { key: 'theme.brand_color', value: '#C9A84C' },
+    { key: 'login_background_url', value: '/images/gallery/IMG_5544.jpg' },
+    { key: 'login_card_image', value: '/images/hero/portrait-home.png' },
+    { key: 'login_heading', value: 'Welcome Back' },
+    { key: 'login_subtitle', value: 'Sign in to your admin account' },
+    { key: 'login_overlay_title', value: 'Bodo Desderio' },
+    { key: 'login_overlay_subtitle', value: 'Building companies, communities, and technology that move people forward.' },
   ]
 
   for (const row of settingsRows) {
@@ -287,7 +260,7 @@ async function main() {
     { name: 'Lira University', website: 'https://www.lirauni.ac.ug', order: 4, visible: true },
     { name: 'Jerusalem Heritage School', website: 'http://www.jerusalemheritageschool.ac.ug/', order: 5, visible: true },
     { name: 'Jerusalem Institute Lira', website: 'http://jerusaleminstitutelira.ac.ug/', order: 6, visible: true },
-    { name: 'Keri Naturals', website: 'https://www.kerinaturals.com', order: 7, visible: true },
+    { name: 'Gloford Limited', website: 'https://www.gloford.com', order: 7, visible: true },
   ]
 
   for (const client of clients) {
@@ -315,7 +288,7 @@ async function main() {
       data: {
         filename: img.filename,
         url: img.url,
-        cloudinaryId: `local/${img.folder}/${path.parse(img.filename).name}`,
+        storageId: `local/${img.folder}/${path.parse(img.filename).name}`,
         type: 'image',
         size: 0,
         altText: img.filename,
@@ -382,7 +355,7 @@ async function main() {
     {
       title: 'Sustainable Web Development: Reducing Digital Carbon Footprints',
       slug: 'sustainable-web-development-reducing-digital-carbon-footprints',
-      body: '<p>As developers, we have a responsibility to consider the environmental impact of our digital creations. The internet consumes massive amounts of energy...</p>',
+      body: '<p>As developers, we have a responsibility to consider the environmental impact of our digital creations. The internet consumes massive amounts of energy, and every website we build contributes to that footprint.</p><h2>The Scale of the Problem</h2><p>The ICT sector accounts for roughly 2-3% of global carbon emissions — comparable to the airline industry. A single page load on a media-heavy website can generate 1.76g of CO2. Multiply that by millions of users and the numbers become staggering.</p><h2>What Developers Can Do</h2><p>Sustainable web development is not about building less — it is about building smarter. Here are practical steps every developer can take:</p><ul><li><strong>Optimise images and media.</strong> Use modern formats like WebP and AVIF. Implement lazy loading. Serve responsive sizes instead of one-size-fits-all.</li><li><strong>Minimise JavaScript bundles.</strong> Tree-shake unused code. Use code splitting. Consider whether that 200kb library is really necessary.</li><li><strong>Choose green hosting.</strong> Providers like GreenGeeks and Cloudflare run on renewable energy. Your hosting choice matters.</li><li><strong>Cache aggressively.</strong> Every request that hits your server costs energy. CDNs, service workers, and smart caching headers reduce the load.</li></ul><h2>The African Context</h2><p>In markets like Uganda, where many users access the web on lower-end devices over mobile data, sustainable development is not just environmental — it is practical. Lighter, faster websites reach more people. Efficiency is accessibility.</p><p>The web we build today shapes the web that serves the next billion users. Let us make sure it is worth inheriting.</p>',
       excerpt: 'Exploring how sustainable practices in web development can reduce our digital carbon footprint.',
       status: 'published',
       category: 'Green Tech',
@@ -392,7 +365,7 @@ async function main() {
     {
       title: 'Responsible AI Development: Balancing Innovation and Ethics',
       slug: 'responsible-ai-development-balancing-innovation-and-ethics',
-      body: '<p>Artificial Intelligence is transforming industries at an unprecedented pace. But with great power comes great responsibility...</p>',
+      body: '<p>Artificial Intelligence is transforming industries at an unprecedented pace. But with great power comes great responsibility — especially in Africa, where AI systems built elsewhere are being deployed without sufficient consideration for local contexts.</p><h2>The Promise</h2><p>AI can revolutionise healthcare diagnostics, improve agricultural yields, and democratise access to education. In East Africa, startups are already using machine learning for crop disease detection and mobile money fraud prevention.</p><h2>The Risks</h2><p>But the risks are equally real:</p><ul><li><strong>Bias in training data.</strong> Models trained on Western datasets can produce dangerously inaccurate results when applied to African populations.</li><li><strong>Privacy concerns.</strong> Many AI applications require vast amounts of personal data. In countries with weak data protection laws, this creates vulnerability.</li><li><strong>Job displacement.</strong> Automation threatens sectors that employ millions across the continent — from call centres to data entry.</li></ul><h2>A Framework for Responsible Development</h2><p>We need AI development that is:</p><ol><li><strong>Locally informed.</strong> Training data should represent the populations it will serve.</li><li><strong>Transparent.</strong> Users should understand when they are interacting with AI and how decisions are being made.</li><li><strong>Accountable.</strong> There must be clear lines of responsibility when AI systems cause harm.</li><li><strong>Inclusive.</strong> The benefits of AI should reach beyond the tech elite to the communities that need them most.</li></ol><p>As African technologists, we have the opportunity to shape AI development in ways that centre our own needs, values, and realities. Let us not cede that opportunity to others.</p>',
       excerpt: 'Examining the ethical considerations that must guide AI development in Africa and beyond.',
       status: 'published',
       category: 'AI Ethics',
@@ -402,7 +375,7 @@ async function main() {
     {
       title: 'Closing the Gender Gap in Computer Science Education',
       slug: 'closing-gender-gap-computer-science-education',
-      body: '<p>The technology sector has long struggled with gender diversity. In Uganda and across Africa, we need intentional efforts to bring more women into tech...</p>',
+      body: '<p>The technology sector has long struggled with gender diversity. In Uganda and across Africa, we need intentional efforts to bring more women into tech — not as an afterthought, but as a strategic priority.</p><h2>The Numbers</h2><p>Globally, women hold only 25% of computing jobs. In Sub-Saharan Africa, the number is even lower. At Kampala International University, where I studied, the computer science cohort was overwhelmingly male. The few women who enrolled often faced subtle and not-so-subtle discouragement.</p><h2>Root Causes</h2><p>The gap starts long before university:</p><ul><li><strong>Early socialisation.</strong> Girls are often steered away from STEM subjects in secondary school.</li><li><strong>Lack of role models.</strong> When young women cannot see themselves in technology, they are less likely to pursue it.</li><li><strong>Hostile environments.</strong> Even when women enter tech, workplace cultures can push them out.</li></ul><h2>What Works</h2><p>Through my work with the African Youth Congress, I have seen what changes the equation:</p><blockquote><p>"When you put a laptop in front of a 14-year-old girl and show her she can build something real — the spark is immediate. The problem was never ability. It was access."</p></blockquote><p>Mentorship programmes, coding bootcamps designed for women, and visible female tech leaders all make a measurable difference. But the most important thing is <strong>starting early</strong> — normalising technology for girls before society tells them it is not for them.</p><p>The future of African tech depends on unlocking the full talent pool. That means everyone.</p>',
       excerpt: 'Strategies for increasing female participation in computer science and technology fields.',
       status: 'published',
       category: 'STEM Education',
@@ -412,7 +385,7 @@ async function main() {
     {
       title: 'Quantum Computing Breakthroughs and Practical Applications',
       slug: 'quantum-computing-breakthroughs-practical-applications',
-      body: '<p>Quantum computing promises to revolutionise everything from cryptography to drug discovery. While still in its early days, the breakthroughs are coming fast...</p>',
+      body: '<p>Quantum computing promises to revolutionise everything from cryptography to drug discovery. While still in its early days, the breakthroughs are coming fast — and the implications for technology, business, and society are profound.</p><h2>How Quantum Computing Works</h2><p>Classical computers process information in bits — ones and zeros. Quantum computers use qubits, which can exist in multiple states simultaneously through a phenomenon called superposition. This allows them to process certain types of calculations exponentially faster.</p><h2>Recent Breakthroughs</h2><p>2024 saw several milestones:</p><ul><li><strong>Google\'s Willow chip</strong> demonstrated quantum error correction at scale for the first time.</li><li><strong>IBM\'s 1,000+ qubit processors</strong> are pushing the boundaries of what is computationally feasible.</li><li><strong>Quantum-resistant cryptography standards</strong> were finalised by NIST, preparing the world for a post-quantum security landscape.</li></ul><h2>Practical Applications</h2><p>Where will quantum computing make the biggest impact?</p><ol><li><strong>Drug discovery.</strong> Simulating molecular interactions that would take classical computers thousands of years.</li><li><strong>Financial modelling.</strong> Optimising portfolios and risk assessment in real time.</li><li><strong>Climate science.</strong> Modelling complex climate systems with unprecedented accuracy.</li><li><strong>Logistics.</strong> Solving optimisation problems across supply chains and transportation networks.</li></ol><h2>What It Means for Africa</h2><p>Quantum computing is still largely a first-world conversation, but it does not have to stay that way. African universities and research institutions should be investing now in quantum literacy — not to build quantum hardware, but to be ready to leverage quantum cloud services when they become commercially accessible.</p><p>The question is not whether quantum computing will change the world. It is whether we will be ready when it does.</p>',
       excerpt: 'A look at recent quantum computing advances and what they mean for practical applications.',
       status: 'published',
       category: 'Future Tech',
@@ -422,7 +395,7 @@ async function main() {
     {
       title: 'Innovative Approaches to Tech Recycling and Circular Economy',
       slug: 'innovative-approaches-tech-recycling-circular-economy',
-      body: '<p>Electronic waste is a growing crisis in Africa. Innovative recycling programs and circular economy models offer a sustainable path forward...</p>',
+      body: '<p>Electronic waste is a growing crisis in Africa. With over 50 million tonnes of e-waste generated globally each year, innovative recycling programmes and circular economy models offer a sustainable path forward — and an economic opportunity.</p><h2>The E-Waste Challenge in East Africa</h2><p>Uganda imports thousands of tonnes of electronic devices every year. When they reach end-of-life, most end up in informal dumpsites where they leach toxic materials into soil and groundwater. The formal recycling infrastructure barely exists.</p><h2>Circular Economy Principles</h2><p>A circular economy rethinks the entire lifecycle of technology:</p><ul><li><strong>Design for longevity.</strong> Products should be repairable, upgradeable, and modular.</li><li><strong>Refurbish and reuse.</strong> Before recycling, extend the life of devices through refurbishment programmes.</li><li><strong>Responsible recycling.</strong> When devices truly reach end-of-life, extract valuable materials safely and feed them back into manufacturing.</li></ul><h2>Innovations Worth Watching</h2><p>Several initiatives are making progress:</p><ul><li><strong>Closing the Loop</strong> — a social enterprise that collects scrap phones in Africa and feeds the materials back to European manufacturers.</li><li><strong>Repair cafes</strong> — community spaces where people learn to fix their own electronics, extending device lifespans.</li><li><strong>Urban mining</strong> — extracting precious metals from e-waste, which can be more efficient than traditional mining.</li></ul><p>For African technologists and entrepreneurs, e-waste is not just a problem to solve — it is a market to build. The companies that figure out efficient, local recycling infrastructure will create both environmental and economic value.</p>',
       excerpt: 'How tech recycling and circular economy principles can address e-waste challenges.',
       status: 'published',
       category: 'E-Waste',
@@ -432,7 +405,7 @@ async function main() {
     {
       title: 'How Data Centers Are Transitioning to 100% Renewable Energy',
       slug: 'how-data-centers-transitioning-100-renewable-energy',
-      body: '<p>Data centers are the backbone of our digital world, but they consume enormous amounts of electricity. The industry is making strides toward renewable energy...</p>',
+      body: '<p>Data centers are the backbone of our digital world, but they consume enormous amounts of electricity. The good news: the industry is making serious strides toward renewable energy, driven by both economics and environmental pressure.</p><h2>The Energy Footprint</h2><p>Data centers consume approximately 1-2% of global electricity — a figure that continues to grow as cloud computing, AI training, and streaming services expand. A single large data centre can consume as much electricity as a small city.</p><h2>The Transition</h2><p>Major tech companies are leading the charge:</p><ul><li><strong>Google</strong> has been carbon-neutral since 2007 and aims to run on 24/7 carbon-free energy by 2030.</li><li><strong>Microsoft</strong> has committed to being carbon-negative by 2030 and removing all historical emissions by 2050.</li><li><strong>Apple</strong> already powers all its facilities — including data centres — with 100% renewable energy.</li></ul><h2>Technologies Driving Change</h2><ol><li><strong>On-site solar and wind.</strong> Many new data centres are built with co-located renewable generation.</li><li><strong>Power Purchase Agreements (PPAs).</strong> Long-term contracts with renewable energy providers guarantee green electricity supply.</li><li><strong>Liquid cooling.</strong> Advanced cooling systems reduce the enormous energy overhead of keeping servers at optimal temperatures.</li><li><strong>AI-optimised operations.</strong> Machine learning is being used to dynamically adjust cooling and workload distribution for maximum efficiency.</li></ol><h2>Implications for Africa</h2><p>As Africa builds out its data centre infrastructure — with new facilities planned in Kenya, Nigeria, and South Africa — there is an opportunity to leapfrog the fossil-fuel-dependent model entirely. Africa has abundant solar and geothermal resources. The continent\'s data centres can be green from day one, if we plan accordingly.</p>',
       excerpt: 'Tracking the data center industry\'s move toward renewable energy sources.',
       status: 'published',
       category: 'Renewable Energy',
@@ -480,7 +453,7 @@ async function main() {
       data: {
         filename: imgFile,
         url: `/images/gallery/${imgFile}`,
-        cloudinaryId: `local/gallery/${path.parse(imgFile).name}`,
+        storageId: `local/gallery/${path.parse(imgFile).name}`,
         type: 'image',
         size: 0,
         altText: `Gallery image: ${imgFile}`,
@@ -533,6 +506,20 @@ async function main() {
   }
   console.log(`  ✓ Created ${galleryImages.length} gallery items`)
 
+  // ==================== HERO IMAGES ====================
+  console.log('🖼️ Creating hero images...')
+  await prisma.heroImage.deleteMany()
+  const heroGalleryImages = galleryImages.slice(0, 5)
+  let heroOrder = 0
+  for (const imgFile of heroGalleryImages) {
+    const mediaId = mediaMap.get(`gallery_${imgFile}`)
+    if (!mediaId) continue
+    await prisma.heroImage.create({
+      data: { mediaId, order: heroOrder++, active: true },
+    })
+  }
+  console.log(`  ✓ Created ${heroGalleryImages.length} hero images`)
+
   // ==================== PRESS ITEMS ====================
   console.log('📰 Creating press items...')
   await prisma.pressItem.deleteMany()
@@ -581,6 +568,122 @@ async function main() {
     await prisma.pressItem.create({ data: item })
   }
   console.log(`  ✓ Created ${pressItems.length} press items`)
+
+  // ==================== LINK CLIENT LOGOS ====================
+  console.log('🔗 Linking client logos to clients...')
+  const clientLogoMap: Record<string, string> = {
+    'Forus Foundation': 'IMG_0959.JPG',
+    'Kakebe Technologies Limited': 'kakebe.jpg',
+    'Keri Naturals': 'keri.png',
+    'BetterLife International': 'abetterlife.avif',
+    'Lira University': 'lira-university.png',
+    'Jerusalem Heritage School': 'jerusalem.png',
+    'Jerusalem Institute Lira': 'jerusalem-institute.png',
+    'Gloford Limited': 'tuy.jpg',
+  }
+  for (const [clientName, logoFilename] of Object.entries(clientLogoMap)) {
+    const logoId = mediaMap.get(logoFilename)
+    if (logoId) {
+      await prisma.client.updateMany({ where: { name: clientName }, data: { logoMediaId: logoId } })
+    }
+  }
+  console.log('  ✓ Linked client logos')
+
+  // ==================== SUBSCRIBERS ====================
+  console.log('📧 Creating subscribers...')
+  const subscribers = [
+    { email: 'sarah.nakamya@gmail.com', name: 'Sarah Nakamya', confirmed: true, source: 'footer', subscribedAt: new Date('2025-02-12') },
+    { email: 'james.otim@outlook.com', name: 'James Otim', confirmed: true, source: 'footer', subscribedAt: new Date('2025-02-20') },
+    { email: 'grace.acan@yahoo.com', name: 'Grace Acan', confirmed: true, source: 'blog', subscribedAt: new Date('2025-03-01') },
+    { email: 'peter.ssemakula@gmail.com', name: 'Peter Ssemakula', confirmed: true, source: 'footer', subscribedAt: new Date('2025-03-10') },
+    { email: 'rachel.kwagala@protonmail.com', name: 'Rachel Kwagala', confirmed: true, source: 'contact', subscribedAt: new Date('2025-03-18') },
+    { email: 'david.ochieng@gmail.com', name: 'David Ochieng', confirmed: true, source: 'footer', subscribedAt: new Date('2025-03-25') },
+    { email: 'miriam.atim@hotmail.com', name: 'Miriam Atim', confirmed: true, source: 'blog', subscribedAt: new Date('2025-04-02') },
+    { email: 'joseph.mugisha@gmail.com', name: 'Joseph Mugisha', confirmed: false, source: 'footer', subscribedAt: new Date('2025-04-10') },
+    { email: 'angela.nassali@gmail.com', name: 'Angela Nassali', confirmed: true, source: 'footer', subscribedAt: new Date('2025-04-15') },
+    { email: 'mark.tumwine@icloud.com', name: 'Mark Tumwine', confirmed: true, source: 'blog', subscribedAt: new Date('2025-04-20') },
+  ]
+  for (const sub of subscribers) {
+    await prisma.subscriber.create({ data: sub })
+  }
+  console.log(`  ✓ Created ${subscribers.length} subscribers`)
+
+  // ==================== MESSAGES ====================
+  console.log('💌 Creating messages...')
+  const messages = [
+    {
+      name: 'Harriet Auma',
+      email: 'harriet.auma@forusfoundation.com',
+      subject: 'Partnership opportunity — youth digital literacy',
+      body: 'Hi Bodo,\n\nI lead the digital programmes team at Forus Foundation. We have been following your work with the African Youth Congress and the tech camps you ran last year.\n\nWe are planning a digital literacy initiative across Northern Uganda and would love to explore a partnership. The programme would run for 6 months starting in July and would involve building an LMS platform plus on-the-ground training workshops.\n\nWould you be open to a call next week to discuss?\n\nBest regards,\nHarriet',
+      read: false,
+      archived: false,
+      receivedAt: new Date('2025-04-23T10:30:00'),
+    },
+    {
+      name: 'Samuel Kiprotich',
+      email: 'skiprotich@lirauni.ac.ug',
+      subject: 'Guest lecture invitation — Computer Science Department',
+      body: 'Dear Mr. Desderio,\n\nI am writing on behalf of the Computer Science Department at Lira University. We would be honoured to have you deliver a guest lecture to our final-year students on the topic of "Building Technology Companies in East Africa."\n\nThe proposed date is May 15th, 2025, and the session would be approximately 90 minutes with Q&A.\n\nPlease let me know if you would be available.\n\nKind regards,\nSamuel Kiprotich\nHead of Department, Computer Science',
+      read: false,
+      archived: false,
+      receivedAt: new Date('2025-04-22T14:15:00'),
+    },
+    {
+      name: 'Monica Nanyonga',
+      email: 'monica.n@kerinaturals.com',
+      subject: 'Website performance report request',
+      body: 'Hi Bodo,\n\nHope you are doing well. The Keri Naturals e-commerce site has been performing brilliantly since your last round of updates — sales through the website have increased by 40% this quarter.\n\nWe would like to commission a performance audit and discuss adding a wholesale portal for our B2B customers. Could you send over a proposal?\n\nThanks,\nMonica',
+      read: true,
+      archived: false,
+      receivedAt: new Date('2025-04-20T09:00:00'),
+    },
+    {
+      name: 'Emmanuel Draku',
+      email: 'edraku@startupug.org',
+      subject: 'Speaking slot at Startup Uganda Summit 2025',
+      body: 'Hi Bodo,\n\nWe are organising the Startup Uganda Summit 2025 and would love to have you as a speaker on the "Technology for Social Impact" panel.\n\nThe event is scheduled for June 12-13 at the Kampala Serena Hotel. We can cover travel and accommodation. The panel would be 45 minutes with three other founders.\n\nLet me know your thoughts!\n\nEmmanuel Draku\nExecutive Director, Startup Uganda',
+      read: false,
+      archived: false,
+      receivedAt: new Date('2025-04-18T16:45:00'),
+    },
+    {
+      name: 'Aisha Nakato',
+      email: 'aisha.nakato@gmail.com',
+      subject: 'Mentorship request — aspiring developer',
+      body: 'Dear Bodo,\n\nMy name is Aisha and I am a second-year Computer Science student at Makerere University. I read your Medium articles on responsible AI development and they really inspired me.\n\nI am building my first web application and struggling with choosing the right tech stack. Would you be willing to offer some guidance? Even a 15-minute call would mean the world to me.\n\nThank you for everything you do for young developers in Uganda.\n\nAisha',
+      read: true,
+      archived: false,
+      receivedAt: new Date('2025-04-15T11:20:00'),
+    },
+  ]
+  for (const msg of messages) {
+    await prisma.message.create({ data: msg })
+  }
+  console.log(`  ✓ Created ${messages.length} messages`)
+
+  // ==================== NEWSLETTER CAMPAIGNS ====================
+  console.log('📰 Creating newsletter campaigns...')
+  const campaigns = [
+    {
+      subject: 'Building in Public — Q1 2025 Update',
+      bodyHtml: '<h2>What I\'ve been building</h2><p>The first quarter of 2025 has been intense. Rooibok Technologies launched two new client projects, and I\'ve been deep in the weeds of Next.js, Prisma, and building resilient systems for East African markets.</p><h3>Highlights</h3><ul><li><strong>Keri Naturals e-commerce rebuild</strong> — 40% increase in online sales since launch</li><li><strong>Lira University digital platform</strong> — now serving 2,000+ students</li><li><strong>Three new blog posts</strong> on sustainable web development, AI ethics, and the gender gap in CS education</li></ul><h3>What\'s next</h3><p>Q2 is shaping up to be about community. I\'m planning a series of tech workshops in Northern Uganda with Forus Foundation, and there are some exciting partnership conversations happening that I\'ll share more about soon.</p><p>As always, if you\'re building something meaningful and need a thought partner — my inbox is open.</p><p>— Bodo</p>',
+      status: 'sent',
+      sentAt: new Date('2025-04-01'),
+      recipientCount: 8,
+    },
+    {
+      subject: 'New essay: Corruption in Uganda\'s Health Sector',
+      bodyHtml: '<p>I was selected as a contributor to the Virtual National Students\' Anti-Corruption Challenge — a partnership with the Office of the Auditor General, Parliament of Uganda, and German Cooperation (GIZ).</p><p>The essay examines systemic corruption in Uganda\'s health sector and proposes institutional reforms. It was a deeply personal piece to write.</p><p><a href="/blog/responsible-ai-development-balancing-innovation-and-ethics">Read the full piece on my blog</a></p><p>I\'d love to hear your thoughts.</p><p>— Bodo</p>',
+      status: 'sent',
+      sentAt: new Date('2025-02-15'),
+      recipientCount: 5,
+    },
+  ]
+  for (const campaign of campaigns) {
+    await prisma.newsletterCampaign.create({ data: campaign })
+  }
+  console.log(`  ✓ Created ${campaigns.length} newsletter campaigns`)
 
   // ==================== ADMIN USER ====================
   console.log('🔐 Creating admin user...')
@@ -641,6 +744,19 @@ async function main() {
         { title: 'Long-term partnership mindset', description: "I don't just deliver and disappear. I invest in the success of every client and collaborator I work with." },
       ]),
     },
+    {
+      page: 'about',
+      section: 'faq',
+      fieldKey: 'items',
+      fieldType: 'json',
+      value: JSON.stringify([
+        { question: 'What kind of work does Bodo usually take on?', answer: 'Most engagements sit somewhere between product thinking, software delivery, and strategic problem-solving. That can mean building a digital product, shaping a technical roadmap, advising a founder, or helping a team move from scattered ideas to a clearer system.' },
+        { question: 'Is he only available for software engineering work?', answer: 'No. Engineering is a big part of the work, but not the whole thing. Bodo also works on company building, technical consulting, digital strategy, and initiatives that combine technology with education, community, or public-interest work.' },
+        { question: 'Does he work with organisations outside Uganda?', answer: 'Yes. He is based in Kampala, but collaborates with teams across East Africa and beyond. The work is shaped by African contexts first, while still being comfortable in cross-border product and partnership environments.' },
+        { question: 'What is it like to work with him?', answer: 'Direct, thoughtful, and outcome-focused. Bodo tends to work best with people who value clarity, momentum, and honest collaboration. The goal is not just to ship something quickly, but to leave the work stronger, clearer, and more sustainable than it was before.' },
+        { question: 'How do I get started?', answer: 'Head to the contact page and send a message. Describe what you are working on, what kind of help you need, and any timeline constraints. Bodo reads every message personally and will respond if there is a fit.' },
+      ]),
+    },
     { page: 'about', section: 'cta', fieldKey: 'heading', value: "Let's build something that matters.", fieldType: 'text' },
     { page: 'about', section: 'cta', fieldKey: 'lead', value: "Whether you need a technology partner, a strategic consultant, or a collaborator on something bigger — I'm open to conversations that lead somewhere real.", fieldType: 'text' },
     { page: 'about', section: 'cta', fieldKey: 'button_label', value: 'Start a conversation', fieldType: 'text' },
@@ -695,6 +811,37 @@ async function main() {
     await prisma.seoSettings.create({ data: seo })
   }
   console.log(`  ✓ Created ${seoRows.length} SEO settings`)
+
+  // ==================== BANNERS ====================
+  console.log('🚩 Creating banners...')
+
+  await prisma.banner.create({
+    data: {
+      name: 'Cookie Consent',
+      kind: 'cookie',
+      placement: 'bottom',
+      title: null,
+      body: 'This site uses minimal cookies for authentication and theme preferences. No tracking or advertising cookies.',
+      ctaLabel: null,
+      ctaUrl: null,
+      ctaVariant: 'primary',
+      dismissable: true,
+      requireConsent: true,
+      theme: 'auto',
+      enabled: true,
+      priority: 100,
+      pagesInclude: [],
+      pagesExclude: [],
+      devices: [],
+      showOnce: true,
+      cooldownHours: 0,
+      delaySeconds: 2,
+      scrollTrigger: null,
+      exitIntent: false,
+      newsletterHook: false,
+    },
+  })
+  console.log('  ✓ Created cookie consent banner')
 
   console.log('✅ Seed completed successfully!')
 }

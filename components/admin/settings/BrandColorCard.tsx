@@ -61,6 +61,7 @@ export function BrandColorCard({ initialBrand }: { initialBrand: string }) {
           type="text"
           value={color}
           onChange={e => setColor(e.target.value)}
+          placeholder="#C9A84C"
           className="px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg font-mono text-sm uppercase w-40 focus:outline-none focus:ring-2 focus:ring-brand"
         />
         <button

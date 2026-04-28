@@ -2,6 +2,7 @@ services:
   db:
     image: postgres:16-alpine
     container_name: bodo_db_dev
+    restart: unless-stopped
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-bodo_portfolio}
       POSTGRES_USER: ${POSTGRES_USER:-bodo}
@@ -16,26 +17,36 @@ services:
       timeout: 5s
       retries: 10
 
+  redis:
+    image: redis:7-alpine
+    container_name: bodo_redis_dev
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD:-devredis}
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_dev_data:/data
+
   app:
     build:
       context: .
       dockerfile: Dockerfile.dev
     container_name: bodo_app_dev
+    restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3001:3001"
     environment:
       DATABASE_URL: postgresql://${POSTGRES_USER:-bodo}:${POSTGRES_PASSWORD:-secret}@db:5432/${POSTGRES_DB:-bodo_portfolio}
+      REDIS_URL: redis://:${REDIS_PASSWORD:-devredis}@redis:6379
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-dev-secret-change-me}
-      NEXTAUTH_URL: http://localhost:3000
-      AUTH_URL: http://localhost:3000
+      NEXTAUTH_URL: http://localhost:3001
+      AUTH_URL: http://localhost:3001
       AUTH_TRUST_HOST: "true"
-      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
-      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
-      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
-      RESEND_API_KEY: ${RESEND_API_KEY}
+      RESEND_API_KEY: ${RESEND_API_KEY:-}
       ADMIN_EMAIL: ${ADMIN_EMAIL:-admin@localhost}
-      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
-      NEXT_PUBLIC_SITE_URL: http://localhost:3000
+      ADMIN_PASSWORD_HASH: $$2b$$12$$mGKIQu2k5ZnLZvwq/O62ae7blFLtbNAW41Jih29CW00EvrWhSbFRO
+      NEXT_PUBLIC_SITE_URL: http://localhost:3001
+      ANALYTICS_SALT: ${ANALYTICS_SALT:-dev-salt}
     volumes:
       - .:/app
       - /app/node_modules
@@ -44,7 +55,10 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_started
 
 volumes:
   postgres_dev_data:
+  redis_dev_data:
   uploads_dev_data:

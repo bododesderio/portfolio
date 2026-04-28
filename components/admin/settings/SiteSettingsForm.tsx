@@ -7,10 +7,10 @@ const GROUPS: Array<{ label: string; keys: Array<{ key: string; label: string; p
   {
     label: 'Identity',
     keys: [
-      { key: 'site.name',         label: 'Site name' },
-      { key: 'site.tagline',      label: 'Tagline' },
-      { key: 'site.email',        label: 'Public email' },
-      { key: 'site.location',     label: 'Location' },
+      { key: 'site.name',         label: 'Site name',    placeholder: 'Bodo Desderio' },
+      { key: 'site.tagline',      label: 'Tagline',     placeholder: 'Engineer, founder, builder' },
+      { key: 'site.email',        label: 'Public email', placeholder: 'info@example.com' },
+      { key: 'site.location',     label: 'Location',    placeholder: 'Kampala, Uganda' },
       { key: 'site.calendly_url', label: 'Calendly URL', placeholder: 'https://calendly.com/…' },
     ],
   },
@@ -19,9 +19,9 @@ const GROUPS: Array<{ label: string; keys: Array<{ key: string; label: string; p
     keys: [
       { key: 'social.linkedin',  label: 'LinkedIn',  placeholder: 'https://linkedin.com/in/…' },
       { key: 'social.github',    label: 'GitHub',    placeholder: 'https://github.com/…' },
-      { key: 'social.twitter',   label: 'Twitter / X' },
-      { key: 'social.instagram', label: 'Instagram' },
-      { key: 'social.facebook',  label: 'Facebook' },
+      { key: 'social.twitter',   label: 'Twitter / X', placeholder: 'https://x.com/…' },
+      { key: 'social.instagram', label: 'Instagram',  placeholder: 'https://instagram.com/…' },
+      { key: 'social.facebook',  label: 'Facebook',   placeholder: 'https://facebook.com/…' },
       { key: 'social.medium',    label: 'Medium', placeholder: 'https://medium.com/@…' },
     ],
   },

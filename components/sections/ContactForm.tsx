@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Button } from '@/components/ui/Button'
+import { CustomSelect } from '@/components/ui/CustomSelect'
 
 const subjects = [
   'Software Development Project',
@@ -65,16 +66,14 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-fg-muted mb-2">Subject</label>
-        <select
-          required
+        <CustomSelect
+          label="Subject"
+          options={subjects}
           value={form.subject}
-          onChange={e => setForm(f => ({ ...f, subject: e.target.value }))}
-          className="w-full px-4 py-3 bg-card border border-hairline rounded-xl text-fg focus:outline-none focus:ring-2 focus:ring-brand"
-        >
-          <option value="">Select a subject</option>
-          {subjects.map(s => <option key={s} value={s}>{s}</option>)}
-        </select>
+          onChange={v => setForm(f => ({ ...f, subject: v }))}
+          placeholder="Select a subject"
+          required
+        />
       </div>
 
       <div>

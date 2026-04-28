@@ -1,14 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import toast from 'react-hot-toast'
-import { Eye, EyeOff } from 'lucide-react'
+import { Eye, EyeOff, Trash2 } from 'lucide-react'
 
 type ConfigEntry = { masked: string; source: 'db' | 'env'; hasValue: boolean }
 
 const GROUPS = [
-  { label: 'Cloudinary',    keys: ['CLOUDINARY_CLOUD_NAME', 'CLOUDINARY_API_KEY', 'CLOUDINARY_API_SECRET'] },
-  { label: 'Resend (Email)',keys: ['RESEND_API_KEY'] },
+  { label: 'Resend (Email)', keys: ['RESEND_API_KEY'] },
   { label: 'Auth',          keys: ['ADMIN_EMAIL', 'NEXTAUTH_SECRET'] },
 ]
 
@@ -21,6 +20,23 @@ export function IntegrationsForm({
 }) {
   const [analytics, setAnalytics] = useState(analyticsEnabled)
   const [savingAnalytics, setSavingAnalytics] = useState(false)
+  const [resetting, setResetting] = useState(false)
+  const [confirmReset, setConfirmReset] = useState(false)
+
+  const resetAnalytics = useCallback(async () => {
+    setResetting(true)
+    try {
+      const res = await fetch('/api/admin/analytics/reset', { method: 'DELETE' })
+      if (!res.ok) throw new Error()
+      const data = await res.json()
+      toast.success(`Deleted ${data.deleted} page views.`)
+      setConfirmReset(false)
+    } catch {
+      toast.error('Failed to reset analytics.')
+    } finally {
+      setResetting(false)
+    }
+  }, [])
 
   async function toggleAnalytics(next: boolean) {
     setSavingAnalytics(true)
@@ -61,6 +77,46 @@ export function IntegrationsForm({
         >
           <span className={`inline-block h-5 w-5 rounded-full bg-white shadow transition-transform ${analytics ? 'translate-x-6' : 'translate-x-1'}`} />
         </button>
+      </div>
+
+      {/* Reset analytics */}
+      <div className="rounded-2xl border border-red-200 dark:border-red-900/50 bg-card p-6">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <h2 className="font-serif text-lg text-fg flex items-center gap-2">
+              <Trash2 className="h-4 w-4 text-red-500" />
+              Reset analytics data
+            </h2>
+            <p className="text-sm text-fg-muted mt-1">Permanently delete all page view records. This cannot be undone.</p>
+          </div>
+          {!confirmReset ? (
+            <button
+              type="button"
+              onClick={() => setConfirmReset(true)}
+              className="px-4 py-2 bg-red-500 hover:bg-red-600 text-white text-sm rounded-lg whitespace-nowrap flex-shrink-0"
+            >
+              Reset
+            </button>
+          ) : (
+            <div className="flex gap-2 flex-shrink-0">
+              <button
+                type="button"
+                onClick={() => setConfirmReset(false)}
+                className="px-3 py-2 bg-muted text-fg text-sm rounded-lg"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={resetAnalytics}
+                disabled={resetting}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 disabled:opacity-50 text-white text-sm rounded-lg whitespace-nowrap"
+              >
+                {resetting ? 'Deleting...' : 'Confirm delete'}
+              </button>
+            </div>
+          )}
+        </div>
       </div>
 
       <p className="text-sm text-fg-muted bg-muted rounded-xl px-4 py-3">

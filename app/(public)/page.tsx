@@ -38,6 +38,17 @@ export default async function HomePage() {
     ctaSecondaryUrl: getField(content, 'hero.cta_secondary_url'),
     photo: getField(content, 'hero.photo'),
     backgroundImage: getField(content, 'hero.background_image') || undefined,
+    heroImages: [] as string[],
+  }
+
+  // Fetch rotating hero images
+  const heroImagesDb = await prisma.heroImage.findMany({
+    where: { active: true },
+    orderBy: { order: 'asc' },
+    include: { media: { select: { url: true } } },
+  }).catch(() => [])
+  if (heroImagesDb.length > 0) {
+    hero.heroImages = heroImagesDb.map(h => h.media.url)
   }
 
   // Stats

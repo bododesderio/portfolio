@@ -52,6 +52,7 @@ export function PasswordChangeForm() {
           value={current}
           onChange={e => setCurrent(e.target.value)}
           autoComplete="current-password"
+          placeholder="Enter current password"
           className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
         />
       </div>
@@ -63,6 +64,7 @@ export function PasswordChangeForm() {
           value={next}
           onChange={e => setNext(e.target.value)}
           autoComplete="new-password"
+          placeholder="Min. 12 characters"
           className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
         />
       </div>
@@ -74,6 +76,7 @@ export function PasswordChangeForm() {
           value={confirm}
           onChange={e => setConfirm(e.target.value)}
           autoComplete="new-password"
+          placeholder="Re-enter new password"
           className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
         />
       </div>

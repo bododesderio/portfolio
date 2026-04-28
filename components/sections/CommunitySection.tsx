@@ -17,7 +17,7 @@ interface CommunityContent {
 
 export function CommunitySection({ content }: { content: CommunityContent }) {
   return (
-    <Section className="bg-surface-2">
+    <Section className="bg-ink-50 dark:bg-ink-800/40">
       <Container>
         <div className="grid md:grid-cols-2 gap-12 items-center">
           {/* Image placeholder */}
@@ -33,6 +33,7 @@ export function CommunitySection({ content }: { content: CommunityContent }) {
               src="/images/gallery/IMG_5207.jpg"
               alt="Community event"
               fill
+              sizes="(max-width: 768px) 100vw, 50vw"
               className="object-cover"
             />
           </motion.div>

@@ -55,6 +55,7 @@ function SeoPageCard({ page }: { page: SeoPage }) {
           <input
             value={title}
             onChange={e => setTitle(e.target.value)}
+            placeholder="Page title for search engines (50-60 chars)"
             className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
           />
         </div>
@@ -64,6 +65,7 @@ function SeoPageCard({ page }: { page: SeoPage }) {
             value={desc}
             onChange={e => setDesc(e.target.value)}
             rows={2}
+            placeholder="Brief page summary for search results (120-160 chars)"
             className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm resize-none"
           />
         </div>

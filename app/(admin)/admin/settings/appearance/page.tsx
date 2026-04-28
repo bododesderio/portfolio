@@ -31,7 +31,14 @@ export default async function AppearancePage() {
       />
       <div className="space-y-6">
         <BrandColorCard initialBrand={settings['theme.brand_color'] || '#C9A84C'} />
-        <LoginBackgroundCard initialUrl={settings['login_background_url'] || ''} />
+        <LoginBackgroundCard initial={{
+          login_background_url: settings['login_background_url'] || '',
+          login_card_image: settings['login_card_image'] || '',
+          login_heading: settings['login_heading'] || 'Welcome Back',
+          login_subtitle: settings['login_subtitle'] || 'Sign in to your admin account',
+          login_overlay_title: settings['login_overlay_title'] || 'Bodo Desderio',
+          login_overlay_subtitle: settings['login_overlay_subtitle'] || 'Building the future, one project at a time.',
+        }} />
         {availability && <AvailabilityCard initial={availability} />}
       </div>
     </div>

@@ -1,6 +1,7 @@
 'use client'
 
-import { motion } from 'framer-motion'
+import { useState, useEffect, useCallback } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/Button'
@@ -16,9 +17,11 @@ interface HeroContent {
   ctaSecondaryUrl: string
   photo: string
   backgroundImage?: string
+  heroImages?: string[]
 }
 
 const EASE = [0.16, 1, 0.3, 1] as const
+const ROTATE_INTERVAL = 15000
 
 function splitFirstTwo(s: string): { first: string; rest: string } {
   const trimmed = s.trim()
@@ -29,28 +32,69 @@ function splitFirstTwo(s: string): { first: string; rest: string } {
 
 export function HeroSection({ content }: { content: HeroContent }) {
   const { first, rest } = splitFirstTwo(content.headline)
+  const images = content.heroImages?.length ? content.heroImages : content.backgroundImage ? [content.backgroundImage] : []
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  const advance = useCallback(() => {
+    if (images.length <= 1) return
+    setCurrentIndex(prev => (prev + 1) % images.length)
+  }, [images.length])
+
+  useEffect(() => {
+    if (images.length <= 1) return
+    const timer = setInterval(advance, ROTATE_INTERVAL)
+    return () => clearInterval(timer)
+  }, [advance, images.length])
 
   return (
     <section className="relative overflow-hidden bg-surface">
-      {/* Layered background — generic image + gradients */}
+      {/* Layered background — rotating images + gradients */}
       <div aria-hidden className="absolute inset-0">
-        {content.backgroundImage && (
-          <>
-            <Image
-              src={content.backgroundImage}
-              alt=""
-              fill
-              className="object-cover"
-              priority
-            />
-            <div className="absolute inset-0 bg-surface/80 dark:bg-surface/85" />
-          </>
+        {images.length > 0 && (
+          <AnimatePresence mode="popLayout">
+            <motion.div
+              key={currentIndex}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1.2, ease: 'easeInOut' }}
+              className="absolute inset-0"
+            >
+              <Image
+                src={images[currentIndex]}
+                alt=""
+                fill
+                className="object-cover"
+                priority={currentIndex === 0}
+                sizes="100vw"
+              />
+            </motion.div>
+          </AnimatePresence>
+        )}
+        {images.length > 0 && (
+          <div className="absolute inset-0 bg-surface/80 dark:bg-surface/85" />
         )}
         <div className="absolute inset-0 bg-radial-brand opacity-60 dark:opacity-90" />
         <div className="absolute inset-0 bg-grid-light dark:bg-grid-dark bg-grid-lg opacity-[0.25] dark:opacity-[0.22] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_30%,black,transparent_70%)]" />
         <div className="absolute inset-0 bg-noise opacity-[0.06] mix-blend-overlay" />
         <div className="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-b from-transparent to-surface" />
       </div>
+
+      {/* Image indicators */}
+      {images.length > 1 && (
+        <div className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setCurrentIndex(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === currentIndex ? 'w-6 bg-brand' : 'w-1.5 bg-fg-muted/30'
+              }`}
+              aria-label={`Hero image ${i + 1}`}
+            />
+          ))}
+        </div>
+      )}
 
       <div className="relative z-10 mx-auto w-full max-w-7xl px-6 lg:px-8 pt-24 pb-20 md:pt-32 md:pb-28 lg:py-36">
         <div className="grid gap-10 lg:gap-16 lg:grid-cols-[1.1fr_1fr] lg:items-center">

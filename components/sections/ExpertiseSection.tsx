@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Building, Code, TrendingUp, Lightbulb, Users, ArrowUpRight } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
@@ -12,6 +13,8 @@ interface Service {
   title: string
   description: string
   icon: string
+  imageUrl?: string | null
+  imageAlt?: string | null
   homeFeatured: boolean
   order: number
   visible: boolean
@@ -36,7 +39,7 @@ const EASE = [0.16, 1, 0.3, 1] as const
 
 export function ExpertiseSection({ content, services }: { content: ExpertiseContent; services: Service[] }) {
   return (
-    <Section className="relative bg-white dark:bg-ink-900">
+    <Section className="relative bg-surface-2 dark:bg-ink-900">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -72,6 +75,11 @@ export function ExpertiseSection({ content, services }: { content: ExpertiseCont
                 <div className="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-radial-brand" />
 
                 <div className="relative">
+                  {service.imageUrl && (
+                    <div className="relative w-full h-40 -mx-8 md:-mx-10 -mt-8 md:-mt-10 mb-6 overflow-hidden" style={{ width: 'calc(100% + 4rem)' }}>
+                      <Image src={service.imageUrl} alt={service.imageAlt || service.title} fill className="object-cover" sizes="(max-width:768px) 100vw, 33vw" unoptimized />
+                    </div>
+                  )}
                   <div className="flex items-center justify-between mb-8">
                     <span className="text-[10px] font-mono text-ink-400">0{idx + 1}</span>
                     <IconComponent className="h-5 w-5 text-brand transition-transform duration-500 group-hover:scale-110" />

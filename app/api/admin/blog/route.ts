@@ -4,6 +4,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { sendEmail } from '@/lib/resend'
 import { renderNewPostNotification } from '@/lib/emails'
+import { unsubscribeUrl } from '@/lib/unsubscribe'
 import { z } from 'zod'
 
 const attributionSchema = z.object({
@@ -65,20 +66,24 @@ async function notifySubscribersOfPost(post: { title: string; slug: string; exce
     const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || process.env.NEXTAUTH_URL || 'https://bododesderio.com'
     const postUrl = `${siteUrl}/blog/${post.slug}`
 
-    const html = await renderNewPostNotification({
-      title: post.title,
-      excerpt: post.excerpt,
-      url: postUrl,
-    })
-
     const batchSize = 50
     for (let i = 0; i < subscribers.length; i += batchSize) {
       const batch = subscribers.slice(i, i + batchSize)
-      await sendEmail({
-        to: batch.map(s => s.email),
-        subject: `New post: ${post.title}`,
-        html,
-      }).catch(() => null)
+      await Promise.all(
+        batch.map(async (subscriber) => {
+          const html = await renderNewPostNotification({
+            title: post.title,
+            excerpt: post.excerpt,
+            url: postUrl,
+            unsubscribeUrl: unsubscribeUrl(subscriber.email),
+          })
+          return sendEmail({
+            to: subscriber.email,
+            subject: `New post: ${post.title}`,
+            html,
+          }).catch(() => null)
+        })
+      )
     }
 
     return subscribers.length

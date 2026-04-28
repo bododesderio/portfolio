@@ -19,7 +19,7 @@ export function ClientsSection({ clients }: { clients: Client[] }) {
   const marquee = [...displayClients, ...displayClients]
 
   return (
-    <Section className="relative bg-ink-50 dark:bg-ink-800/40 border-y border-hairline overflow-hidden">
+    <Section className="relative bg-surface-2 dark:bg-ink-800/60 border-y border-hairline overflow-hidden">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 16 }}
@@ -47,13 +47,13 @@ export function ClientsSection({ clients }: { clients: Client[] }) {
               title={client.name}
             >
               {client.logo?.url ? (
-                <div className="relative h-12 w-36">
+                <div className="h-12 w-36 flex items-center justify-center">
                   <Image
                     src={client.logo.url}
                     alt={client.logo.altText || client.name}
-                    fill
-                    className="object-contain"
-                    sizes="144px"
+                    width={144}
+                    height={48}
+                    className="object-contain w-auto h-full"
                   />
                 </div>
               ) : (

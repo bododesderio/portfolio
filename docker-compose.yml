@@ -1,13 +1,47 @@
 services:
+
+  # ─────────────────────────────────────────
+  # TRAEFIK — Reverse Proxy + Let's Encrypt SSL
+  # ─────────────────────────────────────────
+  traefik:
+    image: traefik:v3.0
+    container_name: bodo_traefik
+    restart: unless-stopped
+    command:
+      - --api.dashboard=false
+      - --providers.docker=true
+      - --providers.docker.exposedbydefault=false
+      # HTTP entrypoint — auto-redirects to HTTPS
+      - --entrypoints.web.address=:80
+      - --entrypoints.web.http.redirections.entrypoint.to=websecure
+      - --entrypoints.web.http.redirections.entrypoint.scheme=https
+      - --entrypoints.web.http.redirections.entrypoint.permanent=true
+      # HTTPS entrypoint
+      - --entrypoints.websecure.address=:443
+      # Let's Encrypt via TLS challenge
+      - --certificatesresolvers.letsencrypt.acme.tlschallenge=true
+      - --certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL}
+      - --certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - traefik_certs:/letsencrypt
+    networks:
+      - proxy
+
+  # ─────────────────────────────────────────
+  # POSTGRESQL — Primary Database
+  # ─────────────────────────────────────────
   db:
     image: postgres:16-alpine
     container_name: bodo_db_prod
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-bodo_portfolio}
       POSTGRES_USER: ${POSTGRES_USER:-bodo}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-secret}
-    ports:
-      - "5432:5432"
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    # No ports exposed to host — only reachable inside backend network
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -16,36 +50,98 @@ services:
       timeout: 5s
       retries: 10
     restart: unless-stopped
+    networks:
+      - backend
 
+  # ─────────────────────────────────────────
+  # REDIS — Sessions, Caching, Rate Limiting
+  # ─────────────────────────────────────────
+  redis:
+    image: redis:7-alpine
+    container_name: bodo_redis_prod
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD} --appendonly yes
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # Not exposed to host — internal only
+    networks:
+      - backend
+
+  # ─────────────────────────────────────────
+  # NEXT.JS APP
+  # ─────────────────────────────────────────
   app:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: bodo_app_prod
-    ports:
-      - "3001:3000"
+    # No host port mapping needed — Traefik handles ingress
     environment:
-      # Always use the internal DB for this containerised stack; the host .env
-      # may point at a different (e.g. Supabase) URL for local `pnpm dev`.
-      DATABASE_URL: postgresql://${POSTGRES_USER:-bodo}:${POSTGRES_PASSWORD:-secret}@db:5432/${POSTGRES_DB:-bodo_portfolio}
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER:-bodo}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-bodo_portfolio}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+
+      # Auth
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
-      NEXTAUTH_URL: http://localhost:3001
-      AUTH_URL: http://localhost:3001
+      NEXTAUTH_URL: https://${DOMAIN}
+      AUTH_URL: https://${DOMAIN}
       AUTH_TRUST_HOST: "true"
-      CLOUDINARY_CLOUD_NAME: ${CLOUDINARY_CLOUD_NAME}
-      CLOUDINARY_API_KEY: ${CLOUDINARY_API_KEY}
-      CLOUDINARY_API_SECRET: ${CLOUDINARY_API_SECRET}
+
+      # Local file uploads — Cloudinary removed
+      UPLOAD_DIR: /app/public/uploads
+      NEXT_PUBLIC_UPLOAD_URL: https://${DOMAIN}/uploads
+
+      # Email
       RESEND_API_KEY: ${RESEND_API_KEY}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
-      NEXT_PUBLIC_SITE_URL: http://localhost:3001
+
+      NEXT_PUBLIC_SITE_URL: https://${DOMAIN}
     volumes:
+      # Uploads stored directly on server — no third party
       - uploads_data:/app/public/uploads
     depends_on:
       db:
         condition: service_healthy
+      redis:
+        condition: service_healthy
     restart: unless-stopped
+    networks:
+      - proxy
+      - backend
+    labels:
+      - traefik.enable=true
+      # HTTPS router
+      - traefik.http.routers.bodo-app.rule=Host(`${DOMAIN}`) || Host(`www.${DOMAIN}`)
+      - traefik.http.routers.bodo-app.entrypoints=websecure
+      - traefik.http.routers.bodo-app.tls=true
+      - traefik.http.routers.bodo-app.tls.certresolver=letsencrypt
+      - traefik.http.services.bodo-app.loadbalancer.server.port=3000
+      # www → apex redirect
+      - traefik.http.middlewares.www-redirect.redirectregex.regex=^https://www\.(.*)
+      - traefik.http.middlewares.www-redirect.redirectregex.replacement=https://$${1}
+      - traefik.http.middlewares.www-redirect.redirectregex.permanent=true
+      - traefik.http.routers.bodo-app.middlewares=www-redirect
 
+# ─────────────────────────────────────────
+# VOLUMES
+# ─────────────────────────────────────────
 volumes:
-  postgres_data:
-  uploads_data:
+  postgres_data:   # PostgreSQL data — persisted on server
+  redis_data:      # Redis AOF — persisted on server
+  uploads_data:    # User uploads — persisted on server
+  traefik_certs:   # Let's Encrypt certificates
+
+# ─────────────────────────────────────────
+# NETWORKS
+# ─────────────────────────────────────────
+networks:
+  proxy:
+    # Traefik + app — internet-facing
+  backend:
+    internal: true  # DB + Redis — never exposed to internet

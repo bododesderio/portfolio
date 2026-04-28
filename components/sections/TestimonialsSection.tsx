@@ -27,7 +27,7 @@ interface TestimonialsSectionProps {
 
 export function TestimonialsSection({ testimonials }: TestimonialsSectionProps) {
   return (
-    <Section className="bg-slate-50 dark:bg-slate-900">
+    <Section className="bg-ink-50 dark:bg-ink-800/40">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

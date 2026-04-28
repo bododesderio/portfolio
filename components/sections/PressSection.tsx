@@ -83,7 +83,7 @@ export function PressSection({ items, mediumPosts = [] }: { items?: PressItem[];
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
               transition={{ duration: 0.9, ease: EASE, delay: idx * 0.1 }}
-              className="grid md:grid-cols-[1.1fr_1fr] gap-8 md:gap-12 items-center rounded-3xl border border-hairline bg-card p-6 md:p-10 shadow-sm"
+              className="grid md:grid-cols-[1.1fr_1fr] gap-8 md:gap-12 items-stretch rounded-3xl border border-hairline bg-card p-6 md:p-10 shadow-sm"
             >
               {/* Left — quote card */}
               <div>
@@ -140,7 +140,7 @@ export function PressSection({ items, mediumPosts = [] }: { items?: PressItem[];
                 <button
                   type="button"
                   onClick={() => setPreviewImage({ url: item.imageUrl!, alt: item.imageAlt || item.title })}
-                  className="group relative aspect-[4/5] rounded-2xl overflow-hidden bg-muted border border-hairline shadow-md cursor-zoom-in"
+                  className="group relative aspect-[3/4] rounded-2xl overflow-hidden bg-ink-900 border border-hairline shadow-md cursor-zoom-in"
                 >
                   <Image
                     src={item.imageUrl}

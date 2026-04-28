@@ -17,13 +17,15 @@ export function NewPostNotification({
   title,
   excerpt,
   url,
+  unsubscribeUrl,
 }: {
   title: string
   excerpt: string
   url: string
+  unsubscribeUrl?: string
 }) {
   return (
-    <EmailLayout preview={`New post: ${title}`}>
+    <EmailLayout preview={`New post: ${title}`} unsubscribeUrl={unsubscribeUrl}>
       <Heading style={h1}>{title}</Heading>
       <Text style={p}>{excerpt}</Text>
       <Section style={{ textAlign: 'center', margin: '24px 0' }}>

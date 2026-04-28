@@ -41,7 +41,7 @@ export default async function BlogPage() {
       />
       <section className="relative h-[50vh] min-h-[300px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={hero.image} alt="" fill className="object-cover" priority />
+          <Image src={hero.image} alt="" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="relative z-10 text-center px-4">
@@ -61,7 +61,7 @@ export default async function BlogPage() {
             <article className="grid md:grid-cols-2 gap-8 items-center">
               {featuredPost.featuredImageUrl && (
                 <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden">
-                  <Image src={featuredPost.featuredImageUrl} alt={featuredPost.featuredImageAlt} fill className="object-cover" />
+                  <Image src={featuredPost.featuredImageUrl} alt={featuredPost.featuredImageAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
                 </div>
               )}
               <div>

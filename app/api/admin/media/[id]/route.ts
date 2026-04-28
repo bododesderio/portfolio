@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
-import { deleteFromCloudinary } from '@/lib/cloudinary'
 import { unlink } from 'fs/promises'
 import { join } from 'path'
 
@@ -13,14 +12,9 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     const media = await prisma.media.findUnique({ where: { id: (await params).id } })
     if (!media) return NextResponse.json({ error: 'Not found.' }, { status: 404 })
 
-    // Delete from storage — Cloudinary or local filesystem
-    if (media.cloudinaryId.startsWith('local:')) {
-      // Local file: url is like /uploads/uuid.ext
-      const filePath = join(process.cwd(), 'public', media.url)
-      await unlink(filePath).catch(() => null)
-    } else {
-      await deleteFromCloudinary(media.cloudinaryId).catch(() => null)
-    }
+    // Delete from local filesystem — url is like /uploads/uuid.ext
+    const filePath = join(process.cwd(), 'public', media.url)
+    await unlink(filePath).catch(() => null)
 
     await prisma.media.delete({ where: { id: (await params).id } })
 

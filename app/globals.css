@@ -1,6 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Disable text selection and image dragging on public pages */
+body:not(.admin-body) {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+/* Re-enable selection inside inputs and textareas */
+input, textarea, [contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  user-select: text;
+}
+
+/* Prevent image dragging */
+img {
+  -webkit-user-drag: none;
+  user-drag: none;
+  pointer-events: none;
+}
+
+/* Re-enable pointer events on interactive images (links, buttons) */
+a img, button img {
+  pointer-events: auto;
+}
 
 :root {
   --font-inter: 'Inter', ui-sans-serif, system-ui, sans-serif;
@@ -159,6 +181,33 @@ h1, h2, h3, h4, h5, h6 {
     font-feature-settings: "tnum" 1, "cv11" 1;
   }
 
+  /* CKEditor theme integration — adapts to light/dark admin theme */
+  .ck-editor-wrapper .ck.ck-editor__main > .ck-editor__editable {
+    background: rgb(var(--card));
+    color: rgb(var(--ink));
+    border-color: rgb(var(--hairline) / var(--hairline-a));
+    min-height: var(--ck-min-height, 300px);
+  }
+  .ck-editor-wrapper .ck.ck-editor__main > .ck-editor__editable:focus {
+    border-color: rgb(var(--brand));
+    box-shadow: 0 0 0 2px rgb(var(--brand) / 0.15);
+  }
+  .ck-editor-wrapper .ck.ck-toolbar {
+    background: rgb(var(--surface-2));
+    border-color: rgb(var(--hairline) / var(--hairline-a));
+  }
+  .ck-editor-wrapper .ck.ck-toolbar .ck-button {
+    color: rgb(var(--ink-muted));
+  }
+  .ck-editor-wrapper .ck.ck-toolbar .ck-button:hover {
+    background: rgb(var(--muted));
+    color: rgb(var(--ink));
+  }
+  .ck-editor-wrapper .ck.ck-toolbar .ck-button.ck-on {
+    background: rgb(var(--brand) / 0.15);
+    color: rgb(var(--brand));
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -166,5 +215,73 @@ h1, h2, h3, h4, h5, h6 {
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+
+  /* Custom styled select dropdowns — replaces default browser selects */
+  select.select-styled,
+  .admin-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: rgb(var(--muted));
+    border: 1px solid rgb(var(--hairline) / var(--hairline-a));
+    border-radius: 0.75rem;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    font-size: 0.875rem;
+    color: rgb(var(--ink));
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+  }
+
+  select.select-styled:focus,
+  .admin-select:focus {
+    outline: none;
+    border-color: rgb(var(--brand));
+    box-shadow: 0 0 0 2px rgb(var(--brand) / 0.15);
+  }
+
+  select.select-styled:hover,
+  .admin-select:hover {
+    border-color: rgb(var(--brand) / 0.4);
+  }
+
+  select.select-styled option,
+  .admin-select option {
+    background-color: rgb(var(--card));
+    color: rgb(var(--ink));
+    padding: 0.5rem 1rem;
+  }
+
+  .dark select.select-styled,
+  .dark .admin-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%239ca3af' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+  }
+
+  /* Public-facing select variant */
+  select.select-public {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: rgb(var(--card));
+    border: 1px solid rgb(var(--hairline) / var(--hairline-a));
+    border-radius: 0.75rem;
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    color: rgb(var(--ink));
+    cursor: pointer;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 1rem;
+  }
+
+  select.select-public:focus {
+    outline: none;
+    border-color: rgb(var(--brand));
+    box-shadow: 0 0 0 2px rgb(var(--brand) / 0.15);
   }
 }

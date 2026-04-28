@@ -36,12 +36,16 @@ async function fetchThemePreference(email: string): Promise<ThemePreference> {
   return 'system'
 }
 
+const SHORT_MAX_AGE = 24 * 60 * 60       // 1 day
+const LONG_MAX_AGE  = 30 * 24 * 60 * 60  // 30 days
+
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Credentials({
       credentials: {
         email: { label: 'Email', type: 'email' },
         password: { label: 'Password', type: 'password' },
+        rememberMe: { label: 'Remember Me', type: 'text' },
       },
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
@@ -61,10 +65,18 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     }),
   ],
   callbacks: {
-    async jwt({ token, user, trigger }) {
+    async jwt({ token, user, trigger, account }) {
       if (user) {
         token.sub = user.id
         token.email = user.email
+        // Store remember-me preference in the token on first sign-in
+        const rememberMe = (account as Record<string, unknown> | null)?.rememberMe
+        token.rememberMe = rememberMe === 'true' || rememberMe === true
+      }
+
+      // Adjust token expiry based on remember-me
+      if (token.rememberMe) {
+        token.exp = Math.floor(Date.now() / 1000) + LONG_MAX_AGE
       }
 
       // Fetch preference lazily: first time after login, or when the client
@@ -79,11 +91,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     session({ session, token }) {
       if (session.user) {
         session.user.id = token.sub as string
+        session.user.email = token.email as string
         session.user.themePreference = (token.themePreference ?? 'system') as ThemePreference
       }
       return session
     },
   },
   pages: { signIn: '/admin/login' },
-  session: { strategy: 'jwt' },
+  session: {
+    strategy: 'jwt',
+    maxAge: LONG_MAX_AGE, // Upper bound; actual expiry controlled by jwt callback
+  },
 })

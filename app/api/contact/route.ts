@@ -3,6 +3,7 @@ import { prisma } from '@/lib/db'
 import { z } from 'zod'
 import { sendEmail } from '@/lib/resend'
 import { renderAdminNotification, renderContactAutoReply } from '@/lib/emails'
+import { rateLimit, getClientIp } from '@/lib/rate-limit'
 
 const schema = z.object({
   name: z.string().min(1),
@@ -12,6 +13,10 @@ const schema = z.object({
 })
 
 export async function POST(req: NextRequest) {
+  const ip = getClientIp(req)
+  const { ok } = rateLimit(`contact:${ip}`, { limit: 5, windowMs: 3600_000 })
+  if (!ok) return NextResponse.json({ error: 'Too many requests. Try again later.' }, { status: 429 })
+
   try {
     const body = await req.json()
     const { name, email, subject, message } = schema.parse(body)

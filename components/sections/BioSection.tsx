@@ -19,7 +19,7 @@ export function BioSection({ content }: { content: BioContent }) {
   const roleHighlights = content.roles.slice(0, 4)
 
   return (
-    <Section className="bg-surface" spacing="compact">
+    <Section className="bg-ink-50 dark:bg-ink-800/40" spacing="compact">
       <Container className="max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

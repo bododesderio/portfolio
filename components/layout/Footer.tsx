@@ -174,6 +174,8 @@ export default async function Footer() {
             <span>{location}</span>
           </div>
           <div className="flex items-center gap-4">
+            <Link href="/privacy" className="hover:text-brand transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-brand transition-colors">Terms</Link>
             <Link href="/contact" className="hover:text-brand transition-colors">Start a conversation →</Link>
           </div>
         </div>

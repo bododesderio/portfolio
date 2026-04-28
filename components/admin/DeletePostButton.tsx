@@ -18,7 +18,10 @@ export function DeletePostButton({ id }: { id: string }) {
   }
 
   return (
-    <button onClick={handleDelete} className="text-red-500 hover:underline text-sm">
+    <button
+      onClick={(e) => { e.preventDefault(); e.stopPropagation(); handleDelete() }}
+      className="text-red-500 hover:underline text-sm"
+    >
       Delete
     </button>
   )

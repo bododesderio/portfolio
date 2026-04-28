@@ -29,7 +29,7 @@ export function ProcessSection({ content }: { content: ProcessContent }) {
   const { pretitle, heading, steps } = content
 
   return (
-    <Section>
+    <Section className="bg-ink-50 dark:bg-ink-800/40">
       <Container>
         <motion.div
           initial={{ opacity: 0, y: 20 }}

@@ -1,9 +1,10 @@
 import { prisma } from '@/lib/db'
 import Link from 'next/link'
+import Image from 'next/image'
 import { format } from 'date-fns'
 import { DeletePostButton } from '@/components/admin/DeletePostButton'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-import { FileText, Plus } from 'lucide-react'
+import { FileText, Plus, ImageIcon } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Blog — Admin' }
@@ -45,48 +46,59 @@ export default async function AdminBlogPage() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
           {posts.map(post => (
-            <div
+            <Link
               key={post.id}
-              className="bg-card rounded-2xl border border-hairline p-5 hover:border-brand/30 transition-colors"
+              href={`/admin/blog/${post.id}`}
+              className="group bg-card rounded-2xl border border-hairline overflow-hidden hover:border-brand/30 transition-colors flex flex-col"
             >
-              <div className="flex items-start justify-between gap-3 mb-3">
-                <div className="min-w-0 flex-1">
-                  <Link href={`/admin/blog/${post.id}`} className="block">
-                    <h3 className="font-medium text-fg line-clamp-1 hover:text-brand transition-colors">{post.title}</h3>
-                  </Link>
-                  <p className="text-xs text-fg-muted mt-0.5">/blog/{post.slug}</p>
-                </div>
-                <span className={`px-2.5 py-1 rounded-full text-[11px] font-medium flex-shrink-0 ${
+              {/* Featured image */}
+              <div className="relative h-40 bg-muted overflow-hidden">
+                {post.featuredImageUrl ? (
+                  <Image
+                    src={post.featuredImageUrl}
+                    alt={post.featuredImageAlt || post.title}
+                    fill
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
+                ) : (
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <ImageIcon className="h-8 w-8 text-fg-muted/40" />
+                  </div>
+                )}
+                <span className={`absolute top-3 right-3 px-2.5 py-1 rounded-full text-[11px] font-medium backdrop-blur-sm ${
                   post.status === 'published'
-                    ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400'
-                    : 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400'
+                    ? 'bg-emerald-500/90 text-white'
+                    : 'bg-amber-500/90 text-white'
                 }`}>
                   {post.status}
                 </span>
               </div>
 
-              {post.excerpt && (
-                <p className="text-sm text-fg-muted line-clamp-2 mb-3">{post.excerpt}</p>
-              )}
+              <div className="p-5 flex-1 flex flex-col">
+                <h3 className="font-medium text-fg line-clamp-1 group-hover:text-brand transition-colors">{post.title}</h3>
+                <p className="text-xs text-fg-muted mt-0.5 mb-2">/blog/{post.slug}</p>
 
-              <div className="flex items-center justify-between pt-3 border-t border-hairline">
-                <div className="flex items-center gap-3 text-xs text-fg-muted">
-                  {post.category && (
-                    <span className="px-2 py-0.5 rounded bg-muted">{post.category}</span>
-                  )}
-                  <span>
-                    {post.publishedAt
-                      ? format(new Date(post.publishedAt), 'MMM d, yyyy')
-                      : `Draft · ${format(new Date(post.createdAt), 'MMM d')}`
-                    }
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <Link href={`/admin/blog/${post.id}`} className="text-brand hover:underline text-xs font-medium">Edit</Link>
+                {post.excerpt && (
+                  <p className="text-sm text-fg-muted line-clamp-2 mb-3 flex-1">{post.excerpt}</p>
+                )}
+
+                <div className="flex items-center justify-between pt-3 border-t border-hairline">
+                  <div className="flex items-center gap-3 text-xs text-fg-muted">
+                    {post.category && (
+                      <span className="px-2 py-0.5 rounded bg-muted">{post.category}</span>
+                    )}
+                    <span>
+                      {post.publishedAt
+                        ? format(new Date(post.publishedAt), 'MMM d, yyyy')
+                        : `Draft · ${format(new Date(post.createdAt), 'MMM d')}`
+                      }
+                    </span>
+                  </div>
                   <DeletePostButton id={post.id} />
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}

@@ -34,7 +34,7 @@ export default async function GalleryPage() {
       />
       <section className="relative h-[50vh] min-h-[300px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <Image src={hero.image} alt="" fill className="object-cover" priority />
+          <Image src={hero.image} alt="" fill sizes="100vw" className="object-cover" priority />
           <div className="absolute inset-0 bg-black/60" />
         </div>
         <div className="relative z-10 text-center px-4">

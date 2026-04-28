@@ -4,7 +4,8 @@ import "./globals.css"
 import { Toaster } from 'react-hot-toast'
 import { ThemeProvider } from 'next-themes'
 import { ThemeInjector } from '@/components/layout/ThemeInjector'
-import { ldJson, personSchema, websiteSchema } from '@/lib/schema'
+import { ContentProtection } from '@/components/ui/ContentProtection'
+import { personSchema, websiteSchema } from '@/lib/schema'
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] })
 const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"] })
@@ -32,6 +33,9 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', creator: '@bodo_desderio' },
   robots: { index: true, follow: true },
+  other: {
+    'application/ld+json': JSON.stringify([personSchema(), websiteSchema()]),
+  },
 }
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -40,15 +44,12 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <head>
         <ThemeInjector />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} antialiased`}>
+      <body className={`${inter.variable} ${playfair.variable} antialiased`} suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
           <Toaster position="bottom-right" />
+          <ContentProtection />
         </ThemeProvider>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: ldJson([personSchema(), websiteSchema()]) }}
-        />
       </body>
     </html>
   )

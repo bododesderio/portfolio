@@ -1,16 +1,14 @@
 'use client'
 
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { useEditor, EditorContent } from '@tiptap/react'
-import StarterKit from '@tiptap/starter-kit'
-import TiptapImage from '@tiptap/extension-image'
-import TiptapLink from '@tiptap/extension-link'
 import Image from 'next/image'
+import dynamic from 'next/dynamic'
+const RichTextEditor = dynamic(() => import('@/components/admin/RichTextEditor').then(m => m.RichTextEditor), { ssr: false, loading: () => <div className="border border-hairline rounded-lg bg-muted animate-pulse h-48" /> })
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import slugify from 'slugify'
 import {
-  ImageIcon, ExternalLink, Save, Send,
+  ImageIcon, Save, Send,
   CheckCircle2, Mail, X as XIcon,
 } from 'lucide-react'
 import { MediaPickerField, MediaPickerDialogOnly, type PickedMedia } from './MediaPickerField'
@@ -97,21 +95,9 @@ export function BlogEditor({ post }: { post: Post | null }) {
   const savedDraftRef = useRef<DraftPayload | null>(null)
   const autoSaveTimer = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  const isPublished = status === 'published'
+  const [body, setBody] = useState(post?.body ?? '')
 
-  const editor = useEditor({
-    extensions: [
-      StarterKit,
-      TiptapImage.configure({ inline: false, allowBase64: false }),
-      TiptapLink.configure({ openOnClick: false, autolink: true }),
-    ],
-    content: post?.body ?? '',
-    editorProps: {
-      attributes: {
-        class: 'prose prose-lg dark:prose-invert max-w-none min-h-[400px] focus:outline-none p-6',
-      },
-    },
-  })
+  const isPublished = status === 'published'
 
   // --- Draft recovery on mount ---
   useEffect(() => {
@@ -131,10 +117,10 @@ export function BlogEditor({ post }: { post: Post | null }) {
     setCategory(draft.category)
     setFeaturedImageUrl(draft.featuredImageUrl)
     setFeaturedImageAlt(draft.featuredImageAlt)
-    if (editor) editor.commands.setContent(draft.body)
+    setBody(draft.body)
     setDraftBanner(false)
     toast.success('Draft restored.')
-  }, [editor])
+  }, [])
 
   const discardDraft = useCallback(() => {
     clearDraftFromStorage(draftKey)
@@ -145,10 +131,9 @@ export function BlogEditor({ post }: { post: Post | null }) {
   // --- Auto-save timer ---
   useEffect(() => {
     autoSaveTimer.current = setInterval(() => {
-      if (!editor) return
       const payload: DraftPayload = {
         title, slug, excerpt, category,
-        body: editor.getHTML(),
+        body,
         featuredImageUrl, featuredImageAlt,
         savedAt: Date.now(),
       }
@@ -159,7 +144,7 @@ export function BlogEditor({ post }: { post: Post | null }) {
     return () => {
       if (autoSaveTimer.current) clearInterval(autoSaveTimer.current)
     }
-  }, [editor, title, slug, excerpt, category, featuredImageUrl, featuredImageAlt, draftKey])
+  }, [body, title, slug, excerpt, category, featuredImageUrl, featuredImageAlt, draftKey])
 
   const handleTitleChange = useCallback((val: string) => {
     setTitle(val)
@@ -173,33 +158,23 @@ export function BlogEditor({ post }: { post: Post | null }) {
   }
 
   function handleInlinePick(p: PickedMedia) {
-    if (!editor) return
+    let html = ''
     if (p.type === 'image') {
-      editor.chain().focus().setImage({ src: p.url, alt: p.alt ?? '' }).run()
+      html = `<img src="${escapeAttr(p.url)}" alt="${escapeAttr(p.alt ?? '')}" />`
     } else if (p.type === 'video') {
-      editor
-        .chain()
-        .focus()
-        .insertContent(`<p><video controls src="${escapeAttr(p.url)}" class="w-full rounded-xl"></video></p>`)
-        .run()
+      html = `<p><video controls src="${escapeAttr(p.url)}" class="w-full rounded-xl"></video></p>`
     } else if (p.type === 'embed' && p.embedUrl) {
-      editor
-        .chain()
-        .focus()
-        .insertContent(
-          `<p><iframe src="${escapeAttr(p.embedUrl)}" class="w-full aspect-video rounded-xl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></p>`
-        )
-        .run()
+      html = `<p><iframe src="${escapeAttr(p.embedUrl)}" class="w-full aspect-video rounded-xl" frameborder="0" allowfullscreen></iframe></p>`
     } else if (p.type === 'embed') {
-      editor.chain().focus().insertContent(`<p><a href="${escapeAttr(p.url)}" target="_blank" rel="noopener">${escapeText(p.url)}</a></p>`).run()
+      html = `<p><a href="${escapeAttr(p.url)}" target="_blank" rel="noopener">${escapeText(p.url)}</a></p>`
     } else if (p.type === 'doc') {
-      editor.chain().focus().insertContent(`<p><a href="${escapeAttr(p.url)}" target="_blank" rel="noopener">${escapeText(p.url.split('/').pop() || 'Document')}</a></p>`).run()
+      html = `<p><a href="${escapeAttr(p.url)}" target="_blank" rel="noopener">${escapeText(p.url.split('/').pop() || 'Document')}</a></p>`
     }
+    if (html) setBody(prev => prev + html)
     setMediaPickerOpen(false)
   }
 
   function getPostBody() {
-    if (!editor) return null
     if (!featuredImageUrl) { toast.error('Featured image is required.'); return null }
     if (!featuredImageAlt.trim()) { toast.error('Featured image alt text is required.'); return null }
     if (!title.trim()) { toast.error('Title is required.'); return null }
@@ -208,7 +183,7 @@ export function BlogEditor({ post }: { post: Post | null }) {
       featuredImageUrl,
       featuredImageAlt: featuredImageAlt.trim(),
       featuredImageAttribution: featuredAttribution ?? null,
-      body: editor.getHTML(),
+      body,
     }
   }
 
@@ -396,53 +371,18 @@ export function BlogEditor({ post }: { post: Post | null }) {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-fg-muted mb-2">Body</label>
-            <div className="bg-card border border-hairline rounded-xl overflow-hidden">
-              <div className="flex items-center gap-1 p-3 border-b border-hairline flex-wrap">
-                {[
-                  { label: 'B',  title: 'Bold',       action: () => editor?.chain().focus().toggleBold().run(),      active: editor?.isActive('bold') },
-                  { label: 'I',  title: 'Italic',     action: () => editor?.chain().focus().toggleItalic().run(),    active: editor?.isActive('italic') },
-                  { label: 'H2', title: 'Heading 2',  action: () => editor?.chain().focus().toggleHeading({ level: 2 }).run(), active: editor?.isActive('heading', { level: 2 }) },
-                  { label: 'H3', title: 'Heading 3',  action: () => editor?.chain().focus().toggleHeading({ level: 3 }).run(), active: editor?.isActive('heading', { level: 3 }) },
-                  { label: 'UL', title: 'Bullet list',action: () => editor?.chain().focus().toggleBulletList().run(), active: editor?.isActive('bulletList') },
-                  { label: 'OL', title: 'Ordered list',action:() => editor?.chain().focus().toggleOrderedList().run(), active: editor?.isActive('orderedList') },
-                  { label: '\u275D',  title: 'Quote',      action: () => editor?.chain().focus().toggleBlockquote().run(), active: editor?.isActive('blockquote') },
-                ].map(btn => (
-                  <button
-                    key={btn.label}
-                    type="button"
-                    onClick={btn.action}
-                    title={btn.title}
-                    className={`px-3 py-1.5 text-sm rounded font-medium transition-colors ${
-                      btn.active ? 'bg-brand text-white' : 'bg-muted text-fg-muted hover:bg-ink-200 dark:hover:bg-ink-600'
-                    }`}
-                  >
-                    {btn.label}
-                  </button>
-                ))}
-                <div className="w-px h-6 bg-hairline mx-1" />
-                <button
-                  type="button"
-                  onClick={() => setMediaPickerOpen(true)}
-                  className="px-3 py-1.5 text-sm rounded font-medium bg-muted text-fg hover:bg-ink-200 dark:hover:bg-ink-600 inline-flex items-center gap-1.5"
-                  title="Insert media"
-                >
-                  <ImageIcon className="h-3.5 w-3.5" /> Insert media
-                </button>
-                <button
-                  type="button"
-                  onClick={() => {
-                    const url = prompt('Link URL')
-                    if (url) editor?.chain().focus().toggleLink({ href: url }).run()
-                  }}
-                  className="px-3 py-1.5 text-sm rounded font-medium bg-muted text-fg hover:bg-ink-200 dark:hover:bg-ink-600 inline-flex items-center gap-1.5"
-                  title="Insert link"
-                >
-                  <ExternalLink className="h-3.5 w-3.5" /> Link
-                </button>
-              </div>
-              <EditorContent editor={editor} />
+            <div className="flex items-center justify-between mb-2">
+              <label className="block text-sm font-medium text-fg-muted">Body</label>
+              <button
+                type="button"
+                onClick={() => setMediaPickerOpen(true)}
+                className="px-3 py-1.5 text-xs rounded font-medium bg-muted text-fg hover:bg-ink-200 dark:hover:bg-ink-600 inline-flex items-center gap-1.5"
+                title="Insert media"
+              >
+                <ImageIcon className="h-3.5 w-3.5" /> Insert media
+              </button>
             </div>
+            <RichTextEditor value={body} onChange={setBody} minHeight={400} placeholder="Write your post..." />
           </div>
         </div>
 
@@ -473,6 +413,7 @@ export function BlogEditor({ post }: { post: Post | null }) {
               <input
                 value={slug}
                 onChange={e => setSlug(e.target.value)}
+                placeholder="auto-generated-from-title"
                 className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
               />
             </div>

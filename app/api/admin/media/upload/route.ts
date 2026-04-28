@@ -1,11 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
-import { uploadToCloudinary } from '@/lib/cloudinary'
 import { saveLocally } from '@/lib/local-storage'
-import { writeFile, unlink } from 'fs/promises'
-import { join } from 'path'
-import { tmpdir } from 'os'
+
+const MAX_SIZE = 50 * 1024 * 1024
+const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml', 'application/pdf']
 
 export async function POST(req: NextRequest) {
   const session = await auth()
@@ -16,40 +15,21 @@ export async function POST(req: NextRequest) {
     const file = formData.get('file') as File
     if (!file) return NextResponse.json({ error: 'No file.' }, { status: 400 })
 
-    const bytes = await file.arrayBuffer()
-    const buffer = Buffer.from(bytes)
-
-    let publicId: string
-    let url: string
-    let width: number | undefined
-    let height: number | undefined
-
-    // Try Cloudinary first, fall back to local filesystem
-    const tmpPath = join(tmpdir(), `upload_${Date.now()}_${file.name}`)
-    await writeFile(tmpPath, buffer)
-
-    try {
-      const result = await uploadToCloudinary(tmpPath, 'portfolio')
-      publicId = result.publicId
-      url = result.url
-      width = result.width
-      height = result.height
-    } catch (cloudinaryError) {
-      console.warn('Cloudinary upload failed, falling back to local storage:', cloudinaryError)
-      const local = await saveLocally(buffer, file.name)
-      publicId = local.publicId
-      url = local.url
-      width = local.width
-      height = local.height
-    } finally {
-      await unlink(tmpPath).catch(() => null)
+    if (file.size > MAX_SIZE) {
+      return NextResponse.json({ error: 'File too large. Maximum 50 MB.' }, { status: 400 })
     }
+    if (!ALLOWED_TYPES.includes(file.type)) {
+      return NextResponse.json({ error: `File type "${file.type}" not allowed.` }, { status: 400 })
+    }
+
+    const buffer = Buffer.from(await file.arrayBuffer())
+    const { publicId, url, width, height } = await saveLocally(buffer, file.name)
 
     const media = await prisma.media.create({
       data: {
         filename: file.name,
         url,
-        cloudinaryId: publicId,
+        storageId: publicId,
         type: 'image',
         size: file.size,
         width: width ?? null,

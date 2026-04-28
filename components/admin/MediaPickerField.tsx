@@ -13,6 +13,7 @@ export type PickedMedia = {
   type: 'image' | 'video' | 'embed' | 'doc'
   url: string
   alt?: string
+  mediaId?: string
   attribution?: { photographer?: string; source?: string; source_url?: string }
   embedUrl?: string
   embedHtml?: string
@@ -272,7 +273,7 @@ function LibraryPanel({ mode, currentValue, onPick }: { mode: PickerMode; curren
               <button
                 key={m.id}
                 type="button"
-                onClick={() => onPick({ type: 'image', url: m.url, alt: m.altText ?? m.filename })}
+                onClick={() => onPick({ type: 'image', url: m.url, alt: m.altText ?? m.filename, mediaId: m.id })}
                 className={`group relative aspect-square rounded-lg overflow-hidden border-2 transition-colors ${
                   active ? 'border-brand' : 'border-transparent hover:border-brand/50'
                 }`}
@@ -320,7 +321,7 @@ function UploadPanel({ mode, onPick }: { mode: PickerMode; onPick: (p: PickedMed
       if (!res.ok) throw new Error()
       const media = await res.json() as MediaItem
       toast.success('Uploaded.')
-      onPick({ type: kind, url: media.url, alt: media.altText ?? media.filename })
+      onPick({ type: kind, url: media.url, alt: media.altText ?? media.filename, mediaId: media.id })
     } catch {
       toast.error('Upload failed.')
     } finally {

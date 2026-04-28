@@ -32,10 +32,12 @@ export function EmailLayout({
   preview,
   children,
   footer,
+  unsubscribeUrl,
 }: {
   preview: string
   children: ReactNode
   footer?: ReactNode
+  unsubscribeUrl?: string
 }) {
   return (
     <Html>
@@ -48,6 +50,13 @@ export function EmailLayout({
             {footer ?? (
               <Text style={footerText}>
                 Bodo Desderio · Kampala, Uganda · bododesderio.com
+              </Text>
+            )}
+            {unsubscribeUrl && (
+              <Text style={{ ...footerText, marginTop: '8px' }}>
+                <a href={unsubscribeUrl} style={{ color: '#94a3b8', textDecoration: 'underline' }}>
+                  Unsubscribe
+                </a>
               </Text>
             )}
           </Section>
