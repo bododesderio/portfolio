@@ -62,6 +62,7 @@ model Service {
   visible      Boolean  @default(true)
   createdAt    DateTime @default(now()) @map("created_at")
 
+  @@index([visible, order])
   @@map("services")
 }
 
@@ -76,6 +77,7 @@ model Client {
 
   logo Media? @relation(fields: [logoMediaId], references: [id])
 
+  @@index([visible, order])
   @@map("clients")
 }
 
@@ -112,6 +114,7 @@ model BlogPost {
   createdAt                DateTime  @default(now()) @map("created_at")
   updatedAt                DateTime  @updatedAt @map("updated_at")
 
+  @@index([status, publishedAt])
   @@map("blog_posts")
 }
 
@@ -138,6 +141,7 @@ model Subscriber {
   source       String   @default("footer")
   subscribedAt DateTime @default(now()) @map("subscribed_at")
 
+  @@index([confirmed, subscribedAt])
   @@map("subscribers")
 }
 
@@ -148,6 +152,10 @@ model NewsletterCampaign {
   status         String    @default("draft") // draft | sent
   sentAt         DateTime? @map("sent_at")
   recipientCount Int       @default(0) @map("recipient_count")
+  deliveredCount Int       @default(0) @map("delivered_count")
+  openCount      Int       @default(0) @map("open_count")
+  clickCount     Int       @default(0) @map("click_count")
+  bounceCount    Int       @default(0) @map("bounce_count")
   createdAt      DateTime  @default(now()) @map("created_at")
 
   @@map("newsletter_campaigns")
@@ -163,6 +171,9 @@ model Message {
   archived   Boolean  @default(false)
   receivedAt DateTime @default(now()) @map("received_at")
 
+  @@index([receivedAt])
+  @@index([email])
+  @@index([read, archived])
   @@map("messages")
 }
 
@@ -228,6 +239,7 @@ model PressItem {
   order         Int      @default(0)
   createdAt     DateTime @default(now()) @map("created_at")
 
+  @@index([visible, order])
   @@map("press_items")
 }
 
@@ -302,4 +314,46 @@ model HeroImage {
   media Media @relation(fields: [mediaId], references: [id])
 
   @@map("hero_images")
+}
+
+/// Tracks every email sent by the system (transactional + campaigns).
+model EmailLog {
+  id           String    @id @default(cuid())
+  campaignId   String?   @map("campaign_id")
+  to           String
+  subject      String
+  type         String    // campaign | welcome | contact_reply | admin_notify | new_post | digest
+  status       String    @default("sent")  // sent | delivered | bounced | failed
+  postalMsgId  String?   @map("postal_msg_id")
+  openedAt     DateTime? @map("opened_at")
+  clickedAt    DateTime? @map("clicked_at")
+  bouncedAt    DateTime? @map("bounced_at")
+  deliveredAt  DateTime? @map("delivered_at")
+  failReason   String?   @map("fail_reason")
+  sentAt       DateTime  @default(now()) @map("sent_at")
+
+  events EmailEvent[]
+
+  @@index([campaignId])
+  @@index([to])
+  @@index([sentAt])
+  @@index([type, sentAt])
+  @@map("email_logs")
+}
+
+/// Individual tracking events (opens, clicks, deliveries, bounces).
+model EmailEvent {
+  id         String   @id @default(cuid())
+  emailLogId String   @map("email_log_id")
+  event      String   // open | click | delivered | bounced | failed | held
+  url        String?  // for click events
+  ip         String?
+  userAgent  String?  @map("user_agent")
+  metadata   Json?    // extra data from Postal webhooks
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  emailLog EmailLog @relation(fields: [emailLogId], references: [id], onDelete: Cascade)
+
+  @@index([emailLogId, event])
+  @@map("email_events")
 }

@@ -1,7 +1,11 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Unsubscribed' }
+export const metadata: Metadata = {
+  title: 'Unsubscribed — Bodo Desderio',
+  description: 'You have been successfully removed from the mailing list.',
+  robots: { index: false },
+}
 
 export default function UnsubscribePage() {
   return (

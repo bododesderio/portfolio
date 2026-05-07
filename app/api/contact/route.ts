@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { z } from 'zod'
-import { sendEmail } from '@/lib/resend'
+import { sendTrackedEmail } from '@/lib/email-tracking'
 import { renderAdminNotification, renderContactAutoReply } from '@/lib/emails'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
 
@@ -14,7 +14,7 @@ const schema = z.object({
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req)
-  const { ok } = rateLimit(`contact:${ip}`, { limit: 5, windowMs: 3600_000 })
+  const { ok } = await rateLimit(`contact:${ip}`, { limit: 5, windowMs: 3600_000 })
   if (!ok) return NextResponse.json({ error: 'Too many requests. Try again later.' }, { status: 429 })
 
   try {
@@ -31,8 +31,8 @@ export async function POST(req: NextRequest) {
     ])
 
     await Promise.allSettled([
-      sendEmail({ to: adminEmail, subject: `New message: ${subject}`, html: adminHtml }),
-      sendEmail({ to: email, subject: 'Got your message.', html: autoReplyHtml }),
+      sendTrackedEmail({ to: adminEmail, subject: `New message: ${subject}`, html: adminHtml, type: 'admin_notify' }),
+      sendTrackedEmail({ to: email, subject: 'Got your message.', html: autoReplyHtml, type: 'contact_reply' }),
     ])
 
     return NextResponse.json({ success: true })

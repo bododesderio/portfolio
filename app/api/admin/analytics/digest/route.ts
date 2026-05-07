@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { countWithDelta, topPages } from '@/lib/analytics'
-import { sendEmail } from '@/lib/resend'
+import { sendTrackedEmail } from '@/lib/email-tracking'
 import { renderAnalyticsDigest } from '@/lib/emails'
 import { getConfig } from '@/lib/config'
 import { prisma } from '@/lib/db'
@@ -40,10 +40,11 @@ export async function POST() {
   const adminEmail = await getConfig('ADMIN_EMAIL')
 
   try {
-    await sendEmail({
+    await sendTrackedEmail({
       to: adminEmail,
       subject: `Weekly Digest — ${viewStats.current} views, ${newSubs} new subscribers`,
       html,
+      type: 'digest',
     })
   } catch (err) {
     return NextResponse.json({

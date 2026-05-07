@@ -41,7 +41,8 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-bodo_portfolio}
       POSTGRES_USER: ${POSTGRES_USER:-bodo}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
-    # No ports exposed to host — only reachable inside backend network
+    ports:
+      - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
@@ -68,7 +69,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-    # Not exposed to host — internal only
+    ports:
+      - "6379:6379"
     networks:
       - backend
 
@@ -80,7 +82,8 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: bodo_app_prod
-    # No host port mapping needed — Traefik handles ingress
+    ports:
+      - "3001:3000"
     environment:
       NODE_ENV: production
       DATABASE_URL: postgresql://${POSTGRES_USER:-bodo}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB:-bodo_portfolio}
@@ -96,8 +99,12 @@ services:
       UPLOAD_DIR: /app/public/uploads
       NEXT_PUBLIC_UPLOAD_URL: https://${DOMAIN}/uploads
 
-      # Email
-      RESEND_API_KEY: ${RESEND_API_KEY}
+      # Email (SMTP → Postal)
+      SMTP_HOST: postal
+      SMTP_PORT: "25"
+      SMTP_USER: ${SMTP_USER}
+      SMTP_PASS: ${SMTP_PASS}
+      SMTP_FROM: ${SMTP_FROM:-Bodo Desderio <noreply@bododesderio.com>}
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
 
@@ -133,8 +140,12 @@ services:
 # ─────────────────────────────────────────
 volumes:
   postgres_data:   # PostgreSQL data — persisted on server
+    external: true
+    name: portfolio_postgres_data
   redis_data:      # Redis AOF — persisted on server
   uploads_data:    # User uploads — persisted on server
+    external: true
+    name: portfolio_uploads_data
   traefik_certs:   # Let's Encrypt certificates
 
 # ─────────────────────────────────────────
@@ -144,4 +155,5 @@ networks:
   proxy:
     # Traefik + app — internet-facing
   backend:
-    internal: true  # DB + Redis — never exposed to internet
+    name: portfolio_backend
+    internal: true  # DB + Redis + Postal — never exposed to internet

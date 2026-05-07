@@ -22,6 +22,13 @@ import { fetchMediumPosts } from '@/lib/medium'
 export const metadata = {
   title: 'Bodo Desderio — Founder, Engineer & Community Leader | Kampala, Uganda',
   description: 'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda.',
+  openGraph: {
+    title: 'Bodo Desderio — Founder, Leader, Builder',
+    description: 'Building companies, communities, and technology that move people forward.',
+    url: '/',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image' },
 }
 
 export default async function HomePage() {

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
-import { resend } from '@/lib/resend'
+import { sendTrackedEmail } from '@/lib/email-tracking'
 import { renderNewsletterCampaign } from '@/lib/emails'
 import { unsubscribeUrl } from '@/lib/unsubscribe'
 
@@ -16,20 +16,8 @@ export async function POST(req: NextRequest) {
     const subscribers = await prisma.subscriber.findMany({ where: { confirmed: true } })
     if (subscribers.length === 0) return NextResponse.json({ error: 'No subscribers.' }, { status: 400 })
 
-    const from = process.env.ADMIN_EMAIL!
-    const batchSize = 50
-
-    for (let i = 0; i < subscribers.length; i += batchSize) {
-      const batch = subscribers.slice(i, i + batchSize)
-      await Promise.all(
-        batch.map(async (subscriber) => {
-          const html = await renderNewsletterCampaign(subject, body, unsubscribeUrl(subscriber.email))
-          return resend.emails.send({ from, to: subscriber.email, subject, html }).catch(() => null)
-        })
-      )
-    }
-
-    await prisma.newsletterCampaign.create({
+    // Create campaign first so we have an ID for email tracking
+    const campaign = await prisma.newsletterCampaign.create({
       data: {
         subject,
         bodyHtml: body,
@@ -39,7 +27,24 @@ export async function POST(req: NextRequest) {
       },
     })
 
-    return NextResponse.json({ success: true, recipientCount: subscribers.length })
+    const batchSize = 50
+    for (let i = 0; i < subscribers.length; i += batchSize) {
+      const batch = subscribers.slice(i, i + batchSize)
+      await Promise.all(
+        batch.map(async (subscriber) => {
+          const html = await renderNewsletterCampaign(subject, body, unsubscribeUrl(subscriber.email))
+          return sendTrackedEmail({
+            to: subscriber.email,
+            subject,
+            html,
+            type: 'campaign',
+            campaignId: campaign.id,
+          }).catch(() => null)
+        })
+      )
+    }
+
+    return NextResponse.json({ success: true, recipientCount: subscribers.length, campaignId: campaign.id })
   } catch {
     return NextResponse.json({ error: 'Send failed.' }, { status: 500 })
   }

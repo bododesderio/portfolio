@@ -1,0 +1,107 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Postal — Self-hosted transactional email server
+# https://docs.postalserver.io
+#
+# Deploy on the SAME server as the portfolio stack (or a dedicated mail VPS).
+# The portfolio app connects via SMTP on the shared Docker network.
+#
+# Prerequisites before first run:
+#   1. DNS records (see README below)
+#   2. Generate signing key:  openssl genrsa -out signing.key 1024
+#   3. Copy signing.key into this directory
+#   4. Run:  docker compose run --rm postal initialize
+#   5. Run:  docker compose run --rm postal make-user
+#   6. Start:  docker compose up -d
+# ─────────────────────────────────────────────────────────────────────────────
+
+services:
+
+  # ─────────────────────────────────────────
+  # MARIADB — Postal's own database
+  # ─────────────────────────────────────────
+  postal-db:
+    image: mariadb:11
+    container_name: postal_db
+    restart: unless-stopped
+    environment:
+      MARIADB_ROOT_PASSWORD: ${POSTAL_DB_ROOT_PASSWORD}
+      MARIADB_DATABASE: postal
+    volumes:
+      - postal_db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    networks:
+      - postal
+
+  # ─────────────────────────────────────────
+  # RABBITMQ — Message queue for Postal
+  # ─────────────────────────────────────────
+  postal-rabbitmq:
+    image: rabbitmq:3.13-alpine
+    container_name: postal_rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_VHOST: /postal
+    volumes:
+      - postal_rabbitmq_data:/var/lib/rabbitmq
+    networks:
+      - postal
+
+  # ─────────────────────────────────────────
+  # POSTAL — Mail server
+  # ─────────────────────────────────────────
+  postal:
+    image: ghcr.io/postalserver/postal:3
+    container_name: postal
+    restart: unless-stopped
+    depends_on:
+      postal-db:
+        condition: service_healthy
+      postal-rabbitmq:
+        condition: service_started
+    volumes:
+      - ./postal.yml:/config/postal.yml:ro
+      - ./signing.key:/config/signing.key:ro
+      - postal_assets:/opt/postal/public/assets
+    ports:
+      # SMTP — your app connects here
+      - "25:25"
+      # Web UI — manage credentials, view logs, track deliveries
+      - "5000:5000"
+    networks:
+      - postal
+      - portfolio_backend   # So the portfolio app can reach postal via hostname
+
+  # ─────────────────────────────────────────
+  # POSTAL WORKER — Processes email queue
+  # ─────────────────────────────────────────
+  postal-worker:
+    image: ghcr.io/postalserver/postal:3
+    container_name: postal_worker
+    restart: unless-stopped
+    command: postal worker
+    depends_on:
+      postal-db:
+        condition: service_healthy
+      postal-rabbitmq:
+        condition: service_started
+    volumes:
+      - ./postal.yml:/config/postal.yml:ro
+      - ./signing.key:/config/signing.key:ro
+    networks:
+      - postal
+
+volumes:
+  postal_db_data:
+  postal_rabbitmq_data:
+  postal_assets:
+
+networks:
+  postal:
+    # Internal network for postal services
+  portfolio_backend:
+    external: true
+    name: portfolio_backend

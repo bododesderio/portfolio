@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
-import { sendEmail } from '@/lib/resend'
+import { sendTrackedEmail } from '@/lib/email-tracking'
 import { renderNewPostNotification } from '@/lib/emails'
 import { unsubscribeUrl } from '@/lib/unsubscribe'
 import { z } from 'zod'
@@ -77,10 +77,11 @@ async function notifySubscribersOfPost(post: { title: string; slug: string; exce
             url: postUrl,
             unsubscribeUrl: unsubscribeUrl(subscriber.email),
           })
-          return sendEmail({
+          return sendTrackedEmail({
             to: subscriber.email,
             subject: `New post: ${post.title}`,
             html,
+            type: 'new_post',
           }).catch(() => null)
         })
       )

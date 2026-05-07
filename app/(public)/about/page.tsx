@@ -19,8 +19,15 @@ import { WhyWorkWithMe } from '@/components/sections/WhyWorkWithMe'
 import { PhotoStrip } from '@/components/sections/PhotoStrip'
 
 export const metadata: Metadata = {
-  title: 'About - Bodo Desderio',
-  description: 'Learn more about Bodo Desderio, his story, values, and work.',
+  title: 'About — Bodo Desderio',
+  description: 'Learn more about Bodo Desderio — his story, values, mission, and the work he does across tech, business, and community in Uganda.',
+  openGraph: {
+    title: 'About — Bodo Desderio',
+    description: 'Ugandan entrepreneur, software engineer, and community builder. Founder & CEO of Rooibok Technologies.',
+    url: '/about',
+    type: 'profile',
+  },
+  twitter: { card: 'summary_large_image' },
 }
 
 const DEFAULT_FAQS = [

@@ -1,21 +1,43 @@
 import { prisma } from '@/lib/db'
 import { format } from 'date-fns'
 import { NewsletterCompose } from '@/components/admin/NewsletterCompose'
+import { CampaignStats } from '@/components/admin/CampaignStats'
+import { EmailStatsCard } from '@/components/admin/dashboard/EmailStatsCard'
+import { globalEmailStats } from '@/lib/email-tracking'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Newsletter — Admin' }
+export const dynamic = 'force-dynamic'
 
 export default async function NewsletterPage() {
-  const [subscribers, campaigns] = await Promise.all([
+  const [subscribers, campaigns, emailStats] = await Promise.all([
     prisma.subscriber.findMany({ orderBy: { subscribedAt: 'desc' } }),
-    prisma.newsletterCampaign.findMany({ orderBy: { createdAt: 'desc' }, take: 10 }),
+    prisma.newsletterCampaign.findMany({ orderBy: { createdAt: 'desc' }, take: 20 }),
+    globalEmailStats(30),
   ])
+
+  const campaignsForClient = campaigns.map(c => ({
+    id: c.id,
+    subject: c.subject,
+    status: c.status,
+    sentAt: c.sentAt?.toISOString() ?? null,
+    recipientCount: c.recipientCount,
+    deliveredCount: c.deliveredCount,
+    openCount: c.openCount,
+    clickCount: c.clickCount,
+    bounceCount: c.bounceCount,
+  }))
 
   return (
     <div>
       <div className="mb-6">
         <h1 className="font-serif text-3xl text-fg">Newsletter</h1>
         <p className="text-sm text-fg-muted mt-1">{subscribers.length} subscriber{subscribers.length === 1 ? '' : 's'} · {campaigns.length} campaign{campaigns.length === 1 ? '' : 's'} sent</p>
+      </div>
+
+      {/* Email performance overview */}
+      <div className="mb-8">
+        <EmailStatsCard stats={emailStats} />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
@@ -46,26 +68,8 @@ export default async function NewsletterPage() {
         <NewsletterCompose />
       </div>
 
-      {/* Past campaigns */}
-      {campaigns.length > 0 && (
-        <div className="mt-8 bg-card rounded-2xl border border-hairline p-6">
-          <h2 className="font-serif text-xl text-fg mb-6">Past Campaigns</h2>
-          <div className="space-y-3">
-            {campaigns.map(c => (
-              <div key={c.id} className="flex items-center justify-between py-3 border-b border-hairline last:border-0">
-                <p className="font-medium text-fg text-sm">{c.subject}</p>
-                <div className="flex items-center gap-4 text-xs text-ink-500">
-                  <span>{c.recipientCount} recipients</span>
-                  <span className={`px-2 py-1 rounded-full ${c.status === 'sent' ? 'bg-green-100 text-green-700' : 'bg-muted text-fg-muted'}`}>
-                    {c.status}
-                  </span>
-                  {c.sentAt && <span>{format(new Date(c.sentAt), 'MMM d, yyyy')}</span>}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
+      {/* Campaign performance with expandable per-recipient tracking */}
+      <CampaignStats campaigns={campaignsForClient} />
     </div>
   )
 }

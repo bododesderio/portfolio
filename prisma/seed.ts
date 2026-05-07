@@ -161,6 +161,85 @@ async function main() {
     { page: 'contact', section: 'hero', fieldKey: 'heading', value: 'Get in touch', fieldType: 'text' },
     { page: 'contact', section: 'hero', fieldKey: 'subtitle', value: 'Whether it\'s a product, a partnership, or just a conversation — I read every message.', fieldType: 'text' },
     { page: 'contact', section: 'hero', fieldKey: 'image', value: '/images/stock/contact-hero.svg', fieldType: 'image' },
+
+    // ─── Privacy Policy ───
+    { page: 'privacy', section: 'hero', fieldKey: 'title', value: 'Privacy Policy', fieldType: 'text' },
+    { page: 'privacy', section: 'hero', fieldKey: 'updated', value: 'May 2026', fieldType: 'text' },
+    { page: 'privacy', section: 'body', fieldKey: 'html', value: `<h2>1. Information We Collect</h2>
+<p>When you visit bododesderio.com, we may collect:</p>
+<ul>
+  <li><strong>Contact form submissions</strong> — your name, email, subject, and message when you reach out through our contact form.</li>
+  <li><strong>Newsletter subscriptions</strong> — your email address and optional name when you subscribe to updates.</li>
+  <li><strong>Analytics data</strong> — anonymized page views, referrer URLs, and country (derived from request headers). We do not use cookies for analytics, and we hash user agent strings to prevent identification.</li>
+</ul>
+
+<h2>2. How We Use Your Information</h2>
+<ul>
+  <li>To respond to your messages and inquiries.</li>
+  <li>To send newsletter updates you've opted into.</li>
+  <li>To understand how visitors use the site and improve content.</li>
+</ul>
+
+<h2>3. Data Sharing</h2>
+<p>We do not sell, trade, or share your personal information with third parties, except:</p>
+<ul>
+  <li><strong>Email delivery</strong> — we use a self-hosted mail server to send emails. Your email address is processed solely for delivery purposes.</li>
+  <li><strong>Legal obligations</strong> — if required by law or court order.</li>
+</ul>
+
+<h2>4. Cookies</h2>
+<p>This site uses minimal cookies:</p>
+<ul>
+  <li><strong>Authentication cookie</strong> — used only for the admin panel (not for visitors).</li>
+  <li><strong>Theme preference</strong> — stored locally to remember your dark/light mode choice.</li>
+  <li><strong>Cookie consent</strong> — stored locally to remember your consent preference.</li>
+</ul>
+<p>We do not use third-party tracking cookies, advertising cookies, or analytics cookies.</p>
+
+<h2>5. Your Rights</h2>
+<p>You have the right to:</p>
+<ul>
+  <li>Request access to your personal data.</li>
+  <li>Request deletion of your data.</li>
+  <li>Unsubscribe from the newsletter at any time via the unsubscribe link in every email.</li>
+  <li>Opt out of analytics by enabling Do Not Track (DNT) in your browser — we respect it.</li>
+</ul>
+
+<h2>6. Data Retention</h2>
+<p>Contact messages are retained indefinitely unless you request deletion. Newsletter subscribers can unsubscribe at any time. Analytics data is periodically pruned (older than 90 days).</p>
+
+<h2>7. Contact</h2>
+<p>For privacy-related inquiries, contact us at <a href="mailto:hello@bododesderio.com">hello@bododesderio.com</a>.</p>`, fieldType: 'html' },
+
+    // ─── Terms & Conditions ───
+    { page: 'terms', section: 'hero', fieldKey: 'title', value: 'Terms & Conditions', fieldType: 'text' },
+    { page: 'terms', section: 'hero', fieldKey: 'updated', value: 'May 2026', fieldType: 'text' },
+    { page: 'terms', section: 'body', fieldKey: 'html', value: `<h2>1. Acceptance of Terms</h2>
+<p>By accessing and using bododesderio.com, you agree to be bound by these terms and conditions. If you do not agree, please do not use this website.</p>
+
+<h2>2. Intellectual Property</h2>
+<p>All content on this website — including text, images, design, code, and branding — is the property of Bodo Desderio unless otherwise stated. You may not reproduce, distribute, or create derivative works without prior written permission.</p>
+
+<h2>3. User Content</h2>
+<p>When submitting content through the contact form or newsletter signup, you grant us permission to store and process that information as described in our <a href="/privacy">Privacy Policy</a>.</p>
+
+<h2>4. Blog Content</h2>
+<p>Blog posts and essays represent personal views and opinions. While we strive for accuracy, we make no guarantees about the completeness or reliability of any content. External links are provided for convenience and do not imply endorsement.</p>
+
+<h2>5. Services</h2>
+<p>Information about services provided through this website is for informational purposes. Specific engagement terms will be agreed upon separately through formal contracts or agreements.</p>
+
+<h2>6. Limitation of Liability</h2>
+<p>This website is provided "as is" without warranties of any kind. Bodo Desderio shall not be liable for any damages arising from the use or inability to use this website.</p>
+
+<h2>7. Changes to Terms</h2>
+<p>We reserve the right to update these terms at any time. Continued use of the website after changes constitutes acceptance of the revised terms.</p>
+
+<h2>8. Governing Law</h2>
+<p>These terms are governed by and construed in accordance with the laws of the Republic of Uganda.</p>
+
+<h2>9. Contact</h2>
+<p>For questions about these terms, contact us at <a href="mailto:hello@bododesderio.com">hello@bododesderio.com</a>.</p>`, fieldType: 'html' },
   ]
 
   for (const row of contentRows) {

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 /* Disable text selection and image dragging on public pages */
 body:not(.admin-body) {
   -webkit-user-select: none;
@@ -15,7 +19,6 @@ input, textarea, [contenteditable] {
 /* Prevent image dragging */
 img {
   -webkit-user-drag: none;
-  user-drag: none;
   pointer-events: none;
 }
 

@@ -7,7 +7,7 @@ export async function POST(req: NextRequest) {
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const body = await req.json().catch(() => ({}))
-  const days = typeof body.days === 'number' && body.days > 0 ? body.days : 90
+  const days = typeof body.days === 'number' && body.days > 0 ? Math.min(body.days, 365) : 90
 
   const cutoff = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
 

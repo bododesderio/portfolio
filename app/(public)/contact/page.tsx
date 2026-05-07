@@ -12,6 +12,13 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Contact — Bodo Desderio',
   description: 'Get in touch with Bodo Desderio. Ready to build something together?',
+  openGraph: {
+    title: 'Contact — Bodo Desderio',
+    description: 'Get in touch. Whether it\'s a project, partnership, or just a conversation — let\'s connect.',
+    url: '/contact',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image' },
 }
 
 export default async function ContactPage() {

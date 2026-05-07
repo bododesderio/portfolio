@@ -6,12 +6,14 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { KpiCard } from '@/components/admin/dashboard/KpiCard'
 import { VisitsChart } from '@/components/admin/dashboard/VisitsChart'
 import { QuickActions } from '@/components/admin/dashboard/QuickActions'
+import { EmailStatsCard } from '@/components/admin/dashboard/EmailStatsCard'
 import {
   countWithDelta,
   dailyPageViews,
   sparklineSeriesByCreatedAt,
   topPages,
 } from '@/lib/analytics'
+import { globalEmailStats } from '@/lib/email-tracking'
 
 export const metadata: Metadata = { title: 'Overview — Admin' }
 export const dynamic = 'force-dynamic'
@@ -57,6 +59,7 @@ export default async function AdminDashboard() {
     totalViews,
     todayViews,
     referrers,
+    emailStats,
   ] = await Promise.all([
     prisma.blogPost.count().catch(() => 0),
     prisma.subscriber.count({ where: { confirmed: true } }).catch(() => 0),
@@ -82,6 +85,7 @@ export default async function AdminDashboard() {
       where: { createdAt: { gte: new Date(new Date().setHours(0, 0, 0, 0)) } },
     }).catch(() => 0),
     getTopReferrers(30, 10),
+    globalEmailStats(30),
   ])
 
   const uniqueSessions30 = await prisma.pageView
@@ -167,6 +171,11 @@ export default async function AdminDashboard() {
           <p className="text-xs text-fg-muted mb-4">Last 30 days (by session)</p>
           <p className="font-serif text-4xl tabular text-fg">{uniqueSessions30.toLocaleString()}</p>
         </div>
+      </div>
+
+      {/* Email performance */}
+      <div className="mb-6">
+        <EmailStatsCard stats={emailStats} />
       </div>
 
       {/* Activity feed */}

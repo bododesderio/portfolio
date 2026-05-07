@@ -58,7 +58,19 @@
       "Bash(taskkill //F //IM \"node.exe\")",
       "Bash(taskkill //F //IM \"next-server.exe\")",
       "Bash(rm -f .next/build-lock)",
-      "Bash(tasklist)"
+      "Bash(tasklist)",
+      "Bash(wsl:*)",
+      "Read(//mnt/**)",
+      "Bash(ls /mnt/)",
+      "Read(//e//**)",
+      "Bash(rm:*)",
+      "Bash(xargs -I {} bash -c 'echo \"=== {} ===\" && head -20 \"{}\"')",
+      "Bash(find:*)",
+      "Bash(wc -l /e/projects/portfolio/prisma/schema.prisma /e/projects/portfolio/lib/*.ts /e/projects/portfolio/app/api/admin/**/route.ts)",
+      "Bash(pnpm remove:*)",
+      "Bash(mkdir -p \"E:/projects/portfolio/app/api/t/open/[id]\")",
+      "Bash(mkdir -p \"E:/projects/portfolio/app/api/t/click/[id]\")",
+      "Bash(pnpm list:*)"
     ]
   }
 }

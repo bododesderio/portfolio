@@ -10,6 +10,13 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Gallery — Bodo Desderio',
   description: 'Explore photos from tech camps, community events, and projects.',
+  openGraph: {
+    title: 'Gallery — Bodo Desderio',
+    description: 'Photos from tech camps, community events, and projects across Uganda and beyond.',
+    url: '/gallery',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image' },
 }
 
 export default async function GalleryPage() {

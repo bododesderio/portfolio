@@ -1,7 +1,11 @@
 import { prisma } from './db'
 
 export const CONFIG_KEYS = {
-  RESEND_API_KEY: 'RESEND_API_KEY',
+  SMTP_HOST: 'SMTP_HOST',
+  SMTP_PORT: 'SMTP_PORT',
+  SMTP_USER: 'SMTP_USER',
+  SMTP_PASS: 'SMTP_PASS',
+  SMTP_FROM: 'SMTP_FROM',
   NEXTAUTH_SECRET: 'NEXTAUTH_SECRET',
   ADMIN_EMAIL: 'ADMIN_EMAIL',
   ADMIN_PASSWORD_HASH: 'ADMIN_PASSWORD_HASH',
@@ -54,7 +58,7 @@ export async function getAllConfig(): Promise<Record<string, ConfigEntry>> {
     const dbVal = dbMap.get(key) as string | undefined
     const envVal = process.env[key] ?? ''
     const rawValue = dbVal ?? envVal
-    const isSecret = key.includes('SECRET') || key.includes('API_SECRET') || key.includes('PASSWORD')
+    const isSecret = key.includes('SECRET') || key.includes('PASS') || key.includes('PASSWORD')
 
     result[key] = {
       masked: rawValue

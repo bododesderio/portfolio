@@ -36,7 +36,6 @@ async function fetchThemePreference(email: string): Promise<ThemePreference> {
   return 'system'
 }
 
-const SHORT_MAX_AGE = 24 * 60 * 60       // 1 day
 const LONG_MAX_AGE  = 30 * 24 * 60 * 60  // 30 days
 
 export const { handlers, signIn, signOut, auth } = NextAuth({

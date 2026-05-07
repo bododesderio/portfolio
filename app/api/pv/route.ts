@@ -3,30 +3,13 @@ import { z } from 'zod'
 import { createHash } from 'crypto'
 import { prisma } from '@/lib/db'
 import { getSiteSetting } from '@/lib/content'
+import { rateLimit } from '@/lib/rate-limit'
 
 const schema = z.object({
   path: z.string().min(1).max(512),
   referrer: z.string().max(1024).nullable().optional(),
   sessionId: z.string().min(8).max(64),
 })
-
-// Very small in-memory token bucket per session — OK for a single-node Next deployment.
-// For multi-node, replace with Upstash or Redis.
-const RATE_WINDOW_MS = 60_000
-const RATE_MAX = 10
-const buckets = new Map<string, number[]>()
-
-function overRate(sessionId: string): boolean {
-  const now = Date.now()
-  const arr = (buckets.get(sessionId) ?? []).filter(t => now - t < RATE_WINDOW_MS)
-  if (arr.length >= RATE_MAX) {
-    buckets.set(sessionId, arr)
-    return true
-  }
-  arr.push(now)
-  buckets.set(sessionId, arr)
-  return false
-}
 
 function hashUA(ua: string | null): string | null {
   if (!ua) return null
@@ -51,7 +34,8 @@ export async function POST(req: NextRequest) {
     // Skip analytics endpoint itself.
     if (path === '/api/pv') return NextResponse.json({ ok: true, skipped: 'self' })
 
-    if (overRate(sessionId)) return NextResponse.json({ ok: true, skipped: 'rate' })
+    const { ok: underLimit } = await rateLimit(`pv:${sessionId}`, { limit: 10, windowMs: 60_000 })
+    if (!underLimit) return NextResponse.json({ ok: true, skipped: 'rate' })
 
     await prisma.pageView.create({
       data: {

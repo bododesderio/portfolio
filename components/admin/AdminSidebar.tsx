@@ -7,7 +7,7 @@ import {
   LayoutDashboard, FileText, FolderOpen,
   PenLine, Mail, MessageSquare, Users, Palette, Plug,
   User, LogOut, ChevronRight, Megaphone,
-  Quote, Briefcase, X as XIcon, Newspaper, Settings as SettingsIcon,
+  Quote, Briefcase, X as XIcon, Newspaper, Settings as SettingsIcon, MailOpen,
 } from 'lucide-react'
 
 type NavItem = { label: string; href: string; icon: React.ElementType; exact?: boolean }
@@ -42,6 +42,7 @@ const groups: NavGroup[] = [
     label: 'Audience',
     items: [
       { label: 'Subscribers', href: '/admin/newsletter', icon: Mail },
+      { label: 'Email Logs',  href: '/admin/email-logs', icon: MailOpen },
       { label: 'Messages',    href: '/admin/messages',   icon: MessageSquare },
     ],
   },

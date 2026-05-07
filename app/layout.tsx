@@ -1,14 +1,13 @@
 import type { Metadata } from "next"
-import { Inter, Playfair_Display } from "next/font/google"
+import "@fontsource-variable/inter"
+import "@fontsource/playfair-display"
+import "@fontsource/playfair-display/700.css"
 import "./globals.css"
 import { Toaster } from 'react-hot-toast'
 import { ThemeProvider } from 'next-themes'
 import { ThemeInjector } from '@/components/layout/ThemeInjector'
 import { ContentProtection } from '@/components/ui/ContentProtection'
 import { personSchema, websiteSchema } from '@/lib/schema'
-
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] })
-const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"] })
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 
@@ -44,7 +43,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <head>
         <ThemeInjector />
       </head>
-      <body className={`${inter.variable} ${playfair.variable} antialiased`} suppressHydrationWarning>
+      <body className="antialiased" suppressHydrationWarning>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
           <Toaster position="bottom-right" />

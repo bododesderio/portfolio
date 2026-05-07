@@ -7,8 +7,8 @@ import { Eye, EyeOff, Trash2 } from 'lucide-react'
 type ConfigEntry = { masked: string; source: 'db' | 'env'; hasValue: boolean }
 
 const GROUPS = [
-  { label: 'Resend (Email)', keys: ['RESEND_API_KEY'] },
-  { label: 'Auth',          keys: ['ADMIN_EMAIL', 'NEXTAUTH_SECRET'] },
+  { label: 'Email (SMTP)', keys: ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'SMTP_FROM'] },
+  { label: 'Auth',         keys: ['ADMIN_EMAIL', 'NEXTAUTH_SECRET'] },
 ]
 
 export function IntegrationsForm({
@@ -139,7 +139,7 @@ function ConfigField({ k, entry }: { k: string; entry?: ConfigEntry }) {
   const [val, setVal] = useState('')
   const [show, setShow] = useState(false)
   const [saving, setSaving] = useState(false)
-  const isSecret = k.includes('SECRET') || k.includes('API_SECRET') || k.includes('PASSWORD')
+  const isSecret = k.includes('SECRET') || k.includes('PASS') || k.includes('PASSWORD')
 
   async function save() {
     if (!val) return

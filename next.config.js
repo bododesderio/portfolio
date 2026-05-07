@@ -57,7 +57,7 @@ const nextConfig = {
           "font-src 'self' fonts.gstatic.com data:",
           "img-src 'self' data: blob: https://miro.medium.com https://cdn-images-1.medium.com",
           "media-src 'self'",
-          "connect-src 'self' https://api.resend.com https://api.calendly.com",
+          "connect-src 'self' https://api.calendly.com",
           "frame-src 'self' https://calendly.com https://*.calendly.com",
           "frame-ancestors 'none'",
           "form-action 'self'",

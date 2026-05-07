@@ -121,12 +121,7 @@ export function HeroSection({ content }: { content: HeroContent }) {
               transition={{ duration: 1.0, ease: EASE, delay: 0.08 }}
               className="font-serif text-display-xl text-fg"
             >
-              <span className="block">{first}</span>
-              {rest && (
-                <span className="block italic text-brand dark:text-brand-300">
-                  {rest}
-                </span>
-              )}
+              <span className="block whitespace-nowrap">{first} <span className="italic text-brand dark:text-brand-300">{rest}</span></span>
             </motion.h1>
 
             <motion.p

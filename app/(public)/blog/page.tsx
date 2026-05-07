@@ -12,6 +12,13 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Blog — Bodo Desderio',
   description: 'Thoughts on tech, business & building in Africa.',
+  openGraph: {
+    title: 'Blog — Bodo Desderio',
+    description: 'Thoughts on tech, business, and building companies and communities across Africa.',
+    url: '/blog',
+    type: 'website',
+  },
+  twitter: { card: 'summary_large_image' },
 }
 
 export default async function BlogPage() {

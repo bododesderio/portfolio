@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Postal configuration
+# Docs: https://docs.postalserver.io/getting-started/configuration
+# ─────────────────────────────────────────────────────────────────────────────
+
+postal:
+  web_hostname: postal.bododesderio.com
+  smtp_hostname: smtp.bododesderio.com
+
+  # Secret key for session cookies and signing
+  # Generate with: openssl rand -hex 32
+  secret_key: CHANGE_ME_GENERATE_WITH_OPENSSL
+
+  # SMTP server the outside world connects to (inbound)
+  smtp_port: 25
+
+  # Web interface port
+  web_port: 5000
+
+main_db:
+  host: postal-db
+  port: 3306
+  username: root
+  password: CHANGE_ME_POSTAL_DB_ROOT_PASSWORD
+  database: postal
+
+message_db:
+  host: postal-db
+  port: 3306
+  username: root
+  password: CHANGE_ME_POSTAL_DB_ROOT_PASSWORD
+  prefix: postal
+
+rabbitmq:
+  host: postal-rabbitmq
+  port: 5672
+  vhost: /postal
+
+dns:
+  # Your domain's DNS records for email sending
+  mx_records:
+    - mx.bododesderio.com
+  smtp_server_hostname: smtp.bododesderio.com
+  spf_include: spf.bododesderio.com
+  return_path_domain: rp.bododesderio.com
+  route_domain: routes.bododesderio.com
+  track_domain: track.bododesderio.com
+
+logging:
+  stdout: true
