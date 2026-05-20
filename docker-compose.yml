@@ -91,13 +91,13 @@ services:
 
       # Auth
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
-      NEXTAUTH_URL: https://${DOMAIN}
-      AUTH_URL: https://${DOMAIN}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:-http://localhost:3001}
+      AUTH_URL: ${AUTH_URL:-http://localhost:3001}
       AUTH_TRUST_HOST: "true"
 
       # Local file uploads — Cloudinary removed
       UPLOAD_DIR: /app/public/uploads
-      NEXT_PUBLIC_UPLOAD_URL: https://${DOMAIN}/uploads
+      NEXT_PUBLIC_UPLOAD_URL: ${NEXT_PUBLIC_UPLOAD_URL:-http://localhost:3001/uploads}
 
       # Email (SMTP → Postal)
       SMTP_HOST: postal
@@ -108,7 +108,7 @@ services:
       ADMIN_EMAIL: ${ADMIN_EMAIL}
       ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
 
-      NEXT_PUBLIC_SITE_URL: https://${DOMAIN}
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:-http://localhost:3001}
     volumes:
       # Uploads stored directly on server — no third party
       - uploads_data:/app/public/uploads
@@ -117,6 +117,12 @@ services:
         condition: service_healthy
       redis:
         condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://127.0.0.1:3000/api/health || exit 1"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
     restart: unless-stopped
     networks:
       - proxy

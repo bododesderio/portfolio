@@ -86,7 +86,7 @@ export default async function HomePage() {
   const featuredGalleryItem = await prisma.galleryItem.findFirst({
     where: { featured: true },
     include: { media: true },
-  })
+  }).catch(() => null)
 
   // Expertise
   const expertise = {
@@ -98,7 +98,7 @@ export default async function HomePage() {
   const services = await prisma.service.findMany({
     where: { visible: true, homeFeatured: true },
     orderBy: { order: 'asc' },
-  })
+  }).catch(() => [])
 
   // Community
   const community = {
@@ -121,14 +121,14 @@ export default async function HomePage() {
     where: { visible: true },
     orderBy: { order: 'asc' },
     include: { logo: true },
-  })
+  }).catch(() => [])
 
   // Testimonials
   const testimonials = await prisma.testimonial.findMany({
     where: { visible: true },
     orderBy: { order: 'asc' },
     include: { photo: true },
-  })
+  }).catch(() => [])
 
   // Press items
   const pressItems = await prisma.pressItem.findMany({
@@ -144,7 +144,7 @@ export default async function HomePage() {
     where: { status: 'published' },
     orderBy: { publishedAt: 'desc' },
     take: 6,
-  })
+  }).catch(() => [])
 
   // CTA Banner
   const cta = {

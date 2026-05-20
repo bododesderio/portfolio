@@ -1,10 +1,12 @@
 export const dynamic = 'force-dynamic'
+export const revalidate = 300
 
 import { prisma } from '@/lib/db'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { format } from 'date-fns'
+import { sanitizeHtml } from '@/lib/sanitize'
 import type { Metadata } from 'next'
 
 interface Props {
@@ -152,7 +154,7 @@ export default async function BlogPostPage({ params }: Props) {
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <div
           className="prose prose-lg dark:prose-invert max-w-none prose-headings:font-serif prose-a:text-brand"
-          dangerouslySetInnerHTML={{ __html: post.body }}
+          dangerouslySetInnerHTML={{ __html: sanitizeHtml(post.body) }}
         />
 
         {/* Author card */}

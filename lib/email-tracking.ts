@@ -1,5 +1,5 @@
 import { prisma } from './db'
-import { sendEmail } from './resend'
+import { sendEmail } from './mailer'
 
 const siteUrl = () => process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
 

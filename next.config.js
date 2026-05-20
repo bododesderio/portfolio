@@ -1,3 +1,5 @@
+const isDev = process.env.NODE_ENV !== 'production'
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
@@ -18,8 +20,10 @@ const nextConfig = {
   },
   async headers() {
     const securityHeaders = [
-      // Force HTTPS in browsers that have ever loaded the site over TLS.
-      { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+      // Force HTTPS in production only — skip on localhost to avoid cert errors.
+      ...(isDev ? [] : [
+        { key: 'Strict-Transport-Security', value: 'max-age=63072000; includeSubDomains; preload' },
+      ]),
       // Block clickjacking — site is never embedded in iframes.
       { key: 'X-Frame-Options', value: 'DENY' },
       // Stop content-type sniffing.
@@ -45,16 +49,15 @@ const nextConfig = {
       },
       // Cross-origin isolation — relaxed (we serve embed-friendly content).
       { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
-      // Conservative CSP. Inline styles are required by Tailwind and the theme injector;
-      // inline scripts are required by Next.js for hydration. Tighten further only after
-      // moving to nonces (Next 16 supports them via middleware).
+      // CSP — inline styles required by Tailwind/theme injector; inline scripts
+      // required by Next.js hydration. Fonts are self-hosted (fontsource).
       {
         key: 'Content-Security-Policy',
         value: [
           "default-src 'self'",
-          "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-          "style-src 'self' 'unsafe-inline' fonts.googleapis.com",
-          "font-src 'self' fonts.gstatic.com data:",
+          `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
+          "style-src 'self' 'unsafe-inline'",
+          "font-src 'self' data:",
           "img-src 'self' data: blob: https://miro.medium.com https://cdn-images-1.medium.com",
           "media-src 'self'",
           "connect-src 'self' https://api.calendly.com",

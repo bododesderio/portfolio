@@ -23,9 +23,9 @@ export async function POST(req: NextRequest) {
       data: { [field]: { increment: 1 } },
     })
 
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ success: true })
   } catch {
     // Silent — analytics failures must never break the page.
-    return NextResponse.json({ ok: true })
+    return NextResponse.json({ success: true })
   }
 }

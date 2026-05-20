@@ -2,19 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Disable text selection and image dragging on public pages */
-body:not(.admin-body) {
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  user-select: none;
-}
-
-/* Re-enable selection inside inputs and textareas */
-input, textarea, [contenteditable] {
-  -webkit-user-select: text;
-  -moz-user-select: text;
-  user-select: text;
-}
+/* Text selection is allowed site-wide for accessibility (WCAG compliance).
+   Image dragging is still disabled to prevent casual content theft. */
 
 /* Prevent image dragging */
 img {

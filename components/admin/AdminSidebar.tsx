@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import {
-  LayoutDashboard, FileText, FolderOpen,
+  LayoutDashboard, FileText, FolderOpen, Layers,
   PenLine, Mail, MessageSquare, Users, Palette, Plug,
   User, LogOut, ChevronRight, Megaphone,
   Quote, Briefcase, X as XIcon, Newspaper, Settings as SettingsIcon, MailOpen,
@@ -24,6 +24,7 @@ const groups: NavGroup[] = [
     label: 'Content',
     items: [
       { label: 'Blog Posts',    href: '/admin/blog',         icon: FileText },
+      { label: 'Projects',     href: '/admin/projects',     icon: Layers },
       { label: 'Pages',         href: '/admin/content',      icon: PenLine },
       { label: 'Press',         href: '/admin/press',        icon: Newspaper },
       { label: 'Media Library', href: '/admin/media',        icon: FolderOpen },
@@ -137,22 +138,18 @@ export function AdminSidebar({
         </nav>
 
         <div className="border-t border-hairline p-3">
-          <div className="flex items-center gap-3 rounded-xl bg-muted/60 px-3 py-2.5">
+          <Link
+            href="/admin/settings/account"
+            onClick={onCloseMobile}
+            className="flex items-center gap-3 rounded-xl bg-muted/60 px-3 py-2.5 hover:bg-muted transition-colors"
+          >
             <Avatar email={email} />
             <div className="min-w-0 flex-1">
               <p className="text-[13px] font-medium text-fg truncate">Admin</p>
               <p className="text-[11px] text-fg-muted truncate">{email}</p>
             </div>
-            <button
-              type="button"
-              onClick={() => signOut({ callbackUrl: '/admin/login' })}
-              className="p-1.5 rounded-lg text-fg-muted hover:text-fg hover:bg-surface-2"
-              aria-label="Sign out"
-              title="Sign out"
-            >
-              <LogOut className="h-3.5 w-3.5" />
-            </button>
-          </div>
+            <ChevronRight className="h-3.5 w-3.5 text-fg-muted" />
+          </Link>
           <Link
             href="/"
             target="_blank"
@@ -160,6 +157,14 @@ export function AdminSidebar({
           >
             View site ↗
           </Link>
+          <button
+            type="button"
+            onClick={() => signOut({ callbackUrl: '/admin/login' })}
+            className="mt-1.5 w-full flex items-center justify-center gap-2 py-2 rounded-lg text-[12px] text-fg-muted hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors"
+          >
+            <LogOut className="h-3.5 w-3.5" />
+            Sign out
+          </button>
         </div>
       </aside>
     </>

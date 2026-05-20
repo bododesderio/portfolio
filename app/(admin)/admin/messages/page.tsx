@@ -2,34 +2,48 @@ import { prisma } from '@/lib/db'
 import { format } from 'date-fns'
 import { MessageActions } from '@/components/admin/MessageActions'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { Pagination } from '@/components/admin/Pagination'
 import { Mail, MailOpen } from 'lucide-react'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Messages — Admin' }
 export const dynamic = 'force-dynamic'
 
-export default async function MessagesPage() {
-  const [messages, archivedCount] = await Promise.all([
+interface Props {
+  searchParams: Promise<{ page?: string }>
+}
+
+export default async function MessagesPage({ searchParams }: Props) {
+  const params = await searchParams
+  const page = Math.max(1, parseInt(params.page || '1', 10))
+  const pageSize = 20
+  const skip = (page - 1) * pageSize
+
+  const [messages, total, archivedCount] = await Promise.all([
     prisma.message.findMany({
       where: { archived: false },
       orderBy: { receivedAt: 'desc' },
+      skip,
+      take: pageSize,
     }),
+    prisma.message.count({ where: { archived: false } }),
     prisma.message.count({ where: { archived: true } }),
   ])
 
+  const totalPages = Math.ceil(total / pageSize)
   const unread = messages.filter(m => !m.read).length
 
   return (
     <div>
       <AdminPageHeader
         title="Messages"
-        description={`${messages.length} message${messages.length === 1 ? '' : 's'} · ${unread} unread · ${archivedCount} archived`}
+        description={`${total} message${total === 1 ? '' : 's'} · ${unread} unread · ${archivedCount} archived`}
       />
 
       <div className="grid lg:grid-cols-[1fr_1.5fr] gap-6">
         {/* Left — message list */}
         <div className="space-y-2 lg:max-h-[calc(100vh-200px)] lg:overflow-y-auto lg:pr-2">
-          {messages.length === 0 && (
+          {messages.length === 0 && page === 1 && (
             <div className="rounded-2xl border border-hairline bg-card p-12 text-center">
               <Mail className="h-8 w-8 text-fg-muted mx-auto mb-3" />
               <p className="text-fg-muted">No messages yet.</p>
@@ -97,6 +111,8 @@ export default async function MessagesPage() {
           )}
         </div>
       </div>
+
+      <Pagination currentPage={page} totalPages={totalPages} basePath="/admin/messages" />
     </div>
   )
 }

@@ -96,7 +96,7 @@ components/
 └── ui/                           # Button, Container, Section, Eyebrow (shared primitives)
 
 lib/
-├── auth.ts config.ts content.ts db.ts cloudinary.ts resend.ts schema.ts theme.ts analytics.ts embed.ts media-uploads.ts
+├── auth.ts config.ts content.ts db.ts mailer.ts notifications.ts email-tracking.ts unsubscribe.ts rate-limit.ts schema.ts theme.ts analytics.ts embed.ts media-uploads.ts image-utils.ts banners.ts
 └── emails/                       # React Email templates
 
 prisma/

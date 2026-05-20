@@ -43,7 +43,7 @@ export async function GET() {
     <title>${SITE_NAME}</title>
     <link>${baseUrl}</link>
     <description>${DESCRIPTION}</description>
-    <language>en-uk</language>
+    <language>en-GB</language>
     <lastBuildDate>${lastBuild.toUTCString()}</lastBuildDate>
     <atom:link href="${baseUrl}/rss.xml" rel="self" type="application/rss+xml" />
     ${items}

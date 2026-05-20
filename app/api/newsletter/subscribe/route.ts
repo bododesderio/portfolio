@@ -2,9 +2,9 @@ import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/db'
 import { z } from 'zod'
 import { sendTrackedEmail } from '@/lib/email-tracking'
-import { renderWelcomeEmail } from '@/lib/emails'
+import { renderConfirmSubscription } from '@/lib/emails'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
-import { unsubscribeUrl } from '@/lib/unsubscribe'
+import { confirmUrl } from '@/lib/confirm-subscribe'
 
 const schema = z.object({
   email: z.string().email(),
@@ -21,21 +21,37 @@ export async function POST(req: NextRequest) {
     const { email, name } = schema.parse(body)
 
     const existing = await prisma.subscriber.findUnique({ where: { email } })
-    if (existing) {
+
+    if (existing && existing.confirmed) {
       return NextResponse.json({ success: true, message: 'Already subscribed.' })
     }
 
-    await prisma.subscriber.create({ data: { email, name, confirmed: true } })
+    if (existing && !existing.confirmed) {
+      // Resend confirmation email
+      const url = confirmUrl(email)
+      const html = await renderConfirmSubscription(existing.name ?? undefined, url)
+      await sendTrackedEmail({
+        to: email,
+        subject: 'Confirm your subscription',
+        html,
+        type: 'welcome',
+      }).catch(() => null)
 
-    const html = await renderWelcomeEmail(name, unsubscribeUrl(email))
+      return NextResponse.json({ success: true, message: 'Check your email to confirm.' })
+    }
+
+    await prisma.subscriber.create({ data: { email, name, confirmed: false } })
+
+    const url = confirmUrl(email)
+    const html = await renderConfirmSubscription(name, url)
     await sendTrackedEmail({
       to: email,
-      subject: "Welcome — you're in the loop.",
+      subject: 'Confirm your subscription',
       html,
       type: 'welcome',
     }).catch(() => null)
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ success: true, message: 'Check your email to confirm.' })
   } catch (err) {
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: 'Invalid email.' }, { status: 400 })

@@ -7,6 +7,7 @@ import { Toaster } from 'react-hot-toast'
 import { ThemeProvider } from 'next-themes'
 import { ThemeInjector } from '@/components/layout/ThemeInjector'
 import { ContentProtection } from '@/components/ui/ContentProtection'
+import { AxiomUI } from '@/components/ui/AxiomUI'
 import { personSchema, websiteSchema } from '@/lib/schema'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
@@ -48,6 +49,7 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
           {children}
           <Toaster position="bottom-right" />
           <ContentProtection />
+          <AxiomUI />
         </ThemeProvider>
       </body>
     </html>

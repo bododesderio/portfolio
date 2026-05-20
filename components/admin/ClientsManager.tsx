@@ -30,9 +30,10 @@ export function ClientsManager({ initialClients }: { initialClients: Client[] })
   }
 
   async function handleSave() {
+    if (!form.name.trim()) { toast.error('Client name is required.'); return }
     setSaving(true)
     try {
-      const payload: Record<string, unknown> = { name: form.name, website: form.website || null }
+      const payload: Record<string, unknown> = { name: form.name.trim(), website: form.website || null }
       if (form.logoMediaId) payload.logoMediaId = form.logoMediaId
       const res = await fetch(editing ? `/api/admin/clients/${editing.id}` : '/api/admin/clients', {
         method: editing ? 'PATCH' : 'POST',
@@ -60,12 +61,17 @@ export function ClientsManager({ initialClients }: { initialClients: Client[] })
   }
 
   async function toggleVisible(client: Client) {
-    await fetch(`/api/admin/clients/${client.id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ visible: !client.visible }),
-    })
-    router.refresh()
+    try {
+      const res = await fetch(`/api/admin/clients/${client.id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ visible: !client.visible }),
+      })
+      if (!res.ok) throw new Error()
+      router.refresh()
+    } catch {
+      toast.error('Failed to update visibility.')
+    }
   }
 
   function startEdit(c: Client) {

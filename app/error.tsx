@@ -1,14 +1,20 @@
 'use client'
 
+import { useEffect } from 'react'
+
 export default function GlobalError({
-  _error,
+  error,
   reset,
 }: {
-  _error: Error & { digest?: string }
+  error: Error & { digest?: string }
   reset: () => void
 }) {
+  useEffect(() => {
+    console.error('[GlobalError]', error.message, error.digest ?? '')
+  }, [error])
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-bg text-fg px-6">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-surface text-fg px-6">
       <p className="text-sm uppercase tracking-[0.3em] text-fg-muted mb-4">Something went wrong</p>
       <h1 className="font-serif text-7xl md:text-9xl font-light mb-6">500</h1>
       <p className="text-lg text-fg-muted mb-10 text-center max-w-md">

@@ -24,6 +24,8 @@ export function ServicesManager({ initialServices }: { initialServices: Service[
   const [saving, setSaving] = useState(false)
 
   async function handleSave() {
+    if (!form.title.trim()) { toast.error('Service title is required.'); return }
+    if (!form.description.trim()) { toast.error('Description is required.'); return }
     setSaving(true)
     try {
       const res = await fetch(editing ? `/api/admin/services/${editing.id}` : '/api/admin/services', {

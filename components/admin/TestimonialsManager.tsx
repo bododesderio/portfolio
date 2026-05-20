@@ -21,6 +21,9 @@ export function TestimonialsManager({ initialTestimonials }: { initialTestimonia
   const [saving, setSaving] = useState(false)
 
   async function handleSave() {
+    if (!form.body.trim()) { toast.error('Testimonial text is required.'); return }
+    if (!form.author.trim()) { toast.error('Author name is required.'); return }
+    if (!form.role.trim()) { toast.error('Author role is required.'); return }
     setSaving(true)
     try {
       const payload = { ...form, pages: form.pages.split(',').map(p => p.trim()) }

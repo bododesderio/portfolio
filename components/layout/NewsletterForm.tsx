@@ -17,7 +17,7 @@ export function NewsletterForm() {
         body: JSON.stringify({ email }),
       })
       if (!res.ok) throw new Error()
-      toast.success("You're subscribed!")
+      toast.success('Check your email to confirm your subscription!')
       setEmail('')
     } catch {
       toast.error('Something went wrong. Please try again.')

@@ -2,6 +2,7 @@ import { prisma } from '@/lib/db'
 import { format } from 'date-fns'
 import { globalEmailStats } from '@/lib/email-tracking'
 import { EmailStatsCard } from '@/components/admin/dashboard/EmailStatsCard'
+import { Pagination } from '@/components/admin/Pagination'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Email Logs — Admin' }
@@ -23,15 +24,28 @@ const TYPE_LABELS: Record<string, string> = {
   digest: 'Digest',
 }
 
-export default async function EmailLogsPage() {
-  const [logs, stats] = await Promise.all([
+interface Props {
+  searchParams: Promise<{ page?: string }>
+}
+
+export default async function EmailLogsPage({ searchParams }: Props) {
+  const params = await searchParams
+  const page = Math.max(1, parseInt(params.page || '1', 10))
+  const pageSize = 50
+  const skip = (page - 1) * pageSize
+
+  const [logs, total, stats] = await Promise.all([
     prisma.emailLog.findMany({
       orderBy: { sentAt: 'desc' },
-      take: 100,
+      skip,
+      take: pageSize,
       include: { _count: { select: { events: true } } },
     }),
+    prisma.emailLog.count(),
     globalEmailStats(30),
   ])
+
+  const totalPages = Math.ceil(total / pageSize)
 
   return (
     <div>
@@ -93,6 +107,8 @@ export default async function EmailLogsPage() {
           </table>
         </div>
       </div>
+
+      <Pagination currentPage={page} totalPages={totalPages} basePath="/admin/email-logs" />
     </div>
   )
 }

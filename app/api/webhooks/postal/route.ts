@@ -1,13 +1,23 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { timingSafeEqual } from 'crypto'
 import { prisma } from '@/lib/db'
 
 /**
  * Postal webhook receiver.
- * Configure in Postal Web UI → Mail Server → Webhooks → URL: https://yourdomain.com/api/webhooks/postal
+ * Configure in Postal Web UI → Mail Server → Webhooks:
+ *   URL: https://yourdomain.com/api/webhooks/postal?token=YOUR_WEBHOOK_SECRET
+ * Set POSTAL_WEBHOOK_SECRET in your .env to match.
  *
  * Postal sends events: MessageSent, MessageDelivered, MessageBounced, MessageHeld, MessageDelayed
  */
 export async function POST(req: NextRequest) {
+  // Verify webhook token
+  const token = req.nextUrl.searchParams.get('token')
+  const secret = process.env.POSTAL_WEBHOOK_SECRET
+  if (!secret || !token || !timingSafeEqual(Buffer.from(token), Buffer.from(secret))) {
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  }
+
   try {
     const payload = await req.json()
     const event = payload.event
@@ -101,10 +111,14 @@ export async function POST(req: NextRequest) {
         })
         break
       }
+
+      default:
+        console.log(`[Postal Webhook] Unhandled event: ${event}`)
     }
 
     return NextResponse.json({ ok: true })
-  } catch {
+  } catch (err) {
+    console.error('[Postal Webhook] Error:', err)
     // Always return 200 so Postal doesn't retry indefinitely
     return NextResponse.json({ ok: true })
   }

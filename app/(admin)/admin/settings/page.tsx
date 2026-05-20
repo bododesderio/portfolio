@@ -9,7 +9,7 @@ const areas = [
   { href: '/admin/settings/site',         label: 'Site Settings', desc: 'Name, tagline, contact, social links.',            icon: Settings },
   { href: '/admin/settings/navigation',   label: 'Navigation',    desc: 'Customise your public-site menu.',                 icon: Network },
   { href: '/admin/settings/seo',          label: 'SEO & Meta',    desc: 'Per-page meta titles and descriptions.',           icon: Search },
-  { href: '/admin/settings/integrations', label: 'Integrations',  desc: 'Cloudinary, Resend, and other API credentials.',   icon: Plug },
+  { href: '/admin/settings/integrations', label: 'Integrations',  desc: 'SMTP, analytics, and other service settings.',   icon: Plug },
 ]
 
 export default function SettingsIndex() {

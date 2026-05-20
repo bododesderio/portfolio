@@ -9,16 +9,20 @@ import { ContactForm } from '@/components/sections/ContactForm'
 import { ldJson, contactPageSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+
 export const metadata: Metadata = {
   title: 'Contact — Bodo Desderio',
   description: 'Get in touch with Bodo Desderio. Ready to build something together?',
+  alternates: { canonical: `${SITE_URL}/contact` },
   openGraph: {
     title: 'Contact — Bodo Desderio',
     description: 'Get in touch. Whether it\'s a project, partnership, or just a conversation — let\'s connect.',
     url: '/contact',
     type: 'website',
+    images: [{ url: `${SITE_URL}/opengraph-image` }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: [`${SITE_URL}/opengraph-image`] },
 }
 
 export default async function ContactPage() {
@@ -34,7 +38,7 @@ export default async function ContactPage() {
   const allTestimonials = await prisma.testimonial.findMany({
     where: { visible: true },
     include: { photo: true },
-  })
+  }).catch(() => [])
   const testimonials = allTestimonials.filter(t => t.pages.includes('contact'))
 
   const cta = {

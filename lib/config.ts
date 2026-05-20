@@ -19,14 +19,16 @@ export interface ConfigEntry {
   hasValue: boolean
 }
 
-const cache = new Map<string, string>()
+const CONFIG_CACHE_TTL = 5 * 60 * 1000 // 5 minutes
+const cache = new Map<string, { value: string; expiresAt: number }>()
 
 export async function getConfig(key: string): Promise<string> {
-  if (cache.has(key)) return cache.get(key)!
+  const cached = cache.get(key)
+  if (cached && Date.now() < cached.expiresAt) return cached.value
   try {
     const row = await prisma.appConfig.findUnique({ where: { key } })
     if (row?.value) {
-      cache.set(key, row.value)
+      cache.set(key, { value: row.value, expiresAt: Date.now() + CONFIG_CACHE_TTL })
       return row.value
     }
   } catch {
@@ -41,7 +43,7 @@ export async function setConfig(key: string, value: string): Promise<void> {
     update: { value },
     create: { key, value },
   })
-  cache.set(key, value)
+  cache.set(key, { value, expiresAt: Date.now() + CONFIG_CACHE_TTL })
 }
 
 export function clearConfigCache() {

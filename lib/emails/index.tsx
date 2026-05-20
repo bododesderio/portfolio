@@ -1,5 +1,6 @@
 import { render } from '@react-email/render'
 import { WelcomeEmail } from './WelcomeEmail'
+import { ConfirmSubscription } from './ConfirmSubscription'
 import { ContactAutoReply } from './ContactAutoReply'
 import { AdminNotification } from './AdminNotification'
 import { NewsletterCampaign } from './NewsletterCampaign'
@@ -8,6 +9,10 @@ import { AnalyticsDigest } from './AnalyticsDigest'
 
 export async function renderWelcomeEmail(name?: string, unsubscribeUrl?: string) {
   return render(<WelcomeEmail name={name} unsubscribeUrl={unsubscribeUrl} />)
+}
+
+export async function renderConfirmSubscription(name: string | undefined, confirmUrl: string) {
+  return render(<ConfirmSubscription name={name} confirmUrl={confirmUrl} />)
 }
 
 export async function renderContactAutoReply(name: string) {

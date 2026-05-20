@@ -9,6 +9,8 @@ import {
   Italic,
   Strikethrough,
   Underline,
+  Subscript,
+  Superscript,
   Link,
   Paragraph,
   Heading,
@@ -35,6 +37,28 @@ import {
   RemoveFormat,
   SourceEditing,
   GeneralHtmlSupport,
+  Font,
+  FontFamily,
+  FontSize,
+  FontColor,
+  FontBackgroundColor,
+  Alignment,
+  Highlight,
+  FindAndReplace,
+  Autoformat,
+  PasteFromOffice,
+  SelectAll,
+  SpecialCharacters,
+  SpecialCharactersArrows,
+  SpecialCharactersText,
+  SpecialCharactersMathematical,
+  SpecialCharactersLatin,
+  WordCount,
+  Fullscreen,
+  PageBreak,
+  HtmlEmbed,
+  ShowBlocks,
+  TextTransformation,
   type EditorConfig,
 } from 'ckeditor5'
 
@@ -55,8 +79,8 @@ export default function RichTextEditorInner({
 }: RichTextEditorInnerProps) {
   const [ready, setReady] = useState(false)
   const editorRef = useRef<ClassicEditor | null>(null)
+  const wordCountRef = useRef<HTMLDivElement | null>(null)
 
-  // Sync external value changes into the editor (e.g. form reset)
   useEffect(() => {
     if (editorRef.current && editorRef.current.getData() !== value) {
       editorRef.current.setData(value || '')
@@ -70,6 +94,8 @@ export default function RichTextEditorInner({
       Italic,
       Strikethrough,
       Underline,
+      Subscript,
+      Superscript,
       Link,
       Paragraph,
       Heading,
@@ -96,6 +122,28 @@ export default function RichTextEditorInner({
       RemoveFormat,
       SourceEditing,
       GeneralHtmlSupport,
+      Font,
+      FontFamily,
+      FontSize,
+      FontColor,
+      FontBackgroundColor,
+      Alignment,
+      Highlight,
+      FindAndReplace,
+      Autoformat,
+      PasteFromOffice,
+      SelectAll,
+      SpecialCharacters,
+      SpecialCharactersArrows,
+      SpecialCharactersText,
+      SpecialCharactersMathematical,
+      SpecialCharactersLatin,
+      WordCount,
+      Fullscreen,
+      PageBreak,
+      HtmlEmbed,
+      ShowBlocks,
+      TextTransformation,
     ],
     toolbar: {
       items: [
@@ -103,17 +151,25 @@ export default function RichTextEditorInner({
         '|',
         'heading',
         '|',
-        'bold', 'italic', 'underline', 'strikethrough', 'code', 'removeFormat',
+        'fontFamily', 'fontSize',
+        '|',
+        'bold', 'italic', 'underline', 'strikethrough',
+        'subscript', 'superscript',
+        'code', 'removeFormat',
+        '|',
+        'fontColor', 'fontBackgroundColor', 'highlight',
+        '|',
+        'alignment',
         '|',
         'bulletedList', 'numberedList', 'todoList',
         '|',
-        'blockQuote', 'codeBlock', 'horizontalLine',
+        'blockQuote', 'codeBlock', 'horizontalLine', 'pageBreak',
         '|',
-        'link', 'insertImage', 'mediaEmbed', 'insertTable',
+        'link', 'insertImage', 'mediaEmbed', 'insertTable', 'htmlEmbed', 'specialCharacters',
         '|',
         'outdent', 'indent',
         '|',
-        'sourceEditing',
+        'findAndReplace', 'showBlocks', 'sourceEditing', 'fullscreen',
       ],
       shouldNotGroupWhenFull: false,
     },
@@ -123,6 +179,43 @@ export default function RichTextEditorInner({
         { model: 'heading1' as const, view: 'h1', title: 'Heading 1', class: '' },
         { model: 'heading2' as const, view: 'h2', title: 'Heading 2', class: '' },
         { model: 'heading3' as const, view: 'h3', title: 'Heading 3', class: '' },
+        { model: 'heading4' as const, view: 'h4', title: 'Heading 4', class: '' },
+      ],
+    },
+    fontFamily: {
+      options: [
+        'default',
+        'Inter, sans-serif',
+        'Playfair Display, serif',
+        'Arial, Helvetica, sans-serif',
+        'Georgia, serif',
+        'Courier New, Courier, monospace',
+        'Trebuchet MS, Helvetica, sans-serif',
+        'Verdana, Geneva, sans-serif',
+      ],
+    },
+    fontSize: {
+      options: [10, 12, 14, 'default', 18, 20, 24, 28, 32, 36],
+    },
+    fontColor: {
+      columns: 6,
+      documentColors: 12,
+    },
+    fontBackgroundColor: {
+      columns: 6,
+      documentColors: 12,
+    },
+    alignment: {
+      options: ['left', 'center', 'right', 'justify'],
+    },
+    highlight: {
+      options: [
+        { model: 'yellowMarker', class: '', title: 'Yellow marker', color: 'var(--ck-highlight-marker-yellow)', type: 'marker' as const },
+        { model: 'greenMarker', class: '', title: 'Green marker', color: 'var(--ck-highlight-marker-green)', type: 'marker' as const },
+        { model: 'pinkMarker', class: '', title: 'Pink marker', color: 'var(--ck-highlight-marker-pink)', type: 'marker' as const },
+        { model: 'blueMarker', class: '', title: 'Blue marker', color: 'var(--ck-highlight-marker-blue)', type: 'marker' as const },
+        { model: 'redPen', class: '', title: 'Red pen', color: 'var(--ck-highlight-pen-red)', type: 'pen' as const },
+        { model: 'greenPen', class: '', title: 'Green pen', color: 'var(--ck-highlight-pen-green)', type: 'pen' as const },
       ],
     },
     image: {
@@ -154,6 +247,9 @@ export default function RichTextEditorInner({
         { name: /.*/, attributes: true, classes: true, styles: true },
       ],
     },
+    wordCount: {
+      container: wordCountRef.current ?? undefined,
+    },
   }
 
   return (
@@ -176,6 +272,14 @@ export default function RichTextEditorInner({
           overflow: hidden;
           border: 1px solid var(--color-hairline, #e5e7eb);
         }
+        .ck-editor-wrapper .ck-word-count {
+          display: flex;
+          gap: 1rem;
+          justify-content: flex-end;
+          padding: 0.5rem 0.75rem;
+          font-size: 0.75rem;
+          color: var(--color-fg-muted, #6b7280);
+        }
       `}</style>
 
       {!ready && (
@@ -195,12 +299,17 @@ export default function RichTextEditorInner({
           onReady={(editor) => {
             editorRef.current = editor
             setReady(true)
+            if (wordCountRef.current) {
+              const wordCountPlugin = editor.plugins.get('WordCount')
+              wordCountRef.current.appendChild(wordCountPlugin.wordCountContainer)
+            }
           }}
           onChange={(_event, editor) => {
             const data = editor.getData()
             onChange(data)
           }}
         />
+        <div ref={wordCountRef} />
       </div>
     </div>
   )

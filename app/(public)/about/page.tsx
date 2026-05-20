@@ -18,16 +18,20 @@ import { ValuesSection } from '@/components/sections/ValuesSection'
 import { WhyWorkWithMe } from '@/components/sections/WhyWorkWithMe'
 import { PhotoStrip } from '@/components/sections/PhotoStrip'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+
 export const metadata: Metadata = {
   title: 'About — Bodo Desderio',
   description: 'Learn more about Bodo Desderio — his story, values, mission, and the work he does across tech, business, and community in Uganda.',
+  alternates: { canonical: `${SITE_URL}/about` },
   openGraph: {
     title: 'About — Bodo Desderio',
     description: 'Ugandan entrepreneur, software engineer, and community builder. Founder & CEO of Rooibok Technologies.',
     url: '/about',
     type: 'profile',
+    images: [{ url: `${SITE_URL}/opengraph-image` }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: [`${SITE_URL}/opengraph-image`] },
 }
 
 const DEFAULT_FAQS = [
@@ -108,17 +112,15 @@ export default async function AboutPage() {
       include: { media: true },
       orderBy: [{ featured: 'desc' }, { order: 'asc' }, { createdAt: 'desc' }],
       take: 18,
-    }),
+    }).catch(() => []),
     prisma.testimonial.findMany({
       where: { visible: true },
       include: { photo: true },
-    }),
-    prisma.pressItem
-      .findMany({
-        where: { visible: true },
-        orderBy: { order: 'asc' },
-      })
-      .catch(() => []),
+    }).catch(() => []),
+    prisma.pressItem.findMany({
+      where: { visible: true },
+      orderBy: { order: 'asc' },
+    }).catch(() => []),
     fetchMediumPosts(),
   ])
 

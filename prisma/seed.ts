@@ -265,6 +265,7 @@ async function main() {
     { key: 'site.email', value: 'info@bododesderio.com' },
     { key: 'site.location', value: 'Kampala, Uganda' },
     { key: 'site.calendly_url', value: 'https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio' },
+    { key: 'site.resume_url', value: '/docs/bodo-desderio-resume.pdf' },
     { key: 'theme.brand_color', value: '#C9A84C' },
     { key: 'login_background_url', value: '/images/gallery/IMG_5544.jpg' },
     { key: 'login_card_image', value: '/images/hero/portrait-home.png' },
@@ -921,6 +922,74 @@ async function main() {
     },
   })
   console.log('  ✓ Created cookie consent banner')
+
+  // ─── Projects ────────────────────────────────────
+  console.log('🚀 Creating projects...')
+  const projects = [
+    {
+      title: 'Rooibok Technologies',
+      slug: 'rooibok-technologies',
+      excerpt: 'Building digital solutions for businesses across Africa — web apps, mobile apps, and cloud infrastructure.',
+      body: '<p>Rooibok Technologies is a full-service software company focused on delivering high-quality digital products for the African market.</p><p>We specialize in web and mobile application development, cloud infrastructure, and digital transformation consulting.</p>',
+      status: 'in_progress',
+      category: 'Company',
+      techStack: ['Next.js', 'TypeScript', 'Node.js', 'PostgreSQL', 'AWS'],
+      liveUrl: 'https://rooibok.com',
+      ongoing: true,
+      startDate: new Date('2023-01-01'),
+      visible: true,
+      featured: true,
+      order: 0,
+    },
+    {
+      title: 'Kakebe Technologies',
+      slug: 'kakebe-technologies',
+      excerpt: 'A technology company leveraging AI and data to solve real-world problems in agriculture, education, and healthcare.',
+      body: '<p>Kakebe Technologies builds innovative solutions using artificial intelligence and data analytics to address challenges in key sectors across Uganda and East Africa.</p>',
+      status: 'in_progress',
+      category: 'Company',
+      techStack: ['Python', 'React', 'TensorFlow', 'FastAPI', 'Docker'],
+      liveUrl: 'https://www.kakebe.tech',
+      ongoing: true,
+      startDate: new Date('2022-06-01'),
+      visible: true,
+      featured: true,
+      order: 1,
+    },
+    {
+      title: 'Portfolio Website',
+      slug: 'portfolio-website',
+      excerpt: 'This very website — a full-stack Next.js portfolio with a custom CMS, newsletter system, and analytics.',
+      body: '<p>A comprehensive portfolio and blog platform built from scratch with Next.js 16, Prisma, PostgreSQL, and Tailwind CSS.</p><p>Features include a custom admin panel with media management, blog editor with CKEditor, newsletter campaigns with tracking, banner management, and built-in analytics.</p>',
+      status: 'completed',
+      category: 'Web App',
+      techStack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Tailwind CSS', 'Redis'],
+      ongoing: false,
+      startDate: new Date('2024-12-01'),
+      endDate: new Date('2025-03-01'),
+      visible: true,
+      featured: false,
+      order: 2,
+    },
+    {
+      title: 'Community Platform',
+      slug: 'community-platform',
+      excerpt: 'A platform connecting African youth with mentorship, resources, and collaboration opportunities.',
+      body: '<p>An upcoming community platform designed to connect young professionals and entrepreneurs across Africa with mentors, funding opportunities, and collaborative workspaces.</p>',
+      status: 'planned',
+      category: 'Web App',
+      techStack: ['Next.js', 'tRPC', 'Prisma', 'Tailwind CSS'],
+      ongoing: false,
+      visible: true,
+      featured: false,
+      order: 3,
+    },
+  ]
+
+  for (const project of projects) {
+    await prisma.project.create({ data: project })
+  }
+  console.log(`  ✓ Created ${projects.length} projects`)
 
   console.log('✅ Seed completed successfully!')
 }

@@ -11,16 +11,20 @@ import { CTASection } from '@/components/sections/CTASection'
 import { ldJson, servicesSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+
 export const metadata: Metadata = {
   title: 'Services — Bodo Desderio',
   description: 'Explore the services I offer: company building, software engineering, SEO & digital strategy, technical consulting, and community programmes.',
+  alternates: { canonical: `${SITE_URL}/services` },
   openGraph: {
     title: 'Services — Bodo Desderio',
     description: 'Company building, software engineering, SEO & digital strategy, technical consulting, and community programmes.',
     url: '/services',
     type: 'website',
+    images: [{ url: `${SITE_URL}/opengraph-image` }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: [`${SITE_URL}/opengraph-image`] },
 }
 
 export default async function ServicesPage() {
@@ -37,7 +41,7 @@ export default async function ServicesPage() {
   const services = await prisma.service.findMany({
     where: { visible: true },
     orderBy: { order: 'asc' },
-  })
+  }).catch(() => [])
 
   // Process steps from home
   const process = {
@@ -50,7 +54,7 @@ export default async function ServicesPage() {
   const allTestimonials = await prisma.testimonial.findMany({
     where: { visible: true },
     include: { photo: true },
-  })
+  }).catch(() => [])
   const testimonials = allTestimonials.filter(t => t.pages.includes('services'))
 
   const cta = {

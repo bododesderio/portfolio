@@ -3,7 +3,8 @@ import { prisma } from '@/lib/db'
 import crypto from 'crypto'
 
 function verifyToken(email: string, token: string): boolean {
-  const secret = process.env.NEXTAUTH_SECRET || 'fallback-secret'
+  const secret = process.env.NEXTAUTH_SECRET
+  if (!secret) return false
   const expected = crypto.createHmac('sha256', secret).update(email).digest('hex')
   if (expected.length !== token.length) return false
   return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(token))
@@ -21,11 +22,15 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Invalid unsubscribe link.' }, { status: 403 })
   }
 
-  await prisma.subscriber.updateMany({
-    where: { email },
-    data: { confirmed: false },
-  })
+  try {
+    await prisma.subscriber.updateMany({
+      where: { email },
+      data: { confirmed: false },
+    })
 
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-  return Response.redirect(`${baseUrl}/unsubscribe?success=true`, 302)
+    const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+    return Response.redirect(`${baseUrl}/unsubscribe?success=true`, 302)
+  } catch {
+    return NextResponse.json({ error: 'Server error' }, { status: 500 })
+  }
 }

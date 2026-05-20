@@ -6,18 +6,23 @@ RUN npm install -g pnpm@9
 FROM base AS deps
 WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
-RUN pnpm install --frozen-lockfile
+# High timeout + retries for slow connections (CKEditor packages are large)
+RUN pnpm config set fetch-timeout 300000 && \
+    pnpm config set fetch-retries 5 && \
+    pnpm install --frozen-lockfile
 
 # ── builder ───────────────────────────────────────────────────────────────────
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN pnpm prisma generate
+# Use npx in builder — pnpm-workspace.yaml causes "packages field missing" errors
+# v2: theme templates, pagination, nav editor, profile edit, double opt-in
+RUN npx prisma generate
 ENV NEXT_TELEMETRY_DISABLED=1
 # Dummy URL for build — real URL injected at runtime
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
-RUN pnpm build
+RUN npx next build --webpack
 
 # ── runner ────────────────────────────────────────────────────────────────────
 FROM base AS runner

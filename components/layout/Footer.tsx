@@ -3,9 +3,12 @@ import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub, FaMedium } fr
 import { getPageContent, getSiteSettings, getField } from '@/lib/content'
 import { NewsletterForm } from './NewsletterForm'
 
-const quickLinks = [
+type NavLink = { label: string; href: string }
+
+const defaultQuickLinks: NavLink[] = [
   { label: 'About', href: '/about' },
   { label: 'Services', href: '/services' },
+  { label: 'Projects', href: '/projects' },
   { label: 'Gallery', href: '/gallery' },
   { label: 'Blog', href: '/blog' },
   { label: 'Contact', href: '/contact' },
@@ -14,11 +17,11 @@ const quickLinks = [
 const elsewhereLinks = [
   { label: 'Rooibok Technologies', href: 'https://rooibok.com', external: true },
   { label: 'Kakebe Technologies', href: 'https://www.kakebe.tech', external: true },
-  { label: 'Resume', href: '/docs/bodo-desderio-resume.pdf' },
+  { label: 'Resume', key: 'site.resume_url' },
   { label: 'Book a call', key: 'site.calendly_url' },
 ]
 
-export default async function Footer() {
+export default async function Footer({ navLinks }: { navLinks?: NavLink[] } = {}) {
   const content = await getPageContent('global')
   const settings = await getSiteSettings()
 
@@ -103,7 +106,7 @@ export default async function Footer() {
             <div>
               <p className="text-[10px] uppercase tracking-brand text-ink-400 mb-5">Sitemap</p>
               <ul className="space-y-2.5">
-                {quickLinks.map(link => (
+                {(navLinks ?? defaultQuickLinks).map(link => (
                   <li key={link.href}>
                     <Link
                       href={link.href}

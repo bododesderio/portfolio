@@ -12,6 +12,7 @@ const GROUPS: Array<{ label: string; keys: Array<{ key: string; label: string; p
       { key: 'site.email',        label: 'Public email', placeholder: 'info@example.com' },
       { key: 'site.location',     label: 'Location',    placeholder: 'Kampala, Uganda' },
       { key: 'site.calendly_url', label: 'Calendly URL', placeholder: 'https://calendly.com/…' },
+      { key: 'site.resume_url',  label: 'Resume PDF URL', placeholder: '/docs/bodo-desderio-resume.pdf' },
     ],
   },
   {

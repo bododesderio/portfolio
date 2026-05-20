@@ -178,6 +178,8 @@ export function BlogEditor({ post }: { post: Post | null }) {
     if (!featuredImageUrl) { toast.error('Featured image is required.'); return null }
     if (!featuredImageAlt.trim()) { toast.error('Featured image alt text is required.'); return null }
     if (!title.trim()) { toast.error('Title is required.'); return null }
+    if (!slug.trim()) { toast.error('Slug is required.'); return null }
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) { toast.error('Slug must be URL-safe (lowercase letters, numbers, hyphens).'); return null }
     return {
       title, slug, excerpt, category,
       featuredImageUrl,

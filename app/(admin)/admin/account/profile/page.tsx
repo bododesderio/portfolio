@@ -1,6 +1,7 @@
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { ProfileEditor } from '@/components/admin/account/ProfileEditor'
 
 export const metadata = { title: 'Profile — Admin' }
 
@@ -13,13 +14,23 @@ export default async function ProfilePage() {
   return (
     <div>
       <AdminPageHeader title="Profile" description="Your admin profile." />
-      <div className="rounded-2xl border border-hairline bg-card p-6 space-y-4 max-w-xl">
+
+      {/* Read-only info */}
+      <div className="rounded-2xl border border-hairline bg-card p-6 space-y-4 max-w-xl mb-6">
         <Row label="Email" value={me?.email ?? '—'} />
         <Row label="Member since" value={me?.createdAt ? new Date(me.createdAt).toLocaleDateString() : '—'} />
         <Row label="Last sign-in" value={me?.lastLogin ? new Date(me.lastLogin).toLocaleString() : 'Never'} />
       </div>
+
+      {/* Editable profile */}
+      <ProfileEditor
+        initialName={me?.name ?? ''}
+        initialAvatarUrl={me?.avatarUrl ?? ''}
+        email={me?.email ?? ''}
+      />
+
       <p className="mt-6 text-xs text-fg-muted">
-        Editing name and avatar coming soon. Change your password under{' '}
+        Change your password under{' '}
         <a href="/admin/account/security" className="text-brand hover:underline">Security</a>.
       </p>
     </div>

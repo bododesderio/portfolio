@@ -7,16 +7,20 @@ import Image from 'next/image'
 import { ldJson, imageGallerySchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+
 export const metadata: Metadata = {
   title: 'Gallery — Bodo Desderio',
   description: 'Explore photos from tech camps, community events, and projects.',
+  alternates: { canonical: `${SITE_URL}/gallery` },
   openGraph: {
     title: 'Gallery — Bodo Desderio',
     description: 'Photos from tech camps, community events, and projects across Uganda and beyond.',
     url: '/gallery',
     type: 'website',
+    images: [{ url: `${SITE_URL}/opengraph-image` }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: [`${SITE_URL}/opengraph-image`] },
 }
 
 export default async function GalleryPage() {
@@ -31,7 +35,7 @@ export default async function GalleryPage() {
   const galleryItems = await prisma.galleryItem.findMany({
     include: { media: true },
     orderBy: { order: 'asc' },
-  })
+  }).catch(() => [])
 
   return (
     <>

@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -17,12 +18,14 @@ model SiteContent {
   updatedAt  DateTime @updatedAt @map("updated_at")
 
   @@unique([page, section, fieldKey])
+  @@index([page, section])
   @@map("site_content")
 }
 
 model SiteSettings {
   key       String   @id
   value     String   @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("site_settings")
@@ -47,6 +50,7 @@ model Media {
   galleryItems GalleryItem[]
   heroImages   HeroImage[]
 
+  @@index([uploadedAt])
   @@map("media")
 }
 
@@ -61,6 +65,7 @@ model Service {
   order        Int      @default(0)
   visible      Boolean  @default(true)
   createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
 
   @@index([visible, order])
   @@map("services")
@@ -75,7 +80,7 @@ model Client {
   order       Int      @default(0)
   createdAt   DateTime @default(now()) @map("created_at")
 
-  logo Media? @relation(fields: [logoMediaId], references: [id])
+  logo Media? @relation(fields: [logoMediaId], references: [id], onDelete: SetNull)
 
   @@index([visible, order])
   @@map("clients")
@@ -93,8 +98,9 @@ model Testimonial {
   order        Int      @default(0)
   createdAt    DateTime @default(now()) @map("created_at")
 
-  photo Media? @relation(fields: [photoMediaId], references: [id])
+  photo Media? @relation(fields: [photoMediaId], references: [id], onDelete: SetNull)
 
+  @@index([visible, order])
   @@map("testimonials")
 }
 
@@ -128,7 +134,7 @@ model GalleryItem {
   order     Int      @default(0)
   createdAt DateTime @default(now()) @map("created_at")
 
-  media Media @relation(fields: [mediaId], references: [id])
+  media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
 
   @@map("gallery_items")
 }
@@ -137,7 +143,7 @@ model Subscriber {
   id           String   @id @default(cuid())
   email        String   @unique
   name         String?
-  confirmed    Boolean  @default(true)
+  confirmed    Boolean  @default(false)
   source       String   @default("footer")
   subscribedAt DateTime @default(now()) @map("subscribed_at")
 
@@ -180,6 +186,8 @@ model Message {
 model AdminUser {
   id              String   @id @default(cuid())
   email           String   @unique
+  name            String?
+  avatarUrl       String?  @map("avatar_url")
   passwordHash    String   @map("password_hash")
   lastLogin       DateTime? @map("last_login")
   themePreference String   @default("system") @map("theme_preference")  // light | dark | system
@@ -311,9 +319,55 @@ model HeroImage {
   active    Boolean  @default(true)
   createdAt DateTime @default(now()) @map("created_at")
 
-  media Media @relation(fields: [mediaId], references: [id])
+  media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
 
   @@map("hero_images")
+}
+
+/// Portfolio projects — admin-managed showcase of work.
+model Project {
+  id               String    @id @default(cuid())
+  title            String
+  slug             String    @unique
+  excerpt          String    @db.Text
+  body             String    @db.Text
+  featuredImageUrl String?   @map("featured_image_url")
+  featuredImageAlt String?   @map("featured_image_alt")
+  status           String    @default("planned")            // planned | in_progress | completed
+  category         String?
+  techStack        String[]  @default([]) @map("tech_stack")
+  liveUrl          String?   @map("live_url")
+  githubUrl        String?   @map("github_url")
+  startDate        DateTime? @map("start_date")
+  endDate          DateTime? @map("end_date")
+  ongoing          Boolean   @default(false)
+  visible          Boolean   @default(true)
+  featured         Boolean   @default(false)
+  order            Int       @default(0)
+  createdAt        DateTime  @default(now()) @map("created_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  images ProjectImage[]
+
+  @@index([visible, order])
+  @@index([status])
+  @@map("projects")
+}
+
+/// Images attached to a project (gallery).
+model ProjectImage {
+  id        String   @id @default(cuid())
+  projectId String   @map("project_id")
+  url       String
+  alt       String?
+  caption   String?
+  order     Int      @default(0)
+  createdAt DateTime @default(now()) @map("created_at")
+
+  project Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  @@index([projectId, order])
+  @@map("project_images")
 }
 
 /// Tracks every email sent by the system (transactional + campaigns).

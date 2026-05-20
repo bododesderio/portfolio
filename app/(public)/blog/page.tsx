@@ -9,16 +9,20 @@ import { NewsletterForm } from '@/components/layout/NewsletterForm'
 import { ldJson, blogIndexSchema } from '@/lib/schema'
 import type { Metadata } from 'next'
 
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+
 export const metadata: Metadata = {
   title: 'Blog — Bodo Desderio',
   description: 'Thoughts on tech, business & building in Africa.',
+  alternates: { canonical: `${SITE_URL}/blog` },
   openGraph: {
     title: 'Blog — Bodo Desderio',
     description: 'Thoughts on tech, business, and building companies and communities across Africa.',
     url: '/blog',
     type: 'website',
+    images: [{ url: `${SITE_URL}/opengraph-image` }],
   },
-  twitter: { card: 'summary_large_image' },
+  twitter: { card: 'summary_large_image', images: [`${SITE_URL}/opengraph-image`] },
 }
 
 export default async function BlogPage() {
@@ -33,12 +37,12 @@ export default async function BlogPage() {
   const featuredPost = await prisma.blogPost.findFirst({
     where: { status: 'published' },
     orderBy: { publishedAt: 'desc' },
-  })
+  }).catch(() => null)
 
   const allPosts = await prisma.blogPost.findMany({
     where: { status: 'published' },
     orderBy: { publishedAt: 'desc' },
-  })
+  }).catch(() => [])
 
   return (
     <>

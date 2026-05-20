@@ -46,7 +46,7 @@ export default async function ContentEditorPage({ params }: Props) {
       <p className="text-ink-500 text-sm mb-8">
         Changes are saved individually and go live instantly.
       </p>
-      {page === 'home' && heroImages.length >= 0 && (
+      {page === 'home' && heroImages.length > 0 && (
         <div className="mb-8">
           <HeroImagesManager initialItems={heroImages} />
         </div>

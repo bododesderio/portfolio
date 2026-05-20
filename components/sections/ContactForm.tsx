@@ -28,11 +28,15 @@ export function ContactForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
       })
-      if (!res.ok) throw new Error('Failed')
-      toast.success("Message sent! I'll get back to you within 24–48 hours.")
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error((data as { error?: string }).error || 'Failed to send')
+      }
+      toast.success("Message sent! I'll get back to you within 24\u201348 hours.")
       setForm({ name: '', email: '', subject: '', message: '' })
-    } catch {
-      toast.error('Something went wrong. Please try again.')
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'Something went wrong'
+      toast.error(msg === 'Failed to send' ? 'Something went wrong. Please try again.' : msg)
     } finally {
       setLoading(false)
     }

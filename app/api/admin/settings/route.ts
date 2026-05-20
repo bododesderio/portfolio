@@ -20,7 +20,7 @@ export async function PATCH(req: NextRequest) {
           update: { value },
           create: { key, value },
         })
-        if (key.startsWith('theme.')) needsRevalidate = true
+        if (key.startsWith('theme.') || key.startsWith('nav.')) needsRevalidate = true
       }
       if (needsRevalidate) revalidatePath('/', 'layout')
       return NextResponse.json({ success: true })
@@ -36,9 +36,9 @@ export async function PATCH(req: NextRequest) {
       create: { key, value },
     })
 
-    // Theme changes rewrite CSS vars in the server-rendered <head>, so every page
-    // needs a fresh render to pick up the new palette.
-    if (key.startsWith('theme.')) {
+    // Theme and nav changes affect the server-rendered layout, so every page
+    // needs a fresh render to pick up the new values.
+    if (key.startsWith('theme.') || key.startsWith('nav.')) {
       revalidatePath('/', 'layout')
     }
 

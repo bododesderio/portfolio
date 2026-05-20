@@ -70,7 +70,22 @@
       "Bash(pnpm remove:*)",
       "Bash(mkdir -p \"E:/projects/portfolio/app/api/t/open/[id]\")",
       "Bash(mkdir -p \"E:/projects/portfolio/app/api/t/click/[id]\")",
-      "Bash(pnpm list:*)"
+      "Bash(pnpm list:*)",
+      "Bash(echo \"exit:$?\")",
+      "Bash(npx vitest:*)",
+      "Bash(python -c \" import sys, json data = sys.stdin.read\\(\\) lines = data.strip\\(\\).split\\('\\\\n'\\) for line in reversed\\(lines\\): try: obj = json.loads\\(line\\) if obj.get\\('type'\\) == 'assistant': content = obj['message']['content'] for block in content: if block.get\\('type'\\) == 'text': print\\(block['text'][:8000]\\) break break except: continue \")",
+      "Bash(mkdir -p \"E:/projects/portfolio/app/api/admin/projects/[id]\")",
+      "Bash(mkdir -p \"E:/projects/portfolio/app/\\(admin\\)/admin/projects/[id]\")",
+      "Bash(mkdir -p \"E:/projects/portfolio/app/\\(public\\)/projects/[slug]\")",
+      "Bash(pnpm exec:*)",
+      "Bash(docker volume:*)",
+      "Bash(\"/mnt/c/Program Files/Docker/Docker/resources/bin/docker.exe\" version)",
+      "Bash(cmd.exe /c \"docker version\")",
+      "Bash(cmd.exe /c \"docker volume create portfolio_postgres_data\")",
+      "Bash(cmd.exe /c \"docker volume create portfolio_uploads_data\")",
+      "Bash(cmd.exe /c \"docker info\")",
+      "Bash(pnpm test:*)",
+      "Bash(DATABASE_URL=\"postgresql://build:build@localhost:5432/build\" pnpm exec next build --webpack)"
     ]
   }
 }

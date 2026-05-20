@@ -4,6 +4,7 @@ import { z } from 'zod'
 import { sendTrackedEmail } from '@/lib/email-tracking'
 import { renderAdminNotification, renderContactAutoReply } from '@/lib/emails'
 import { rateLimit, getClientIp } from '@/lib/rate-limit'
+import { getConfig } from '@/lib/config'
 
 const schema = z.object({
   name: z.string().min(1),
@@ -23,7 +24,8 @@ export async function POST(req: NextRequest) {
 
     await prisma.message.create({ data: { name, email, subject, body: message } })
 
-    const adminEmail = process.env.ADMIN_EMAIL!
+    const adminEmail = await getConfig('ADMIN_EMAIL')
+    if (!adminEmail) return NextResponse.json({ error: 'Server not configured' }, { status: 500 })
 
     const [adminHtml, autoReplyHtml] = await Promise.all([
       renderAdminNotification({ name, email, subject, message }),

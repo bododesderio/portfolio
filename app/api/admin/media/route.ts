@@ -6,19 +6,23 @@ export async function GET() {
   const session = await auth()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const media = await prisma.media.findMany({
-    orderBy: { uploadedAt: 'desc' },
-    take: 200,
-    select: {
-      id: true,
-      url: true,
-      filename: true,
-      altText: true,
-      width: true,
-      height: true,
-      uploadedAt: true,
-    },
-  })
+  try {
+    const media = await prisma.media.findMany({
+      orderBy: { uploadedAt: 'desc' },
+      take: 200,
+      select: {
+        id: true,
+        url: true,
+        filename: true,
+        altText: true,
+        width: true,
+        height: true,
+        uploadedAt: true,
+      },
+    })
 
-  return NextResponse.json(media)
+    return NextResponse.json(media)
+  } catch {
+    return NextResponse.json({ error: 'Server error' }, { status: 500 })
+  }
 }

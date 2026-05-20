@@ -5,6 +5,8 @@ import { prisma } from '@/lib/db'
 
 const patchSchema = z.object({
   themePreference: z.enum(['light', 'dark', 'system']).optional(),
+  name: z.string().max(100).optional(),
+  avatarUrl: z.string().max(2048).optional().nullable(),
 })
 
 export async function GET() {
@@ -13,7 +15,7 @@ export async function GET() {
 
   const me = await prisma.adminUser.findUnique({
     where: { email: session.user.email },
-    select: { id: true, email: true, themePreference: true, lastLogin: true, createdAt: true },
+    select: { id: true, email: true, name: true, avatarUrl: true, themePreference: true, lastLogin: true, createdAt: true },
   })
 
   return NextResponse.json(me)
@@ -25,12 +27,17 @@ export async function PATCH(req: NextRequest) {
 
   try {
     const body = await req.json()
-    const { themePreference } = patchSchema.parse(body)
+    const { themePreference, name, avatarUrl } = patchSchema.parse(body)
 
-    if (themePreference !== undefined) {
+    const data: Record<string, unknown> = {}
+    if (themePreference !== undefined) data.themePreference = themePreference
+    if (name !== undefined) data.name = name
+    if (avatarUrl !== undefined) data.avatarUrl = avatarUrl
+
+    if (Object.keys(data).length > 0) {
       await prisma.adminUser.update({
         where: { email: session.user.email },
-        data: { themePreference },
+        data,
       })
     }
 

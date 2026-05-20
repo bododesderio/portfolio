@@ -39,8 +39,9 @@ export async function rateLimit(
       return { ok: false, remaining: 0 }
     }
     return { ok: true, remaining: opts.limit - count }
-  } catch {
-    // Redis unavailable — fail open
+  } catch (err) {
+    // Redis unavailable — fail open but log it
+    console.warn('[RateLimit] Redis unavailable, failing open:', (err as Error).message)
     return { ok: true, remaining: opts.limit }
   }
 }

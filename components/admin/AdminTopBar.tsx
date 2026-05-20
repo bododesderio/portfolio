@@ -9,12 +9,10 @@ import { AdminNotifications } from './AdminNotifications'
 import type { ThemePreference } from '@/lib/auth'
 
 export function AdminTopBar({
-  email,
   themePreference,
   unreadMessageCount,
   onOpenMobileSidebar,
 }: {
-  email: string
   themePreference: ThemePreference
   unreadMessageCount: number
   onOpenMobileSidebar: () => void
@@ -43,22 +41,9 @@ export function AdminTopBar({
           <AdminQuickCreate />
           <AdminThemeSelector initial={themePreference} />
           <AdminNotifications unreadCount={unreadMessageCount} />
-          <div className="hidden sm:block w-px h-6 bg-hairline mx-1" />
-          <UserBadge email={email} />
         </div>
       </div>
     </header>
   )
 }
 
-function UserBadge({ email }: { email: string }) {
-  const letter = (email || '?')[0]?.toUpperCase() ?? '?'
-  return (
-    <div
-      className="hidden sm:flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand to-brand-700 text-white text-[12px] font-semibold"
-      title={email}
-    >
-      {letter}
-    </div>
-  )
-}

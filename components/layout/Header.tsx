@@ -5,10 +5,13 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { Menu, X, ArrowUpRight } from 'lucide-react'
 
-const navLinks = [
+type NavLink = { label: string; href: string }
+
+const defaultNavLinks: NavLink[] = [
   { label: 'Home',     href: '/'         },
   { label: 'About',    href: '/about'    },
   { label: 'Services', href: '/services' },
+  { label: 'Projects', href: '/projects' },
   { label: 'Gallery',  href: '/gallery'  },
   { label: 'Blog',     href: '/blog'     },
   { label: 'Contact',  href: '/contact'  },
@@ -19,9 +22,10 @@ function isActive(pathname: string, href: string): boolean {
   return pathname === href || pathname.startsWith(href + '/')
 }
 
-export function Header() {
+export function Header({ navLinks }: { navLinks?: NavLink[] }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const pathname = usePathname()
+  const links = navLinks ?? defaultNavLinks
 
   return (
     <header className="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl border-b border-hairline">
@@ -33,7 +37,7 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
-            {navLinks.map((link) => {
+            {links.map((link) => {
               const active = isActive(pathname, link.href)
               return (
                 <Link
@@ -75,7 +79,7 @@ export function Header() {
         {mobileMenuOpen && (
           <div className="md:hidden py-6 border-t border-hairline animate-fade-in">
             <nav className="flex flex-col gap-1" aria-label="Mobile">
-              {navLinks.map((link) => {
+              {links.map((link) => {
                 const active = isActive(pathname, link.href)
                 return (
                   <Link

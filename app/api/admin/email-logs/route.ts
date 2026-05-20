@@ -16,16 +16,20 @@ export async function GET(req: NextRequest) {
   if (campaignId) where.campaignId = campaignId
   if (type) where.type = type
 
-  const [logs, total] = await Promise.all([
-    prisma.emailLog.findMany({
-      where,
-      orderBy: { sentAt: 'desc' },
-      skip: (page - 1) * limit,
-      take: limit,
-      include: { _count: { select: { events: true } } },
-    }),
-    prisma.emailLog.count({ where }),
-  ])
+  try {
+    const [logs, total] = await Promise.all([
+      prisma.emailLog.findMany({
+        where,
+        orderBy: { sentAt: 'desc' },
+        skip: (page - 1) * limit,
+        take: limit,
+        include: { _count: { select: { events: true } } },
+      }),
+      prisma.emailLog.count({ where }),
+    ])
 
-  return NextResponse.json({ logs, total, page, limit })
+    return NextResponse.json({ logs, total, page, limit })
+  } catch {
+    return NextResponse.json({ error: 'Server error' }, { status: 500 })
+  }
 }
