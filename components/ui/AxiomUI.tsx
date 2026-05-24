@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect } from 'react'
-import { usePathname } from 'next/navigation'
 
 /**
  * Loads the Axiom UI library client-side.
@@ -13,17 +12,17 @@ import { usePathname } from 'next/navigation'
  * Add `data-axm-skip` or class `axm-skip` to any element to prevent upgrading.
  */
 export function AxiomUI() {
-  const pathname = usePathname()
-
   useEffect(() => {
     // Load once — the script auto-initializes and uses MutationObserver
     // to upgrade dynamically rendered elements
-    if (typeof window !== 'undefined' && !(window as any)._axiomLoaded) {
+    if (typeof window !== 'undefined') {
+      const axiomWindow = window as Window & { _axiomLoaded?: boolean }
+      if (axiomWindow._axiomLoaded) return
       const script = document.createElement('script')
       script.src = '/js/axiom-ui.js'
       script.defer = true
       document.head.appendChild(script)
-      ;(window as any)._axiomLoaded = true
+      axiomWindow._axiomLoaded = true
     }
   }, [])
 

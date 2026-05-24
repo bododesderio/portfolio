@@ -47,7 +47,7 @@ export async function POST(req: NextRequest) {
     // Strip <script> from SVG uploads
     if (file.type === 'image/svg+xml') {
       const svgContent = buffer.toString('utf-8')
-      if (/<script[\s>]/i.test(svgContent) || /on\w+\s*=/i.test(svgContent)) {
+      if (/<script[\s>]/i.test(svgContent) || /on\w+\s*=/i.test(svgContent) || /javascript:/i.test(svgContent)) {
         return NextResponse.json({ error: 'SVG contains disallowed script content.' }, { status: 400 })
       }
     }
@@ -59,7 +59,7 @@ export async function POST(req: NextRequest) {
         filename: file.name,
         url,
         storageId: publicId,
-        type: 'image',
+        type: file.type === 'application/pdf' ? 'document' : 'image',
         size: file.size,
         width: width ?? null,
         height: height ?? null,

@@ -6,6 +6,7 @@ import { ChevronDown } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Section } from '@/components/ui/Section'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 interface BioContent {
   heading: string
@@ -54,7 +55,7 @@ export function BioSection({ content }: { content: BioContent }) {
               >
                 <div
                   className="prose prose-lg max-w-none text-fg-muted dark:prose-invert prose-headings:text-fg prose-p:leading-[1.95] prose-p:text-fg-muted prose-a:text-brand prose-a:no-underline hover:prose-a:text-brand-600 prose-strong:text-fg"
-                  dangerouslySetInnerHTML={{ __html: content.body }}
+                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(content.body) }}
                 />
 
                 {!expanded && (

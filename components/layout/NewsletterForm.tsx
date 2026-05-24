@@ -16,11 +16,14 @@ export function NewsletterForm() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email }),
       })
-      if (!res.ok) throw new Error()
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}))
+        throw new Error((data as { error?: string }).error || 'Subscription failed')
+      }
       toast.success('Check your email to confirm your subscription!')
       setEmail('')
-    } catch {
-      toast.error('Something went wrong. Please try again.')
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'Something went wrong. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -30,6 +33,7 @@ export function NewsletterForm() {
     <form onSubmit={handleSubmit} className="flex gap-2">
       <input
         type="email"
+        aria-label="Email address"
         required
         value={email}
         onChange={e => setEmail(e.target.value)}
@@ -39,6 +43,7 @@ export function NewsletterForm() {
       <button
         type="submit"
         disabled={loading}
+        aria-busy={loading}
         className="px-6 py-2 bg-brand hover:bg-brand-dark disabled:opacity-60 text-white font-medium rounded-full transition-colors"
       >
         {loading ? '...' : 'Subscribe'}

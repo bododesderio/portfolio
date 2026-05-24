@@ -32,7 +32,14 @@ function shouldShow(b: PublicBanner): boolean {
   if (typeof window === 'undefined') return false
   const stored = localStorage.getItem(storageKey(b.id))
   if (!stored) return true
-  const data = JSON.parse(stored)
+
+  let data: { dismissed?: boolean; dismissedAt?: number }
+  try {
+    data = JSON.parse(stored)
+  } catch {
+    localStorage.removeItem(storageKey(b.id))
+    return true
+  }
 
   if (b.showOnce && data.dismissed) return false
   if (b.cooldownHours > 0 && data.dismissedAt) {

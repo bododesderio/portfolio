@@ -54,7 +54,8 @@ describe('Blog post create validation', () => {
   })
 
   it('rejects missing featured image', () => {
-    const { featuredImageUrl, ...noImage } = valid
+    const noImage = { ...valid }
+    delete (noImage as Partial<typeof valid>).featuredImageUrl
     expect(blogCreateSchema.safeParse(noImage).success).toBe(false)
   })
 
@@ -63,7 +64,8 @@ describe('Blog post create validation', () => {
   })
 
   it('rejects missing alt text', () => {
-    const { featuredImageAlt, ...noAlt } = valid
+    const noAlt = { ...valid }
+    delete (noAlt as Partial<typeof valid>).featuredImageAlt
     expect(blogCreateSchema.safeParse(noAlt).success).toBe(false)
   })
 

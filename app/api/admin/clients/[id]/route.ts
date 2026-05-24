@@ -1,15 +1,26 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
+import { z } from 'zod'
+
+const patchSchema = z.object({
+  name: z.string().min(1).optional(),
+  logoMediaId: z.string().nullable().optional(),
+  website: z.string().url().nullable().optional(),
+  visible: z.boolean().optional(),
+  order: z.number().int().optional(),
+})
 
 export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth()
   if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   try {
     const body = await req.json()
-    const c = await prisma.client.update({ where: { id: (await params).id }, data: body })
+    const data = patchSchema.parse(body)
+    const c = await prisma.client.update({ where: { id: (await params).id }, data })
     return NextResponse.json(c)
-  } catch {
+  } catch (err) {
+    if (err instanceof z.ZodError) return NextResponse.json({ error: err.issues[0]?.message ?? 'Invalid input.' }, { status: 400 })
     return NextResponse.json({ error: 'Update failed.' }, { status: 500 })
   }
 }

@@ -185,5 +185,5 @@ export function breadcrumbList(items: Array<{ name: string; url: string }>) {
  * string for use inside <script type="application/ld+json">.
  */
 export function ldJson(schema: unknown | unknown[]): string {
-  return JSON.stringify(Array.isArray(schema) ? schema : [schema])
+  return JSON.stringify(Array.isArray(schema) ? schema : [schema]).replace(/</g, '\\u003c')
 }

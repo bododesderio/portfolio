@@ -2,29 +2,72 @@ import { PrismaClient } from '@prisma/client'
 import path from 'path'
 
 const prisma = new PrismaClient()
+const DEFAULT_ADMIN_EMAIL = 'derricklamarh@gmail.com'
+const DEFAULT_ADMIN_PASSWORD_HASH = '$2b$12$tAF9wpNPwdx9z2kdCvYqreeZFJBlGZq0Zjh9U1gTh6q7Kaip2.YbG'
 
 async function main() {
   console.log('🌱 Starting seed...')
 
-  // Clear existing data (in reverse order due to dependencies)
-  console.log('🗑️  Clearing existing data...')
-  await prisma.banner.deleteMany()
-  await prisma.heroImage.deleteMany()
-  await prisma.pageEmbed.deleteMany()
-  await prisma.galleryItem.deleteMany()
-  await prisma.testimonial.deleteMany()
-  await prisma.blogPost.deleteMany()
-  await prisma.service.deleteMany()
-  await prisma.client.deleteMany()
-  await prisma.media.deleteMany()
-  await prisma.pressItem.deleteMany()
-  await prisma.siteContent.deleteMany()
-  await prisma.siteSettings.deleteMany()
-  await prisma.seoSettings.deleteMany()
-  await prisma.subscriber.deleteMany()
-  await prisma.message.deleteMany()
-  await prisma.newsletterCampaign.deleteMany()
-  await prisma.adminUser.deleteMany()
+  const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH || DEFAULT_ADMIN_PASSWORD_HASH
+  const adminEmail = (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).trim().toLowerCase()
+
+  const forceReseed = process.env.FORCE_RESEED === 'true'
+  const existingRows = await Promise.all([
+    prisma.adminUser.count(),
+    prisma.siteContent.count(),
+    prisma.siteSettings.count(),
+    prisma.seoSettings.count(),
+    prisma.blogPost.count(),
+    prisma.service.count(),
+    prisma.client.count(),
+    prisma.media.count(),
+    prisma.galleryItem.count(),
+    prisma.heroImage.count(),
+    prisma.pressItem.count(),
+    prisma.testimonial.count(),
+    prisma.pageEmbed.count(),
+    prisma.banner.count(),
+    prisma.project.count(),
+    prisma.projectImage.count(),
+    prisma.subscriber.count(),
+    prisma.message.count(),
+    prisma.newsletterCampaign.count(),
+    prisma.emailLog.count(),
+    prisma.emailEvent.count(),
+    prisma.appConfig.count(),
+  ])
+
+  if (existingRows.some(count => count > 0) && !forceReseed) {
+    console.log('✅ Existing data detected. Skipping seed. Set FORCE_RESEED=true to replace demo data.')
+    return
+  }
+
+  if (forceReseed) {
+    // Clear existing data only when explicitly requested.
+    console.log('🗑️  FORCE_RESEED=true: clearing existing data...')
+    await prisma.emailEvent.deleteMany()
+    await prisma.emailLog.deleteMany()
+    await prisma.projectImage.deleteMany()
+    await prisma.project.deleteMany()
+    await prisma.banner.deleteMany()
+    await prisma.heroImage.deleteMany()
+    await prisma.pageEmbed.deleteMany()
+    await prisma.galleryItem.deleteMany()
+    await prisma.testimonial.deleteMany()
+    await prisma.blogPost.deleteMany()
+    await prisma.service.deleteMany()
+    await prisma.client.deleteMany()
+    await prisma.media.deleteMany()
+    await prisma.pressItem.deleteMany()
+    await prisma.siteContent.deleteMany()
+    await prisma.siteSettings.deleteMany()
+    await prisma.seoSettings.deleteMany()
+    await prisma.subscriber.deleteMany()
+    await prisma.message.deleteMany()
+    await prisma.newsletterCampaign.deleteMany()
+    await prisma.appConfig.deleteMany()
+    await prisma.adminUser.deleteMany()
+  }
 
   // ==================== SITE CONTENT ====================
   console.log('📝 Creating site content...')
@@ -588,7 +631,6 @@ async function main() {
 
   // ==================== HERO IMAGES ====================
   console.log('🖼️ Creating hero images...')
-  await prisma.heroImage.deleteMany()
   const heroGalleryImages = galleryImages.slice(0, 5)
   let heroOrder = 0
   for (const imgFile of heroGalleryImages) {
@@ -602,7 +644,6 @@ async function main() {
 
   // ==================== PRESS ITEMS ====================
   console.log('📰 Creating press items...')
-  await prisma.pressItem.deleteMany()
   const pressItems = [
     {
       type: 'essay',
@@ -767,15 +808,18 @@ async function main() {
 
   // ==================== ADMIN USER ====================
   console.log('🔐 Creating admin user...')
-  const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH
-  if (!adminPasswordHash) {
-    throw new Error('ADMIN_PASSWORD_HASH is required in .env to seed the admin user')
-  }
   await prisma.adminUser.create({
     data: {
-      email: process.env.ADMIN_EMAIL || 'info@bododesderio.com',
+      email: adminEmail,
       passwordHash: adminPasswordHash,
     },
+  })
+  await prisma.appConfig.createMany({
+    data: [
+      { key: 'ADMIN_EMAIL', value: adminEmail },
+      { key: 'ADMIN_PASSWORD_HASH', value: adminPasswordHash },
+    ],
+    skipDuplicates: true,
   })
   console.log('  ✓ Created admin user record')
 
@@ -987,7 +1031,7 @@ async function main() {
   ]
 
   for (const project of projects) {
-    await prisma.project.create({ data: project })
+    await prisma.project.upsert({ where: { slug: project.slug }, update: project, create: project })
   }
   console.log(`  ✓ Created ${projects.length} projects`)
 

@@ -2,10 +2,14 @@
 set -e
 
 echo "Running Prisma migrations..."
-npx prisma migrate deploy 2>/dev/null || npx prisma db push --accept-data-loss
+npx prisma migrate deploy
 
-echo "Seeding database (if needed)..."
-npx prisma db seed 2>/dev/null || true
+if [ "${RUN_SEED_ON_START:-false}" = "true" ]; then
+  echo "Seeding database..."
+  npx prisma db seed
+else
+  echo "Skipping seed. Set RUN_SEED_ON_START=true to seed intentionally."
+fi
 
 echo "Starting server..."
 exec node server.js

@@ -14,7 +14,9 @@ export async function POST(req: NextRequest) {
   // Verify webhook token
   const token = req.nextUrl.searchParams.get('token')
   const secret = process.env.POSTAL_WEBHOOK_SECRET
-  if (!secret || !token || !timingSafeEqual(Buffer.from(token), Buffer.from(secret))) {
+  const tokenBuffer = Buffer.from(token || '')
+  const secretBuffer = Buffer.from(secret || '')
+  if (!secret || !token || tokenBuffer.length !== secretBuffer.length || !timingSafeEqual(tokenBuffer, secretBuffer)) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 

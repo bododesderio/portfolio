@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import slugify from 'slugify'
 import {
-  Save, Eye, EyeOff, Star, ImageIcon, Plus, X as XIcon, GripVertical,
+  Save, Eye, Star, X as XIcon,
 } from 'lucide-react'
 import { MediaPickerField, type PickedMedia } from './MediaPickerField'
 

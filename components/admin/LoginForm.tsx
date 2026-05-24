@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { Eye, EyeOff, LogIn } from 'lucide-react'
 
 interface LoginFormProps {
@@ -15,6 +15,7 @@ export function LoginForm({
   subtitle = 'Sign in to your admin account',
 }: LoginFormProps) {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [showPw, setShowPw] = useState(false)
@@ -35,7 +36,8 @@ export function LoginForm({
       setError('Invalid email or password.')
       setLoading(false)
     } else {
-      router.push('/admin')
+      const callbackUrl = searchParams.get('callbackUrl')
+      router.push(callbackUrl?.startsWith('/admin') ? callbackUrl : '/admin')
     }
   }
 

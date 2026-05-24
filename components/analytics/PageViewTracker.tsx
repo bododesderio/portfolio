@@ -29,6 +29,12 @@ export function PageViewTracker() {
     const dnt = typeof navigator !== 'undefined' && (navigator.doNotTrack === '1' || (navigator as unknown as { msDoNotTrack?: string }).msDoNotTrack === '1')
     if (dnt) return
 
+    try {
+      if (window.localStorage.getItem('cookie-consent') !== 'accepted') return
+    } catch {
+      return
+    }
+
     const sessionId = getOrCreateSessionId()
     const payload = {
       path: pathname,

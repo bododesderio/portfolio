@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getPageContent, getField } from '@/lib/content'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Bodo Desderio',
@@ -25,7 +26,7 @@ export default async function PrivacyPage() {
       <p className="text-fg-muted mb-6">Last updated: {updated}</p>
       <div
         className="prose prose-slate dark:prose-invert max-w-none space-y-6 [&_h2]:font-serif [&_h2]:text-2xl [&_h2]:mt-10 [&_h2]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_a]:text-brand [&_a:hover]:underline"
-        dangerouslySetInnerHTML={{ __html: body }}
+        dangerouslySetInnerHTML={{ __html: sanitizeHtml(body) }}
       />
     </article>
   )

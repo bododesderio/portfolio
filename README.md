@@ -51,9 +51,9 @@ App: http://localhost:3001 · Admin: http://localhost:3001/admin/login
 | Styling | Tailwind CSS 3, `darkMode: 'class'`, CSS-variable-driven semantic tokens |
 | DB | PostgreSQL 16 (Prisma 5) — Supabase in prod, Docker locally |
 | Auth | NextAuth v5 beta, single admin, JWT session, DB-overridable password hash |
-| Email | Resend + React Email templates |
-| Media | Cloudinary uploads; Unsplash stock pack via fetch script; local `sharp` for login background webp |
-| Rich text | Tiptap (StarterKit + image + link) |
+| Email | SMTP via Nodemailer + React Email templates |
+| Media | Local uploads in `public/uploads`; Unsplash stock pack via fetch script; local `sharp` for login background webp |
+| Rich text | CKEditor 5 |
 | Charts | Custom inline SVG sparklines + `recharts` (dynamic import) for the admin visits chart |
 | Analytics | First-party page-view table, DNT-respecting, rate-limited |
 | Deployment | Docker Compose (app + db), security headers in `next.config.js` |
@@ -159,7 +159,7 @@ const content = await getPageContent('about')
 const heading = getField(content, 'hero.heading')
 ```
 
-Admin edits content at `/admin/content/{page}` with Tiptap for HTML fields and `MediaPickerField` for image fields.
+Admin edits content at `/admin/content/{page}` with CKEditor for HTML fields and `MediaPickerField` for image fields.
 
 ---
 
@@ -180,7 +180,7 @@ Admin edits content at `/admin/content/{page}` with Tiptap for HTML fields and `
 - **Unified MediaPicker** — 4 tabs: Library / Upload from device / Paste URL (auto-detects YouTube, Vimeo, direct image/video/PDF, Google Docs, Notion, X, LinkedIn, Instagram) / Stock (Unsplash pack)
 - **Appearance → Login background**: JPEG/PNG/WebP up to 5MB, converted to WebP via `sharp`, last 3 kept in archive
 - **Appearance → Brand colour**: hex picker + presets; derived 50–900 palette injected as CSS vars at render time
-- **Blog editor**: featured image + required alt text + optional attribution + Tiptap body editor with inline media insert
+- **Blog editor**: featured image + required alt text + optional attribution + CKEditor body editor with inline media insert
 
 ---
 
@@ -210,8 +210,7 @@ See `.env.example` for the full list. Key ones:
 - `DATABASE_URL` — PostgreSQL
 - `NEXTAUTH_SECRET` — random 32 bytes
 - `ADMIN_EMAIL` / `ADMIN_PASSWORD_HASH` — initial admin creds
-- `CLOUDINARY_*` — media uploads
-- `RESEND_API_KEY` — transactional + newsletter
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` — transactional + newsletter email
 - `ANALYTICS_SALT` — page-view UA hashing
 - `UNSPLASH_ACCESS_KEY` — stock fetch script (optional; only for running `scripts/fetch-stock-pack.mjs`)
 - `NEXT_PUBLIC_SITE_URL` — canonical URL for sitemap/OG
@@ -221,7 +220,7 @@ See `.env.example` for the full list. Key ones:
 ## Commands
 
 ```bash
-pnpm dev              # Next dev server (port 3000)
+pnpm dev              # Next dev server (port 3001)
 pnpm build            # Production build
 pnpm start            # Start production server
 pnpm typecheck        # tsc --noEmit

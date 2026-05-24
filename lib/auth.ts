@@ -10,6 +10,10 @@ const loginAttempts = new Map<string, { count: number; lastAttempt: number }>()
 const MAX_ATTEMPTS = 5
 const LOCKOUT_MS = 15 * 60 * 1000 // 15 minutes
 
+function normalizeEmail(email: string): string {
+  return email.trim().toLowerCase()
+}
+
 function checkLoginThrottle(email: string): boolean {
   const entry = loginAttempts.get(email)
   if (!entry) return true
@@ -59,6 +63,7 @@ async function fetchThemePreference(email: string): Promise<ThemePreference> {
   return 'system'
 }
 
+const SHORT_MAX_AGE = 8 * 60 * 60           // 8 hours
 const LONG_MAX_AGE  = 30 * 24 * 60 * 60  // 30 days
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -72,13 +77,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password) return null
 
-        const email = credentials.email as string
+        const email = normalizeEmail(credentials.email as string)
         if (!checkLoginThrottle(email)) return null
 
-        const [adminEmail, adminHash] = await Promise.all([
+        const [configuredAdminEmail, adminHash] = await Promise.all([
           getConfig('ADMIN_EMAIL'),
           getConfig('ADMIN_PASSWORD_HASH'),
         ])
+        const adminEmail = normalizeEmail(configuredAdminEmail)
         if (!adminEmail || !adminHash) return null
         if (email !== adminEmail) { recordLoginAttempt(email, false); return null }
 
@@ -86,28 +92,25 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!valid) { recordLoginAttempt(email, false); return null }
 
         recordLoginAttempt(email, true)
+        const rememberMe = credentials.rememberMe === 'true' || credentials.rememberMe === true
 
         await prisma.adminUser.updateMany({
           where: { email: adminEmail },
           data: { lastLogin: new Date() },
         }).catch(() => {})
 
-        return { id: '1', email: adminEmail, name: 'Admin' }
+        return { id: '1', email: adminEmail, name: 'Admin', rememberMe }
       },
     }),
   ],
   callbacks: {
-    async jwt({ token, user, trigger, account }) {
+    async jwt({ token, user, trigger }) {
       if (user) {
         token.sub = user.id
         token.email = user.email
-        // Store remember-me preference in the token on first sign-in
-        const rememberMe = (account as Record<string, unknown> | null)?.rememberMe
-        token.rememberMe = rememberMe === 'true' || rememberMe === true
-        // Set expiry only once at login — not on every callback
-        if (token.rememberMe) {
-          token.exp = Math.floor(Date.now() / 1000) + LONG_MAX_AGE
-        }
+        const rememberMe = (user as { rememberMe?: unknown }).rememberMe === true
+        token.rememberMe = rememberMe
+        token.exp = Math.floor(Date.now() / 1000) + (rememberMe ? LONG_MAX_AGE : SHORT_MAX_AGE)
       }
 
       // Fetch preference lazily: first time after login, or when the client

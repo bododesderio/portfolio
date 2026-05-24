@@ -11,21 +11,63 @@ interface EmbedSectionProps {
   layout?: 'masonry' | 'carousel' | 'featured'
 }
 
-const embedHtml: Record<string, (postId: string, url: string) => string> = {
-  twitter: (_, url) =>
-    `<blockquote class="twitter-tweet"><a href="${url}"></a></blockquote>`,
-  youtube: (postId) =>
-    `<iframe src="https://www.youtube.com/embed/${postId}" class="w-full aspect-video rounded-xl" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`,
-  vimeo: (postId) =>
-    `<iframe src="https://player.vimeo.com/video/${postId}" class="w-full aspect-video rounded-xl" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>`,
-  instagram: (_, url) =>
-    `<blockquote class="instagram-media" data-instgrm-permalink="${url}" style="max-width:540px;width:100%"></blockquote>`,
-  linkedin: (_, url) =>
-    `<a href="${url}" target="_blank" rel="noopener noreferrer" class="block p-4 border border-hairline rounded-xl hover:bg-muted transition-colors"><span class="text-sm text-fg-muted">View on LinkedIn →</span></a>`,
-  facebook: (_, url) =>
-    `<a href="${url}" target="_blank" rel="noopener noreferrer" class="block p-4 border border-hairline rounded-xl hover:bg-muted transition-colors"><span class="text-sm text-fg-muted">View on Facebook →</span></a>`,
-  tiktok: (_, url) =>
-    `<a href="${url}" target="_blank" rel="noopener noreferrer" class="block p-4 border border-hairline rounded-xl hover:bg-muted transition-colors"><span class="text-sm text-fg-muted">View on TikTok →</span></a>`,
+function safeExternalUrl(url: string): string | null {
+  try {
+    const parsed = new URL(url)
+    if (!['http:', 'https:'].includes(parsed.protocol)) return null
+    return parsed.toString()
+  } catch {
+    return null
+  }
+}
+
+function renderEmbed(embed: { platform: string; postId: string; originalUrl: string }) {
+  const url = safeExternalUrl(embed.originalUrl)
+  if (!url) return null
+  const postId = encodeURIComponent(embed.postId)
+
+  switch (embed.platform) {
+    case 'twitter':
+      return <blockquote className="twitter-tweet"><a href={url} /></blockquote>
+    case 'youtube':
+      return (
+        <iframe
+          src={`https://www.youtube.com/embed/${postId}`}
+          title="YouTube embed"
+          className="w-full aspect-video rounded-xl"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowFullScreen
+        />
+      )
+    case 'vimeo':
+      return (
+        <iframe
+          src={`https://player.vimeo.com/video/${postId}`}
+          title="Vimeo embed"
+          className="w-full aspect-video rounded-xl"
+          allow="autoplay; fullscreen; picture-in-picture"
+          allowFullScreen
+        />
+      )
+    case 'instagram':
+      return <blockquote className="instagram-media" data-instgrm-permalink={url} style={{ maxWidth: 540, width: '100%' }} />
+    case 'linkedin':
+    case 'facebook':
+    case 'tiktok': {
+      const label = embed.platform[0].toUpperCase() + embed.platform.slice(1)
+      return (
+        <a href={url} target="_blank" rel="noopener noreferrer" className="block p-4 border border-hairline rounded-xl hover:bg-muted transition-colors">
+          <span className="text-sm text-fg-muted">View on {label} →</span>
+        </a>
+      )
+    }
+    default:
+      return (
+        <a href={url} target="_blank" rel="noopener noreferrer" className="text-brand hover:underline">
+          View post →
+        </a>
+      )
+  }
 }
 
 const layoutClasses: Record<string, string> = {
@@ -54,20 +96,17 @@ export async function EmbedSection({ page, section, title, subtitle, layout = 'm
         )}
         <div className={layoutClasses[layout] || layoutClasses.masonry}>
           {embeds.map((embed) => {
-            const renderer = embedHtml[embed.platform]
-            const html = renderer
-              ? renderer(embed.postId, embed.originalUrl)
-              : `<a href="${embed.originalUrl}" target="_blank" rel="noopener noreferrer" class="text-brand hover:underline">View post →</a>`
+            const rendered = renderEmbed(embed)
+            if (!rendered) return null
 
             return (
               <div
                 key={embed.id}
                 className={`${layout === 'carousel' ? 'snap-start flex-shrink-0 w-[85vw] sm:w-[400px]' : 'break-inside-avoid'}`}
               >
-                <div
-                  className="rounded-xl overflow-hidden"
-                  dangerouslySetInnerHTML={{ __html: html }}
-                />
+                <div className="rounded-xl overflow-hidden">
+                  {rendered}
+                </div>
                 {embed.caption && (
                   <p className="mt-2 text-sm text-fg-muted">{embed.caption}</p>
                 )}

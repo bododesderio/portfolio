@@ -78,7 +78,7 @@ describe('Magic bytes validation', () => {
 
 describe('SVG script detection', () => {
   function hasDangerousSvg(content: string): boolean {
-    return /<script[\s>]/i.test(content) || /on\w+\s*=/i.test(content)
+    return /<script[\s>]/i.test(content) || /on\w+\s*=/i.test(content) || /javascript:/i.test(content)
   }
 
   it('rejects SVG with <script> tag', () => {
@@ -91,6 +91,10 @@ describe('SVG script detection', () => {
 
   it('rejects SVG with onclick', () => {
     expect(hasDangerousSvg('<svg><rect onclick="evil()"/></svg>')).toBe(true)
+  })
+
+  it('rejects SVG with javascript URLs', () => {
+    expect(hasDangerousSvg('<svg><a href="javascript:alert(1)"><rect/></a></svg>')).toBe(true)
   })
 
   it('accepts clean SVG', () => {

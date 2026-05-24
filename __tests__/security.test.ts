@@ -72,7 +72,9 @@ describe('Security invariants', () => {
 describe('Middleware matcher configuration', () => {
   it('protects admin pages and admin API routes', async () => {
     const fs = await import('fs')
-    const middleware = fs.readFileSync('middleware.ts', 'utf-8')
+    const path = (await import('path')).default
+    const middlewarePath = fs.existsSync('proxy.ts') ? 'proxy.ts' : path.join(process.cwd(), 'middleware.ts')
+    const middleware = fs.readFileSync(middlewarePath, 'utf-8')
 
     // Verify matcher covers both admin pages and API
     expect(middleware).toContain("'/admin/:path*'")

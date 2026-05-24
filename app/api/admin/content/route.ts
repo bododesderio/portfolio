@@ -3,6 +3,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
+import { sanitizeHtml } from '@/lib/sanitize'
 
 const schema = z.object({
   page: z.string(),
@@ -19,11 +20,12 @@ export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json()
     const { page, section, field_key, value, field_type } = schema.parse(body)
+    const safeValue = field_type === 'html' ? sanitizeHtml(value) : value
 
     const row = await prisma.siteContent.upsert({
       where: { page_section_fieldKey: { page, section, fieldKey: field_key } },
-      update: { value, ...(field_type ? { fieldType: field_type } : {}) },
-      create: { page, section, fieldKey: field_key, value, fieldType: field_type || 'text' },
+      update: { value: safeValue, ...(field_type ? { fieldType: field_type } : {}) },
+      create: { page, section, fieldKey: field_key, value: safeValue, fieldType: field_type || 'text' },
     })
 
     revalidatePath(`/${page === 'home' ? '' : page}`)

@@ -98,14 +98,16 @@ describe('Project create validation', () => {
   })
 
   it('defaults status to planned', () => {
-    const { status, ...noStatus } = validProject
+    const noStatus = { ...validProject }
+    delete (noStatus as Partial<typeof validProject>).status
     const result = projectSchema.safeParse(noStatus)
     expect(result.success).toBe(true)
     if (result.success) expect(result.data.status).toBe('planned')
   })
 
   it('defaults techStack to empty array', () => {
-    const { techStack, ...noTech } = validProject
+    const noTech = { ...validProject }
+    delete (noTech as Partial<typeof validProject>).techStack
     const result = projectSchema.safeParse(noTech)
     expect(result.success).toBe(true)
     if (result.success) expect(result.data.techStack).toEqual([])

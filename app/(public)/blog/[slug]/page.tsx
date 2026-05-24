@@ -7,6 +7,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { sanitizeHtml } from '@/lib/sanitize'
+import { ldJson } from '@/lib/schema'
 import type { Metadata } from 'next'
 
 interface Props {
@@ -98,11 +99,11 @@ export default async function BlogPostPage({ params }: Props) {
     <article className="pt-24">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
+        dangerouslySetInnerHTML={{ __html: ldJson(blogPostingSchema) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+        dangerouslySetInnerHTML={{ __html: ldJson(breadcrumbSchema) }}
       />
       {/* Post hero */}
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">

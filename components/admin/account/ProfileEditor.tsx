@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
-import { User } from 'lucide-react'
 import { MediaPickerField } from '@/components/admin/MediaPickerField'
 
 interface ProfileEditorProps {

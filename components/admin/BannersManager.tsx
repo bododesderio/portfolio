@@ -662,7 +662,6 @@ function BannerPreviewModal({ form, onClose }: { form: FormState; onClose: () =>
   // Position styles based on kind
   const isBar = form.kind === 'topbar' || form.kind === 'bottombar'
   const isCorner = form.kind === 'corner'
-  const isModal = form.kind === 'modal'
 
   return (
     <div className="fixed inset-0 z-[99999] flex items-center justify-center">

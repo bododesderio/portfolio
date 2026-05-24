@@ -46,8 +46,9 @@ export function ContactForm() {
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
-          <label className="block text-sm font-medium text-fg-muted mb-2">Name</label>
+          <label htmlFor="contact-name" className="block text-sm font-medium text-fg-muted mb-2">Name</label>
           <input
+            id="contact-name"
             type="text"
             required
             value={form.name}
@@ -57,8 +58,9 @@ export function ContactForm() {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-fg-muted mb-2">Email</label>
+          <label htmlFor="contact-email" className="block text-sm font-medium text-fg-muted mb-2">Email</label>
           <input
+            id="contact-email"
             type="email"
             required
             value={form.email}
@@ -81,8 +83,9 @@ export function ContactForm() {
       </div>
 
       <div>
-        <label className="block text-sm font-medium text-fg-muted mb-2">Message</label>
+        <label htmlFor="contact-message" className="block text-sm font-medium text-fg-muted mb-2">Message</label>
         <textarea
+          id="contact-message"
           required
           rows={6}
           value={form.message}
@@ -92,7 +95,7 @@ export function ContactForm() {
         />
       </div>
 
-      <Button type="submit" disabled={loading} variant="primary" className="w-full">
+      <Button type="submit" disabled={loading} aria-busy={loading} variant="primary" className="w-full">
         {loading ? 'Sending...' : 'Send message'}
       </Button>
     </form>
