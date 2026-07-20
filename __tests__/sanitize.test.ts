@@ -27,8 +27,9 @@ describe('HTML sanitizer', () => {
     expect(sanitizeHtml('<embed src="evil.swf">')).toBe('')
   })
 
-  it('strips <form> tags', () => {
-    expect(sanitizeHtml('<form action="evil.com"><input></form>')).toBe('<input>')
+  it('strips <form> tags and their controls', () => {
+    // Stricter than the previous regex sanitizer, which left the bare <input>.
+    expect(sanitizeHtml('<form action="evil.com"><input></form>')).toBe('')
   })
 
   it('removes event handler attributes', () => {
@@ -40,13 +41,17 @@ describe('HTML sanitizer', () => {
   })
 
   it('removes onload attributes', () => {
-    expect(sanitizeHtml('<body onload="evil()">')).toBe('<body>')
+    // <body> is not in the allowlist, so the element goes too.
+    expect(sanitizeHtml('<body onload="evil()">')).toBe('')
+    expect(sanitizeHtml('<div onload="evil()">x</div>')).toBe('<div>x</div>')
   })
 
   it('neutralizes javascript: URLs in href', () => {
     const result = sanitizeHtml('<a href="javascript:alert(1)">click</a>')
     expect(result).not.toContain('javascript:')
-    expect(result).toContain('about:blank')
+    // The attribute is dropped outright now, rather than rewritten to
+    // about:blank as the old regex sanitizer did.
+    expect(result).toBe('<a>click</a>')
   })
 
   it('neutralizes javascript: URLs in src', () => {
@@ -75,7 +80,10 @@ describe('HTML sanitizer', () => {
 
   it('preserves links with safe attributes', () => {
     const html = '<a href="https://example.com" target="_blank" rel="noopener">Link</a>'
-    expect(sanitizeHtml(html)).toBe(html)
+    // rel is upgraded to include noreferrer for any link opening a new tab.
+    expect(sanitizeHtml(html)).toBe(
+      '<a href="https://example.com" target="_blank" rel="noopener noreferrer">Link</a>',
+    )
   })
 
   it('case-insensitive script stripping', () => {

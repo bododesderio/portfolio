@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import { prisma } from '@/lib/data/db'
+import { getClientIp, rateLimit } from '@/lib/util/rate-limit'
 
 // 1x1 transparent GIF
 const PIXEL = Buffer.from(
@@ -13,8 +14,19 @@ export async function GET(
 ) {
   const { id } = await params
 
+  // EmailLog ids are self-serve (subscribe with a throwaway address), so this
+  // endpoint is writable by anyone. Without a limit, a loop inflates a
+  // campaign's open rate and grows email_events without bound. Fails open —
+  // tracking must never break rendering of the email.
+  const { ok: underLimit } = await rateLimit(`t-open:${id}:${getClientIp(req)}`, {
+    limit: 10,
+    windowMs: 60_000,
+  })
+
   // Fire-and-forget: record the open event
   try {
+    if (!underLimit) throw new Error('rate limited')
+
     const log = await prisma.emailLog.findUnique({ where: { id } })
     if (log) {
       const now = new Date()
@@ -28,7 +40,7 @@ export async function GET(
           data: {
             emailLogId: id,
             event: 'open',
-            ip: req.headers.get('x-forwarded-for') ?? req.headers.get('x-real-ip') ?? undefined,
+            ip: getClientIp(req),
             userAgent: req.headers.get('user-agent') ?? undefined,
           },
         }),

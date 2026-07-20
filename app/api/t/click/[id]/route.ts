@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { prisma } from '@/lib/data/db'
 import { isSameOriginUrl, verifyTrackedUrl } from '@/lib/util/link-signing'
+import { getClientIp, rateLimit } from '@/lib/util/rate-limit'
 
 export async function GET(
   req: NextRequest,
@@ -30,6 +31,13 @@ export async function GET(
     return NextResponse.redirect(fallbackUrl)
   }
 
+  // Bound event writes per link per client; the redirect itself still works.
+  const { ok: underLimit } = await rateLimit(`t-click:${id}:${getClientIp(req)}`, {
+    limit: 10,
+    windowMs: 60_000,
+  })
+  if (!underLimit) return NextResponse.redirect(target.toString(), 302)
+
   try {
     const log = await prisma.emailLog.findUnique({ where: { id } })
     if (!log) return NextResponse.redirect(fallbackUrl)
@@ -44,7 +52,7 @@ export async function GET(
           emailLogId: id,
           event: 'click',
           url: target.toString(),
-          ip: req.headers.get('x-forwarded-for') ?? req.headers.get('x-real-ip') ?? undefined,
+          ip: getClientIp(req),
           userAgent: req.headers.get('user-agent') ?? undefined,
         },
       }),

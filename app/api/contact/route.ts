@@ -15,7 +15,13 @@ const schema = z.object({
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req)
-  const { ok } = await rateLimit(`contact:${ip}`, { limit: 5, windowMs: 3600_000 })
+  // onError:'closed' — this handler sends two emails per request, so a Redis
+  // outage must not become an open mail-relay window.
+  const { ok } = await rateLimit(`contact:${ip}`, {
+    limit: 5,
+    windowMs: 3600_000,
+    onError: 'closed',
+  })
   if (!ok) return NextResponse.json({ error: 'Too many requests. Try again later.' }, { status: 429 })
 
   try {

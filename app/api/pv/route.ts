@@ -13,7 +13,15 @@ const schema = z.object({
 
 function hashUA(ua: string | null): string | null {
   if (!ua) return null
-  const salt = process.env.ANALYTICS_SALT ?? ''
+  const salt = process.env.ANALYTICS_SALT
+  // Without a salt this is plain sha256 of the user-agent. UA strings have very
+  // low entropy, so a rainbow table of the few thousand common ones reverses
+  // the whole column — the "anonymous" identifier becomes a stable cross-session
+  // correlator. Drop the hash entirely rather than store a false pseudonym.
+  if (!salt) {
+    console.warn('[Analytics] ANALYTICS_SALT is not set — omitting userAgentHash.')
+    return null
+  }
   return createHash('sha256').update(ua + salt).digest('hex').slice(0, 32)
 }
 
