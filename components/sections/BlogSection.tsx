@@ -51,7 +51,7 @@ export function BlogSection({ posts }: BlogSectionProps) {
             >
               {post.featuredImage && (
                 <div className="relative h-48 w-full">
-                  <Image src={post.featuredImage} alt="" fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
+                  <Image src={post.featuredImage} alt={post.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw" className="object-cover" />
                 </div>
               )}
               <div className="p-6 flex-1 flex flex-col">

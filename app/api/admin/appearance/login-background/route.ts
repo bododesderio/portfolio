@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidateTag } from 'next/cache'
+import { CACHE_TAGS, REVALIDATE_PROFILE } from '@/lib/data/cache-tags'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
 import { writeUploadedImage } from '@/lib/domain/media-uploads'
@@ -30,6 +32,7 @@ export async function POST(req: NextRequest) {
     })
 
     const warnLowRes = (width ?? 0) < 1920 || (height ?? 0) < 1080
+    revalidateTag(CACHE_TAGS.siteSettings, REVALIDATE_PROFILE)
     return NextResponse.json({ success: true, url, width, height, warnLowRes })
   } catch {
     return NextResponse.json({ error: 'Upload failed.' }, { status: 500 })
@@ -42,6 +45,7 @@ export async function DELETE() {
 
   try {
     await prisma.siteSettings.delete({ where: { key: 'login_background_url' } }).catch(() => null)
+    revalidateTag(CACHE_TAGS.siteSettings, REVALIDATE_PROFILE)
     return NextResponse.json({ success: true })
   } catch {
     return NextResponse.json({ error: 'Reset failed.' }, { status: 500 })

@@ -76,6 +76,53 @@ production stack; unset selects dev. Same command on both.
 - `components/sections/EmbedSection.tsx` imports Prisma directly — the one
   layering violation left in `components/`.
 
+## RESUME HERE (paused 2026-07-20, mid-audit-remediation)
+
+Branch: `chore/deploy-hardening-and-structure`.
+
+**First thing tomorrow — the one unverified step:** run a production build.
+Everything below passed typecheck + 159 tests, but the `unstable_cache` change
+in `lib/data/content.ts` is exactly the kind that only fails at build time, and
+the build was interrupted before it ran.
+
+```bash
+DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" \
+NEXTAUTH_SECRET="build-dummy" NEXT_PUBLIC_SITE_URL="http://localhost:3001" \
+ANALYTICS_SALT="build-dummy" npx next build --webpack
+```
+(Needs a scratch Postgres: `docker run -d --name bodo_migrate_tmp -e POSTGRES_PASSWORD=tmp
+-e POSTGRES_USER=tmp -e POSTGRES_DB=tmpdb -p 55432:5432 postgres:16-alpine`,
+then `npx prisma migrate deploy`.)
+
+### Done in the remediation pass
+- Sanitizer → isomorphic-dompurify (all known bypasses tested and closed)
+- SSRF-safe fetch for link-check; rate-limit fail-closed on mail routes;
+  per-target subscribe limit; banner/tracking endpoints limited; XFF read from
+  the trusted end; HKDF per-purpose token keys + confirm-token TTL with legacy
+  acceptance; ANALYTICS_SALT no longer degrades silently
+- Newsletter made resumable using EmailLog as the progress ledger (no schema
+  change), status now `sending` → `sent`, template rendered once not per
+  subscriber
+- Missing indexes migration `20260720010000_add_missing_query_indexes` (verified
+  zero drift from a fresh DB)
+- `unstable_cache` on content/settings/SEO reads with tag invalidation wired
+  into all four admin writers — **note:** the settings single-key branch was
+  missing invalidation and was fixed; zod validation added to that route
+- CI workflow incl. a job that fails the build on schema/migration drift
+- EmbedSection no longer imports Prisma; blog image `alt` now uses post title
+
+### Not started — deliberately deferred
+The pure-churn refactors from §5 of the audit, ~1,180 lines with no behaviour
+change. Best done as their own pass so they can be reviewed without security
+changes mixed in:
+1. `withAdmin(schema, handler)` wrapper — ~200 lines of boilerplate across 62
+   handlers; the real win is making it impossible to forget an auth guard
+2. `useResourceCrud<T>` hook — 7 near-identical admin managers, ~35-45% scaffold
+3. `BannersManager.tsx` split (782 lines → BannerForm / BannerList / PreviewModal)
+4. `SectionHeader` + `lib/motion.ts` presets — ~25 repetitions
+5. `loading.tsx` / Suspense / skeletons (none exist anywhere)
+6. CSP `unsafe-inline` → nonce-based (high effort; sanitizer now carries the risk)
+
 ## Next steps
 1. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`
    — the tables already exist there; without this the next deploy errors.

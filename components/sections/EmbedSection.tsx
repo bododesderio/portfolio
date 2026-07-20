@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/data/db'
+import { getPublishedEmbeds } from '@/lib/data/embeds'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
@@ -77,10 +77,7 @@ const layoutClasses: Record<string, string> = {
 }
 
 export async function EmbedSection({ page, section, title, subtitle, layout = 'masonry' }: EmbedSectionProps) {
-  const embeds = await prisma.pageEmbed.findMany({
-    where: { page, section, isPublished: true },
-    orderBy: { sortOrder: 'asc' },
-  })
+  const embeds = await getPublishedEmbeds(page, section)
 
   if (embeds.length === 0) return null
 
