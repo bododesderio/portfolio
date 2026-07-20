@@ -1,4 +1,4 @@
-import { prisma } from './db'
+import { prisma } from '@/lib/data/db'
 import slugify from 'slugify'
 
 // Content types based on SiteContent table

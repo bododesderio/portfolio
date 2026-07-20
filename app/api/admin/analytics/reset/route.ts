@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { NextResponse } from 'next/server'
 
 export async function DELETE() {

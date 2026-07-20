@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { matchesPath, type PublicBanner } from '@/lib/banners'
+import { prisma } from '@/lib/data/db'
+import { matchesPath, type PublicBanner } from '@/lib/domain/banners'
 
 export const dynamic = 'force-dynamic'
 

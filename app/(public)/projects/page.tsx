@@ -1,6 +1,6 @@
 export const dynamic = 'force-dynamic'
 
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { ProjectGrid } from '@/components/sections/ProjectGrid'
 import type { Metadata } from 'next'
 

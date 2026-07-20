@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { sanitizeHtml } from '../lib/sanitize'
+import { sanitizeHtml } from '../lib/util/sanitize'
 
 describe('HTML sanitizer', () => {
   it('passes through safe HTML unchanged', () => {

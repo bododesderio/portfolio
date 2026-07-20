@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { sendTrackedEmail } from '@/lib/email-tracking'
+import { prisma } from '@/lib/data/db'
+import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderNewsletterCampaign } from '@/lib/emails'
-import { unsubscribeUrl } from '@/lib/unsubscribe'
+import { unsubscribeUrl } from '@/lib/domain/unsubscribe'
 
 export async function POST(req: NextRequest) {
   const session = await auth()

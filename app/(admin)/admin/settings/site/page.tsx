@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { SiteSettingsForm } from '@/components/admin/settings/SiteSettingsForm'
 import { SeoSettingsForm } from '@/components/admin/settings/SeoSettingsForm'

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
-import { thumbnailUrl, blurUrl, optimizedUrl } from '@/lib/image-utils'
+import { thumbnailUrl, blurUrl, optimizedUrl } from '@/lib/util/image-utils'
 
 interface PhotoStripItem {
   id: string

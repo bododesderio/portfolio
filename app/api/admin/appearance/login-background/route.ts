@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { writeUploadedImage } from '@/lib/media-uploads'
+import { prisma } from '@/lib/data/db'
+import { writeUploadedImage } from '@/lib/domain/media-uploads'
 
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp']
 const MAX_BYTES = 5 * 1024 * 1024

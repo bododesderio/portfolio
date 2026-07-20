@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { z } from 'zod'
-import { sendTrackedEmail } from '@/lib/email-tracking'
+import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderAdminNotification, renderContactAutoReply } from '@/lib/emails'
-import { rateLimit, getClientIp } from '@/lib/rate-limit'
+import { rateLimit, getClientIp } from '@/lib/util/rate-limit'
 import { getConfig } from '@/lib/config'
 
 const schema = z.object({

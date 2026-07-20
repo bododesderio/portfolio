@@ -1,10 +1,10 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { countWithDelta, topPages } from '@/lib/analytics'
-import { sendTrackedEmail } from '@/lib/email-tracking'
+import { countWithDelta, topPages } from '@/lib/data/analytics'
+import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderAnalyticsDigest } from '@/lib/emails'
 import { getConfig } from '@/lib/config'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 
 export async function POST() {
   const session = await auth()

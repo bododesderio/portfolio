@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { sanitizeHtml } from '@/lib/sanitize'
+import { sanitizeHtml } from '@/lib/util/sanitize'
 
 const schema = z.object({
   page: z.string(),

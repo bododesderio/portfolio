@@ -41,7 +41,9 @@ COPY --from=builder /app/node_modules/.pnpm ./node_modules/.pnpm
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 COPY --from=builder /app/node_modules/.bin/prisma ./node_modules/.bin/prisma
-COPY --from=builder /app/scripts/docker-start.sh ./scripts/docker-start.sh
+# Whole scripts dir: docker-start.sh sources seed-if-empty.sh, and `set -e`
+# would abort the container on boot if it were missing.
+COPY --from=builder /app/scripts ./scripts
 
 USER nextjs
 EXPOSE 3000

@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { PressManager } from '@/components/admin/PressManager'
 import { Pagination } from '@/components/admin/Pagination'

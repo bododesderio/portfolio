@@ -1,5 +1,5 @@
-import { getSiteSetting } from '@/lib/content'
-import { DEFAULT_BRAND, derivePalette, paletteToCssBlock } from '@/lib/theme'
+import { getSiteSetting } from '@/lib/data/content'
+import { DEFAULT_BRAND, derivePalette, paletteToCssBlock } from '@/lib/util/theme'
 
 export async function ThemeInjector() {
   const configured = await getSiteSetting('theme.brand_color').catch(() => null)

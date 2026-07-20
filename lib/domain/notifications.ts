@@ -1,7 +1,7 @@
-import { prisma } from '@/lib/db'
-import { sendTrackedEmail } from '@/lib/email-tracking'
+import { prisma } from '@/lib/data/db'
+import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderNewPostNotification } from '@/lib/emails'
-import { unsubscribeUrl } from '@/lib/unsubscribe'
+import { unsubscribeUrl } from '@/lib/domain/unsubscribe'
 
 export async function notifySubscribersOfPost(post: { title: string; slug: string; excerpt: string }) {
   try {

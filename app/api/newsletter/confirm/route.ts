@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { verifyConfirmToken } from '@/lib/confirm-subscribe'
-import { sendTrackedEmail } from '@/lib/email-tracking'
+import { prisma } from '@/lib/data/db'
+import { verifyConfirmToken } from '@/lib/domain/confirm-subscribe'
+import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderWelcomeEmail } from '@/lib/emails'
-import { unsubscribeUrl } from '@/lib/unsubscribe'
+import { unsubscribeUrl } from '@/lib/domain/unsubscribe'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)

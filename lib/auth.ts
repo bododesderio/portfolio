@@ -2,8 +2,8 @@ import NextAuth from 'next-auth'
 import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import type { DefaultSession } from 'next-auth'
-import { getConfig } from './config'
-import { prisma } from './db'
+import { getConfig } from '@/lib/config'
+import { prisma } from '@/lib/data/db'
 
 // In-memory login attempt tracker (per-process; good enough for single-instance)
 const loginAttempts = new Map<string, { count: number; lastAttempt: number }>()

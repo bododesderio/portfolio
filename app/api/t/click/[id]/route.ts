@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
+import { isSameOriginUrl, verifyTrackedUrl } from '@/lib/util/link-signing'
 
 export async function GET(
   req: NextRequest,
@@ -7,6 +8,7 @@ export async function GET(
 ) {
   const { id } = await params
   const url = req.nextUrl.searchParams.get('url')
+  const signature = req.nextUrl.searchParams.get('sig')
   const fallbackUrl = process.env.NEXT_PUBLIC_SITE_URL || '/'
 
   if (!url) return NextResponse.redirect(fallbackUrl)
@@ -16,6 +18,15 @@ export async function GET(
     target = new URL(url)
     if (!['http:', 'https:'].includes(target.protocol)) throw new Error('Unsupported protocol')
   } catch {
+    return NextResponse.redirect(fallbackUrl)
+  }
+
+  // Only redirect to destinations we signed. Anything else would make this an
+  // open redirect on our own domain — a valid EmailLog id is self-serve, so the
+  // id alone is not an access control. Links from emails sent before signing
+  // existed are still honoured when they point back at our own site, which
+  // carries no phishing value.
+  if (!verifyTrackedUrl(id, url, signature) && !isSameOriginUrl(target)) {
     return NextResponse.redirect(fallbackUrl)
   }
 

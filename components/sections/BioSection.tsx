@@ -6,7 +6,7 @@ import { ChevronDown } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Eyebrow } from '@/components/ui/Eyebrow'
 import { Section } from '@/components/ui/Section'
-import { sanitizeHtml } from '@/lib/sanitize'
+import { sanitizeHtml } from '@/lib/util/sanitize'
 
 interface BioContent {
   heading: string

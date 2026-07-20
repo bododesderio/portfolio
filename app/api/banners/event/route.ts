@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import { bannerEventSchema } from '@/lib/banners'
+import { prisma } from '@/lib/data/db'
+import { bannerEventSchema } from '@/lib/domain/banners'
 
 /**
  * Public event endpoint — increments impression / click / dismiss / conversion

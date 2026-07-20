@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { blurUrl, thumbnailUrl, optimizedUrl } from '../lib/image-utils'
+import { blurUrl, thumbnailUrl, optimizedUrl } from '../lib/util/image-utils'
 
 describe('Image utils (post-Cloudinary migration)', () => {
   const localUrl = '/uploads/photo-abc123.jpg'

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { LoginForm } from '@/components/admin/LoginForm'
-import { getSiteSetting } from '@/lib/content'
+import { getSiteSetting } from '@/lib/data/content'
 import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'

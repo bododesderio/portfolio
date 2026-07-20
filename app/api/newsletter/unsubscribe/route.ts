@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import crypto from 'crypto'
 
 function verifyToken(email: string, token: string): boolean {

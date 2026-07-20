@@ -2,8 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { notifySubscribersOfPost } from '@/lib/notifications'
+import { prisma } from '@/lib/data/db'
+import { notifySubscribersOfPost } from '@/lib/domain/notifications'
 
 const attributionSchema = z.object({
   photographer: z.string().optional(),

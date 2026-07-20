@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic'
 
-import { getPageContent, getField, getJsonField } from '@/lib/content'
-import { prisma } from '@/lib/db'
+import { getPageContent, getField, getJsonField } from '@/lib/data/content'
+import { prisma } from '@/lib/data/db'
 import { HeroSection } from '@/components/sections/HeroSection'
 import { StatsSection } from '@/components/sections/StatsSection'
 import { AboutSection } from '@/components/sections/AboutSection'
@@ -17,7 +17,7 @@ import { CTASection } from '@/components/sections/CTASection'
 import { BlogSection } from '@/components/sections/BlogSection'
 import { AvailabilitySection } from '@/components/sections/AvailabilitySection'
 import { PressSection } from '@/components/sections/PressSection'
-import { fetchMediumPosts } from '@/lib/medium'
+import { fetchMediumPosts } from '@/lib/domain/medium'
 
 export const metadata = {
   title: 'Bodo Desderio — Founder, Engineer & Community Leader | Kampala, Uganda',

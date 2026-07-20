@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { bannerInputSchema } from '@/lib/banners'
+import { prisma } from '@/lib/data/db'
+import { bannerInputSchema } from '@/lib/domain/banners'
 
 export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await auth()

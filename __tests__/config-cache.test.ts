@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 
 // Mock prisma before importing config
-vi.mock('../lib/db', () => ({
+vi.mock('../lib/data/db', () => ({
   prisma: {
     appConfig: {
       findUnique: vi.fn(),
@@ -11,7 +11,7 @@ vi.mock('../lib/db', () => ({
 }))
 
 import { getConfig, setConfig, clearConfigCache } from '../lib/config'
-import { prisma } from '../lib/db'
+import { prisma } from '../lib/data/db'
 
 const mockFindUnique = vi.mocked(prisma.appConfig.findUnique)
 const mockUpsert = vi.mocked(prisma.appConfig.upsert)

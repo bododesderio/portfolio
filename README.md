@@ -21,22 +21,25 @@ Keep this context in mind when writing any copy, designing any UI, or making edi
 ## Quick start
 
 ```bash
-# Install
-pnpm install
-
-# Local DB via Docker
-docker compose up -d db
-
-# Schema + seed
-DATABASE_URL="postgresql://bodo:secret@localhost:5432/bodo_portfolio" pnpm prisma migrate deploy
-DATABASE_URL="postgresql://bodo:secret@localhost:5432/bodo_portfolio" pnpm db:seed
-
-# Dev server
-pnpm dev
-
-# Production (full container build)
+cp .env.example .env     # fill in the blanks
 docker compose up -d --build
 ```
+
+That is the whole workflow. One command, locally and in production.
+
+It builds the image, runs `prisma generate`, applies migrations, seeds the
+database **only if it is empty**, and starts the app. There is no separate
+migrate step, no separate seed step, and no separate dev command.
+
+Which stack comes up is decided by one variable in `.env`:
+
+| `COMPOSE_FILE` | Stack |
+|---|---|
+| *(unset)* | `compose.yaml` — dev, hot reload, DB exposed on 5432, port 3001 |
+| `compose.prod.yaml` | Production — built image, no DB port published, healthchecks |
+
+Set `COMPOSE_FILE=compose.prod.yaml` on the server only. The command you type
+never changes.
 
 App: http://localhost:3001 · Admin: http://localhost:3001/admin/login
 
@@ -49,7 +52,7 @@ App: http://localhost:3001 · Admin: http://localhost:3001/admin/login
 | Framework | Next.js 16 (App Router, Turbopack, standalone output) |
 | Language | TypeScript strict |
 | Styling | Tailwind CSS 3, `darkMode: 'class'`, CSS-variable-driven semantic tokens |
-| DB | PostgreSQL 16 (Prisma 5) — Supabase in prod, Docker locally |
+| DB | PostgreSQL 16 (Prisma 5) — self-hosted in Docker, same in dev and prod |
 | Auth | NextAuth v5 beta, single admin, JWT session, DB-overridable password hash |
 | Email | SMTP via Nodemailer + React Email templates |
 | Media | Local uploads in `public/uploads`; Unsplash stock pack via fetch script; local `sharp` for login background webp |
@@ -253,6 +256,39 @@ node scripts/fetch-stock-pack.mjs
 
 ## Deployment
 
-Prod uses the standalone Next.js build wrapped in `docker-compose up --build`. `docker-entrypoint.sh` runs `prisma migrate deploy` before starting the server. Committed migrations in `prisma/migrations/` are the source of truth.
+Production runs the standalone Next.js build. `scripts/docker-start.sh` applies
+migrations and seeds an empty database before starting the server. Committed
+migrations in `prisma/migrations/` are the source of truth.
 
-Point `DATABASE_URL` at Supabase / Neon / RDS in production. Set a strong `NEXTAUTH_SECRET` and rotate `ANALYTICS_SALT` if you want to break analytics continuity.
+```bash
+# on the server, once:
+echo 'COMPOSE_FILE=compose.prod.yaml' >> .env
+
+# every deploy after that:
+git pull && docker compose up -d --build
+```
+
+**PostgreSQL is self-hosted** — it runs as a container in the same stack, with
+its data on the `postgres_prod_data` volume. No managed provider. `DATABASE_URL`
+is derived from `POSTGRES_*` automatically; do not set it by hand in production.
+
+`compose.prod.yaml` refuses to start if any secret is missing rather than falling
+back to a dev default, so a half-filled `.env` fails loudly instead of shipping
+`dev-secret-change-me`.
+
+### Schema changes
+
+Never run `prisma db push`. It applies changes without recording a migration,
+which is how this project once ended up with tables that existed in the running
+database but in no migration file — making a from-source deploy produce a broken
+schema. Instead:
+
+```bash
+pnpm prisma migrate dev --name describe_your_change   # writes the migration
+git add prisma/migrations                             # commit it
+```
+
+### Backups
+
+`pnpm db:backup` dumps to `./backups`, keeping the last 7. It is **manual** —
+add a cron entry on the server; nothing schedules it for you.

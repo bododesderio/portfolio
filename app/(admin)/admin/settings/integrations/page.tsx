@@ -1,5 +1,5 @@
 import { getAllConfig } from '@/lib/config'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { IntegrationsForm } from '@/components/admin/settings/IntegrationsForm'
 

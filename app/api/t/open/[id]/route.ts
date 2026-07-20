@@ -1,5 +1,5 @@
 import { NextRequest } from 'next/server'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 
 // 1x1 transparent GIF
 const PIXEL = Buffer.from(

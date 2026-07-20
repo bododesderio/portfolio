@@ -1,6 +1,6 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { format } from 'date-fns'
-import { globalEmailStats } from '@/lib/email-tracking'
+import { globalEmailStats } from '@/lib/domain/email-tracking'
 import { EmailStatsCard } from '@/components/admin/dashboard/EmailStatsCard'
 import { Pagination } from '@/components/admin/Pagination'
 import type { Metadata } from 'next'

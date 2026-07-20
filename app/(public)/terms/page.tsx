@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
-import { getPageContent, getField } from '@/lib/content'
-import { sanitizeHtml } from '@/lib/sanitize'
+import { getPageContent, getField } from '@/lib/data/content'
+import { sanitizeHtml } from '@/lib/util/sanitize'
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions — Bodo Desderio',

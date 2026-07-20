@@ -1,5 +1,5 @@
 import nodemailer from 'nodemailer'
-import { getConfig } from './config'
+import { getConfig } from '@/lib/config'
 
 let _transporter: nodemailer.Transporter | null = null
 
