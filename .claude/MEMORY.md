@@ -126,3 +126,35 @@ Created: 2026-07-20
     context required and type its `params` as `Promise<any>` so it satisfies both
     static (`Promise<{}>`) and dynamic (`Promise<{id}>`) routes; narrow to
     Record<string,string> inside.
+
+## [2026-07-21] — Live Playwright audit: CKEditor fixed, two findings open
+
+- **Setup that worked:** isolated scratch stack — Postgres + Redis containers on
+  non-conflicting host ports (5432/6379 were taken), `migrate deploy` + `db seed`
+  with a KNOWN `ADMIN_PASSWORD_HASH` (bcrypt of a test password) so login is
+  controllable without touching real data. `getConfig` reads `appConfig` table
+  first (env fallback), and the seed writes ADMIN_PASSWORD_HASH there, so seeding
+  with a known hash gives a working login. Ran `next dev -p 3011` with
+  NEXTAUTH_URL/AUTH_URL/NEXT_PUBLIC_SITE_URL overridden to the port.
+- **Gotcha:** `next dev` (Turbopack) 404s every route under a route group if a
+  stale webpack `.next` from `next build` is present. `rm -rf .next` before
+  `next dev`. Cost me a while — home worked but /admin/* all 404'd.
+- **Verified live end-to-end:** all public pages; contact form + newsletter
+  subscribe (persisted, show in admin dashboard); login (wrong+right); Services
+  CRUD (create 201 / edit 200 / delete 200) → validates withAdmin + useResource-
+  Crud; Banners create/toggle/duplicate + the preview modal → validates the #7
+  split; media upload (200, file on disk); SMTP config save (PATCH 200); every
+  admin page loads.
+- **Fixed (committed `1ee137a`):** CKEditor rich-text editor was fully broken —
+  ckeditor5 v48 throws `license-key-missing` without a `licenseKey`. Added
+  `licenseKey: 'GPL'` in RichTextEditorInner.tsx editorConfig. Verify commercial
+  licensing if the site isn't GPL.
+- **Open findings (not yet fixed):**
+  1. CSP `img-src` blocks external image URLs (seed content used assets.zyrosite
+     .com) → broken images. Any admin-entered external image URL is blocked.
+     Decide: broaden img-src or require local uploads.
+  2. Hydration mismatch on the AxiomUI components (CustomSelect, file picker):
+     server renders native `<select>`/`<div role=button>`, client renders the
+     custom `axm-*` markup → React regenerates the subtree. Also causes a
+     DOUBLE file-chooser when clicking the media dropzone. Fix: render the custom
+     variant only after mount (or suppressHydrationWarning on the wrapper).
