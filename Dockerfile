@@ -20,6 +20,11 @@ COPY . .
 # v2: theme templates, pagination, nav editor, profile edit, double opt-in
 RUN npx prisma generate
 ENV NEXT_TELEMETRY_DISABLED=1
+# Pin production explicitly. If NODE_ENV=development leaks into the build env,
+# Next bundles React's dev runtime and prerendering crashes with a useContext
+# null error. Deps are installed in the `deps` stage (devDeps intact), so this
+# only governs the build, never pruning packages.
+ENV NODE_ENV=production
 # Dummy URL for build — real URL injected at runtime
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
 RUN npx next build --webpack
