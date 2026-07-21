@@ -1,11 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { Building2 } from 'lucide-react'
 import { MediaPickerField, type PickedMedia } from './MediaPickerField'
+import { useResourceCrud } from './useResourceCrud'
 
 interface Client {
   id: string
@@ -18,11 +18,13 @@ interface Client {
 }
 
 export function ClientsManager({ initialClients }: { initialClients: Client[] }) {
-  const router = useRouter()
+  const { saving, save, remove, patch } = useResourceCrud('/api/admin/clients', {
+    deleteConfirm: 'Delete this client?',
+    patchFailed: 'Failed to update visibility.',
+  })
   const [editing, setEditing] = useState<Client | null>(null)
   const [form, setForm] = useState({ name: '', website: '', logoMediaId: '' })
   const [logoPreview, setLogoPreview] = useState('')
-  const [saving, setSaving] = useState(false)
 
   function handleLogoPick(picked: PickedMedia) {
     setForm(f => ({ ...f, logoMediaId: picked.mediaId || '' }))
@@ -31,47 +33,22 @@ export function ClientsManager({ initialClients }: { initialClients: Client[] })
 
   async function handleSave() {
     if (!form.name.trim()) { toast.error('Client name is required.'); return }
-    setSaving(true)
-    try {
-      const payload: Record<string, unknown> = { name: form.name.trim(), website: form.website || null }
-      if (form.logoMediaId) payload.logoMediaId = form.logoMediaId
-      const res = await fetch(editing ? `/api/admin/clients/${editing.id}` : '/api/admin/clients', {
-        method: editing ? 'PATCH' : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      if (!res.ok) throw new Error()
-      toast.success('Saved!')
+    const payload: Record<string, unknown> = { name: form.name.trim(), website: form.website || null }
+    if (form.logoMediaId) payload.logoMediaId = form.logoMediaId
+    const ok = await save(payload, editing?.id)
+    if (ok) {
       setEditing(null)
       setForm({ name: '', website: '', logoMediaId: '' })
       setLogoPreview('')
-      router.refresh()
-    } catch {
-      toast.error('Failed.')
-    } finally {
-      setSaving(false)
     }
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Delete this client?')) return
-    const res = await fetch(`/api/admin/clients/${id}`, { method: 'DELETE' })
-    if (res.ok) { router.refresh(); toast.success('Deleted.') }
-    else toast.error('Failed.')
+    await remove(id)
   }
 
   async function toggleVisible(client: Client) {
-    try {
-      const res = await fetch(`/api/admin/clients/${client.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ visible: !client.visible }),
-      })
-      if (!res.ok) throw new Error()
-      router.refresh()
-    } catch {
-      toast.error('Failed to update visibility.')
-    }
+    await patch(client.id, { visible: !client.visible })
   }
 
   function startEdit(c: Client) {

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import { MediaPickerField } from './MediaPickerField'
+import { useResourceCrud } from './useResourceCrud'
 
 interface PressItem {
   id: string
@@ -67,6 +68,9 @@ function itemToForm(item: PressItem) {
 
 export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
   const router = useRouter()
+  const { patch } = useResourceCrud('/api/admin/press', {
+    patchFailed: 'Toggle failed.',
+  })
   const [editing, setEditing] = useState<PressItem | null>(null)
   const [form, setForm] = useState(EMPTY_FORM)
   const [saving, setSaving] = useState(false)
@@ -146,17 +150,7 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
   }
 
   async function handleToggleVisible(item: PressItem) {
-    try {
-      const res = await fetch(`/api/admin/press/${item.id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ visible: !item.visible }),
-      })
-      if (!res.ok) throw new Error()
-      router.refresh()
-    } catch {
-      toast.error('Toggle failed.')
-    }
+    await patch(item.id, { visible: !item.visible })
   }
 
   async function handleReorder(id: string, direction: 'up' | 'down') {

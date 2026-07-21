@@ -1,8 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
+import { useResourceCrud } from './useResourceCrud'
 interface Testimonial {
   id: string
   body: string
@@ -14,33 +14,22 @@ interface Testimonial {
 }
 
 export function TestimonialsManager({ initialTestimonials }: { initialTestimonials: Testimonial[] }) {
-  const router = useRouter()
+  const { saving, save } = useResourceCrud('/api/admin/testimonials', {
+    saveFailed: 'Failed to save.',
+  })
   const [items, setItems] = useState(initialTestimonials)
   const [editing, setEditing] = useState<Testimonial | null>(null)
   const [form, setForm] = useState({ body: '', author: '', role: '', company: '', pages: 'home' })
-  const [saving, setSaving] = useState(false)
 
   async function handleSave() {
     if (!form.body.trim()) { toast.error('Testimonial text is required.'); return }
     if (!form.author.trim()) { toast.error('Author name is required.'); return }
     if (!form.role.trim()) { toast.error('Author role is required.'); return }
-    setSaving(true)
-    try {
-      const payload = { ...form, pages: form.pages.split(',').map(p => p.trim()) }
-      const res = await fetch(editing ? `/api/admin/testimonials/${editing.id}` : '/api/admin/testimonials', {
-        method: editing ? 'PATCH' : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload),
-      })
-      if (!res.ok) throw new Error()
-      toast.success('Saved!')
+    const payload = { ...form, pages: form.pages.split(',').map(p => p.trim()) }
+    const ok = await save(payload, editing?.id)
+    if (ok) {
       setEditing(null)
       setForm({ body: '', author: '', role: '', company: '', pages: 'home' })
-      router.refresh()
-    } catch {
-      toast.error('Failed to save.')
-    } finally {
-      setSaving(false)
     }
   }
 

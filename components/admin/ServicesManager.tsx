@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { MediaPickerField } from './MediaPickerField'
+import { useResourceCrud } from './useResourceCrud'
 
 interface Service {
   id: string
@@ -18,38 +18,24 @@ interface Service {
 }
 
 export function ServicesManager({ initialServices }: { initialServices: Service[] }) {
-  const router = useRouter()
+  const { saving, save, remove } = useResourceCrud('/api/admin/services', {
+    deleteConfirm: 'Delete this service?',
+  })
   const [editing, setEditing] = useState<Service | null>(null)
   const [form, setForm] = useState({ title: '', description: '', icon: 'code', imageUrl: '', imageAlt: '', homeFeatured: true })
-  const [saving, setSaving] = useState(false)
 
   async function handleSave() {
     if (!form.title.trim()) { toast.error('Service title is required.'); return }
     if (!form.description.trim()) { toast.error('Description is required.'); return }
-    setSaving(true)
-    try {
-      const res = await fetch(editing ? `/api/admin/services/${editing.id}` : '/api/admin/services', {
-        method: editing ? 'PATCH' : 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(form),
-      })
-      if (!res.ok) throw new Error()
-      toast.success('Saved!')
+    const ok = await save(form, editing?.id)
+    if (ok) {
       setEditing(null)
       setForm({ title: '', description: '', icon: 'code', imageUrl: '', imageAlt: '', homeFeatured: true })
-      router.refresh()
-    } catch {
-      toast.error('Failed.')
-    } finally {
-      setSaving(false)
     }
   }
 
   async function handleDelete(id: string) {
-    if (!confirm('Delete this service?')) return
-    const res = await fetch(`/api/admin/services/${id}`, { method: 'DELETE' })
-    if (res.ok) { router.refresh(); toast.success('Deleted.') }
-    else toast.error('Failed.')
+    await remove(id)
   }
 
   return (
