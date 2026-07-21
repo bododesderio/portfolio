@@ -88,6 +88,10 @@ export default function RichTextEditorInner({
   }, [value])
 
   const editorConfig: EditorConfig = {
+    // ckeditor5 v44+ requires a license key or it throws license-key-missing
+    // and the editor never mounts. 'GPL' enables the open-source build; swap for
+    // a commercial key if this site's licensing requires it.
+    licenseKey: 'GPL',
     plugins: [
       Essentials,
       Bold,
