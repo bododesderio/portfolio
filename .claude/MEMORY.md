@@ -64,3 +64,28 @@ Created: 2026-07-20
     (safe — deps install in a separate stage, so devDeps aren't pruned).
   - Next 16.2.4 genuinely supports React 18.2+ (peer deps) — the useContext null
     was NOT a version mismatch. Verify peer deps before blaming versions.
+
+## [2026-07-21] — Branch merged to main; CI removed (account billing-locked)
+
+- **Decisions:**
+  - Merged the hardening branch into `main` (PR #1, merge `ffb3ec1`) and deleted
+    the branch local + remote. Repo is now single-branch: workflow is edit →
+    commit → `git push origin main`, no PRs, no CI.
+  - **Removed GitHub Actions entirely** (`.github/` deleted, commit `c6fcaf3`).
+    Every run failed at startup in 3–5s with 0 steps. The real cause was only in
+    the check-run *annotation*: "The job was not started because your account is
+    locked due to a billing issue." Account-level block, not code/workflow — a
+    billing lock halts Actions even on public repos. User wanted nothing
+    dependent on GitHub billing, so CI is gone.
+  - Verified the merged `main` locally instead: typecheck ✅, lint ✅, 159 tests ✅,
+    `pnpm build` ✅ (exit 0). This is now the pre-push routine (documented in
+    CONTEXT.md and docs/DEPLOY.md).
+
+- **Gotchas:**
+  - A 0-step / seconds-long / empty-log Actions failure is a *startup failure*.
+    The reason is NOT in job logs or the run archive (both empty) — fetch it from
+    `repos/{o}/{r}/check-runs/{id}/annotations`. Don't guess billing vs. runner
+    vs. YAML; read the annotation.
+  - Pushing a branch containing `.github/workflows/*` needs the OAuth `workflow`
+    scope: `gh auth refresh -h github.com -s workflow` (interactive; user runs it
+    via `!`). It was the push rejection blocker before the CI file was removed.
