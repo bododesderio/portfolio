@@ -41,3 +41,26 @@ Created: 2026-07-20
 
 - **Operational debt surfaced:** `POSTAL_WEBHOOK_SECRET` unset → webhook rejects
   everything → delivery/bounce events silently unrecorded, email stats undercount.
+
+## [2026-07-21] — Production build verified; two build-only traps fixed
+
+- **Decisions:**
+  - Ran the deferred production build (branch `chore/deploy-hardening-and-structure`).
+    Exit 0, 57/57 static pages. `unstable_cache` change compiles clean. Fixes in
+    `c9db5da`, docs in `20e30f1`.
+
+- **Gotchas (both fail only at `next build`, never at `tsc`/tests/dev):**
+  - **isomorphic-dompurify + Next standalone:** it pulls in `jsdom`, which reads
+    `browser/default-stylesheet.css` from its own package dir at runtime.
+    Webpack-bundling it → `ENOENT` during page-data collection on every route
+    importing the sanitizer (first hit: `/api/admin/content`). Fix:
+    `serverExternalPackages: ['isomorphic-dompurify', 'jsdom']` in next.config.js.
+    Any server-only lib that loads its own on-disk assets needs the same.
+  - **`NODE_ENV=development` polluting the build** (it's exported by the dev shell
+    profile) makes Next bundle React's dev runtime → prerender crashes with
+    `Cannot read properties of null (reading 'useContext')` on `/_global-error`,
+    `/terms`, etc., plus `<head>`/`<meta>` unique-key warnings. Build locally with
+    `env -u NODE_ENV`. Docker builder stage now pins `ENV NODE_ENV=production`
+    (safe — deps install in a separate stage, so devDeps aren't pruned).
+  - Next 16.2.4 genuinely supports React 18.2+ (peer deps) — the useContext null
+    was NOT a version mismatch. Verify peer deps before blaming versions.
