@@ -124,8 +124,15 @@ docker compose up -d --build
 
 New schema changes must go through `prisma migrate dev --name <describe_change>`
 locally and be committed; `prisma db push` is banned because it was the original
-source of the drift. CI fails any PR whose `schema.prisma` diverges from the
-migration history.
+source of the drift. There is no CI, so verify locally before pushing:
+
+```bash
+pnpm typecheck && pnpm lint && pnpm test && pnpm build
+# Drift guard — output must be empty:
+pnpm prisma migrate diff \
+  --from-url "$DATABASE_URL" \
+  --to-schema-datamodel prisma/schema.prisma --script
+```
 
 ---
 

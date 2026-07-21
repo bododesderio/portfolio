@@ -117,7 +117,8 @@ env -u NODE_ENV DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" \
 - `unstable_cache` on content/settings/SEO reads with tag invalidation wired
   into all four admin writers — **note:** the settings single-key branch was
   missing invalidation and was fixed; zod validation added to that route
-- CI workflow incl. a job that fails the build on schema/migration drift
+- CI workflow (typecheck/lint/test/build + drift guard) — later removed because
+  the GitHub account is billing-locked; checks now run locally before push
 - EmbedSection no longer imports Prisma; blog image `alt` now uses post title
 
 ### Not started — deliberately deferred
@@ -133,17 +134,21 @@ changes mixed in:
 6. CSP `unsafe-inline` → nonce-based (high effort; sanitizer now carries the risk)
 
 ## Next steps
-1. Open the PR for `chore/deploy-hardening-and-structure` → `main`; let CI
-   (typecheck + lint + tests + build + migration-drift) prove it green.
-2. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`
-   — the tables already exist there; without this the next deploy errors.
-3. Set `POSTAL_WEBHOOK_SECRET` to restore email tracking.
-4. The deferred pure-churn refactors (§ "Not started" above) as their own pass.
-5. ADR-001 phases 1–3 once the domain is acquired.
+1. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`
+   — the tables already exist there; without this the next deploy errors. See
+   `docs/DEPLOY.md`.
+2. Set `POSTAL_WEBHOOK_SECRET` to restore email tracking.
+3. The deferred pure-churn refactors (§ "Not started" above) as their own pass.
+4. ADR-001 phases 1–3 once the domain is acquired.
 
-Shipped this branch: DOMPurify sanitizer, resumable newsletter, CI (typecheck +
-tests + build + drift), `unstable_cache` on content/settings/SEO — all verified
-by a clean production build.
+Merged to `main`: DOMPurify sanitizer, resumable newsletter, `unstable_cache` on
+content/settings/SEO, build fixes — all verified by a clean production build.
+
+**No CI.** GitHub Actions is removed because the account is billing-locked, so
+every run failed at startup. Run checks locally before pushing:
+`pnpm typecheck && pnpm lint && pnpm test && pnpm build`. Drift guard:
+`pnpm prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --script`
+should be empty.
 
 ## Active branches
 - `main`: stable
