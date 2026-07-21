@@ -1,12 +1,12 @@
 export const dynamic = 'force-dynamic'
 export const revalidate = 300
 
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { format } from 'date-fns'
-import { sanitizeHtml } from '@/lib/sanitize'
+import { sanitizeHtml } from '@/lib/util/sanitize'
 import { ldJson } from '@/lib/schema'
 import type { Metadata } from 'next'
 

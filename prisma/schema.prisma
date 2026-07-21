@@ -9,13 +9,13 @@ datasource db {
 }
 
 model SiteContent {
-  id         String   @id @default(cuid())
-  page       String
-  section    String
-  fieldKey   String   @map("field_key")
-  value      String   @db.Text
-  fieldType  String   @default("text") @map("field_type") // text | html | image | json | bool
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id        String   @id @default(cuid())
+  page      String
+  section   String
+  fieldKey  String   @map("field_key")
+  value     String   @db.Text
+  fieldType String   @default("text") @map("field_type") // text | html | image | json | bool
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@unique([page, section, fieldKey])
   @@index([page, section])
@@ -32,17 +32,17 @@ model SiteSettings {
 }
 
 model Media {
-  id           String   @id @default(cuid())
-  filename     String
-  url          String
-  storageId    String   @map("storage_id")
-  type         String   // image | document
-  size         Int
-  width        Int?
-  height       Int?
-  altText      String?  @map("alt_text")
-  tags         String[] @default([])
-  uploadedAt   DateTime @default(now()) @map("uploaded_at")
+  id         String   @id @default(cuid())
+  filename   String
+  url        String
+  storageId  String   @map("storage_id")
+  type       String // image | document
+  size       Int
+  width      Int?
+  height     Int?
+  altText    String?  @map("alt_text")
+  tags       String[] @default([])
+  uploadedAt DateTime @default(now()) @map("uploaded_at")
 
   // Relations
   clients      Client[]
@@ -121,6 +121,7 @@ model BlogPost {
   updatedAt                DateTime  @updatedAt @map("updated_at")
 
   @@index([status, publishedAt])
+  @@index([category])
   @@map("blog_posts")
 }
 
@@ -136,6 +137,8 @@ model GalleryItem {
 
   media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
 
+  @@index([featured, order])
+  @@index([category])
   @@map("gallery_items")
 }
 
@@ -154,8 +157,8 @@ model Subscriber {
 model NewsletterCampaign {
   id             String    @id @default(cuid())
   subject        String
-  bodyHtml       String    @db.Text @map("body_html")
-  status         String    @default("draft") // draft | sent
+  bodyHtml       String    @map("body_html") @db.Text
+  status         String    @default("draft") // draft | sending | sent
   sentAt         DateTime? @map("sent_at")
   recipientCount Int       @default(0) @map("recipient_count")
   deliveredCount Int       @default(0) @map("delivered_count")
@@ -164,6 +167,7 @@ model NewsletterCampaign {
   bounceCount    Int       @default(0) @map("bounce_count")
   createdAt      DateTime  @default(now()) @map("created_at")
 
+  @@index([status, sentAt])
   @@map("newsletter_campaigns")
 }
 
@@ -184,14 +188,14 @@ model Message {
 }
 
 model AdminUser {
-  id              String   @id @default(cuid())
-  email           String   @unique
+  id              String    @id @default(cuid())
+  email           String    @unique
   name            String?
-  avatarUrl       String?  @map("avatar_url")
-  passwordHash    String   @map("password_hash")
+  avatarUrl       String?   @map("avatar_url")
+  passwordHash    String    @map("password_hash")
   lastLogin       DateTime? @map("last_login")
-  themePreference String   @default("system") @map("theme_preference")  // light | dark | system
-  createdAt       DateTime @default(now()) @map("created_at")
+  themePreference String    @default("system") @map("theme_preference") // light | dark | system
+  createdAt       DateTime  @default(now()) @map("created_at")
 
   @@map("admin_users")
 }
@@ -220,32 +224,32 @@ model AppConfig {
 }
 
 model SeoSettings {
-  page        String  @id
-  metaTitle   String? @map("meta_title")
-  metaDesc    String? @map("meta_desc") @db.Text
-  ogImage     String? @map("og_image")
-  canonical   String?
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  page      String   @id
+  metaTitle String?  @map("meta_title")
+  metaDesc  String?  @map("meta_desc") @db.Text
+  ogImage   String?  @map("og_image")
+  canonical String?
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("seo_settings")
 }
 
 /// Admin-managed press items: essays, articles, awards, speaking engagements.
 model PressItem {
-  id            String   @id @default(cuid())
-  type          String   @default("article")       // essay | article | award | speaking
-  title         String
-  description   String   @db.Text
-  source        String                              // e.g. "@NDCUganda", "Daily Monitor"
-  sourceUrl     String?  @map("source_url")
-  imageUrl      String?  @map("image_url")
-  imageAlt      String?  @map("image_alt")
-  externalUrl   String?  @map("external_url")
-  downloadUrl   String?  @map("download_url")
-  date          String?                              // e.g. "2024", "March 2024"
-  visible       Boolean  @default(true)
-  order         Int      @default(0)
-  createdAt     DateTime @default(now()) @map("created_at")
+  id          String   @id @default(cuid())
+  type        String   @default("article") // essay | article | award | speaking
+  title       String
+  description String   @db.Text
+  source      String // e.g. "@NDCUganda", "Daily Monitor"
+  sourceUrl   String?  @map("source_url")
+  imageUrl    String?  @map("image_url")
+  imageAlt    String?  @map("image_alt")
+  externalUrl String?  @map("external_url")
+  downloadUrl String?  @map("download_url")
+  date        String? // e.g. "2024", "March 2024"
+  visible     Boolean  @default(true)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
 
   @@index([visible, order])
   @@map("press_items")
@@ -254,11 +258,11 @@ model PressItem {
 /// Social embeds pinned to public pages in named sections (e.g. "testimonials", "press-mentions").
 model PageEmbed {
   id          String   @id @default(cuid())
-  page        String                           // about | home | services | contact
-  section     String                           // admin-defined slug, e.g. "testimonials"
+  page        String // about | home | services | contact
+  section     String // admin-defined slug, e.g. "testimonials"
   sortOrder   Int      @default(0) @map("sort_order")
-  platform    String                           // twitter | instagram | linkedin | facebook | tiktok | youtube | vimeo
-  postId      String   @map("post_id")         // platform-specific post identifier
+  platform    String // twitter | instagram | linkedin | facebook | tiktok | youtube | vimeo
+  postId      String   @map("post_id") // platform-specific post identifier
   originalUrl String   @map("original_url")
   caption     String?  @db.Text
   isPublished Boolean  @default(true) @map("is_published")
@@ -271,42 +275,42 @@ model PageEmbed {
 
 /// Admin-managed banners: announcement bars, cookie consent, newsletter prompts, promo modals.
 model Banner {
-  id               String   @id @default(cuid())
-  name             String                                                 // admin label (not shown to visitors)
-  kind             String                                                 // topbar | bottombar | modal | corner | cookie
-  placement        String   @default("bottom")                             // top | bottom | left | right | center
-  title            String?
-  body             String?  @db.Text                                       // supports simple HTML
-  imageUrl         String?  @map("image_url")
-  ctaLabel         String?  @map("cta_label")
-  ctaUrl           String?  @map("cta_url")
-  ctaVariant       String   @default("primary") @map("cta_variant")       // primary | outline | invert
-  dismissable      Boolean  @default(true)
-  requireConsent   Boolean  @default(false) @map("require_consent")       // cookie-type banners block analytics
-  theme            String   @default("auto")                               // auto | light | dark | brand
+  id             String  @id @default(cuid())
+  name           String // admin label (not shown to visitors)
+  kind           String // topbar | bottombar | modal | corner | cookie
+  placement      String  @default("bottom") // top | bottom | left | right | center
+  title          String?
+  body           String? @db.Text // supports simple HTML
+  imageUrl       String? @map("image_url")
+  ctaLabel       String? @map("cta_label")
+  ctaUrl         String? @map("cta_url")
+  ctaVariant     String  @default("primary") @map("cta_variant") // primary | outline | invert
+  dismissable    Boolean @default(true)
+  requireConsent Boolean @default(false) @map("require_consent") // cookie-type banners block analytics
+  theme          String  @default("auto") // auto | light | dark | brand
 
-  enabled          Boolean  @default(false)
-  priority         Int      @default(0)
-  startsAt         DateTime? @map("starts_at")
-  endsAt           DateTime? @map("ends_at")
-  pagesInclude     String[] @default([]) @map("pages_include")             // path prefixes; empty = all
-  pagesExclude     String[] @default([]) @map("pages_exclude")
-  devices          String[] @default([])                                   // mobile | tablet | desktop; empty = all
+  enabled      Boolean   @default(false)
+  priority     Int       @default(0)
+  startsAt     DateTime? @map("starts_at")
+  endsAt       DateTime? @map("ends_at")
+  pagesInclude String[]  @default([]) @map("pages_include") // path prefixes; empty = all
+  pagesExclude String[]  @default([]) @map("pages_exclude")
+  devices      String[]  @default([]) // mobile | tablet | desktop; empty = all
 
-  showOnce         Boolean  @default(false) @map("show_once")
-  cooldownHours    Int      @default(0)     @map("cooldown_hours")
-  delaySeconds     Int      @default(0)     @map("delay_seconds")
-  scrollTrigger    Int?     @map("scroll_trigger")                         // show after scrolling N%
-  exitIntent       Boolean  @default(false) @map("exit_intent")
-  newsletterHook   Boolean  @default(false) @map("newsletter_hook")        // embed subscribe form
+  showOnce       Boolean @default(false) @map("show_once")
+  cooldownHours  Int     @default(0) @map("cooldown_hours")
+  delaySeconds   Int     @default(0) @map("delay_seconds")
+  scrollTrigger  Int?    @map("scroll_trigger") // show after scrolling N%
+  exitIntent     Boolean @default(false) @map("exit_intent")
+  newsletterHook Boolean @default(false) @map("newsletter_hook") // embed subscribe form
 
-  impressionCount  Int      @default(0) @map("impression_count")
-  clickCount       Int      @default(0) @map("click_count")
-  dismissCount     Int      @default(0) @map("dismiss_count")
-  conversionCount  Int      @default(0) @map("conversion_count")
+  impressionCount Int @default(0) @map("impression_count")
+  clickCount      Int @default(0) @map("click_count")
+  dismissCount    Int @default(0) @map("dismiss_count")
+  conversionCount Int @default(0) @map("conversion_count")
 
-  createdAt        DateTime @default(now()) @map("created_at")
-  updatedAt        DateTime @updatedAt      @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@index([enabled, priority])
   @@map("banners")
@@ -321,6 +325,7 @@ model HeroImage {
 
   media Media @relation(fields: [mediaId], references: [id], onDelete: Cascade)
 
+  @@index([active, order])
   @@map("hero_images")
 }
 
@@ -333,7 +338,7 @@ model Project {
   body             String    @db.Text
   featuredImageUrl String?   @map("featured_image_url")
   featuredImageAlt String?   @map("featured_image_alt")
-  status           String    @default("planned")            // planned | in_progress | completed
+  status           String    @default("planned") // planned | in_progress | completed
   category         String?
   techStack        String[]  @default([]) @map("tech_stack")
   liveUrl          String?   @map("live_url")
@@ -372,19 +377,19 @@ model ProjectImage {
 
 /// Tracks every email sent by the system (transactional + campaigns).
 model EmailLog {
-  id           String    @id @default(cuid())
-  campaignId   String?   @map("campaign_id")
-  to           String
-  subject      String
-  type         String    // campaign | welcome | contact_reply | admin_notify | new_post | digest
-  status       String    @default("sent")  // sent | delivered | bounced | failed
-  postalMsgId  String?   @map("postal_msg_id")
-  openedAt     DateTime? @map("opened_at")
-  clickedAt    DateTime? @map("clicked_at")
-  bouncedAt    DateTime? @map("bounced_at")
-  deliveredAt  DateTime? @map("delivered_at")
-  failReason   String?   @map("fail_reason")
-  sentAt       DateTime  @default(now()) @map("sent_at")
+  id          String    @id @default(cuid())
+  campaignId  String?   @map("campaign_id")
+  to          String
+  subject     String
+  type        String // campaign | welcome | contact_reply | admin_notify | new_post | digest
+  status      String    @default("sent") // sent | delivered | bounced | failed
+  postalMsgId String?   @map("postal_msg_id")
+  openedAt    DateTime? @map("opened_at")
+  clickedAt   DateTime? @map("clicked_at")
+  bouncedAt   DateTime? @map("bounced_at")
+  deliveredAt DateTime? @map("delivered_at")
+  failReason  String?   @map("fail_reason")
+  sentAt      DateTime  @default(now()) @map("sent_at")
 
   events EmailEvent[]
 
@@ -399,11 +404,11 @@ model EmailLog {
 model EmailEvent {
   id         String   @id @default(cuid())
   emailLogId String   @map("email_log_id")
-  event      String   // open | click | delivered | bounced | failed | held
-  url        String?  // for click events
+  event      String // open | click | delivered | bounced | failed | held
+  url        String? // for click events
   ip         String?
   userAgent  String?  @map("user_agent")
-  metadata   Json?    // extra data from Postal webhooks
+  metadata   Json? // extra data from Postal webhooks
   createdAt  DateTime @default(now()) @map("created_at")
 
   emailLog EmailLog @relation(fields: [emailLogId], references: [id], onDelete: Cascade)

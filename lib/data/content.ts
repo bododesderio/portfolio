@@ -1,5 +1,7 @@
-import { prisma } from './db'
+import { unstable_cache } from 'next/cache'
+import { prisma } from '@/lib/data/db'
 import slugify from 'slugify'
+import { CACHE_TAGS, CONTENT_REVALIDATE_SECONDS } from '@/lib/data/cache-tags'
 
 // Content types based on SiteContent table
 export type ContentField = {
@@ -20,9 +22,11 @@ async function safely<T>(fn: () => Promise<T>, fallback: T): Promise<T> {
   }
 }
 
-// Get all content for a specific page
-export async function getPageContent(page: string): Promise<Record<string, ContentField>> {
-  return safely(async () => {
+// Get all content for a specific page.
+// Cached per page and invalidated by tag when the admin saves content.
+export const getPageContent = unstable_cache(
+  async (page: string): Promise<Record<string, ContentField>> =>
+  safely(async () => {
     const rows = await prisma.siteContent.findMany({
       where: { page },
       orderBy: [{ section: 'asc' }, { fieldKey: 'asc' }],
@@ -37,8 +41,10 @@ export async function getPageContent(page: string): Promise<Record<string, Conte
       }
     }
     return content
-  }, {})
-}
+  }, {}),
+  ['page-content'],
+  { tags: [CACHE_TAGS.siteContent], revalidate: CONTENT_REVALIDATE_SECONDS },
+)
 
 // Helper to get a specific field
 export function getField(content: Record<string, ContentField>, path: string): string {
@@ -57,29 +63,38 @@ export function getJsonField<T>(content: Record<string, ContentField>, path: str
 }
 
 // Get site settings
-export async function getSiteSettings(): Promise<Record<string, string>> {
-  return safely(async () => {
+export const getSiteSettings = unstable_cache(
+  async (): Promise<Record<string, string>> =>
+  safely(async () => {
     const rows = await prisma.siteSettings.findMany()
     const settings: Record<string, string> = {}
     for (const row of rows) settings[row.key] = row.value
     return settings
-  }, {})
-}
+  }, {}),
+  ['site-settings'],
+  { tags: [CACHE_TAGS.siteSettings], revalidate: CONTENT_REVALIDATE_SECONDS },
+)
 
 // Get a specific site setting
-export async function getSiteSetting(key: string): Promise<string | null> {
-  return safely(async () => {
+export const getSiteSetting = unstable_cache(
+  async (key: string): Promise<string | null> =>
+  safely(async () => {
     const setting = await prisma.siteSettings.findUnique({ where: { key } })
     return setting?.value || null
-  }, null)
-}
+  }, null),
+  ['site-setting'],
+  { tags: [CACHE_TAGS.siteSettings], revalidate: CONTENT_REVALIDATE_SECONDS },
+)
 
 // SEO settings per page
-export async function getSeoSettings(page: string) {
-  return safely(async () => {
+export const getSeoSettings = unstable_cache(
+  async (page: string) =>
+  safely(async () => {
     return await prisma.seoSettings.findUnique({ where: { page } })
-  }, null)
-}
+  }, null),
+  ['seo-settings'],
+  { tags: [CACHE_TAGS.seoSettings], revalidate: CONTENT_REVALIDATE_SECONDS },
+)
 
 // Generate slug for blog posts
 export function generateSlug(title: string): string {

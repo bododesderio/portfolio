@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { notFound } from 'next/navigation'
 import { ContentEditor } from '@/components/admin/ContentEditor'
 import { EmbedManager } from '@/components/admin/EmbedManager'

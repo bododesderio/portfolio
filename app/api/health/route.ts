@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 
 export const dynamic = 'force-dynamic'
 

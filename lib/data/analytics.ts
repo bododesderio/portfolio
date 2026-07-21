@@ -1,4 +1,4 @@
-import { prisma } from './db'
+import { prisma } from '@/lib/data/db'
 
 function startOfDay(d: Date): Date {
   const x = new Date(d)

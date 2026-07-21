@@ -4,7 +4,7 @@ import { PageTransition } from '@/components/layout/PageTransition'
 import { PageViewTracker } from '@/components/analytics/PageViewTracker'
 import { FloatingButtons } from '@/components/ui/FloatingButtons'
 import { BannerRenderer } from '@/components/ui/BannerRenderer'
-import { getSiteSetting } from '@/lib/content'
+import { getSiteSetting } from '@/lib/data/content'
 
 type NavLink = { label: string; href: string; visible: boolean }
 

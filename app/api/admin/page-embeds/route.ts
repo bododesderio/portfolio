@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { z } from 'zod'
 
 const PLATFORMS = ['twitter', 'instagram', 'linkedin', 'facebook', 'tiktok', 'youtube', 'vimeo'] as const

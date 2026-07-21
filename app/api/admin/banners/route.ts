@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { bannerInputSchema } from '@/lib/banners'
+import { prisma } from '@/lib/data/db'
+import { bannerInputSchema } from '@/lib/domain/banners'
 import { z } from 'zod'
 
 export async function GET() {

@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin, FaGithub, FaMedium } from 'react-icons/fa'
-import { getPageContent, getSiteSettings, getField } from '@/lib/content'
+import { getPageContent, getSiteSettings, getField } from '@/lib/data/content'
 import { NewsletterForm } from './NewsletterForm'
 
 type NavLink = { label: string; href: string }

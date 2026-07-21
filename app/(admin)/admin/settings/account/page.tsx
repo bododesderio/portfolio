@@ -1,5 +1,5 @@
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { PasswordChangeForm } from '@/components/admin/account/PasswordChangeForm'
 import { ThemePreferenceSection } from '@/components/admin/account/ThemePreferenceSection'

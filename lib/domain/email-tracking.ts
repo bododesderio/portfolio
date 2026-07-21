@@ -1,5 +1,6 @@
-import { prisma } from './db'
-import { sendEmail } from './mailer'
+import { prisma } from '@/lib/data/db'
+import { sendEmail } from '@/lib/domain/mailer'
+import { signTrackedUrl } from '@/lib/util/link-signing'
 
 const siteUrl = () => process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
 
@@ -24,7 +25,9 @@ function rewriteLinks(html: string, emailLogId: string): string {
     (_match, before, url, after) => {
       // Don't rewrite unsubscribe links
       if (url.includes('unsubscribe')) return `<a ${before}href="${url}"${after}>`
-      const tracked = `${siteUrl()}/api/t/click/${emailLogId}?url=${encodeURIComponent(url)}`
+      // Sign the destination so the click tracker can't be used as an open redirect.
+      const sig = signTrackedUrl(emailLogId, url)
+      const tracked = `${siteUrl()}/api/t/click/${emailLogId}?url=${encodeURIComponent(url)}&sig=${sig}`
       return `<a ${before}href="${tracked}"${after}>`
     },
   )

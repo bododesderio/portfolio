@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { timingSafeEqual } from 'crypto'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 
 /**
  * Postal webhook receiver.

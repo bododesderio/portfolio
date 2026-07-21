@@ -60,7 +60,7 @@ describe('Security invariants', () => {
   describe('No hardcoded secrets', () => {
     it('env fallbacks do not contain real secrets', async () => {
       const fs = await import('fs')
-      const unsubscribe = fs.readFileSync('lib/unsubscribe.ts', 'utf-8')
+      const unsubscribe = fs.readFileSync('lib/domain/unsubscribe.ts', 'utf-8')
       const unsubRoute = fs.readFileSync('app/api/newsletter/unsubscribe/route.ts', 'utf-8')
 
       expect(unsubscribe).not.toContain('fallback-secret')

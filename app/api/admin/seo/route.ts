@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { revalidatePath } from 'next/cache'
+import { prisma } from '@/lib/data/db'
+import { revalidatePath, revalidateTag } from 'next/cache'
+import { CACHE_TAGS, REVALIDATE_PROFILE } from '@/lib/data/cache-tags'
 import { z } from 'zod'
 
 const schema = z.object({
@@ -26,6 +27,7 @@ export async function PATCH(req: NextRequest) {
       create: { page, ...data },
     })
 
+    revalidateTag(CACHE_TAGS.seoSettings, REVALIDATE_PROFILE)
     revalidatePath(`/${page === 'home' ? '' : page}`)
     return NextResponse.json({ success: true, row })
   } catch (err) {

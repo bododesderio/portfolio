@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic'
 
-import { getPageContent, getField, getSiteSettings } from '@/lib/content'
-import { prisma } from '@/lib/db'
+import { getPageContent, getField, getSiteSettings } from '@/lib/data/content'
+import { prisma } from '@/lib/data/db'
 import { PageHero } from '@/components/sections/PageHero'
 import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
 import { CTASection } from '@/components/sections/CTASection'

@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import toast from 'react-hot-toast'
 import { Upload, Link as LinkIcon, Image as ImageIcon, Sparkles, X, Check, Loader2 } from 'lucide-react'
-import { detectMediaFromUrl, type DetectedMedia } from '@/lib/embed'
+import { detectMediaFromUrl, type DetectedMedia } from '@/lib/domain/embed'
 
 type Mode = 'library' | 'upload' | 'url' | 'stock'
 export type PickerMode = 'image' | 'any'

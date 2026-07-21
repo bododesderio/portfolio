@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import { FileText, Mail, MessageSquare, Users, ImageIcon, BarChart3, Eye, TrendingUp } from 'lucide-react'
 import type { Metadata } from 'next'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { KpiCard } from '@/components/admin/dashboard/KpiCard'
 import { VisitsChart } from '@/components/admin/dashboard/VisitsChart'
@@ -12,8 +12,8 @@ import {
   dailyPageViews,
   sparklineSeriesByCreatedAt,
   topPages,
-} from '@/lib/analytics'
-import { globalEmailStats } from '@/lib/email-tracking'
+} from '@/lib/data/analytics'
+import { globalEmailStats } from '@/lib/domain/email-tracking'
 
 export const metadata: Metadata = { title: 'Overview — Admin' }
 export const dynamic = 'force-dynamic'

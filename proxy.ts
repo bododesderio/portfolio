@@ -24,7 +24,7 @@ export default auth((req) => {
     return NextResponse.redirect(new URL('/admin', req.url))
   }
 
-  return NextResponse.next()
+  return NextResponse.next()  
 })
 
 export const config = {

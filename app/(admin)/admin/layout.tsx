@@ -1,6 +1,6 @@
 import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { AdminShell } from '@/components/admin/AdminShell'
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {

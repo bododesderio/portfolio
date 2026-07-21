@@ -1,6 +1,6 @@
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { NavigationEditor, type NavLink } from '@/components/admin/settings/NavigationEditor'
-import { getSiteSetting } from '@/lib/content'
+import { getSiteSetting } from '@/lib/data/content'
 
 export const metadata = { title: 'Navigation — Admin' }
 

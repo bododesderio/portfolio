@@ -1,9 +1,9 @@
 export const dynamic = 'force-dynamic'
 
 import type { Metadata } from 'next'
-import { getField, getJsonField, getPageContent } from '@/lib/content'
-import { prisma } from '@/lib/db'
-import { fetchMediumPosts } from '@/lib/medium'
+import { getField, getJsonField, getPageContent } from '@/lib/data/content'
+import { prisma } from '@/lib/data/db'
+import { fetchMediumPosts } from '@/lib/domain/medium'
 import { ldJson, profilePageSchema } from '@/lib/schema'
 import { BioSection } from '@/components/sections/BioSection'
 import { AboutGallerySection } from '@/components/sections/AboutGallerySection'

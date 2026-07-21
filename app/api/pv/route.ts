@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { z } from 'zod'
 import { createHash } from 'crypto'
-import { prisma } from '@/lib/db'
-import { getSiteSetting } from '@/lib/content'
-import { rateLimit } from '@/lib/rate-limit'
+import { prisma } from '@/lib/data/db'
+import { getSiteSetting } from '@/lib/data/content'
+import { getClientIp, rateLimit } from '@/lib/util/rate-limit'
 
 const schema = z.object({
   path: z.string().min(1).max(512),
@@ -13,7 +13,15 @@ const schema = z.object({
 
 function hashUA(ua: string | null): string | null {
   if (!ua) return null
-  const salt = process.env.ANALYTICS_SALT ?? ''
+  const salt = process.env.ANALYTICS_SALT
+  // Without a salt this is plain sha256 of the user-agent. UA strings have very
+  // low entropy, so a rainbow table of the few thousand common ones reverses
+  // the whole column — the "anonymous" identifier becomes a stable cross-session
+  // correlator. Drop the hash entirely rather than store a false pseudonym.
+  if (!salt) {
+    console.warn('[Analytics] ANALYTICS_SALT is not set — omitting userAgentHash.')
+    return null
+  }
   return createHash('sha256').update(ua + salt).digest('hex').slice(0, 32)
 }
 
@@ -34,8 +42,16 @@ export async function POST(req: NextRequest) {
     // Skip analytics endpoint itself.
     if (path === '/api/pv') return NextResponse.json({ ok: true, skipped: 'self' })
 
-    const { ok: underLimit } = await rateLimit(`pv:${sessionId}`, { limit: 10, windowMs: 60_000 })
-    if (!underLimit) return NextResponse.json({ ok: true, skipped: 'rate' })
+    // Rate limit on the client IP first. sessionId comes from the request body,
+    // so keying solely on it lets a caller rotate the value and write unbounded
+    // page-view rows. The IP cap is generous enough for real multi-tab browsing;
+    // the per-session cap still limits a single tab hammering one path.
+    const ip = getClientIp(req)
+    const [byIp, bySession] = await Promise.all([
+      rateLimit(`pv:ip:${ip}`, { limit: 120, windowMs: 60_000 }),
+      rateLimit(`pv:sid:${sessionId}`, { limit: 10, windowMs: 60_000 }),
+    ])
+    if (!byIp.ok || !bySession.ok) return NextResponse.json({ ok: true, skipped: 'rate' })
 
     await prisma.pageView.create({
       data: {

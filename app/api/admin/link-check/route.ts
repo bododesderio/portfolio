@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
+import { safeFetch } from '@/lib/util/safe-fetch'
 
 export const dynamic = 'force-dynamic'
 
@@ -18,31 +19,15 @@ function extractUrls(html: string): string[] {
 }
 
 async function checkUrl(url: string): Promise<{ status: number | null; ok: boolean; error?: string }> {
+  // safeFetch refuses private address space and re-validates every redirect
+  // hop, so a linked host cannot bounce this request into the internal network.
   try {
-    const controller = new AbortController()
-    const timeout = setTimeout(() => controller.abort(), 5000)
-
-    const res = await fetch(url, {
-      method: 'HEAD',
-      signal: controller.signal,
-      redirect: 'follow',
-    })
-    clearTimeout(timeout)
-
+    const res = await safeFetch(url, { method: 'HEAD' })
     return { status: res.status, ok: res.ok }
   } catch (err) {
-    // Retry with GET — some servers reject HEAD
+    // Some servers reject HEAD — retry once with GET.
     try {
-      const controller = new AbortController()
-      const timeout = setTimeout(() => controller.abort(), 5000)
-
-      const res = await fetch(url, {
-        method: 'GET',
-        signal: controller.signal,
-        redirect: 'follow',
-      })
-      clearTimeout(timeout)
-
+      const res = await safeFetch(url, { method: 'GET' })
       return { status: res.status, ok: res.ok }
     } catch {
       return { status: null, ok: false, error: err instanceof Error ? err.message : 'Unknown error' }

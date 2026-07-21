@@ -1,12 +1,12 @@
 export const dynamic = 'force-dynamic'
 
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { notFound } from 'next/navigation'
 import Image from 'next/image'
 import Link from 'next/link'
 import { format } from 'date-fns'
 import { ExternalLink, ArrowLeft, Calendar, Tag } from 'lucide-react'
-import { sanitizeHtml } from '@/lib/sanitize'
+import { sanitizeHtml } from '@/lib/util/sanitize'
 import { FaGithub } from 'react-icons/fa'
 import type { Metadata } from 'next'
 

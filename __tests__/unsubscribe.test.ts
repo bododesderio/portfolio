@@ -67,14 +67,14 @@ describe('unsubscribeUrl() module', () => {
   it('throws when NEXTAUTH_SECRET is missing', async () => {
     delete process.env.NEXTAUTH_SECRET
     // Dynamic import to get fresh module state
-    const mod = await import('../lib/unsubscribe')
+    const mod = await import('../lib/domain/unsubscribe')
     expect(() => mod.unsubscribeUrl('test@example.com')).toThrow('NEXTAUTH_SECRET is required')
   })
 
   it('builds a valid URL with token and email', async () => {
     process.env.NEXTAUTH_SECRET = 'test-secret'
     process.env.NEXT_PUBLIC_SITE_URL = 'https://example.com'
-    const mod = await import('../lib/unsubscribe')
+    const mod = await import('../lib/domain/unsubscribe')
     const url = mod.unsubscribeUrl('user@test.com')
     expect(url).toContain('https://example.com/api/newsletter/unsubscribe')
     expect(url).toContain('email=user%40test.com')

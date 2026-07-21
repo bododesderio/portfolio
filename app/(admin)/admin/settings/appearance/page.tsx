@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { LoginBackgroundCard } from '@/components/admin/settings/LoginBackgroundCard'
 import { BrandColorCard } from '@/components/admin/settings/BrandColorCard'

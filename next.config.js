@@ -7,6 +7,12 @@ const nextConfig = {
   reactStrictMode: true,
   compress: true,
   devIndicators: false,
+  // isomorphic-dompurify pulls in jsdom, which loads assets (e.g.
+  // browser/default-stylesheet.css) from its own package dir at runtime.
+  // Webpack-bundling it breaks that lookup and fails page-data collection,
+  // so keep it (and jsdom) as a runtime require from node_modules. Standalone
+  // output traces both into the deploy bundle.
+  serverExternalPackages: ['isomorphic-dompurify', 'jsdom'],
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: 'miro.medium.com' },

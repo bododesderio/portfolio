@@ -1,10 +1,10 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { format } from 'date-fns'
 import { NewsletterCompose } from '@/components/admin/NewsletterCompose'
 import { CampaignStats } from '@/components/admin/CampaignStats'
 import { EmailStatsCard } from '@/components/admin/dashboard/EmailStatsCard'
 import { Pagination } from '@/components/admin/Pagination'
-import { globalEmailStats } from '@/lib/email-tracking'
+import { globalEmailStats } from '@/lib/domain/email-tracking'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Newsletter — Admin' }

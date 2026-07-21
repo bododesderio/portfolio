@@ -1,14 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
-import crypto from 'crypto'
-
-function verifyToken(email: string, token: string): boolean {
-  const secret = process.env.NEXTAUTH_SECRET
-  if (!secret) return false
-  const expected = crypto.createHmac('sha256', secret).update(email).digest('hex')
-  if (expected.length !== token.length) return false
-  return crypto.timingSafeEqual(Buffer.from(expected), Buffer.from(token))
-}
+import { prisma } from '@/lib/data/db'
+import { verifyUnsubscribeToken } from '@/lib/domain/unsubscribe'
 
 export async function GET(req: NextRequest) {
   const email = req.nextUrl.searchParams.get('email')
@@ -18,7 +10,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: 'Missing email or token.' }, { status: 400 })
   }
 
-  if (!verifyToken(email, token)) {
+  if (!verifyUnsubscribeToken(email, token)) {
     return NextResponse.json({ error: 'Invalid unsubscribe link.' }, { status: 403 })
   }
 

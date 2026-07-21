@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { revalidatePath } from 'next/cache'
+import { prisma } from '@/lib/data/db'
+import { revalidatePath, revalidateTag } from 'next/cache'
+import { CACHE_TAGS, REVALIDATE_PROFILE } from '@/lib/data/cache-tags'
 import { z } from 'zod'
-import { sanitizeHtml } from '@/lib/sanitize'
+import { sanitizeHtml } from '@/lib/util/sanitize'
 
 const schema = z.object({
   page: z.string(),
@@ -28,6 +29,7 @@ export async function PATCH(req: NextRequest) {
       create: { page, section, fieldKey: field_key, value: safeValue, fieldType: field_type || 'text' },
     })
 
+    revalidateTag(CACHE_TAGS.siteContent, REVALIDATE_PROFILE)
     revalidatePath(`/${page === 'home' ? '' : page}`)
 
     return NextResponse.json({ success: true, updated_at: row.updatedAt })

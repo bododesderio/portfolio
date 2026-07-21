@@ -20,6 +20,11 @@ COPY . .
 # v2: theme templates, pagination, nav editor, profile edit, double opt-in
 RUN npx prisma generate
 ENV NEXT_TELEMETRY_DISABLED=1
+# Pin production explicitly. If NODE_ENV=development leaks into the build env,
+# Next bundles React's dev runtime and prerendering crashes with a useContext
+# null error. Deps are installed in the `deps` stage (devDeps intact), so this
+# only governs the build, never pruning packages.
+ENV NODE_ENV=production
 # Dummy URL for build — real URL injected at runtime
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
 RUN npx next build --webpack
@@ -41,7 +46,9 @@ COPY --from=builder /app/node_modules/.pnpm ./node_modules/.pnpm
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
 COPY --from=builder /app/node_modules/.bin/prisma ./node_modules/.bin/prisma
-COPY --from=builder /app/scripts/docker-start.sh ./scripts/docker-start.sh
+# Whole scripts dir: docker-start.sh sources seed-if-empty.sh, and `set -e`
+# would abort the container on boot if it were missing.
+COPY --from=builder /app/scripts ./scripts
 
 USER nextjs
 EXPOSE 3000

@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { getAllConfig, setConfig, clearConfigCache, CONFIG_KEYS } from '@/lib/config'
-import { resetTransporter } from '@/lib/mailer'
+import { resetTransporter } from '@/lib/domain/mailer'
 
 const SMTP_KEYS = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'SMTP_FROM']
 

@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { notFound } from 'next/navigation'
 import { ProjectEditor } from '@/components/admin/ProjectEditor'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'

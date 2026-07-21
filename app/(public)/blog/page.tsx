@@ -1,7 +1,7 @@
 export const dynamic = 'force-dynamic'
 
-import { getPageContent, getField } from '@/lib/content'
-import { prisma } from '@/lib/db'
+import { getPageContent, getField } from '@/lib/data/content'
+import { prisma } from '@/lib/data/db'
 import Image from 'next/image'
 import Link from 'next/link'
 import { BlogGrid } from '@/components/sections/BlogGrid'

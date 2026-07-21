@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { format } from 'date-fns'
 import { MessageActions } from '@/components/admin/MessageActions'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'

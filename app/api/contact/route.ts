@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { z } from 'zod'
-import { sendTrackedEmail } from '@/lib/email-tracking'
+import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderAdminNotification, renderContactAutoReply } from '@/lib/emails'
-import { rateLimit, getClientIp } from '@/lib/rate-limit'
+import { rateLimit, getClientIp } from '@/lib/util/rate-limit'
 import { getConfig } from '@/lib/config'
 
 const schema = z.object({
@@ -15,7 +15,13 @@ const schema = z.object({
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req)
-  const { ok } = await rateLimit(`contact:${ip}`, { limit: 5, windowMs: 3600_000 })
+  // onError:'closed' — this handler sends two emails per request, so a Redis
+  // outage must not become an open mail-relay window.
+  const { ok } = await rateLimit(`contact:${ip}`, {
+    limit: 5,
+    windowMs: 3600_000,
+    onError: 'closed',
+  })
   if (!ok) return NextResponse.json({ error: 'Too many requests. Try again later.' }, { status: 429 })
 
   try {

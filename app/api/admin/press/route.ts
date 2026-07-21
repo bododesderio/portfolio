@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 
 const pressItemSchema = z.object({
   type:        z.enum(['essay', 'article', 'award', 'speaking']).default('article'),

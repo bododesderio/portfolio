@@ -1,4 +1,4 @@
-import { prisma } from './db'
+import { prisma } from '@/lib/data/db'
 
 export const CONFIG_KEYS = {
   SMTP_HOST: 'SMTP_HOST',

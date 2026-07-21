@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
-import { prisma } from '@/lib/db'
-import { saveLocally } from '@/lib/local-storage'
+import { prisma } from '@/lib/data/db'
+import { saveLocally } from '@/lib/util/local-storage'
 
 const MAX_SIZE = 50 * 1024 * 1024
 const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml', 'application/pdf']

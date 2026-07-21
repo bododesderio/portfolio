@@ -7,7 +7,7 @@ import { X } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
 import { Eyebrow } from '@/components/ui/Eyebrow'
-import { thumbnailUrl, optimizedUrl, blurUrl } from '@/lib/image-utils'
+import { thumbnailUrl, optimizedUrl, blurUrl } from '@/lib/util/image-utils'
 
 interface Media {
   id: string

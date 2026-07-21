@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { ClientsManager } from '@/components/admin/ClientsManager'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { Pagination } from '@/components/admin/Pagination'

@@ -1,4 +1,4 @@
-import { prisma } from '@/lib/db'
+import { prisma } from '@/lib/data/db'
 import { TestimonialsManager } from '@/components/admin/TestimonialsManager'
 import { Pagination } from '@/components/admin/Pagination'
 import type { Metadata } from 'next'
