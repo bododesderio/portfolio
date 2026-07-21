@@ -69,7 +69,8 @@ production stack; unset selects dev. Same command on both.
   and delivery/bounce events are silently not recorded. Email stats undercount.
   Set it during the next deploy (`docs/DEPLOY.md`).
 - **CSP still allows `unsafe-inline`.** The sanitizer now carries the XSS risk;
-  moving to a nonce-based CSP is deferred (§ "Not started" #6).
+  moving to a nonce-based CSP is deferred (§ "Refactor pass" #6 — the one item
+  left; high risk, own PR).
 - **20 public pages remain `force-dynamic`.** Content/settings/SEO reads are now
   `unstable_cache`d, but the pages themselves aren't statically rendered.
 - **No CI — intentional.** The GitHub account is billing-locked, so Actions can't
@@ -79,10 +80,12 @@ production stack; unset selects dev. Same command on both.
 - `compose.yaml` contains a hardcoded `ADMIN_PASSWORD_HASH` and a personal email
   as dev defaults; both are already in git history.
 
-## Session summary (2026-07-21) — hardening shipped to main
+## Session summary (2026-07-21) — hardening + refactor pass shipped to main
 
-The audit-remediation work is **merged to `main` and build-verified**. Repo is
-single-branch; deploy runbook is `docs/DEPLOY.md`. Nothing is in flight.
+The audit-remediation work AND five of the six deferred refactors are **merged to
+`main` and build-verified** (see "Refactor pass" below). Repo is single-branch;
+deploy runbook is `docs/DEPLOY.md`. Only the nonce-CSP hardening is left, on
+purpose. Nothing is in flight.
 
 **Production build verified (exit 0, 57/57 static pages).** The `unstable_cache`
 change compiles clean. Verifying surfaced two build-only issues, both fixed in
@@ -125,17 +128,27 @@ env -u NODE_ENV DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" \
   the GitHub account is billing-locked; checks now run locally before push
 - EmbedSection no longer imports Prisma; blog image `alt` now uses post title
 
-### Not started — deliberately deferred
-The pure-churn refactors from §5 of the audit, ~1,180 lines with no behaviour
-change. Best done as their own pass so they can be reviewed without security
-changes mixed in:
-1. `withAdmin(schema, handler)` wrapper — ~200 lines of boilerplate across 62
-   handlers; the real win is making it impossible to forget an auth guard
-2. `useResourceCrud<T>` hook — 7 near-identical admin managers, ~35-45% scaffold
-3. `BannersManager.tsx` split (782 lines → BannerForm / BannerList / PreviewModal)
-4. `SectionHeader` + `lib/motion.ts` presets — ~25 repetitions
-5. `loading.tsx` / Suspense / skeletons (none exist anywhere)
-6. CSP `unsafe-inline` → nonce-based (high effort; sanitizer now carries the risk)
+### Refactor pass (2026-07-21) — shipped, one item left
+The §5 pure-churn refactors, done as their own reviewable commits (all verified
+by typecheck + lint + 159 tests + a clean production build):
+1. ✅ `withAdmin` wrapper (`lib/util/with-admin.ts`) — 23 CRUD route files. Auth
+   guard can no longer be forgotten. Hardened routes (content/seo/settings/
+   config), uploads, newsletter, auth, analytics keep inline guards on purpose.
+2. ✅ `useResourceCrud` (`components/admin/useResourceCrud.ts`) — adopted in
+   Clients + Services (full), Testimonials + Press (partial). HeroImages/Embed
+   left inline: they drive lists off local optimistic state, not router.refresh.
+3. ✅ `BannersManager` split → orchestrator + banner-types + BannerForm /
+   BannerList / BannerPreviewModal (782 → 155-line orchestrator).
+4. ✅ `lib/motion.ts` (EASE + fadeUp/fadeIn) + `components/ui/SectionHeader.tsx`
+   (adopted in the 3 exact-match slate sections).
+5. ✅ Loading skeletons — `components/ui/Skeleton.tsx` + `loading.tsx` for the
+   public and admin route groups (there were none).
+6. ⏳ CSP `unsafe-inline` → nonce-based — DEFERRED (not pure churn). Needs
+   middleware-issued per-request nonces threaded to next-themes' pre-paint script
+   and the ~8 inline JSON-LD SEO scripts; high risk on the live site (theme
+   flash / broken hydration / dropped structured data). The XSS hole is already
+   closed by the DOMPurify sanitizer, so this is hardening, not a fix. Do it as
+   its own staging-tested PR.
 
 ## Next steps
 1. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`
