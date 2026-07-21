@@ -149,12 +149,19 @@ Created: 2026-07-20
   ckeditor5 v48 throws `license-key-missing` without a `licenseKey`. Added
   `licenseKey: 'GPL'` in RichTextEditorInner.tsx editorConfig. Verify commercial
   licensing if the site isn't GPL.
-- **Open findings (not yet fixed):**
-  1. CSP `img-src` blocks external image URLs (seed content used assets.zyrosite
-     .com) → broken images. Any admin-entered external image URL is blocked.
-     Decide: broaden img-src or require local uploads.
-  2. Hydration mismatch on the AxiomUI components (CustomSelect, file picker):
-     server renders native `<select>`/`<div role=button>`, client renders the
-     custom `axm-*` markup → React regenerates the subtree. Also causes a
-     DOUBLE file-chooser when clicking the media dropzone. Fix: render the custom
-     variant only after mount (or suppressHydrationWarning on the wrapper).
+- **All findings now fixed (commits ec063be, 1b1f4bc, 710769d), verified live:**
+  1. CSP `img-src` broadened to `https:` (was self/medium only) — external and
+     admin-entered image URLs now load. next.config.js.
+  2. AxiomUI (`public/js/axiom-ui.js`) no longer upgrades native form controls on
+     `/admin` — its MutationObserver was replacing React-managed `<select>`/
+     `<input type=file>` with `axm-*` DOM, causing the hydration mismatch AND the
+     double file-chooser. `upgradeAll()` now returns early on `/admin`. Public
+     theming unchanged. Root cause: AxiomUI mounts in the ROOT layout
+     (app/layout.tsx), so it ran on admin too.
+  3. Sidebar-missing-after-login: `admin/layout.tsx` gates the AdminShell on the
+     session; `LoginForm`'s `router.push('/admin')` reused the login page's stale
+     no-session layout render. Fixed by redirecting with `window.location.assign`
+     (full nav) so the layout re-runs server-side with the session.
+     Pattern to remember: a shared layout that renders different trees by session
+     will show the stale tree on client-side nav between its children — force a
+     full load (or don't gate the shell in a shared layout).
