@@ -1,22 +1,16 @@
-import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
 import { NextResponse } from 'next/server'
+import { withAdmin } from '@/lib/util/with-admin'
 
-export async function GET() {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
+export const GET = withAdmin(async () => {
   const items = await prisma.heroImage.findMany({
     orderBy: { order: 'asc' },
     include: { media: true },
   })
   return NextResponse.json(items)
-}
+})
 
-export async function POST(req: Request) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
+export const POST = withAdmin(async ({ req }) => {
   try {
     const { mediaId } = await req.json()
     if (!mediaId || typeof mediaId !== 'string') {
@@ -34,4 +28,4 @@ export async function POST(req: Request) {
     if (code === 'P2003') return NextResponse.json({ error: 'Invalid mediaId' }, { status: 400 })
     return NextResponse.json({ error: 'Create failed' }, { status: 500 })
   }
-}
+}, { onError: 'Create failed' })

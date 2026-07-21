@@ -1,36 +1,19 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@/lib/auth'
+import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/data/db'
 import { z } from 'zod'
+import { withAdmin } from '@/lib/util/with-admin'
 
 const patchSchema = z.object({
   read: z.boolean().optional(),
   archived: z.boolean().optional(),
 })
 
-export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+export const PATCH = withAdmin(async ({ data, params }) => {
+  const msg = await prisma.message.update({ where: { id: params.id }, data })
+  return NextResponse.json(msg)
+}, { schema: patchSchema, onError: 'Update failed.' })
 
-  try {
-    const raw = await req.json()
-    const data = patchSchema.parse(raw)
-    const msg = await prisma.message.update({ where: { id: (await params).id }, data })
-    return NextResponse.json(msg)
-  } catch (err) {
-    if (err instanceof z.ZodError) return NextResponse.json({ error: err.issues[0]?.message ?? 'Invalid input.' }, { status: 400 })
-    return NextResponse.json({ error: 'Update failed.' }, { status: 500 })
-  }
-}
-
-export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
-  try {
-    await prisma.message.delete({ where: { id: (await params).id } })
-    return NextResponse.json({ success: true })
-  } catch {
-    return NextResponse.json({ error: 'Delete failed.' }, { status: 500 })
-  }
-}
+export const DELETE = withAdmin(async ({ params }) => {
+  await prisma.message.delete({ where: { id: params.id } })
+  return NextResponse.json({ success: true })
+}, { onError: 'Delete failed.' })

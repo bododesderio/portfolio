@@ -1,35 +1,21 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@/lib/auth'
+import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/data/db'
+import { withAdmin } from '@/lib/util/with-admin'
 
-export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
-  try {
-    const { id } = await params
-    const body = await req.json()
-    const allowed = ['caption', 'isPublished', 'section', 'sortOrder'] as const
-    const data: Record<string, unknown> = {}
-    for (const key of allowed) {
-      if (key in body) data[key] = body[key]
-    }
-
-    const embed = await prisma.pageEmbed.update({ where: { id }, data })
-    return NextResponse.json(embed)
-  } catch {
-    return NextResponse.json({ error: 'Update failed.' }, { status: 500 })
+export const PATCH = withAdmin(async ({ req, params }) => {
+  const { id } = params
+  const body = await req.json()
+  const allowed = ['caption', 'isPublished', 'section', 'sortOrder'] as const
+  const data: Record<string, unknown> = {}
+  for (const key of allowed) {
+    if (key in body) data[key] = body[key]
   }
-}
 
-export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const embed = await prisma.pageEmbed.update({ where: { id }, data })
+  return NextResponse.json(embed)
+}, { onError: 'Update failed.' })
 
-  try {
-    await prisma.pageEmbed.delete({ where: { id: (await params).id } })
-    return NextResponse.json({ success: true })
-  } catch {
-    return NextResponse.json({ error: 'Delete failed.' }, { status: 500 })
-  }
-}
+export const DELETE = withAdmin(async ({ params }) => {
+  await prisma.pageEmbed.delete({ where: { id: params.id } })
+  return NextResponse.json({ success: true })
+}, { onError: 'Delete failed.' })

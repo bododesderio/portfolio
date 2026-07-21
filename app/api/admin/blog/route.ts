@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
-import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
 import { notifySubscribersOfPost } from '@/lib/domain/notifications'
 import { z } from 'zod'
+import { withAdmin } from '@/lib/util/with-admin'
 
 const attributionSchema = z.object({
   photographer: z.string().optional(),
@@ -24,34 +24,23 @@ const schema = z.object({
   notifySubscribers: z.boolean().optional(),
 })
 
-export async function POST(req: NextRequest) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+export const POST = withAdmin(async ({ data: body }) => {
+  const { notifySubscribers, ...data } = body
+  const post = await prisma.blogPost.create({
+    data: {
+      ...data,
+      category: data.category ?? null,
+      featuredImageAttribution: data.featuredImageAttribution ?? undefined,
+      publishedAt: data.status === 'published' ? new Date() : null,
+    },
+  })
+  revalidatePath('/blog')
 
-  try {
-    const body = await req.json()
-    const { notifySubscribers, ...data } = schema.parse(body)
-    const post = await prisma.blogPost.create({
-      data: {
-        ...data,
-        category: data.category ?? null,
-        featuredImageAttribution: data.featuredImageAttribution ?? undefined,
-        publishedAt: data.status === 'published' ? new Date() : null,
-      },
-    })
-    revalidatePath('/blog')
-
-    // Notify subscribers if publishing immediately
-    let subscribersNotified = 0
-    if (notifySubscribers && data.status === 'published') {
-      subscribersNotified = await notifySubscribersOfPost(post)
-    }
-
-    return NextResponse.json({ ...post, subscribersNotified }, { status: 201 })
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return NextResponse.json({ error: err.issues[0]?.message ?? 'Invalid input.' }, { status: 400 })
-    }
-    return NextResponse.json({ error: 'Server error.' }, { status: 500 })
+  // Notify subscribers if publishing immediately
+  let subscribersNotified = 0
+  if (notifySubscribers && data.status === 'published') {
+    subscribersNotified = await notifySubscribersOfPost(post)
   }
-}
+
+  return NextResponse.json({ ...post, subscribersNotified }, { status: 201 })
+}, { schema, onError: 'Server error.' })

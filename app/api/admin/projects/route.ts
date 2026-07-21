@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
-import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
 import { z } from 'zod'
+import { withAdmin } from '@/lib/util/with-admin'
 
 const imageSchema = z.object({
   url: z.string().min(1),
@@ -32,53 +32,39 @@ const schema = z.object({
   images: z.array(imageSchema).default([]),
 })
 
-export async function GET() {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
+export const GET = withAdmin(async () => {
   const projects = await prisma.project.findMany({
     include: { images: { orderBy: { order: 'asc' } } },
     orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
   })
   return NextResponse.json(projects)
-}
+})
 
-export async function POST(req: NextRequest) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+export const POST = withAdmin(async ({ data: body }) => {
+  const { images, ...data } = body
 
-  try {
-    const body = await req.json()
-    const { images, ...data } = schema.parse(body)
+  const project = await prisma.project.create({
+    data: {
+      ...data,
+      category: data.category ?? null,
+      featuredImageUrl: data.featuredImageUrl ?? null,
+      featuredImageAlt: data.featuredImageAlt ?? null,
+      liveUrl: data.liveUrl ?? null,
+      githubUrl: data.githubUrl ?? null,
+      startDate: data.startDate ? new Date(data.startDate) : null,
+      endDate: data.endDate ? new Date(data.endDate) : null,
+      images: images.length > 0 ? {
+        create: images.map((img, i) => ({
+          url: img.url,
+          alt: img.alt ?? null,
+          caption: img.caption ?? null,
+          order: img.order ?? i,
+        })),
+      } : undefined,
+    },
+    include: { images: true },
+  })
 
-    const project = await prisma.project.create({
-      data: {
-        ...data,
-        category: data.category ?? null,
-        featuredImageUrl: data.featuredImageUrl ?? null,
-        featuredImageAlt: data.featuredImageAlt ?? null,
-        liveUrl: data.liveUrl ?? null,
-        githubUrl: data.githubUrl ?? null,
-        startDate: data.startDate ? new Date(data.startDate) : null,
-        endDate: data.endDate ? new Date(data.endDate) : null,
-        images: images.length > 0 ? {
-          create: images.map((img, i) => ({
-            url: img.url,
-            alt: img.alt ?? null,
-            caption: img.caption ?? null,
-            order: img.order ?? i,
-          })),
-        } : undefined,
-      },
-      include: { images: true },
-    })
-
-    revalidatePath('/projects')
-    return NextResponse.json(project, { status: 201 })
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return NextResponse.json({ error: err.issues[0]?.message ?? 'Invalid input.' }, { status: 400 })
-    }
-    return NextResponse.json({ error: 'Server error.' }, { status: 500 })
-  }
-}
+  revalidatePath('/projects')
+  return NextResponse.json(project, { status: 201 })
+}, { schema, onError: 'Server error.' })

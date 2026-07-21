@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
+import { withAdmin } from '@/lib/util/with-admin'
 
 const pressItemSchema = z.object({
   type:        z.enum(['essay', 'article', 'award', 'speaking']).default('article'),
@@ -19,32 +19,16 @@ const pressItemSchema = z.object({
   order:       z.number().int().default(0),
 })
 
-export async function GET() {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
+export const GET = withAdmin(async () => {
   const items = await prisma.pressItem.findMany({
     orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
   })
   return NextResponse.json(items)
-}
+})
 
-export async function POST(req: NextRequest) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
-  try {
-    const raw = await req.json()
-    const data = pressItemSchema.parse(raw)
-
-    const item = await prisma.pressItem.create({ data })
-    revalidatePath('/about')
-    revalidatePath('/')
-    return NextResponse.json(item, { status: 201 })
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return NextResponse.json({ error: err.issues[0]?.message ?? 'Invalid input.' }, { status: 400 })
-    }
-    return NextResponse.json({ error: 'Create failed.' }, { status: 500 })
-  }
-}
+export const POST = withAdmin(async ({ data }) => {
+  const item = await prisma.pressItem.create({ data })
+  revalidatePath('/about')
+  revalidatePath('/')
+  return NextResponse.json(item, { status: 201 })
+}, { schema: pressItemSchema, onError: 'Create failed.' })

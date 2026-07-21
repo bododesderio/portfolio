@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
+import { withAdmin } from '@/lib/util/with-admin'
 
 const imageSchema = z.object({
   id: z.string().optional(),
@@ -33,78 +33,57 @@ const schema = z.object({
   images: z.array(imageSchema).optional(),
 })
 
-export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
-  const { id } = await params
+export const GET = withAdmin(async ({ params }) => {
+  const { id } = params
   const project = await prisma.project.findUnique({
     where: { id },
     include: { images: { orderBy: { order: 'asc' } } },
   })
   if (!project) return NextResponse.json({ error: 'Not found' }, { status: 404 })
   return NextResponse.json(project)
-}
+})
 
-export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+export const PATCH = withAdmin(async ({ data: body, params }) => {
+  const { images, ...data } = body
+  const { id } = params
 
-  try {
-    const raw = await req.json()
-    const { images, ...data } = schema.parse(raw)
-    const { id } = await params
+  const updateData: Record<string, unknown> = { ...data }
+  if (data.startDate !== undefined) updateData.startDate = data.startDate ? new Date(data.startDate) : null
+  if (data.endDate !== undefined) updateData.endDate = data.endDate ? new Date(data.endDate) : null
 
-    const updateData: Record<string, unknown> = { ...data }
-    if (data.startDate !== undefined) updateData.startDate = data.startDate ? new Date(data.startDate) : null
-    if (data.endDate !== undefined) updateData.endDate = data.endDate ? new Date(data.endDate) : null
+  const project = await prisma.project.update({
+    where: { id },
+    data: updateData,
+  })
 
-    const project = await prisma.project.update({
-      where: { id },
-      data: updateData,
-    })
-
-    // Replace images if provided
-    if (images !== undefined) {
-      await prisma.projectImage.deleteMany({ where: { projectId: id } })
-      if (images.length > 0) {
-        await prisma.projectImage.createMany({
-          data: images.map((img, i) => ({
-            projectId: id,
-            url: img.url,
-            alt: img.alt ?? null,
-            caption: img.caption ?? null,
-            order: img.order ?? i,
-          })),
-        })
-      }
+  // Replace images if provided
+  if (images !== undefined) {
+    await prisma.projectImage.deleteMany({ where: { projectId: id } })
+    if (images.length > 0) {
+      await prisma.projectImage.createMany({
+        data: images.map((img, i) => ({
+          projectId: id,
+          url: img.url,
+          alt: img.alt ?? null,
+          caption: img.caption ?? null,
+          order: img.order ?? i,
+        })),
+      })
     }
-
-    const result = await prisma.project.findUnique({
-      where: { id },
-      include: { images: { orderBy: { order: 'asc' } } },
-    })
-
-    revalidatePath('/projects')
-    revalidatePath(`/projects/${project.slug}`)
-    return NextResponse.json(result)
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return NextResponse.json({ error: err.issues[0]?.message ?? 'Invalid input.' }, { status: 400 })
-    }
-    return NextResponse.json({ error: 'Update failed.' }, { status: 500 })
   }
-}
 
-export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  const result = await prisma.project.findUnique({
+    where: { id },
+    include: { images: { orderBy: { order: 'asc' } } },
+  })
 
-  try {
-    await prisma.project.delete({ where: { id: (await params).id } })
-    revalidatePath('/projects')
-    return NextResponse.json({ success: true })
-  } catch {
-    return NextResponse.json({ error: 'Delete failed.' }, { status: 500 })
-  }
-}
+  revalidatePath('/projects')
+  revalidatePath(`/projects/${project.slug}`)
+  return NextResponse.json(result)
+}, { schema, onError: 'Update failed.' })
+
+export const DELETE = withAdmin(async ({ params }) => {
+  await prisma.project.delete({ where: { id: params.id } })
+  revalidatePath('/projects')
+  return NextResponse.json({ success: true })
+}, { onError: 'Delete failed.' })

@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server'
-import { auth } from '@/lib/auth'
+import { NextResponse } from 'next/server'
 import { prisma } from '@/lib/data/db'
 import { z } from 'zod'
+import { withAdmin } from '@/lib/util/with-admin'
 
 const PLATFORMS = ['twitter', 'instagram', 'linkedin', 'facebook', 'tiktok', 'youtube', 'vimeo'] as const
 
@@ -14,10 +14,7 @@ const createSchema = z.object({
   caption: z.string().optional(),
 })
 
-export async function GET(req: NextRequest) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
+export const GET = withAdmin(async ({ req }) => {
   const page = req.nextUrl.searchParams.get('page')
   const where = page ? { page } : {}
 
@@ -26,12 +23,9 @@ export async function GET(req: NextRequest) {
     orderBy: [{ page: 'asc' }, { section: 'asc' }, { sortOrder: 'asc' }],
   })
   return NextResponse.json(embeds)
-}
+})
 
-export async function POST(req: NextRequest) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
+export const POST = withAdmin(async ({ req }) => {
   try {
     const body = await req.json()
     const data = createSchema.parse(body)
@@ -54,4 +48,4 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({ error: 'Create failed.' }, { status: 500 })
   }
-}
+}, { onError: 'Create failed.' })

@@ -1,9 +1,9 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { revalidatePath } from 'next/cache'
 import { z } from 'zod'
-import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
 import { notifySubscribersOfPost } from '@/lib/domain/notifications'
+import { withAdmin } from '@/lib/util/with-admin'
 
 const attributionSchema = z.object({
   photographer: z.string().optional(),
@@ -25,64 +25,46 @@ const schema = z.object({
   notifySubscribers: z.boolean().optional(),
 })
 
-export async function PATCH(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+export const PATCH = withAdmin(async ({ data: body, params }) => {
+  const { notifySubscribers, ...data } = body
+  const { id } = params
 
-  try {
-    const raw = await req.json()
-    const { notifySubscribers, ...data } = schema.parse(raw)
-    const { id } = await params
-
-    // Reject NOT-NULL fields being cleared.
-    if (data.featuredImageUrl !== undefined && !data.featuredImageUrl) {
-      return NextResponse.json({ error: 'Featured image is required.' }, { status: 400 })
-    }
-    if (data.featuredImageAlt !== undefined && !data.featuredImageAlt) {
-      return NextResponse.json({ error: 'Alt text is required.' }, { status: 400 })
-    }
-
-    // Check if this is a new publish (going from draft → published)
-    const existing = await prisma.blogPost.findUnique({ where: { id } })
-    const isNewPublish = data.status === 'published' && existing?.status !== 'published'
-
-    const post = await prisma.blogPost.update({
-      where: { id },
-      data: {
-        ...data,
-        featuredImageAttribution: data.featuredImageAttribution ?? undefined,
-        publishedAt: data.status === 'published'
-          ? (existing?.status === 'published' ? undefined : new Date())
-          : data.status === 'draft' ? null : undefined,
-      },
-    })
-    revalidatePath('/blog')
-    revalidatePath(`/blog/${post.slug}`)
-
-    // Notify subscribers if requested and this is a new publish
-    let subscribersNotified = 0
-    if (notifySubscribers && isNewPublish) {
-      subscribersNotified = await notifySubscribersOfPost(post)
-    }
-
-    return NextResponse.json({ ...post, subscribersNotified })
-  } catch (err) {
-    if (err instanceof z.ZodError) {
-      return NextResponse.json({ error: err.issues[0]?.message ?? 'Invalid input.' }, { status: 400 })
-    }
-    return NextResponse.json({ error: 'Update failed.' }, { status: 500 })
+  // Reject NOT-NULL fields being cleared.
+  if (data.featuredImageUrl !== undefined && !data.featuredImageUrl) {
+    return NextResponse.json({ error: 'Featured image is required.' }, { status: 400 })
   }
-}
-
-export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
-  const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-
-  try {
-    await prisma.blogPost.delete({ where: { id: (await params).id } })
-    revalidatePath('/blog')
-    return NextResponse.json({ success: true })
-  } catch {
-    return NextResponse.json({ error: 'Delete failed.' }, { status: 500 })
+  if (data.featuredImageAlt !== undefined && !data.featuredImageAlt) {
+    return NextResponse.json({ error: 'Alt text is required.' }, { status: 400 })
   }
-}
+
+  // Check if this is a new publish (going from draft → published)
+  const existing = await prisma.blogPost.findUnique({ where: { id } })
+  const isNewPublish = data.status === 'published' && existing?.status !== 'published'
+
+  const post = await prisma.blogPost.update({
+    where: { id },
+    data: {
+      ...data,
+      featuredImageAttribution: data.featuredImageAttribution ?? undefined,
+      publishedAt: data.status === 'published'
+        ? (existing?.status === 'published' ? undefined : new Date())
+        : data.status === 'draft' ? null : undefined,
+    },
+  })
+  revalidatePath('/blog')
+  revalidatePath(`/blog/${post.slug}`)
+
+  // Notify subscribers if requested and this is a new publish
+  let subscribersNotified = 0
+  if (notifySubscribers && isNewPublish) {
+    subscribersNotified = await notifySubscribersOfPost(post)
+  }
+
+  return NextResponse.json({ ...post, subscribersNotified })
+}, { schema, onError: 'Update failed.' })
+
+export const DELETE = withAdmin(async ({ params }) => {
+  await prisma.blogPost.delete({ where: { id: params.id } })
+  revalidatePath('/blog')
+  return NextResponse.json({ success: true })
+}, { onError: 'Delete failed.' })
