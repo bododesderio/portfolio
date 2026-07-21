@@ -38,6 +38,15 @@ empty, starts the app. `COMPOSE_FILE=compose.prod.yaml` in `.env` selects the
 production stack; unset selects dev. Same command on both.
 
 ## Recent decisions
+- **2026-07-21 — Single-branch repo; no CI.** The hardening branch merged to
+  `main` (PR #1, `ffb3ec1`) and was deleted. GitHub Actions was removed entirely
+  (`c6fcaf3`): every run failed at startup — the account is locked over a billing
+  issue, which halts Actions even on public repos. Workflow is now edit → commit
+  → `git push origin main`; checks run locally before push.
+- **2026-07-21 — `isomorphic-dompurify` kept server-external.** It pulls in
+  `jsdom`, whose runtime asset load webpack-bundling breaks, failing the prod
+  build. `serverExternalPackages` in `next.config.js` fixes it; Docker builder
+  pins `NODE_ENV=production` so a polluted env can't bundle React's dev runtime.
 - **2026-07-20 — Migration history is the source of truth.** `prisma db push` is
   banned. It had produced 4 tables + 5 column sets present in the running DB but
   in no migration file, so a from-source deploy built a broken schema. Both
@@ -56,33 +65,28 @@ production stack; unset selects dev. Same command on both.
   separate services. See `.claude/adrs/ADR-001-subdomain-architecture.md`.
 
 ## Known issues
-- **`POSTAL_WEBHOOK_SECRET` is unset**, so the webhook rejects everything and
-  delivery/bounce events are silently not recorded. Email stats undercount.
-- **Newsletter send is synchronous and marks `status:'sent'` before sending**
-  (`app/api/admin/newsletter/send/route.ts:30`). A timeout mid-send plus a retry
-  after the 60s window double-sends to everyone. Also re-renders the template
-  once per subscriber.
-- **`lib/util/sanitize.ts` is a bypassable regex sanitizer** — `<img/onerror=>`
-  and `<svg/onload=>` pass through, and CSP allows `unsafe-inline`. Bounded:
-  only the authenticated admin writes that HTML. Replace with DOMPurify.
-- **20 public pages are `force-dynamic`** with no caching; the homepage fires 14
-  Prisma queries per request. `lib/data/content.ts` has no cache at all.
-- **No CI.** Clean typecheck and 130 passing tests that nothing enforces.
+- **`POSTAL_WEBHOOK_SECRET` is unset in prod**, so the webhook rejects everything
+  and delivery/bounce events are silently not recorded. Email stats undercount.
+  Set it during the next deploy (`docs/DEPLOY.md`).
+- **CSP still allows `unsafe-inline`.** The sanitizer now carries the XSS risk;
+  moving to a nonce-based CSP is deferred (§ "Not started" #6).
+- **20 public pages remain `force-dynamic`.** Content/settings/SEO reads are now
+  `unstable_cache`d, but the pages themselves aren't statically rendered.
+- **No CI — intentional.** The GitHub account is billing-locked, so Actions can't
+  run. Verify locally before push: `pnpm typecheck && pnpm lint && pnpm test &&
+  pnpm build` (build needs `env -u NODE_ENV` + a scratch DB).
 - **Backups are manual** (`pnpm db:backup`) — no cron on the server.
 - `compose.yaml` contains a hardcoded `ADMIN_PASSWORD_HASH` and a personal email
   as dev defaults; both are already in git history.
-- Missing indexes: `gallery_items(featured, category)`, `hero_images(active, order)`,
-  `newsletter_campaigns(status)`, `blog_posts(category)`.
-- `components/sections/EmbedSection.tsx` imports Prisma directly — the one
-  layering violation left in `components/`.
 
-## RESUME HERE (paused 2026-07-20, mid-audit-remediation)
+## Session summary (2026-07-21) — hardening shipped to main
 
-Branch: `chore/deploy-hardening-and-structure`.
+The audit-remediation work is **merged to `main` and build-verified**. Repo is
+single-branch; deploy runbook is `docs/DEPLOY.md`. Nothing is in flight.
 
-**Production build now verified (2026-07-21, exit 0, 57/57 static pages).** The
-`unstable_cache` change compiles clean. Verifying surfaced two build-only issues,
-both fixed in `c9db5da`:
+**Production build verified (exit 0, 57/57 static pages).** The `unstable_cache`
+change compiles clean. Verifying surfaced two build-only issues, both fixed in
+`c9db5da`:
 - The `isomorphic-dompurify` sanitizer pulls in `jsdom`; webpack-bundling it
   broke jsdom's runtime asset load (`browser/default-stylesheet.css`) and failed
   page-data collection on every route importing the sanitizer. Fixed with
@@ -151,5 +155,4 @@ every run failed at startup. Run checks locally before pushing:
 should be empty.
 
 ## Active branches
-- `main`: stable
-- `chore/deploy-hardening-and-structure`: this session's work
+- `main`: stable, single-branch repo. Head `c6b4b5c`. All work merged here.
