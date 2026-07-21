@@ -150,7 +150,7 @@ env -u NODE_ENV DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" \
   the GitHub account is billing-locked; checks now run locally before push
 - EmbedSection no longer imports Prisma; blog image `alt` now uses post title
 
-### Refactor pass (2026-07-21) — shipped, one item left
+### Refactor pass (2026-07-21) — ALL SIX shipped
 The §5 pure-churn refactors, done as their own reviewable commits (all verified
 by typecheck + lint + 159 tests + a clean production build):
 1. ✅ `withAdmin` wrapper (`lib/util/with-admin.ts`) — 23 CRUD route files. Auth
@@ -176,13 +176,24 @@ by typecheck + lint + 159 tests + a clean production build):
    terms were static). Verified live against `next start`: 0 CSP violations
    across public + admin; login/sidebar/CRUD/theme/CKEditor all work.
 
-## Next steps
+## Next steps (paused 2026-07-21 eve — "continue tomorrow, limits reached")
+
+All code work is done, verified live, committed, and pushed to `main` (head
+`0b7eaa9`). Nothing in flight; working tree clean. Resume with the DEPLOY steps —
+they touch the live VPS and its secrets, so they're the user's to run:
 1. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`
    — the tables already exist there; without this the next deploy errors. See
    `docs/DEPLOY.md`.
-2. Set `POSTAL_WEBHOOK_SECRET` to restore email tracking.
-3. The deferred pure-churn refactors (§ "Not started" above) as their own pass.
-4. ADR-001 phases 1–3 once the domain is acquired.
+2. Set `POSTAL_WEBHOOK_SECRET` in prod `.env` to restore email open/click tracking.
+3. Deploy: `docker compose up -d --build` on the VPS.
+4. Note: after this deploy, `/privacy` and `/terms` are now dynamic (nonce CSP
+   made the root layout read `headers()`) — expected, not a regression.
+5. Later: ADR-001 subdomain phases 1–3 once the domain is acquired.
+
+**To re-run the live audit tomorrow:** scratch stack recipe is in MEMORY.md
+([2026-07-21] live-audit entry) — Postgres+Redis on ports 55444/63977, seed with
+the known hash, `rm -rf .next` then `next dev -p 3011` (or `next build`+`next
+start` to test the nonce CSP, which dev can't).
 
 Merged to `main`: DOMPurify sanitizer, resumable newsletter, `unstable_cache` on
 content/settings/SEO, build fixes — all verified by a clean production build.
@@ -194,4 +205,4 @@ every run failed at startup. Run checks locally before pushing:
 should be empty.
 
 ## Active branches
-- `main`: stable, single-branch repo. Head `c6b4b5c`. All work merged here.
+- `main`: stable, single-branch repo. Head `0b7eaa9`. All work merged here.
