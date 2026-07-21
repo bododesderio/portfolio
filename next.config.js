@@ -64,7 +64,10 @@ const nextConfig = {
           `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
           "style-src 'self' 'unsafe-inline'",
           "font-src 'self' data:",
-          "img-src 'self' data: blob: https://miro.medium.com https://cdn-images-1.medium.com",
+          // Allow any HTTPS image: the admin enters image URLs (Medium, gallery,
+          // hero, project covers) as content, and a host allowlist silently
+          // breaks them. Images can't execute; http:/mixed-content stays blocked.
+          "img-src 'self' data: blob: https:",
           "media-src 'self'",
           "connect-src 'self' https://api.calendly.com",
           "frame-src 'self' https://calendly.com https://*.calendly.com",
