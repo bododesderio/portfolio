@@ -1729,6 +1729,10 @@
 
     /* ── Upgrade existing elements ──────────────────────────────────── */
     function upgradeAll() {
+      // Admin forms are React-controlled and CSS-themed. Upgrading their native
+      // <select>/<input type=file> mutates React-managed DOM, which causes
+      // hydration mismatches and a double file-chooser. Leave admin native.
+      if (location.pathname.startsWith('/admin')) return
       // Selects (skip already-styled ones from React components)
       document.querySelectorAll('select:not(.axm-skip):not([data-axm-skip])').forEach(upgradeSelect)
       // Datalists
