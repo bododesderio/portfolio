@@ -1,5 +1,5 @@
 # Project Context
-Last updated: 2026-07-20
+Last updated: 2026-07-21
 
 ## What this is
 Personal brand site for Bodo Desderio — **not** a static portfolio. A
@@ -80,19 +80,28 @@ production stack; unset selects dev. Same command on both.
 
 Branch: `chore/deploy-hardening-and-structure`.
 
-**First thing tomorrow — the one unverified step:** run a production build.
-Everything below passed typecheck + 159 tests, but the `unstable_cache` change
-in `lib/data/content.ts` is exactly the kind that only fails at build time, and
-the build was interrupted before it ran.
+**Production build now verified (2026-07-21, exit 0, 57/57 static pages).** The
+`unstable_cache` change compiles clean. Verifying surfaced two build-only issues,
+both fixed in `c9db5da`:
+- The `isomorphic-dompurify` sanitizer pulls in `jsdom`; webpack-bundling it
+  broke jsdom's runtime asset load (`browser/default-stylesheet.css`) and failed
+  page-data collection on every route importing the sanitizer. Fixed with
+  `serverExternalPackages: ['isomorphic-dompurify', 'jsdom']` in `next.config.js`.
+  This would also have turned CI red.
+- Building with `NODE_ENV=development` (leaks from the dev shell profile) makes
+  Next bundle React's dev runtime → prerender crashes with a `useContext` null
+  error. Docker's builder stage now pins `ENV NODE_ENV=production`. Locally,
+  build with `env -u NODE_ENV`.
 
+Repro (scratch Postgres, then migrate + build):
 ```bash
-DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" \
-NEXTAUTH_SECRET="build-dummy" NEXT_PUBLIC_SITE_URL="http://localhost:3001" \
-ANALYTICS_SALT="build-dummy" npx next build --webpack
+docker run -d --name bodo_migrate_tmp -e POSTGRES_PASSWORD=tmp \
+  -e POSTGRES_USER=tmp -e POSTGRES_DB=freshdb -p 55432:5432 postgres:16-alpine
+DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" npx prisma migrate deploy
+env -u NODE_ENV DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" \
+  NEXTAUTH_SECRET="build-dummy" NEXT_PUBLIC_SITE_URL="http://localhost:3001" \
+  ANALYTICS_SALT="build-dummy" npx next build --webpack
 ```
-(Needs a scratch Postgres: `docker run -d --name bodo_migrate_tmp -e POSTGRES_PASSWORD=tmp
--e POSTGRES_USER=tmp -e POSTGRES_DB=tmpdb -p 55432:5432 postgres:16-alpine`,
-then `npx prisma migrate deploy`.)
 
 ### Done in the remediation pass
 - Sanitizer → isomorphic-dompurify (all known bypasses tested and closed)
@@ -124,14 +133,17 @@ changes mixed in:
 6. CSP `unsafe-inline` → nonce-based (high effort; sanitizer now carries the risk)
 
 ## Next steps
-1. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`
+1. Open the PR for `chore/deploy-hardening-and-structure` → `main`; let CI
+   (typecheck + lint + tests + build + migration-drift) prove it green.
+2. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`
    — the tables already exist there; without this the next deploy errors.
-2. Set `POSTAL_WEBHOOK_SECRET` to restore email tracking.
-3. Replace the regex sanitizer with `isomorphic-dompurify`.
-4. Newsletter → resumable job with per-recipient rows.
-5. GitHub Actions running typecheck + tests.
-6. `unstable_cache` on `lib/data/content.ts`, invalidated by existing `revalidatePath` calls.
-7. ADR-001 phases 1–3 once the domain is acquired.
+3. Set `POSTAL_WEBHOOK_SECRET` to restore email tracking.
+4. The deferred pure-churn refactors (§ "Not started" above) as their own pass.
+5. ADR-001 phases 1–3 once the domain is acquired.
+
+Shipped this branch: DOMPurify sanitizer, resumable newsletter, CI (typecheck +
+tests + build + drift), `unstable_cache` on content/settings/SEO — all verified
+by a clean production build.
 
 ## Active branches
 - `main`: stable
