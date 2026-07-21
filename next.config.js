@@ -55,29 +55,10 @@ const nextConfig = {
       },
       // Cross-origin isolation — relaxed (we serve embed-friendly content).
       { key: 'Cross-Origin-Opener-Policy', value: 'same-origin-allow-popups' },
-      // CSP — inline styles required by Tailwind/theme injector; inline scripts
-      // required by Next.js hydration. Fonts are self-hosted (fontsource).
-      {
-        key: 'Content-Security-Policy',
-        value: [
-          "default-src 'self'",
-          `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ''}`,
-          "style-src 'self' 'unsafe-inline'",
-          "font-src 'self' data:",
-          // Allow any HTTPS image: the admin enters image URLs (Medium, gallery,
-          // hero, project covers) as content, and a host allowlist silently
-          // breaks them. Images can't execute; http:/mixed-content stays blocked.
-          "img-src 'self' data: blob: https:",
-          "media-src 'self'",
-          "connect-src 'self' https://api.calendly.com",
-          "frame-src 'self' https://calendly.com https://*.calendly.com",
-          "frame-ancestors 'none'",
-          "form-action 'self'",
-          "base-uri 'self'",
-          "object-src 'none'",
-          "upgrade-insecure-requests",
-        ].join('; '),
-      },
+      // NOTE: Content-Security-Policy is set per-request in proxy.ts (middleware)
+      // so it can carry a fresh nonce for inline scripts — a static header here
+      // can't do nonces. All the directives (img-src https:, calendly frames,
+      // style-src unsafe-inline, etc.) now live there.
     ]
 
     return [
