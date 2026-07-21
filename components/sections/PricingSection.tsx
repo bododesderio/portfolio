@@ -5,7 +5,7 @@ import { Check } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Section } from '@/components/ui/Section'
 import { Container } from '@/components/ui/Container'
-import { Eyebrow } from '@/components/ui/Eyebrow'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 const models = [
   {
@@ -60,10 +60,11 @@ export function PricingSection() {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <Eyebrow className="mb-2">Engagement models</Eyebrow>
-          <h2 className="font-serif text-4xl md:text-5xl text-slate-900 dark:text-white mb-4">
-            How we can work together.
-          </h2>
+          <SectionHeader
+            eyebrow="Engagement models"
+            heading="How we can work together."
+            headingClassName="font-serif text-4xl md:text-5xl text-slate-900 dark:text-white mb-4"
+          />
           <p className="text-lg text-slate-600 dark:text-slate-300">
             Every engagement is different. Choose the model that fits your needs, or let&apos;s design something custom.
           </p>

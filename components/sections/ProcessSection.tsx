@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { Search, Map, Code, TrendingUp } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
-import { Eyebrow } from '@/components/ui/Eyebrow'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 interface Step {
   icon: string
@@ -38,10 +38,7 @@ export function ProcessSection({ content }: { content: ProcessContent }) {
           transition={{ duration: 0.6 }}
           className="text-center max-w-3xl mx-auto mb-16"
         >
-          <Eyebrow className="mb-2">{pretitle}</Eyebrow>
-          <h2 className="font-serif text-4xl md:text-5xl text-slate-900 dark:text-white">
-            {heading}
-          </h2>
+          <SectionHeader eyebrow={pretitle} heading={heading} />
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">

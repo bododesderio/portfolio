@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { EASE } from '@/lib/motion'
 import { ArrowUpRight, Sparkles } from 'lucide-react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/Button'
@@ -20,7 +21,6 @@ interface HeroContent {
   heroImages?: string[]
 }
 
-const EASE = [0.16, 1, 0.3, 1] as const
 const ROTATE_INTERVAL = 15000
 
 function splitFirstTwo(s: string): { first: string; rest: string } {

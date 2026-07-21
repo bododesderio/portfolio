@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { EASE } from '@/lib/motion'
 import { ArrowUpRight, Quote, Download, Maximize2, X as XIcon } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
@@ -32,7 +33,6 @@ interface MediumPost {
   thumbnail: string | null
 }
 
-const EASE = [0.16, 1, 0.3, 1] as const
 
 export function PressSection({ items, mediumPosts = [] }: { items?: PressItem[]; mediumPosts?: MediumPost[] }) {
   const [previewImage, setPreviewImage] = useState<{ url: string; alt: string } | null>(null)

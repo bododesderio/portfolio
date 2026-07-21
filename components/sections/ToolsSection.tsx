@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion'
 import { Container } from '@/components/ui/Container'
-import { Eyebrow } from '@/components/ui/Eyebrow'
+import { SectionHeader } from '@/components/ui/SectionHeader'
 
 const tools = [
   { name: 'React', icon: '⚛️' },
@@ -28,10 +28,7 @@ export function ToolsSection() {
           transition={{ duration: 0.6 }}
           className="text-center mb-16"
         >
-          <Eyebrow className="mb-2">Tools & Stack</Eyebrow>
-          <h2 className="font-serif text-4xl md:text-5xl text-slate-900 dark:text-white">
-            Technologies I work with
-          </h2>
+          <SectionHeader eyebrow="Tools & Stack" heading="Technologies I work with" />
         </motion.div>
 
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8">

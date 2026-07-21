@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import { EASE } from '@/lib/motion'
 import { ArrowUpRight } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 import { Container } from '@/components/ui/Container'
@@ -15,7 +16,6 @@ interface AboutContent {
   ctaUrl: string
 }
 
-const EASE = [0.16, 1, 0.3, 1] as const
 
 export function AboutSection({ content }: { content: AboutContent }) {
   return (

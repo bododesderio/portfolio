@@ -3,6 +3,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { EASE } from '@/lib/motion'
 import { Building, Code, TrendingUp, Lightbulb, Users, ArrowUpRight } from 'lucide-react'
 import { Container } from '@/components/ui/Container'
 import { Section } from '@/components/ui/Section'
@@ -35,7 +36,6 @@ const iconMap: Record<string, React.ElementType> = {
   users: Users,
 }
 
-const EASE = [0.16, 1, 0.3, 1] as const
 
 export function ExpertiseSection({ content, services }: { content: ExpertiseContent; services: Service[] }) {
   return (
