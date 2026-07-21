@@ -80,12 +80,35 @@ production stack; unset selects dev. Same command on both.
 - `compose.yaml` contains a hardcoded `ADMIN_PASSWORD_HASH` and a personal email
   as dev defaults; both are already in git history.
 
-## Session summary (2026-07-21) — hardening + refactor pass shipped to main
+## Session summary (2026-07-21) — hardening + refactors + live audit shipped
 
-The audit-remediation work AND five of the six deferred refactors are **merged to
-`main` and build-verified** (see "Refactor pass" below). Repo is single-branch;
-deploy runbook is `docs/DEPLOY.md`. Only the nonce-CSP hardening is left, on
-purpose. Nothing is in flight.
+The audit-remediation work, five of the six deferred refactors, AND a live
+Playwright audit (with four bug fixes) are **merged to `main`**. Repo is
+single-branch; deploy runbook is `docs/DEPLOY.md`. Only the nonce-CSP hardening
+is left, on purpose. Nothing is in flight.
+
+### Live audit (2026-07-21) — ran the app end-to-end via Playwright, twice
+Isolated scratch stack (Postgres+Redis on ports 55444/63977, seeded with a known
+admin password hash so login is controllable), `next dev` on :3011. Verified live
+**and re-confirmed on a second pass**: all public pages; contact form + newsletter
+subscribe (persisted, visible in dashboard); login (wrong+right); Services CRUD
+(201/200/200); Banners create/toggle/duplicate + preview modal; media upload
+(file on disk); SMTP config save; CKEditor mounts; every admin page loads.
+
+Four bugs found and **fixed + verified live** (all on `main`):
+1. **CKEditor was fully broken** (`1ee137a`) — ckeditor5 v48 throws
+   `license-key-missing` with no `licenseKey`. Added `licenseKey: 'GPL'`.
+2. **Sidebar missing after login** (`ec063be`) — `admin/layout.tsx` gates the
+   shell on session; `router.push` reused the login page's stale no-session
+   layout. Fixed with a full-nav redirect (`window.location.assign`).
+3. **Hydration mismatch + double file-chooser** (`1b1f4bc`) — AxiomUI's script
+   (`public/js/axiom-ui.js`, mounted in root layout) replaced React-managed
+   `<select>`/`<input type=file>`/`<input type=color>` on admin pages. Now skips
+   `/admin` in `upgradeAll()`.
+4. **CSP blocked external images** (`710769d`) — `img-src` broadened to `https:`.
+
+Setup gotcha: a stale webpack `.next` makes `next dev` (Turbopack) 404 every
+route-group page — `rm -rf .next` before `next dev`.
 
 **Production build verified (exit 0, 57/57 static pages).** The `unstable_cache`
 change compiles clean. Verifying surfaced two build-only issues, both fixed in

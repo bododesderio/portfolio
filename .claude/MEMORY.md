@@ -165,3 +165,14 @@ Created: 2026-07-20
      Pattern to remember: a shared layout that renders different trees by session
      will show the stale tree on client-side nav between its children — force a
      full load (or don't gate the shell in a shared layout).
+     Also covered by the AxiomUI `/admin` guard: the `<input type=color>` on
+     /admin/settings/appearance (axm-colorpicker-wrap) had the same mismatch.
+- **Re-audit (second full pass) confirmed all four fixes hold:** every fresh
+  post-fix page load is 0-errors — home, services (native select), media (native
+  file input, single chooser), blog editor (CKEditor mounts), appearance (native
+  color input), all manager pages; login→sidebar present; Services create 201;
+  contact POST 200. Caveat when reading `console_messages(all:true)`: the
+  Playwright browser persists across runs, so it replays STALE pre-fix hydration
+  errors from the first pass — trust per-navigation counts, not the all-session
+  dump. Only live "errors" left are benign dev HMR-reconnect WebSocket failures
+  (server restarted mid-session); absent in prod.
