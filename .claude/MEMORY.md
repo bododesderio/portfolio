@@ -89,3 +89,40 @@ Created: 2026-07-20
   - Pushing a branch containing `.github/workflows/*` needs the OAuth `workflow`
     scope: `gh auth refresh -h github.com -s workflow` (interactive; user runs it
     via `!`). It was the push rejection blocker before the CI file was removed.
+
+## [2026-07-21] — Deferred "pure-churn" refactors: 5 of 6 shipped
+
+- **Decisions:**
+  - Shipped as 5 separate reviewable commits (df57d57, c21fe0f, 6d3a638,
+    7da9693, 5fcbf4c), each verified by typecheck + lint + 159 tests + a clean
+    prod build: withAdmin wrapper (23 CRUD routes), useResourceCrud hook,
+    BannersManager split (782→155 orchestrator + 4 files), lib/motion + Section-
+    Header, loading skeletons.
+  - Nonce-CSP (#6) deliberately NOT done. It isn't pure churn — it changes live
+    security headers and needs per-request nonces threaded to next-themes'
+    pre-paint script + ~8 inline JSON-LD SEO scripts; high risk (theme flash /
+    broken hydration / dropped structured data). XSS already closed by DOMPurify,
+    so it's hardening, not a fix. Its own staging-tested PR.
+
+- **Patterns:**
+  - "No behaviour change" refactor across many files → delegate the mechanical
+    rollout to a subagent AFTER converting one exemplar yourself and pinning the
+    rules (exact error strings, status codes, message overrides). Three subagents
+    each nailed it and, importantly, *declined* to convert where the abstraction
+    would change behaviour (hero-images Prisma-code branches kept inline;
+    page-embeds custom `fieldErrors` body kept; HeroImages/Embed managers left
+    off useResourceCrud because they use local optimistic state, not
+    router.refresh). Instruct them to flag and skip, not force-fit.
+  - Run subagents that touch the same directory tree SEQUENTIALLY, not
+    concurrently — a second agent's `pnpm typecheck` can trip over the first's
+    half-written file and misdiagnose it.
+
+- **Gotchas:**
+  - A generic `withAdmin` route wrapper trips Next 16's generated route-type
+    validator two ways: (1) deriving `Session` from `ReturnType<typeof auth>`
+    resolves to the middleware overload (`NextMiddleware`) — import
+    `Session` from 'next-auth' instead; (2) an optional `context?` param makes
+    `__param_type__` `RouteContext | undefined` which fails `ParamCheck`. Make
+    context required and type its `params` as `Promise<any>` so it satisfies both
+    static (`Promise<{}>`) and dynamic (`Promise<{id}>`) routes; narrow to
+    Record<string,string> inside.
