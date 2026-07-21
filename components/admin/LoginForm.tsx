@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { signIn } from 'next-auth/react'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { useSearchParams } from 'next/navigation'
 import { Eye, EyeOff, LogIn } from 'lucide-react'
 
 interface LoginFormProps {
@@ -14,7 +14,6 @@ export function LoginForm({
   heading = 'Welcome Back',
   subtitle = 'Sign in to your admin account',
 }: LoginFormProps) {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
@@ -37,7 +36,13 @@ export function LoginForm({
       setLoading(false)
     } else {
       const callbackUrl = searchParams.get('callbackUrl')
-      router.push(callbackUrl?.startsWith('/admin') ? callbackUrl : '/admin')
+      const target = callbackUrl?.startsWith('/admin') ? callbackUrl : '/admin'
+      // Hard navigation, not router.push: the admin layout renders the sidebar
+      // shell conditionally on the session. A client-side transition from the
+      // login page reuses that layout's stale no-session render, so the
+      // dashboard would open with no sidebar until a manual reload. A full load
+      // re-runs the layout on the server with the new session.
+      window.location.assign(target)
     }
   }
 
