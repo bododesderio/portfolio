@@ -49,3 +49,6 @@ public/stock/*.png
 public/stock/*.webp
 !public/stock/manifest.json
 !public/stock/README.md
+
+# Playwright MCP audit output
+.playwright-mcp/
