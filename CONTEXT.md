@@ -68,9 +68,8 @@ production stack; unset selects dev. Same command on both.
 - **`POSTAL_WEBHOOK_SECRET` is unset in prod**, so the webhook rejects everything
   and delivery/bounce events are silently not recorded. Email stats undercount.
   Set it during the next deploy (`docs/DEPLOY.md`).
-- **CSP still allows `unsafe-inline`.** The sanitizer now carries the XSS risk;
-  moving to a nonce-based CSP is deferred (§ "Refactor pass" #6 — the one item
-  left; high risk, own PR).
+- **CSP `script-src` is now nonce-based** (per-request, via `proxy.ts`); only
+  `style-src` keeps `unsafe-inline` (Tailwind/theme inline styles — low risk).
 - **20 public pages remain `force-dynamic`.** Content/settings/SEO reads are now
   `unstable_cache`d, but the pages themselves aren't statically rendered.
 - **No CI — intentional.** The GitHub account is billing-locked, so Actions can't
@@ -166,12 +165,16 @@ by typecheck + lint + 159 tests + a clean production build):
    (adopted in the 3 exact-match slate sections).
 5. ✅ Loading skeletons — `components/ui/Skeleton.tsx` + `loading.tsx` for the
    public and admin route groups (there were none).
-6. ⏳ CSP `unsafe-inline` → nonce-based — DEFERRED (not pure churn). Needs
-   middleware-issued per-request nonces threaded to next-themes' pre-paint script
-   and the ~8 inline JSON-LD SEO scripts; high risk on the live site (theme
-   flash / broken hydration / dropped structured data). The XSS hole is already
-   closed by the DOMPurify sanitizer, so this is hardening, not a fix. Do it as
-   its own staging-tested PR.
+6. ✅ CSP `unsafe-inline` → nonce-based (`7830bb9`). CSP moved from
+   next.config.js to the middleware (`proxy.ts`) with a fresh per-request nonce;
+   prod `script-src 'self' 'nonce-<n>' 'strict-dynamic'`, no script unsafe-inline.
+   Next auto-nonces its scripts; next-themes gets the nonce via `x-nonce` header
+   read in the root layout; strict-dynamic covers AxiomUI + CKEditor bundles.
+   JSON-LD scripts needed NO nonce (browsers don't apply script-src to
+   `application/ld+json`). style-src stays unsafe-inline. Dev stays relaxed for
+   HMR. Trade-off: root-layout `headers()` makes all routes dynamic (privacy/
+   terms were static). Verified live against `next start`: 0 CSP violations
+   across public + admin; login/sidebar/CRUD/theme/CKEditor all work.
 
 ## Next steps
 1. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`

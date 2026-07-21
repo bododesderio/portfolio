@@ -167,6 +167,38 @@ Created: 2026-07-20
      full load (or don't gate the shell in a shared layout).
      Also covered by the AxiomUI `/admin` guard: the `<input type=color>` on
      /admin/settings/appearance (axm-colorpicker-wrap) had the same mismatch.
+
+## [2026-07-21] — Nonce-based CSP shipped (`7830bb9`), verified live in prod
+
+- **What:** CSP moved from a static next.config.js header to the middleware
+  (`proxy.ts`) so it carries a fresh per-request nonce. Prod
+  `script-src 'self' 'nonce-<n>' 'strict-dynamic'` — no script `unsafe-inline`.
+  Dev keeps `unsafe-inline`/`unsafe-eval` + `ws:` (Turbopack HMR injects
+  un-nonced inline scripts; nonce-CSP would break dev).
+- **How the nonce reaches things:** middleware sets an `x-nonce` REQUEST header
+  (via `NextResponse.next({ request: { headers } })`) and the CSP RESPONSE
+  header. Next.js auto-nonces its own framework scripts by reading the nonce
+  from the CSP header. next-themes gets it through `<ThemeProvider nonce>` where
+  the root layout reads `(await headers()).get('x-nonce')`. `strict-dynamic`
+  trusts scripts CREATED by nonced scripts, so AxiomUI (`/js/axiom-ui.js`,
+  injected in a useEffect) and the CKEditor bundle load fine.
+- **Empirical findings (verified with Playwright against `next start`):**
+  - JSON-LD `<script type="application/ld+json">` needs NO nonce — browsers
+    don't apply script-src to non-executable script types. 0 violations with
+    the 7 un-nonced JSON-LD blocks. Saved touching 7 files.
+  - Header nonce == body script nonce within one request; differs across
+    requests (correct).
+  - 0 CSP violations across public + admin; login/sidebar/CRUD(201)/theme/
+    AxiomUI/CKEditor all work.
+- **Gotchas:**
+  - Nonce + `unsafe-inline` together → browsers IGNORE `unsafe-inline` (CSP3).
+    So dev (which needs unsafe-inline) must NOT put a nonce in script-src.
+  - Reading `headers()` in the ROOT layout forces ALL routes dynamic — was the
+    static privacy/terms → now `ƒ`. Documented, accepted tradeoff of nonce CSP.
+  - Edge middleware: use Web Crypto (`crypto.getRandomValues`) + `btoa`, NOT
+    `Buffer` (not available in Edge).
+  - Nonce-CSP only testable in PROD (`next build` + `next start`); dev is
+    relaxed. Don't trust `next dev` to validate it.
 - **Re-audit (second full pass) confirmed all four fixes hold:** every fresh
   post-fix page load is 0-errors — home, services (native select), media (native
   file input, single chooser), blog editor (CKEditor mounts), appearance (native
