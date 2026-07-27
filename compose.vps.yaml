@@ -1,0 +1,110 @@
+# Production stack for the shared Hostinger VPS (195.110.59.36).
+#
+# This box already runs a shared Traefik v3 edge proxy (/opt/infra) that owns
+# :80/:443, terminates TLS via Let's Encrypt (resolver `le`) and routes each
+# project by container labels over the external `web` network. So — unlike the
+# generic compose.prod.yaml — this stack publishes NO host ports and defines no
+# nginx/certbot of its own; it just attaches to `web` and declares its route.
+#
+# Deploy:
+#   docker compose -f compose.vps.yaml -p portfolio up -d --build
+#
+# Requires the same secrets as compose.prod.yaml in .env, plus the host is fixed
+# to bodo.rooibok.tech. Postgres/Redis stay on the private `internal` network.
+
+name: portfolio
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: bodo_db_prod
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:?POSTGRES_DB is required}
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is required}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+    networks: [internal]
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}']
+      interval: 10s
+      timeout: 5s
+      retries: 10
+      start_period: 30s
+
+  redis:
+    image: redis:7-alpine
+    container_name: bodo_redis_prod
+    restart: unless-stopped
+    command: redis-server --requirepass ${REDIS_PASSWORD:?REDIS_PASSWORD is required} --appendonly yes
+    volumes:
+      - redis_prod_data:/data
+    networks: [internal]
+    healthcheck:
+      test: ['CMD-SHELL', 'redis-cli -a "$$REDIS_PASSWORD" ping | grep -q PONG']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: bodo-portfolio:prod
+    container_name: bodo_app_prod
+    restart: unless-stopped
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/${POSTGRES_DB}
+      REDIS_URL: redis://:${REDIS_PASSWORD}@redis:6379
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:?NEXTAUTH_SECRET is required}
+      NEXTAUTH_URL: ${NEXTAUTH_URL:?NEXTAUTH_URL is required}
+      AUTH_URL: ${NEXTAUTH_URL}
+      AUTH_TRUST_HOST: 'true'
+      NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL:?NEXT_PUBLIC_SITE_URL is required}
+      ANALYTICS_SALT: ${ANALYTICS_SALT:?ANALYTICS_SALT is required}
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?ADMIN_EMAIL is required}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH:?ADMIN_PASSWORD_HASH is required}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      POSTAL_WEBHOOK_SECRET: ${POSTAL_WEBHOOK_SECRET:-}
+      # Fresh volume → seed once; every later boot is a no-op.
+      RUN_SEED_ON_START: ${RUN_SEED_ON_START:-auto}
+    volumes:
+      - uploads_prod_data:/app/public/uploads
+    networks: [web, internal]
+    healthcheck:
+      test: ['CMD-SHELL', 'wget -qO- http://127.0.0.1:3000/api/health >/dev/null || exit 1']
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+    depends_on:
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=web"
+      - "traefik.http.routers.portfolio.rule=Host(`bodo.rooibok.tech`)"
+      - "traefik.http.routers.portfolio.entrypoints=websecure"
+      - "traefik.http.routers.portfolio.tls.certresolver=le"
+      - "traefik.http.services.portfolio.loadbalancer.server.port=3000"
+
+networks:
+  web:
+    external: true
+  internal:
+    driver: bridge
+
+volumes:
+  postgres_prod_data:
+  redis_prod_data:
+  uploads_prod_data:
