@@ -31,11 +31,9 @@ RUN npx next build --webpack
 
 # Precompile the DB seed to CommonJS so the runner image (which has no tsx) can
 # seed a fresh database with plain `node`. seed.ts imports only @prisma/client
-# and node builtins; keep them external — both exist in the runner at runtime.
+# and node builtins; both stay external and exist in the runner at runtime.
 # The runner's `COPY --from=builder /app/prisma ./prisma` picks up seed.cjs.
-RUN node_modules/.bin/esbuild prisma/seed.ts \
-      --bundle --platform=node --target=node20 --format=cjs \
-      --packages=external --outfile=prisma/seed.cjs
+RUN node scripts/build-seed.mjs
 
 # ── runner ────────────────────────────────────────────────────────────────────
 FROM base AS runner
