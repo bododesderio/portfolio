@@ -1,5 +1,5 @@
 # Project Context
-Last updated: 2026-07-21
+Last updated: 2026-07-27
 
 ## What this is
 Personal brand site for Bodo Desderio — **not** a static portfolio. A
@@ -176,19 +176,53 @@ by typecheck + lint + 159 tests + a clean production build):
    terms were static). Verified live against `next start`: 0 CSP violations
    across public + admin; login/sidebar/CRUD/theme/CKEditor all work.
 
-## Next steps (paused 2026-07-21 eve — "continue tomorrow, limits reached")
+## DEPLOYED — live at https://bodo.rooibok.tech (2026-07-27)
 
-All code work is done, verified live, committed, and pushed to `main` (head
-`0b7eaa9`). Nothing in flight; working tree clean. Resume with the DEPLOY steps —
-they touch the live VPS and its secrets, so they're the user's to run:
-1. On prod, once: `prisma migrate resolve --applied 20260720000000_baseline_sync_drifted_models`
-   — the tables already exist there; without this the next deploy errors. See
-   `docs/DEPLOY.md`.
-2. Set `POSTAL_WEBHOOK_SECRET` in prod `.env` to restore email open/click tracking.
-3. Deploy: `docker compose up -d --build` on the VPS.
-4. Note: after this deploy, `/privacy` and `/terms` are now dynamic (nonce CSP
-   made the root layout read `headers()`) — expected, not a regression.
-5. Later: ADR-001 subdomain phases 1–3 once the domain is acquired.
+First production deploy done. The site is live with valid Let's Encrypt TLS.
+
+**The VPS is a shared multi-tenant box** (Hostinger KVM2, `195.110.59.36`,
+Ubuntu 24.04) already running two other prod stacks (`arova`, `rooibok`) behind
+a **shared Traefik v3 edge** at `/opt/infra/traefik` that owns :80/:443 and
+issues LE certs (resolver `le`, HTTP-01, email rooiboktechltd@gmail.com). So the
+generic `docs/DEPLOY.md` (host-port bind, standalone edge, drift-resolve) does
+NOT apply here. What was actually done:
+- **`compose.vps.yaml`** (new, committed `20142c8`) — mirrors the rooibok
+  pattern: app on the external `web` network with Traefik labels routing
+  `Host(bodo.rooibok.tech)` → :3000, `tls.certresolver=le`; Postgres/Redis on a
+  private `internal` net; NO host ports. Deployed as compose project `portfolio`
+  in `/opt/portfolio` (public GitHub clone).
+- **DNS**: `bodo.rooibok.tech` A → `195.110.59.36` (Hostinger DNS, TTL 300).
+- **No drift-resolve needed** — fresh Postgres volume, so all 9 migrations ran
+  clean (the baseline creates its tables on an empty DB with no conflict).
+- **`.env`** generated on the box (`0600`): random Postgres/Redis/NEXTAUTH_SECRET
+  /ANALYTICS_SALT; `ADMIN_EMAIL=rooiboktechltd@gmail.com`; bcrypt-12
+  `ADMIN_PASSWORD_HASH` (single-quoted so compose won't interpolate the `$`).
+  `POSTAL_WEBHOOK_SECRET` still empty (email tracking off — set when Postal is wired).
+
+**KNOWN DEPLOY BUG (worked around, not yet fixed):** the prod runner image can't
+run the seed — `prisma.seed = "tsx prisma/seed.ts"` but `tsx` is a devDep absent
+from the standalone runner, so first boot logged `spawn tsx ENOENT` and skipped
+seeding. Worked around by running the seed from the **builder** image
+(`docker build --target builder` → `docker run --network portfolio_internal
+… npx tsx prisma/seed.ts`), which populated all content. **Every future fresh
+deploy hits the same silent skip.** Real fix (TODO): precompile the seed to JS
+and point `prisma.seed` at `node prisma/seed.js` in prod, or include tsx.
+
+### Redeploy on this box (routine)
+```bash
+ssh root@195.110.59.36 'cd /opt/portfolio && git pull --ff-only origin main \
+  && docker compose -f compose.vps.yaml up -d --build'
+```
+(Seeding only runs once on the empty volume; later boots are no-ops.)
+
+## Next steps
+1. Log into https://bodo.rooibok.tech/admin (creds generated at deploy) and edit
+   the seeded placeholder content; rotate the admin password there.
+2. Fix the seed-in-prod bug above so fresh deploys seed themselves.
+3. Wire `POSTAL_WEBHOOK_SECRET` + SMTP when email is set up (currently blank).
+4. `/privacy` and `/terms` are dynamic now (nonce CSP reads `headers()` in the
+   root layout) — expected, not a regression.
+5. Later: ADR-001 subdomain phases if a dedicated domain is acquired.
 
 **To re-run the live audit tomorrow:** scratch stack recipe is in MEMORY.md
 ([2026-07-21] live-audit entry) — Postgres+Redis on ports 55444/63977, seed with
@@ -205,4 +239,5 @@ every run failed at startup. Run checks locally before pushing:
 should be empty.
 
 ## Active branches
-- `main`: stable, single-branch repo. Head `0b7eaa9`. All work merged here.
+- `main`: stable, single-branch repo. First prod deploy shipped (`compose.vps.yaml`,
+  `20142c8`). Live at https://bodo.rooibok.tech.
