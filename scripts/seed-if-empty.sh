@@ -50,7 +50,18 @@ fi
 
 # A failed seed must not stop the app from booting: the schema is already
 # migrated and an operator can seed manually. Fail loudly, carry on.
-if npx prisma db seed; then
+#
+# The prod runner image has no tsx, so `prisma db seed` (= tsx prisma/seed.ts)
+# fails there. The Docker build precompiles the seed to prisma/seed.cjs; run
+# that with plain node when present. Dev and anywhere without the compiled file
+# fall back to `prisma db seed`.
+if [ -f prisma/seed.cjs ]; then
+  SEED_CMD="node prisma/seed.cjs"
+else
+  SEED_CMD="npx prisma db seed"
+fi
+
+if $SEED_CMD; then
   echo "✅ Seed complete."
 else
   echo "⚠️  Seed failed — continuing startup. Run 'pnpm db:seed' manually to retry."

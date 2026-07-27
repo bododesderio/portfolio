@@ -29,6 +29,14 @@ ENV NODE_ENV=production
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
 RUN npx next build --webpack
 
+# Precompile the DB seed to CommonJS so the runner image (which has no tsx) can
+# seed a fresh database with plain `node`. seed.ts imports only @prisma/client
+# and node builtins; keep them external — both exist in the runner at runtime.
+# The runner's `COPY --from=builder /app/prisma ./prisma` picks up seed.cjs.
+RUN node_modules/.bin/esbuild prisma/seed.ts \
+      --bundle --platform=node --target=node20 --format=cjs \
+      --packages=external --outfile=prisma/seed.cjs
+
 # ── runner ────────────────────────────────────────────────────────────────────
 FROM base AS runner
 WORKDIR /app

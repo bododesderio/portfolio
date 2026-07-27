@@ -52,3 +52,6 @@ public/stock/*.webp
 
 # Playwright MCP audit output
 .playwright-mcp/
+
+# Precompiled DB seed (generated in Docker build, never committed)
+prisma/seed.cjs
