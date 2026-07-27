@@ -199,14 +199,16 @@ NOT apply here. What was actually done:
   `ADMIN_PASSWORD_HASH` (single-quoted so compose won't interpolate the `$`).
   `POSTAL_WEBHOOK_SECRET` still empty (email tracking off — set when Postal is wired).
 
-**KNOWN DEPLOY BUG (worked around, not yet fixed):** the prod runner image can't
-run the seed — `prisma.seed = "tsx prisma/seed.ts"` but `tsx` is a devDep absent
-from the standalone runner, so first boot logged `spawn tsx ENOENT` and skipped
-seeding. Worked around by running the seed from the **builder** image
-(`docker build --target builder` → `docker run --network portfolio_internal
-… npx tsx prisma/seed.ts`), which populated all content. **Every future fresh
-deploy hits the same silent skip.** Real fix (TODO): precompile the seed to JS
-and point `prisma.seed` at `node prisma/seed.js` in prod, or include tsx.
+**Seed-in-prod bug — FIXED (`4672d4e`).** The prod runner image has no `tsx`, so
+`prisma db seed` (= `tsx prisma/seed.ts`) failed first boot with `spawn tsx
+ENOENT` and left the DB unseeded. Now the Docker builder precompiles the seed to
+`prisma/seed.cjs` via `scripts/build-seed.mjs` (esbuild resolved from tsx's own
+dep tree — pnpm doesn't link the esbuild bin in the builder), and
+`seed-if-empty.sh` runs `node prisma/seed.cjs` when present, falling back to
+`prisma db seed` (tsx) for local dev. `seed.cjs` is gitignored. Verified in the
+running image (`node --check` OK; `@prisma/client` loads under plain node).
+The very first deploy was seeded manually via the builder image before this fix;
+fresh deploys now self-seed.
 
 ### Redeploy on this box (routine)
 ```bash
@@ -218,11 +220,10 @@ ssh root@195.110.59.36 'cd /opt/portfolio && git pull --ff-only origin main \
 ## Next steps
 1. Log into https://bodo.rooibok.tech/admin (creds generated at deploy) and edit
    the seeded placeholder content; rotate the admin password there.
-2. Fix the seed-in-prod bug above so fresh deploys seed themselves.
-3. Wire `POSTAL_WEBHOOK_SECRET` + SMTP when email is set up (currently blank).
-4. `/privacy` and `/terms` are dynamic now (nonce CSP reads `headers()` in the
+2. Wire `POSTAL_WEBHOOK_SECRET` + SMTP when email is set up (currently blank).
+3. `/privacy` and `/terms` are dynamic now (nonce CSP reads `headers()` in the
    root layout) — expected, not a regression.
-5. Later: ADR-001 subdomain phases if a dedicated domain is acquired.
+4. Later: ADR-001 subdomain phases if a dedicated domain is acquired.
 
 **To re-run the live audit tomorrow:** scratch stack recipe is in MEMORY.md
 ([2026-07-21] live-audit entry) — Postgres+Redis on ports 55444/63977, seed with
