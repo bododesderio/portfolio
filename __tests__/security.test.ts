@@ -34,17 +34,20 @@ describe('Security invariants', () => {
   })
 
   describe('CSP header validation', () => {
-    it('does not contain unsafe-eval in production CSP', async () => {
-      // Read the config directly to verify CSP
+    it('uses a nonce-based script-src with no unsafe-* in production', async () => {
+      // CSP is set per-request in proxy.ts (the Next 16 middleware), not next.config.js.
       const fs = await import('fs')
-      const configContent = fs.readFileSync('next.config.js', 'utf-8')
+      const csp = fs.readFileSync('proxy.ts', 'utf-8')
 
-      // unsafe-eval is allowed in dev mode only (gated by isDev conditional)
-      expect(configContent).toContain("isDev ? \" 'unsafe-eval'\" : ''")
-      // Verify production CSP baseline
-      expect(configContent).toContain("script-src 'self' 'unsafe-inline'")
-      expect(configContent).toContain("frame-ancestors 'none'")
-      expect(configContent).toContain("object-src 'none'")
+      // Production script-src is nonce + strict-dynamic, never unsafe-inline/unsafe-eval.
+      expect(csp).toContain("`script-src 'self' 'nonce-${nonce}' 'strict-dynamic'`")
+      // unsafe-eval / unsafe-inline for scripts appear only in the isDev branch.
+      expect(csp).toContain(
+        "isDev\n    ? \"script-src 'self' 'unsafe-inline' 'unsafe-eval'\""
+      )
+      // Baseline hardening headers.
+      expect(csp).toContain("frame-ancestors 'none'")
+      expect(csp).toContain("object-src 'none'")
     })
 
     it('does not reference external font services in CSP', async () => {
@@ -76,12 +79,17 @@ describe('Middleware matcher configuration', () => {
     const middlewarePath = fs.existsSync('proxy.ts') ? 'proxy.ts' : path.join(process.cwd(), 'middleware.ts')
     const middleware = fs.readFileSync(middlewarePath, 'utf-8')
 
-    // Verify matcher covers both admin pages and API
-    expect(middleware).toContain("'/admin/:path*'")
-    expect(middleware).toContain("'/api/admin/:path*'")
+    // The matcher is a single catch-all that runs on every document/route
+    // (excluding static assets), so admin pages and admin API are covered.
+    expect(middleware).toContain('(?!_next/static|_next/image')
 
-    // Verify it checks auth for API routes
+    // Admin pages and admin API are guarded imperatively inside the handler.
+    expect(middleware).toContain("pathname.startsWith('/admin')")
+    expect(middleware).toContain("pathname.startsWith('/api/admin')")
+
+    // Verify it checks auth for API routes and redirects pages to login.
     expect(middleware).toContain('isAdminApi')
     expect(middleware).toContain("{ error: 'Unauthorized' }")
+    expect(middleware).toContain("new URL('/admin/login'")
   })
 })

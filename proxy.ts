@@ -3,6 +3,16 @@ import { auth } from '@/lib/auth'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
+// AI-training and SEO-scraper user agents blocked at the edge. Paired with the
+// full block in public/robots.txt — this catches the crawlers that ignore it.
+const BAD_BOTS = [
+  'gptbot', 'chatgpt-user', 'oai-searchbot', 'claudebot', 'claude-web',
+  'anthropic-ai', 'cohere-ai', 'ccbot', 'bytespider', 'amazonbot',
+  'meta-externalagent', 'meta-externalfetcher', 'perplexitybot', 'diffbot',
+  'imagesiftbot', 'omgili', 'dataforseobot', 'petalbot', 'mj12bot',
+  'ahrefsbot', 'semrushbot', 'dotbot', 'timpibot', 'scrapy',
+]
+
 /**
  * Content-Security-Policy.
  *
@@ -43,6 +53,18 @@ function buildCsp(nonce: string): string {
 
 export default auth((req) => {
   const { pathname } = req.nextUrl
+
+  // Honeypot: only bots ignoring robots.txt reach /trap — 403 them.
+  if (pathname.startsWith('/trap')) {
+    return new NextResponse('Forbidden', { status: 403 })
+  }
+
+  // Block empty-UA and known scraper/AI-training crawlers.
+  const ua = (req.headers.get('user-agent') || '').toLowerCase()
+  if (!ua || BAD_BOTS.some((bot) => ua.includes(bot))) {
+    return new NextResponse('Forbidden', { status: 403 })
+  }
+
   const isLogin = pathname === '/admin/login'
   const isAdmin = pathname.startsWith('/admin')
   const isAdminApi = pathname.startsWith('/api/admin')
