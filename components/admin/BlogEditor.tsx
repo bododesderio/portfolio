@@ -237,11 +237,11 @@ export function BlogEditor({ post }: { post: Post | null }) {
 
       if (result.subscribersNotified > 0) {
         toast.success(
-          `Published and ${result.subscribersNotified} subscriber${result.subscribersNotified === 1 ? '' : 's'} notified!`,
-          { duration: 5000, icon: '🎉' },
+          `Published and ${result.subscribersNotified} subscriber${result.subscribersNotified === 1 ? '' : 's'} notified.`,
+          { duration: 5000 },
         )
       } else {
-        toast.success('Post published!', { duration: 4000, icon: '🚀' })
+        toast.success('Post published.', { duration: 4000 })
       }
 
       if (!post) router.push('/admin/blog')

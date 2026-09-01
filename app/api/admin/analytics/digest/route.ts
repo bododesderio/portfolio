@@ -42,7 +42,7 @@ export async function POST() {
   try {
     await sendTrackedEmail({
       to: adminEmail,
-      subject: `Weekly Digest — ${viewStats.current} views, ${newSubs} new subscribers`,
+      subject: `Weekly Digest: ${viewStats.current} views, ${newSubs} new subscribers`,
       html,
       type: 'digest',
     })

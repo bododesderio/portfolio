@@ -16,10 +16,10 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Bodo Desderio — Founder, Leader, Builder',
-    template: '%s — Bodo Desderio',
+    default: 'Bodo Desderio: Founder, Leader, Builder',
+    template: '%s | Bodo Desderio',
   },
-  description: 'Bodo Desderio — Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies.',
+  description: 'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies.',
   applicationName: 'Bodo Desderio',
   authors: [{ name: 'Bodo Desderio', url: SITE_URL }],
   creator: 'Bodo Desderio',
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     locale: 'en_UG',
     url: SITE_URL,
     siteName: 'Bodo Desderio',
-    title: 'Bodo Desderio — Founder, Leader, Builder',
+    title: 'Bodo Desderio: Founder, Leader, Builder',
     description: 'Building companies, communities, and technology that move people forward.',
   },
   twitter: { card: 'summary_large_image', creator: '@bodo_desderio' },

@@ -7,11 +7,11 @@ import type { Metadata } from 'next'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 
 export const metadata: Metadata = {
-  title: 'Projects — Bodo Desderio',
+  title: 'Projects | Bodo Desderio',
   description: 'A showcase of projects I have worked on, am currently building, or am planning.',
   alternates: { canonical: `${SITE_URL}/projects` },
   openGraph: {
-    title: 'Projects — Bodo Desderio',
+    title: 'Projects | Bodo Desderio',
     description: 'A showcase of projects I have worked on, am currently building, or am planning.',
     url: '/projects',
     type: 'website',

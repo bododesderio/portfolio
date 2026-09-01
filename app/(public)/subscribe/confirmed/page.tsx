@@ -2,7 +2,7 @@ import Link from 'next/link'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
-  title: 'Subscription Confirmed — Bodo Desderio',
+  title: 'Subscription Confirmed | Bodo Desderio',
   description: 'Your newsletter subscription has been confirmed.',
   robots: { index: false },
 }

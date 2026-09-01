@@ -20,10 +20,10 @@ import { PressSection } from '@/components/sections/PressSection'
 import { fetchMediumPosts } from '@/lib/domain/medium'
 
 export const metadata = {
-  title: 'Bodo Desderio — Founder, Engineer & Community Leader | Kampala, Uganda',
+  title: 'Bodo Desderio: Founder, Engineer & Community Leader | Kampala, Uganda',
   description: 'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda.',
   openGraph: {
-    title: 'Bodo Desderio — Founder, Leader, Builder',
+    title: 'Bodo Desderio: Founder, Leader, Builder',
     description: 'Building companies, communities, and technology that move people forward.',
     url: '/',
     type: 'website',
@@ -34,7 +34,6 @@ export const metadata = {
 export default async function HomePage() {
   const content = await getPageContent('home')
 
-  // Hero
   const hero = {
     pretitle: getField(content, 'hero.pretitle'),
     headline: getField(content, 'hero.headline'),
@@ -48,7 +47,6 @@ export default async function HomePage() {
     heroImages: [] as string[],
   }
 
-  // Fetch rotating hero images
   const heroImagesDb = await prisma.heroImage.findMany({
     where: { active: true },
     orderBy: { order: 'asc' },
@@ -58,10 +56,8 @@ export default async function HomePage() {
     hero.heroImages = heroImagesDb.map(h => h.media.url)
   }
 
-  // Stats
   const stats = getJsonField<Array<{value: string; suffix: string; label: string}>>(content, 'stats.items') || []
 
-  // About snippet
   const about = {
     pretitle: getField(content, 'about.pretitle'),
     heading: getField(content, 'about.heading'),
@@ -74,7 +70,6 @@ export default async function HomePage() {
     ctaUrl: getField(content, 'about.cta_url'),
   }
 
-  // Bio
   const bio = {
     heading: getField(content, 'bio.heading'),
     body: getField(content, 'bio.body'),
@@ -82,13 +77,12 @@ export default async function HomePage() {
     roles: getJsonField<Array<{title: string; org: string; period: string}>>(content, 'bio.roles') || [],
   }
 
-  // Featured project from gallery (featured flag)
+  // Featured project pulls the gallery item flagged `featured`, not page content.
   const featuredGalleryItem = await prisma.galleryItem.findFirst({
     where: { featured: true },
     include: { media: true },
   }).catch(() => null)
 
-  // Expertise
   const expertise = {
     pretitle: getField(content, 'expertise.pretitle'),
     heading: getField(content, 'expertise.heading'),
@@ -100,7 +94,6 @@ export default async function HomePage() {
     orderBy: { order: 'asc' },
   }).catch(() => [])
 
-  // Community
   const community = {
     pretitle: getField(content, 'community.pretitle'),
     heading: getField(content, 'community.heading'),
@@ -109,44 +102,37 @@ export default async function HomePage() {
     ctaUrl: getField(content, 'community.cta_url'),
   }
 
-  // Process
   const process = {
     pretitle: getField(content, 'process.pretitle'),
     heading: getField(content, 'process.heading'),
     steps: getJsonField<Array<{icon: string; title: string; desc: string}>>(content, 'process.steps') || [],
   }
 
-  // Clients
   const clients = await prisma.client.findMany({
     where: { visible: true },
     orderBy: { order: 'asc' },
     include: { logo: true },
   }).catch(() => [])
 
-  // Testimonials
   const testimonials = await prisma.testimonial.findMany({
     where: { visible: true },
     orderBy: { order: 'asc' },
     include: { photo: true },
   }).catch(() => [])
 
-  // Press items
   const pressItems = await prisma.pressItem.findMany({
     where: { visible: true },
     orderBy: { order: 'asc' },
   }).catch(() => [])
 
-  // Medium posts
   const mediumPosts = await fetchMediumPosts()
 
-  // Blog posts
   const blogPosts = await prisma.blogPost.findMany({
     where: { status: 'published' },
     orderBy: { publishedAt: 'desc' },
     take: 6,
   }).catch(() => [])
 
-  // CTA Banner
   const cta = {
     heading: getField(content, 'cta.heading'),
     lead: getField(content, 'cta.lead'),
@@ -154,7 +140,6 @@ export default async function HomePage() {
     buttonUrl: getField(content, 'cta.button_url'),
   }
 
-  // Availability
   const availability = {
     status: getField(content, 'availability.status'),
     label: getField(content, 'availability.label'),

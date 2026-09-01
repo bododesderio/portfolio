@@ -10,11 +10,11 @@ import type { Metadata } from 'next'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 
 export const metadata: Metadata = {
-  title: 'Gallery — Bodo Desderio',
+  title: 'Gallery | Bodo Desderio',
   description: 'Explore photos from tech camps, community events, and projects.',
   alternates: { canonical: `${SITE_URL}/gallery` },
   openGraph: {
-    title: 'Gallery — Bodo Desderio',
+    title: 'Gallery | Bodo Desderio',
     description: 'Photos from tech camps, community events, and projects across Uganda and beyond.',
     url: '/gallery',
     type: 'website',

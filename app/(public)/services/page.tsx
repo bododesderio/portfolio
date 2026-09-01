@@ -14,11 +14,11 @@ import type { Metadata } from 'next'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 
 export const metadata: Metadata = {
-  title: 'Services — Bodo Desderio',
+  title: 'Services | Bodo Desderio',
   description: 'Explore the services I offer: company building, software engineering, SEO & digital strategy, technical consulting, and community programmes.',
   alternates: { canonical: `${SITE_URL}/services` },
   openGraph: {
-    title: 'Services — Bodo Desderio',
+    title: 'Services | Bodo Desderio',
     description: 'Company building, software engineering, SEO & digital strategy, technical consulting, and community programmes.',
     url: '/services',
     type: 'website',
@@ -75,7 +75,7 @@ export default async function ServicesPage() {
         content={{
           pretitle: '',
           heading: 'What I do',
-          lead: 'I build across disciplines — from founding and running companies, to engineering software, to leading communities.',
+          lead: 'I build across disciplines: from founding and running companies, to engineering software, to leading communities.',
           ctaLabel: 'View all services',
         }}
         services={services}

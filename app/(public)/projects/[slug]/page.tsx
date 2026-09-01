@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!project) return {}
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
   return {
-    title: `${project.title} — Bodo Desderio`,
+    title: `${project.title} | Bodo Desderio`,
     description: project.excerpt,
     alternates: { canonical: `${baseUrl}/projects/${project.slug}` },
     openGraph: {
@@ -54,8 +54,8 @@ const STATUS_COLORS: Record<string, string> = {
 function formatDuration(startDate: Date | null, endDate: Date | null, ongoing: boolean): string {
   if (!startDate) return ''
   const start = format(startDate, 'MMM yyyy')
-  if (ongoing) return `${start} — Present`
-  if (endDate) return `${start} — ${format(endDate, 'MMM yyyy')}`
+  if (ongoing) return `${start} – Present`
+  if (endDate) return `${start} – ${format(endDate, 'MMM yyyy')}`
   return start
 }
 

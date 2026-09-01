@@ -20,7 +20,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!post) return {}
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
   return {
-    title: `${post.title} — Bodo Desderio`,
+    title: `${post.title} | Bodo Desderio`,
     description: post.excerpt,
     alternates: { canonical: `${baseUrl}/blog/${post.slug}` },
     openGraph: {

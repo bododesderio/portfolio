@@ -21,11 +21,11 @@ import { PhotoStrip } from '@/components/sections/PhotoStrip'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 
 export const metadata: Metadata = {
-  title: 'About — Bodo Desderio',
-  description: 'Learn more about Bodo Desderio — his story, values, mission, and the work he does across tech, business, and community in Uganda.',
+  title: 'About | Bodo Desderio',
+  description: 'Learn more about Bodo Desderio: his story, values, mission, and the work he does across tech, business, and community in Uganda.',
   alternates: { canonical: `${SITE_URL}/about` },
   openGraph: {
-    title: 'About — Bodo Desderio',
+    title: 'About | Bodo Desderio',
     description: 'Ugandan entrepreneur, software engineer, and community builder. Founder & CEO of Rooibok Technologies.',
     url: '/about',
     type: 'profile',
@@ -53,7 +53,7 @@ const DEFAULT_FAQS = [
   {
     question: 'What is it like to work with him?',
     answer:
-      'Direct, thoughtful, and outcome-focused. Bodo tends to work best with people who value clarity, momentum, and honest collaboration. The goal is not just to ship something quickly, but to leave the work stronger, clearer, and more sustainable than it was before.',
+      "Direct, thoughtful, and outcome-focused. Bodo tends to work best with people who value clarity, momentum, and honest collaboration. Shipping quickly matters, but the real goal is to leave the work stronger, clearer, and more sustainable than it was before.",
   },
 ]
 

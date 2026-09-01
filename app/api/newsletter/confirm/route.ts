@@ -35,7 +35,7 @@ export async function GET(req: NextRequest) {
     const html = await renderWelcomeEmail(subscriber.name ?? undefined, unsubscribeUrl(email))
     await sendTrackedEmail({
       to: email,
-      subject: "Welcome — you're in the loop.",
+      subject: "Welcome, you're in the loop.",
       html,
       type: 'welcome',
     }).catch(() => null)

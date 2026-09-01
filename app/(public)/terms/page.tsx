@@ -3,10 +3,10 @@ import { getPageContent, getField } from '@/lib/data/content'
 import { sanitizeHtml } from '@/lib/util/sanitize'
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions — Bodo Desderio',
+  title: 'Terms & Conditions | Bodo Desderio',
   description: 'Terms and conditions for using bododesderio.com.',
   openGraph: {
-    title: 'Terms & Conditions — Bodo Desderio',
+    title: 'Terms & Conditions | Bodo Desderio',
     description: 'Terms and conditions for using bododesderio.com.',
     url: '/terms',
     type: 'website',
@@ -37,7 +37,7 @@ const defaultBody = `
 <p>By accessing and using bododesderio.com, you agree to be bound by these terms and conditions. If you do not agree, please do not use this website.</p>
 
 <h2>2. Intellectual Property</h2>
-<p>All content on this website — including text, images, design, code, and branding — is the property of Bodo Desderio unless otherwise stated. You may not reproduce, distribute, or create derivative works without prior written permission.</p>
+<p>All content on this website, including text, images, design, code, and branding, is the property of Bodo Desderio unless otherwise stated. You may not reproduce, distribute, or create derivative works without prior written permission.</p>
 
 <h2>3. User Content</h2>
 <p>When submitting content through the contact form or newsletter signup, you grant us permission to store and process that information as described in our <a href="/privacy">Privacy Policy</a>.</p>

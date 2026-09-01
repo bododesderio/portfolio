@@ -64,7 +64,7 @@ export function AnalyticsDigest({
           <Heading style={h2}>Top Pages</Heading>
           {topPages.map((page, i) => (
             <Text key={i} style={listItem}>
-              {i + 1}. {page.path} — {page.count} views
+              {i + 1}. {page.path} · {page.count} views
             </Text>
           ))}
         </Section>

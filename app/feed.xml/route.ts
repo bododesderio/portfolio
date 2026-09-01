@@ -47,9 +47,9 @@ export async function GET() {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Bodo Desderio — Blog</title>
+    <title>Bodo Desderio Blog</title>
     <link>${baseUrl}/blog</link>
-    <description>Essays and insights from Bodo Desderio — founder, engineer, and community builder.</description>
+    <description>Essays and insights from Bodo Desderio, founder, engineer, and community builder.</description>
     <language>en</language>
     <atom:link href="${baseUrl}/feed.xml" rel="self" type="application/rss+xml" />
 ${items}

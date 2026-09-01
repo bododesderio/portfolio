@@ -12,12 +12,12 @@ import type { Metadata } from 'next'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 
 export const metadata: Metadata = {
-  title: 'Contact — Bodo Desderio',
+  title: 'Contact | Bodo Desderio',
   description: 'Get in touch with Bodo Desderio. Ready to build something together?',
   alternates: { canonical: `${SITE_URL}/contact` },
   openGraph: {
-    title: 'Contact — Bodo Desderio',
-    description: 'Get in touch. Whether it\'s a project, partnership, or just a conversation — let\'s connect.',
+    title: 'Contact | Bodo Desderio',
+    description: 'Get in touch. Whether it\'s a project, partnership, or just a conversation, let\'s connect.',
     url: '/contact',
     type: 'website',
     images: [{ url: `${SITE_URL}/opengraph-image` }],
@@ -43,7 +43,7 @@ export default async function ContactPage() {
 
   const cta = {
     heading: "Let's build something that matters.",
-    lead: "Whether you need a technology partner, a strategic consultant, or a collaborator on something bigger — I'm open to conversations that lead somewhere real.",
+    lead: "Whether you need a technology partner, a strategic consultant, or a collaborator on something bigger, I'm open to conversations that lead somewhere real.",
     buttonLabel: 'Book a consultation',
     buttonUrl: settings['site.calendly_url'] || '/contact',
   }
