@@ -12,6 +12,8 @@ async function main() {
   const adminEmail = (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).trim().toLowerCase()
 
   const forceReseed = process.env.FORCE_RESEED === 'true'
+  // Refresh only site copy + SEO on an already-populated DB, without wiping data.
+  const contentOnly = process.env.CONTENT_ONLY === 'true'
   const existingRows = await Promise.all([
     prisma.adminUser.count(),
     prisma.siteContent.count(),
@@ -37,7 +39,7 @@ async function main() {
     prisma.appConfig.count(),
   ])
 
-  if (existingRows.some(count => count > 0) && !forceReseed) {
+  if (existingRows.some(count => count > 0) && !forceReseed && !contentOnly) {
     console.log('✅ Existing data detected. Skipping seed. Set FORCE_RESEED=true to replace demo data.')
     return
   }
@@ -294,6 +296,10 @@ async function main() {
   }
   console.log(`  ✓ Upserted ${contentRows.length} site content rows`)
 
+  // Everything below (settings, media, services, testimonials, blog, subscribers,
+  // messages, campaigns) is create-based demo/real data. In CONTENT_ONLY mode we
+  // skip it entirely so a live DB keeps its real rows; only copy + SEO get refreshed.
+  if (!contentOnly) {
   // ==================== SITE SETTINGS ====================
   console.log('⚙️  Creating site settings...')
   const settingsRows = [
@@ -823,6 +829,8 @@ async function main() {
   })
   console.log('  ✓ Created admin user record')
 
+  } // end !contentOnly demo-data block
+
   // ==================== ABOUT PAGE CONTENT ====================
   console.log('📄 Creating about page content...')
   const aboutContentRows = [
@@ -932,9 +940,18 @@ async function main() {
   ]
 
   for (const seo of seoRows) {
-    await prisma.seoSettings.create({ data: seo })
+    await prisma.seoSettings.upsert({
+      where: { page: seo.page },
+      update: { metaTitle: seo.metaTitle, metaDesc: seo.metaDesc },
+      create: seo,
+    })
   }
-  console.log(`  ✓ Created ${seoRows.length} SEO settings`)
+  console.log(`  ✓ Upserted ${seoRows.length} SEO settings`)
+
+  if (contentOnly) {
+    console.log('✅ CONTENT_ONLY: site copy + SEO refreshed. No other data touched.')
+    return
+  }
 
   // ==================== BANNERS ====================
   console.log('🚩 Creating banners...')
