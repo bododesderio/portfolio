@@ -75,9 +75,9 @@ async function main() {
   // Helper to create content rows
   const contentRows = [
     // HOME PAGE - HERO
-    { page: 'home', section: 'hero', fieldKey: 'pretitle', value: 'Founder. Leader. Builder.', fieldType: 'text' },
+    { page: 'home', section: 'hero', fieldKey: 'pretitle', value: 'Software engineer & founder', fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'headline', value: 'Bodo Desderio', fieldType: 'text' },
-    { page: 'home', section: 'hero', fieldKey: 'tagline', value: 'Building companies, communities, and technology that move people forward.', fieldType: 'text' },
+    { page: 'home', section: 'hero', fieldKey: 'tagline', value: 'I build software companies and lead youth-tech programs across East Africa.', fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'cta_primary_label', value: "Let's work together", fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'cta_primary_url', value: '/contact', fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'cta_secondary_label', value: 'See my work', fieldType: 'text' },
@@ -98,43 +98,43 @@ async function main() {
     // HOME PAGE - ABOUT SNIPPET
     { page: 'home', section: 'about', fieldKey: 'pretitle', value: 'About Bodo', fieldType: 'text' },
     { page: 'home', section: 'about', fieldKey: 'heading', value: 'More than a developer.', fieldType: 'text' },
-    { page: 'home', section: 'about', fieldKey: 'paragraph_1', value: "I'm Bodo Desderio — a Ugandan entrepreneur, software engineer, and community leader building at the intersection of technology, business, and social impact.", fieldType: 'html' },
+    { page: 'home', section: 'about', fieldKey: 'paragraph_1', value: "I'm Bodo Desderio, a Ugandan entrepreneur, software engineer, and community leader building at the intersection of technology, business, and social impact.", fieldType: 'html' },
     { page: 'home', section: 'about', fieldKey: 'paragraph_2', value: "I founded Rooibok Technologies Limited to create software and digital solutions that solve real problems for African businesses and communities. I also serve as a Software Engineer at Kakebe Technologies Limited, where I head the software department.", fieldType: 'html' },
-    { page: 'home', section: 'about', fieldKey: 'paragraph_3', value: "From 2023 to 2024, I served as President of the African Youth Congress, Uganda Chapter — organising tech camps, school outreaches, and hackathons that brought technology closer to the next generation.", fieldType: 'html' },
+    { page: 'home', section: 'about', fieldKey: 'paragraph_3', value: "From 2023 to 2024, I served as President of the African Youth Congress, Uganda Chapter, organising tech camps, school outreaches, and hackathons that brought technology closer to the next generation.", fieldType: 'html' },
     { page: 'home', section: 'about', fieldKey: 'cta_label', value: 'Read my full story', fieldType: 'text' },
     { page: 'home', section: 'about', fieldKey: 'cta_url', value: '/about', fieldType: 'text' },
 
     // HOME PAGE - BIO
     { page: 'home', section: 'bio', fieldKey: 'heading', value: 'The story so far.', fieldType: 'text' },
-    { page: 'home', section: 'bio', fieldKey: 'body', value: `<p>Bodo Desderio is a Ugandan entrepreneur, technologist, writer, and youth leader whose work spans company building, software engineering, and community development. He writes occasionally on <a href="https://medium.com/@bodo_desderio" target="_blank" rel="noopener">Medium</a> about technology, leadership, and the things that matter to him.</p>
+    { page: 'home', section: 'bio', fieldKey: 'body', value: `<p>I'm a Ugandan entrepreneur, technologist, writer, and youth leader. My work spans company building, software engineering, and community development, and I write now and then on <a href="https://medium.com/@bodo_desderio" target="_blank" rel="noopener">Medium</a> about technology, leadership, and the things that matter to me.</p>
 
-<p>He is the Founder and CEO of <strong>Rooibok Technologies Limited</strong>, a technology company focused on building software solutions, digital products, and tech infrastructure for businesses across Africa. Rooibok sits at the heart of his entrepreneurial vision — a belief that African founders should be building the tools that serve African markets, not waiting for them to arrive from elsewhere.</p>
+<p>I'm the Founder and CEO of <strong>Rooibok Technologies Limited</strong>, where we build software, digital products, and tech infrastructure for businesses across Africa. Rooibok grew out of a simple conviction: African founders should build the tools their own markets need, instead of waiting for them to arrive from elsewhere.</p>
 
-<p>In his engineering career, Bodo heads the Software Department at <strong>Kakebe Technologies Limited</strong>, where he leads a team of developers building scalable digital products. His technical depth spans full-stack web development, mobile applications, SEO strategy, and system architecture — but he is quick to say that technology is the means, not the mission.</p>
+<p>I also head the Software Department at <strong>Kakebe Technologies Limited</strong>, leading a team of developers building products that scale. My work runs from full-stack web development to mobile apps, SEO strategy, and system architecture, but I'm quick to say that technology is the means, not the mission.</p>
 
-<p>Between 2023 and 2024, Bodo served as President of the <strong>African Youth Congress, Uganda Chapter</strong> — one of the continent's most active youth-led networks. During his tenure he championed STEM education, organised tech camps, led school outreaches across Uganda, and mentored young people entering the technology industry. He also founded <strong>"For Us"</strong>, a mental health support platform for young Ugandans, and has been an active participant in the <strong>MentorMe360</strong> mentorship initiative.</p>
+<p>Between 2023 and 2024 I served as President of the <strong>African Youth Congress, Uganda Chapter</strong>, one of the continent's most active youth-led networks. I championed STEM education, organised tech camps, ran school outreaches across Uganda, and mentored young people getting into the industry. I also founded <strong>"For Us"</strong>, a mental health support platform for young Ugandans, and took part in the <strong>MentorMe360</strong> mentorship initiative.</p>
 
-<p>Away from the keyboard, Bodo is a voracious reader — self-help, educational texts, novels — always hungry to learn something new. He has a deep fascination with space and the cosmos: satellites, planets, galaxies, black holes, relativity, the speed of light, and the tantalising question of whether faster-than-light travel will ever leave the pages of science fiction. He is equally drawn to the philosophical questions that keep humanity up at night — free will, why humans behave the way we do, and whether we are alone in the universe. These aren't idle curiosities; they shape how he thinks about building, about purpose, and about the kind of future worth engineering.</p>
+<p>Away from the keyboard I read constantly, self-help, science, novels, anything that teaches me something new. I'm fascinated by space and the cosmos: satellites, planets, galaxies, black holes, relativity, the speed of light, and the question of whether faster-than-light travel will ever leave the pages of science fiction. I'm just as drawn to the questions that keep people up at night: free will, why we behave the way we do, and whether we're alone in the universe. These aren't idle curiosities. They shape how I think about building, about purpose, and about the kind of future worth engineering.</p>
 
-<p>He studied at Kampala International University and is based in Kampala, Uganda.</p>`, fieldType: 'html' },
+<p>I studied at Kampala International University and I'm based in Kampala, Uganda.</p>`, fieldType: 'html' },
     { page: 'home', section: 'bio', fieldKey: 'pullquote', value: 'Technology is the means, not the mission.', fieldType: 'text' },
     { page: 'home', section: 'bio', fieldKey: 'roles', value: JSON.stringify([
       { title: 'Founder & CEO', org: 'Rooibok Technologies Limited', period: 'Present' },
       { title: 'Software Engineer & Head of Software', org: 'Kakebe Technologies Limited', period: 'Present' },
-      { title: 'President', org: 'African Youth Congress — Uganda Chapter', period: '2023 – 2024' },
+      { title: 'President', org: 'African Youth Congress, Uganda Chapter', period: '2023 – 2024' },
       { title: 'Writer', org: 'Medium (@bodo_desderio)', period: 'Ongoing' },
     ]), fieldType: 'json' },
 
     // HOME PAGE - EXPERTISE
     { page: 'home', section: 'expertise', fieldKey: 'pretitle', value: 'What I do', fieldType: 'text' },
     { page: 'home', section: 'expertise', fieldKey: 'heading', value: 'How I create value.', fieldType: 'text' },
-    { page: 'home', section: 'expertise', fieldKey: 'lead', value: 'I build across disciplines — from founding and running companies, to engineering software, to leading communities. Here\'s where I focus my energy.', fieldType: 'text' },
+    { page: 'home', section: 'expertise', fieldKey: 'lead', value: 'I build across disciplines, from founding and running companies, to engineering software, to leading communities. Here\'s where I focus my energy.', fieldType: 'text' },
     { page: 'home', section: 'expertise', fieldKey: 'cta_label', value: 'View all services', fieldType: 'text' },
 
     // HOME PAGE - COMMUNITY
     { page: 'home', section: 'community', fieldKey: 'pretitle', value: 'Community', fieldType: 'text' },
     { page: 'home', section: 'community', fieldKey: 'heading', value: 'Building Uganda\'s tech generation.', fieldType: 'text' },
-    { page: 'home', section: 'community', fieldKey: 'body', value: 'As President of the African Youth Congress Uganda Chapter, I ran tech camps, school outreaches, and hackathons across the country. I believe the most powerful thing you can build isn\'t a product — it\'s the people around you.', fieldType: 'text' },
+    { page: 'home', section: 'community', fieldKey: 'body', value: 'As President of the African Youth Congress Uganda Chapter, I ran tech camps, school outreaches, and hackathons across the country. I believe the most powerful thing you can build isn\'t a product, it\'s the people around you.', fieldType: 'text' },
     { page: 'home', section: 'community', fieldKey: 'cta_label', value: 'See the gallery', fieldType: 'text' },
     { page: 'home', section: 'community', fieldKey: 'cta_url', value: '/gallery', fieldType: 'text' },
 
@@ -143,7 +143,7 @@ async function main() {
     { page: 'home', section: 'process', fieldKey: 'heading', value: 'From idea to impact.', fieldType: 'text' },
     { page: 'home', section: 'process', fieldKey: 'steps', value: JSON.stringify([
       { icon: 'search', title: 'Understand', desc: 'I start by deeply understanding the problem, the people it affects, and what success actually looks like.' },
-      { icon: 'map', title: 'Strategise', desc: 'I build a clear plan — whether that\'s a product roadmap, a business model, or a community programme.' },
+      { icon: 'map', title: 'Strategise', desc: 'I build a clear plan, whether that\'s a product roadmap, a business model, or a community programme.' },
       { icon: 'code', title: 'Build', desc: 'I execute with precision. Fast, iterative, and always focused on outcomes over output.' },
       { icon: 'trending-up', title: 'Sustain', desc: 'I don\'t just deliver and disappear. I help systems, teams, and businesses grow after launch.' },
     ]), fieldType: 'json' },
@@ -151,11 +151,11 @@ async function main() {
     // HOME PAGE - CLIENTS
     { page: 'home', section: 'clients', fieldKey: 'pretitle', value: 'Partners & clients', fieldType: 'text' },
     { page: 'home', section: 'clients', fieldKey: 'heading', value: 'Organisations I\'ve built with and for.', fieldType: 'text' },
-    { page: 'home', section: 'clients', fieldKey: 'lead', value: 'From youth-led startups to established universities — every partnership has shaped how I think about technology and its role in society.', fieldType: 'text' },
+    { page: 'home', section: 'clients', fieldKey: 'lead', value: 'From youth-led startups to established universities, every partnership has shaped how I think about technology and its role in society.', fieldType: 'text' },
 
     // HOME PAGE - CTA BANNER
     { page: 'home', section: 'cta', fieldKey: 'heading', value: "Let's build something that matters.", fieldType: 'text' },
-    { page: 'home', section: 'cta', fieldKey: 'lead', value: 'Whether you need a technology partner, a strategic consultant, or a collaborator on something bigger — I\'m open to conversations that lead somewhere real.', fieldType: 'text' },
+    { page: 'home', section: 'cta', fieldKey: 'lead', value: 'Whether you need a technology partner, a strategic consultant, or a collaborator on something bigger, I\'m open to conversations that lead somewhere real.', fieldType: 'text' },
     { page: 'home', section: 'cta', fieldKey: 'button_label', value: 'Start a conversation', fieldType: 'text' },
     { page: 'home', section: 'cta', fieldKey: 'button_url', value: '/contact', fieldType: 'text' },
 
@@ -176,14 +176,14 @@ async function main() {
     { page: 'global', section: 'footer', fieldKey: 'about_heading', value: 'About Bodo Desderio', fieldType: 'text' },
     { page: 'global', section: 'footer', fieldKey: 'about_text', value: 'Founder, engineer, and community leader based in Kampala, Uganda. Building technology that moves people forward.', fieldType: 'text' },
     { page: 'global', section: 'footer', fieldKey: 'newsletter_heading', value: 'Stay in the loop', fieldType: 'text' },
-    { page: 'global', section: 'footer', fieldKey: 'newsletter_text', value: 'Updates on what I\'m building, thinking, and doing — delivered to your inbox.', fieldType: 'text' },
+    { page: 'global', section: 'footer', fieldKey: 'newsletter_text', value: 'Updates on what I\'m building, thinking, and doing, delivered to your inbox.', fieldType: 'text' },
     { page: 'global', section: 'footer', fieldKey: 'copyright', value: '© {year} Bodo Desderio. All rights reserved.', fieldType: 'text' },
 
     // About page content is seeded in the dedicated aboutContentRows block below
 
     // SERVICES PAGE
     { page: 'services', section: 'hero', fieldKey: 'heading', value: 'Services', fieldType: 'text' },
-    { page: 'services', section: 'hero', fieldKey: 'subtitle', value: 'Five disciplines, one philosophy — build systems that outlast the hype cycle.', fieldType: 'text' },
+    { page: 'services', section: 'hero', fieldKey: 'subtitle', value: 'Five disciplines, one philosophy, build systems that outlast the hype cycle.', fieldType: 'text' },
     { page: 'services', section: 'hero', fieldKey: 'image', value: '/images/stock/services-hero.svg', fieldType: 'image' },
     { page: 'services', section: 'cta', fieldKey: 'heading', value: 'Ready to start a project?', fieldType: 'text' },
     { page: 'services', section: 'cta', fieldKey: 'lead', value: 'Book a strategy call and we\'ll scope out what a collaboration could look like.', fieldType: 'text' },
@@ -192,17 +192,17 @@ async function main() {
 
     // GALLERY PAGE
     { page: 'gallery', section: 'hero', fieldKey: 'heading', value: 'Gallery', fieldType: 'text' },
-    { page: 'gallery', section: 'hero', fieldKey: 'subtitle', value: 'Moments from the work — tech camps, community events, and the behind-the-scenes of building in public.', fieldType: 'text' },
+    { page: 'gallery', section: 'hero', fieldKey: 'subtitle', value: 'Moments from the work, tech camps, community events, and the behind-the-scenes of building in public.', fieldType: 'text' },
     { page: 'gallery', section: 'hero', fieldKey: 'image', value: '/images/stock/gallery-hero.svg', fieldType: 'image' },
 
     // BLOG PAGE
     { page: 'blog', section: 'hero', fieldKey: 'heading', value: 'Writing', fieldType: 'text' },
-    { page: 'blog', section: 'hero', fieldKey: 'subtitle', value: 'Thoughts on tech, business, and building in Africa. No hot takes — just what I\'ve learned along the way.', fieldType: 'text' },
+    { page: 'blog', section: 'hero', fieldKey: 'subtitle', value: 'Thoughts on tech, business, and building in Africa. No hot takes, just what I\'ve learned along the way.', fieldType: 'text' },
     { page: 'blog', section: 'hero', fieldKey: 'image', value: '/images/stock/blog-hero.svg', fieldType: 'image' },
 
     // CONTACT PAGE
     { page: 'contact', section: 'hero', fieldKey: 'heading', value: 'Get in touch', fieldType: 'text' },
-    { page: 'contact', section: 'hero', fieldKey: 'subtitle', value: 'Whether it\'s a product, a partnership, or just a conversation — I read every message.', fieldType: 'text' },
+    { page: 'contact', section: 'hero', fieldKey: 'subtitle', value: 'Whether it\'s a product, a partnership, or just a conversation, I read every message.', fieldType: 'text' },
     { page: 'contact', section: 'hero', fieldKey: 'image', value: '/images/stock/contact-hero.svg', fieldType: 'image' },
 
     // ─── Privacy Policy ───
@@ -211,9 +211,9 @@ async function main() {
     { page: 'privacy', section: 'body', fieldKey: 'html', value: `<h2>1. Information We Collect</h2>
 <p>When you visit bododesderio.com, we may collect:</p>
 <ul>
-  <li><strong>Contact form submissions</strong> — your name, email, subject, and message when you reach out through our contact form.</li>
-  <li><strong>Newsletter subscriptions</strong> — your email address and optional name when you subscribe to updates.</li>
-  <li><strong>Analytics data</strong> — anonymized page views, referrer URLs, and country (derived from request headers). We do not use cookies for analytics, and we hash user agent strings to prevent identification.</li>
+  <li><strong>Contact form submissions</strong>, your name, email, subject, and message when you reach out through our contact form.</li>
+  <li><strong>Newsletter subscriptions</strong>, your email address and optional name when you subscribe to updates.</li>
+  <li><strong>Analytics data</strong>, anonymized page views, referrer URLs, and country (derived from request headers). We do not use cookies for analytics, and we hash user agent strings to prevent identification.</li>
 </ul>
 
 <h2>2. How We Use Your Information</h2>
@@ -226,16 +226,16 @@ async function main() {
 <h2>3. Data Sharing</h2>
 <p>We do not sell, trade, or share your personal information with third parties, except:</p>
 <ul>
-  <li><strong>Email delivery</strong> — we use a self-hosted mail server to send emails. Your email address is processed solely for delivery purposes.</li>
-  <li><strong>Legal obligations</strong> — if required by law or court order.</li>
+  <li><strong>Email delivery</strong>, we use a self-hosted mail server to send emails. Your email address is processed solely for delivery purposes.</li>
+  <li><strong>Legal obligations</strong>, if required by law or court order.</li>
 </ul>
 
 <h2>4. Cookies</h2>
 <p>This site uses minimal cookies:</p>
 <ul>
-  <li><strong>Authentication cookie</strong> — used only for the admin panel (not for visitors).</li>
-  <li><strong>Theme preference</strong> — stored locally to remember your dark/light mode choice.</li>
-  <li><strong>Cookie consent</strong> — stored locally to remember your consent preference.</li>
+  <li><strong>Authentication cookie</strong>, used only for the admin panel (not for visitors).</li>
+  <li><strong>Theme preference</strong>, stored locally to remember your dark/light mode choice.</li>
+  <li><strong>Cookie consent</strong>, stored locally to remember your consent preference.</li>
 </ul>
 <p>We do not use third-party tracking cookies, advertising cookies, or analytics cookies.</p>
 
@@ -245,7 +245,7 @@ async function main() {
   <li>Request access to your personal data.</li>
   <li>Request deletion of your data.</li>
   <li>Unsubscribe from the newsletter at any time via the unsubscribe link in every email.</li>
-  <li>Opt out of analytics by enabling Do Not Track (DNT) in your browser — we respect it.</li>
+  <li>Opt out of analytics by enabling Do Not Track (DNT) in your browser, we respect it.</li>
 </ul>
 
 <h2>6. Data Retention</h2>
@@ -261,7 +261,7 @@ async function main() {
 <p>By accessing and using bododesderio.com, you agree to be bound by these terms and conditions. If you do not agree, please do not use this website.</p>
 
 <h2>2. Intellectual Property</h2>
-<p>All content on this website — including text, images, design, code, and branding — is the property of Bodo Desderio unless otherwise stated. You may not reproduce, distribute, or create derivative works without prior written permission.</p>
+<p>All content on this website (text, images, design, code, and branding) is the property of Bodo Desderio unless otherwise stated. You may not reproduce, distribute, or create derivative works without prior written permission.</p>
 
 <h2>3. User Content</h2>
 <p>When submitting content through the contact form or newsletter signup, you grant us permission to store and process that information as described in our <a href="/privacy">Privacy Policy</a>.</p>
@@ -328,7 +328,7 @@ async function main() {
   const services = [
     {
       title: 'Company Building',
-      description: 'I help founders and organisations build companies from the ground up — from idea validation to team structure, product strategy, and go-to-market.',
+      description: 'I help founders and organisations build companies from the ground up, from idea validation to team structure, product strategy, and go-to-market.',
       icon: 'building',
       homeFeatured: true,
       order: 0,
@@ -352,7 +352,7 @@ async function main() {
     },
     {
       title: 'Technical Consulting',
-      description: 'Strategic technology guidance for organisations navigating digital transformation — from architecture decisions to team capability building.',
+      description: 'Strategic technology guidance for organisations navigating digital transformation, from architecture decisions to team capability building.',
       icon: 'lightbulb',
       homeFeatured: true,
       order: 3,
@@ -426,7 +426,7 @@ async function main() {
   console.log('💬 Creating testimonials...')
   const testimonials = [
     {
-      body: "From day one, Desderio understood our ethos of sustainability. His e-commerce solution reflected our brand's purity — intuitive, transparent, and scalable. A partner who aligns technology with values.",
+      body: "From day one, Desderio understood our ethos of sustainability. His e-commerce solution reflected our brand's purity, intuitive, transparent, and scalable. A partner who aligns technology with values.",
       author: 'Immy Immaculate',
       role: 'Founder',
       company: 'Keri Naturals',
@@ -436,7 +436,7 @@ async function main() {
       order: 0,
     },
     {
-      body: 'Your technical expertise elevated our global outreach. He built systems that connected communities across borders, always with a focus on human-centered design. A rare blend of skill and empathy.',
+      body: 'Bodo built systems that connected our communities across borders, and widened our global outreach in the process. He kept the focus on the people using the tools, and paired real technical skill with genuine empathy.',
       author: 'Denise Ayebare',
       role: 'Program Lead',
       company: 'BetterLife International',
@@ -446,7 +446,7 @@ async function main() {
       order: 1,
     },
     {
-      body: "Working with Bodo was a game-changer. He didn't just build a platform — he amplified our mission to empower youth. His strategic thinking and attention to detail made our digital presence as dynamic as our community.",
+      body: "Working with Bodo moved us forward fast. He didn't only build the platform, he understood the youth work behind it and built for it. His clear thinking and attention to detail gave us a digital presence that matches the energy of our community.",
       author: 'Otolo Sedrick',
       role: 'Team Lead',
       company: 'Forus Foundation',
@@ -735,7 +735,7 @@ async function main() {
     {
       name: 'Harriet Auma',
       email: 'harriet.auma@forusfoundation.com',
-      subject: 'Partnership opportunity — youth digital literacy',
+      subject: 'Partnership opportunity, youth digital literacy',
       body: 'Hi Bodo,\n\nI lead the digital programmes team at Forus Foundation. We have been following your work with the African Youth Congress and the tech camps you ran last year.\n\nWe are planning a digital literacy initiative across Northern Uganda and would love to explore a partnership. The programme would run for 6 months starting in July and would involve building an LMS platform plus on-the-ground training workshops.\n\nWould you be open to a call next week to discuss?\n\nBest regards,\nHarriet',
       read: false,
       archived: false,
@@ -744,7 +744,7 @@ async function main() {
     {
       name: 'Samuel Kiprotich',
       email: 'skiprotich@lirauni.ac.ug',
-      subject: 'Guest lecture invitation — Computer Science Department',
+      subject: 'Guest lecture invitation, Computer Science Department',
       body: 'Dear Mr. Desderio,\n\nI am writing on behalf of the Computer Science Department at Lira University. We would be honoured to have you deliver a guest lecture to our final-year students on the topic of "Building Technology Companies in East Africa."\n\nThe proposed date is May 15th, 2025, and the session would be approximately 90 minutes with Q&A.\n\nPlease let me know if you would be available.\n\nKind regards,\nSamuel Kiprotich\nHead of Department, Computer Science',
       read: false,
       archived: false,
@@ -771,7 +771,7 @@ async function main() {
     {
       name: 'Aisha Nakato',
       email: 'aisha.nakato@gmail.com',
-      subject: 'Mentorship request — aspiring developer',
+      subject: 'Mentorship request, aspiring developer',
       body: 'Dear Bodo,\n\nMy name is Aisha and I am a second-year Computer Science student at Makerere University. I read your Medium articles on responsible AI development and they really inspired me.\n\nI am building my first web application and struggling with choosing the right tech stack. Would you be willing to offer some guidance? Even a 15-minute call would mean the world to me.\n\nThank you for everything you do for young developers in Uganda.\n\nAisha',
       read: true,
       archived: false,
@@ -787,7 +787,7 @@ async function main() {
   console.log('📰 Creating newsletter campaigns...')
   const campaigns = [
     {
-      subject: 'Building in Public — Q1 2025 Update',
+      subject: 'Building in Public, Q1 2025 Update',
       bodyHtml: '<h2>What I\'ve been building</h2><p>The first quarter of 2025 has been intense. Rooibok Technologies launched two new client projects, and I\'ve been deep in the weeds of Next.js, Prisma, and building resilient systems for East African markets.</p><h3>Highlights</h3><ul><li><strong>Keri Naturals e-commerce rebuild</strong> — 40% increase in online sales since launch</li><li><strong>Lira University digital platform</strong> — now serving 2,000+ students</li><li><strong>Three new blog posts</strong> on sustainable web development, AI ethics, and the gender gap in CS education</li></ul><h3>What\'s next</h3><p>Q2 is shaping up to be about community. I\'m planning a series of tech workshops in Northern Uganda with Forus Foundation, and there are some exciting partnership conversations happening that I\'ll share more about soon.</p><p>As always, if you\'re building something meaningful and need a thought partner — my inbox is open.</p><p>— Bodo</p>',
       status: 'sent',
       sentAt: new Date('2025-04-01'),
@@ -829,20 +829,20 @@ async function main() {
     { page: 'about', section: 'hero', fieldKey: 'heading', value: 'About Bodo', fieldType: 'text' },
     { page: 'about', section: 'hero', fieldKey: 'subtitle', value: 'Founder. Engineer. Community Builder.', fieldType: 'text' },
     { page: 'about', section: 'hero', fieldKey: 'image', value: '/images/hero/portrait-about.png', fieldType: 'image' },
-    { page: 'about', section: 'mission', fieldKey: 'statement', value: 'Technology is the means, not the mission — the mission is people.', fieldType: 'text' },
+    { page: 'about', section: 'mission', fieldKey: 'statement', value: 'Technology is the means, not the mission, the mission is people.', fieldType: 'text' },
     {
       page: 'about',
       section: 'story',
       fieldKey: 'items',
       fieldType: 'json',
       value: JSON.stringify([
-        { year: 'Early years', title: 'A curiosity that wouldn\'t sit still', organization: 'Childhood', description: 'Long before I ever wrote a line of code, I was the kid buried in books — self-help, science, novels, anything that promised a new way of seeing the world. I had questions that wouldn\'t leave me alone: Why do we behave the way we do? Are we alone out here? What happens at the edge of a black hole? That restless hunger to understand things became the thread that connects everything I\'ve done since.', icon: 'calendar' },
-        { year: '2018', title: 'Finding my lane at university', organization: 'Kampala International University', description: 'I enrolled at KIU to study computer science and business, and something clicked. For the first time, engineering and entrepreneurship stopped feeling like separate worlds. University wasn\'t just coursework — it was where the seed was planted that technology built by Africans could genuinely serve African markets.', icon: 'calendar' },
-        { year: '2021', title: 'Becoming a software engineer', organization: 'Kakebe Technologies Limited', description: 'I joined Kakebe as a full-stack developer and quickly fell in love with the craft of building real products for real people. Before long I was leading the software department — managing a team, shipping digital products across East Africa, and learning that the hardest problems are never purely technical.', icon: 'briefcase' },
-        { year: '2023', title: 'Leading a youth movement', organization: 'African Youth Congress — Uganda Chapter', description: 'Being elected president of the AYC Uganda Chapter changed me. I organised tech camps, ran school outreaches, and pulled together hackathons that brought technology within reach of young people who\'d never had the chance. It taught me that the most powerful thing you can build isn\'t a product — it\'s the people around you.', icon: 'award' },
-        { year: '2024', title: 'A voice against corruption', organization: 'National Debate Council Uganda \u00b7 VNSAC234', description: 'I was selected to contribute to the Virtual National Students\' Anti-Corruption Challenge — a collaboration with the Auditor General, Parliament, and GIZ. Writing about the rot in Uganda\'s health sector felt personal. It reminded me why I build: not for the sake of technology, but for the sake of the people it should protect.', icon: 'award' },
-        { year: '2024', title: 'Starting my own company', organization: 'Rooibok Technologies Limited', description: 'Founding Rooibok was the moment years of thinking and building crystallised into something of my own. The company exists to create software, digital products, and tech infrastructure for African businesses — born from a simple conviction that we should be building the tools that serve our own markets, not waiting for someone else to do it.', icon: 'briefcase' },
-        { year: 'Present', title: 'Writing, wondering, building', organization: 'medium.com/@bodo_desderio', description: 'These days I split my time between running Rooibok, engineering at Kakebe, and writing on Medium about the things that keep me curious — technology, leadership, space, philosophy, and the question of what kind of future is actually worth building.', icon: 'calendar' },
+        { year: 'Early years', title: 'A curiosity that wouldn\'t sit still', organization: 'Childhood', description: 'Long before I ever wrote a line of code, I was the kid buried in books, self-help, science, novels, anything that promised a new way of seeing the world. I had questions that wouldn\'t leave me alone: Why do we behave the way we do? Are we alone out here? What happens at the edge of a black hole? That restless hunger to understand things became the thread that connects everything I\'ve done since.', icon: 'calendar' },
+        { year: '2018', title: 'Finding my lane at university', organization: 'Kampala International University', description: 'I enrolled at KIU to study computer science and business, and something clicked. For the first time, engineering and entrepreneurship stopped feeling like separate worlds. University was more than coursework. It was where I started to believe that technology built by Africans could genuinely serve African markets.', icon: 'calendar' },
+        { year: '2021', title: 'Becoming a software engineer', organization: 'Kakebe Technologies Limited', description: 'I joined Kakebe as a full-stack developer and got hooked on building real products for real people. Before long I was leading the software department, managing a team, shipping digital products across East Africa, and learning that the hardest problems are never purely technical.', icon: 'briefcase' },
+        { year: '2023', title: 'Leading a youth movement', organization: 'African Youth Congress, Uganda Chapter', description: 'Being elected president of the AYC Uganda Chapter changed me. I organised tech camps, ran school outreaches, and pulled together hackathons that brought technology within reach of young people who\'d never had the chance. It taught me that the most important thing you can build is the people around you, not the product.', icon: 'award' },
+        { year: '2024', title: 'A voice against corruption', organization: 'National Debate Council Uganda \u00b7 VNSAC234', description: 'I was selected to contribute to the Virtual National Students\' Anti-Corruption Challenge, a collaboration with the Auditor General, Parliament, and GIZ. Writing about the rot in Uganda\'s health sector felt personal. It reminded me why I build: not for the sake of technology, but for the sake of the people it should protect.', icon: 'award' },
+        { year: '2024', title: 'Starting my own company', organization: 'Rooibok Technologies Limited', description: 'Founding Rooibok was the moment years of thinking and building crystallised into something of my own. The company exists to create software, digital products, and tech infrastructure for African businesses, born from a simple conviction that we should be building the tools that serve our own markets, not waiting for someone else to do it.', icon: 'briefcase' },
+        { year: 'Present', title: 'Writing, wondering, building', organization: 'medium.com/@bodo_desderio', description: 'These days I split my time between running Rooibok, engineering at Kakebe, and writing on Medium about the things that keep me curious, technology, leadership, space, philosophy, and the question of what kind of future is actually worth building.', icon: 'calendar' },
       ]),
     },
     {
@@ -851,7 +851,7 @@ async function main() {
       fieldKey: 'items',
       fieldType: 'json',
       value: JSON.stringify([
-        { title: 'People First', description: 'Every product, programme, and decision starts with the people it will affect. Technology serves people — not the other way around.', icon: 'heart' },
+        { title: 'People First', description: 'Every product, programme, and decision starts with the people it will affect. Technology serves people, not the other way around.', icon: 'heart' },
         { title: 'Build to Last', description: 'I build systems, teams, and organisations that outlast any single project. Sustainability and scalability are non-negotiable.', icon: 'lightbulb' },
         { title: 'Community as Infrastructure', description: 'The strongest foundation for any technology ecosystem is the community around it. I invest in people as much as in products.', icon: 'users' },
       ]),
@@ -862,8 +862,8 @@ async function main() {
       fieldKey: 'items',
       fieldType: 'json',
       value: JSON.stringify([
-        { title: 'Multi-disciplinary thinking', description: 'I bring founder, engineer, and community leader perspectives to every engagement — not just technical execution.' },
-        { title: 'African market expertise', description: 'I understand the nuances of building for African markets — the constraints, the opportunities, and the people.' },
+        { title: 'Multi-disciplinary thinking', description: 'I bring founder, engineer, and community leader perspectives to every engagement, not just technical execution.' },
+        { title: 'African market expertise', description: 'I understand the nuances of building for African markets, the constraints, the opportunities, and the people.' },
         { title: 'Proven track record', description: 'From founding a company to leading a continent-wide youth organisation, I deliver results at scale.' },
         { title: 'Long-term partnership mindset', description: "I don't just deliver and disappear. I invest in the success of every client and collaborator I work with." },
       ]),
@@ -882,7 +882,7 @@ async function main() {
       ]),
     },
     { page: 'about', section: 'cta', fieldKey: 'heading', value: "Let's build something that matters.", fieldType: 'text' },
-    { page: 'about', section: 'cta', fieldKey: 'lead', value: "Whether you need a technology partner, a strategic consultant, or a collaborator on something bigger — I'm open to conversations that lead somewhere real.", fieldType: 'text' },
+    { page: 'about', section: 'cta', fieldKey: 'lead', value: "Whether you need a technology partner, a strategic consultant, or a collaborator on something bigger, I'm open to conversations that lead somewhere real.", fieldType: 'text' },
     { page: 'about', section: 'cta', fieldKey: 'button_label', value: 'Start a conversation', fieldType: 'text' },
     { page: 'about', section: 'cta', fieldKey: 'button_url', value: '/contact', fieldType: 'text' },
   ]
@@ -901,33 +901,33 @@ async function main() {
   const seoRows = [
     {
       page: 'home',
-      metaTitle: 'Bodo Desderio — Founder, Engineer & Community Leader | Kampala, Uganda',
+      metaTitle: 'Bodo Desderio, Founder, Engineer & Community Leader | Kampala, Uganda',
       metaDesc: 'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda.',
     },
     {
       page: 'about',
-      metaTitle: 'About Bodo Desderio — Story, Values & Career',
-      metaDesc: 'The story behind Bodo Desderio — Ugandan founder, software engineer, and former President of the African Youth Congress Uganda Chapter. Values, milestones, and the why behind the work.',
+      metaTitle: 'About Bodo Desderio, Story, Values & Career',
+      metaDesc: 'The story behind Bodo Desderio, Ugandan founder, software engineer, and former President of the African Youth Congress Uganda Chapter. Values, milestones, and the why behind the work.',
     },
     {
       page: 'services',
-      metaTitle: 'Services — Bodo Desderio | Software, Strategy & Company Building',
+      metaTitle: 'Services, Bodo Desderio | Software, Strategy & Company Building',
       metaDesc: 'Services offered by Bodo Desderio: software engineering, SEO & digital strategy, technical consulting, company building, and community programmes. Based in Kampala, working across Africa.',
     },
     {
       page: 'gallery',
-      metaTitle: 'Gallery — Bodo Desderio | Tech Camps, Community & Projects',
+      metaTitle: 'Gallery, Bodo Desderio | Tech Camps, Community & Projects',
       metaDesc: 'Photos from tech camps, community events, school outreaches, and projects led by Bodo Desderio across Uganda and East Africa.',
     },
     {
       page: 'blog',
-      metaTitle: 'Writing — Bodo Desderio | Tech, Business & Africa',
-      metaDesc: 'Essays and articles on technology, entrepreneurship, and building in Africa by Bodo Desderio — founder, engineer, and community leader from Kampala.',
+      metaTitle: 'Writing, Bodo Desderio | Tech, Business & Africa',
+      metaDesc: 'Essays and articles on technology, entrepreneurship, and building in Africa by Bodo Desderio, founder, engineer, and community leader from Kampala.',
     },
     {
       page: 'contact',
-      metaTitle: 'Contact Bodo Desderio — Start a Conversation',
-      metaDesc: 'Get in touch with Bodo Desderio — founder, software engineer, and community builder in Kampala, Uganda. Open to consulting, partnerships, and speaking engagements.',
+      metaTitle: 'Contact Bodo Desderio, Start a Conversation',
+      metaDesc: 'Get in touch with Bodo Desderio, founder, software engineer, and community builder in Kampala, Uganda. Open to consulting, partnerships, and speaking engagements.',
     },
   ]
 
@@ -973,7 +973,7 @@ async function main() {
     {
       title: 'Rooibok Technologies',
       slug: 'rooibok-technologies',
-      excerpt: 'Building digital solutions for businesses across Africa — web apps, mobile apps, and cloud infrastructure.',
+      excerpt: 'Building digital solutions for businesses across Africa, web apps, mobile apps, and cloud infrastructure.',
       body: '<p>Rooibok Technologies is a full-service software company focused on delivering high-quality digital products for the African market.</p><p>We specialize in web and mobile application development, cloud infrastructure, and digital transformation consulting.</p>',
       status: 'in_progress',
       category: 'Company',
@@ -988,8 +988,8 @@ async function main() {
     {
       title: 'Kakebe Technologies',
       slug: 'kakebe-technologies',
-      excerpt: 'A technology company leveraging AI and data to solve real-world problems in agriculture, education, and healthcare.',
-      body: '<p>Kakebe Technologies builds innovative solutions using artificial intelligence and data analytics to address challenges in key sectors across Uganda and East Africa.</p>',
+      excerpt: 'A technology company that uses AI and data to solve real problems in agriculture, education, and healthcare.',
+      body: '<p>Kakebe Technologies builds software that uses AI and data analytics to tackle challenges in agriculture, education, and healthcare across Uganda and East Africa.</p>',
       status: 'in_progress',
       category: 'Company',
       techStack: ['Python', 'React', 'TensorFlow', 'FastAPI', 'Docker'],
@@ -1003,7 +1003,7 @@ async function main() {
     {
       title: 'Portfolio Website',
       slug: 'portfolio-website',
-      excerpt: 'This very website — a full-stack Next.js portfolio with a custom CMS, newsletter system, and analytics.',
+      excerpt: 'This very website, a full-stack Next.js portfolio with a custom CMS, newsletter system, and analytics.',
       body: '<p>A comprehensive portfolio and blog platform built from scratch with Next.js 16, Prisma, PostgreSQL, and Tailwind CSS.</p><p>Features include a custom admin panel with media management, blog editor with CKEditor, newsletter campaigns with tracking, banner management, and built-in analytics.</p>',
       status: 'completed',
       category: 'Web App',
