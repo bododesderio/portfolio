@@ -835,7 +835,7 @@ async function main() {
   console.log('📄 Creating about page content...')
   const aboutContentRows = [
     { page: 'about', section: 'hero', fieldKey: 'heading', value: 'About Bodo', fieldType: 'text' },
-    { page: 'about', section: 'hero', fieldKey: 'subtitle', value: 'Founder. Engineer. Community Builder.', fieldType: 'text' },
+    { page: 'about', section: 'hero', fieldKey: 'subtitle', value: "I'm a founder, engineer, and community builder from Kampala. Here's the story, and why people come first.", fieldType: 'text' },
     { page: 'about', section: 'hero', fieldKey: 'image', value: '/images/hero/portrait-about.png', fieldType: 'image' },
     { page: 'about', section: 'mission', fieldKey: 'statement', value: 'Technology is the means, not the mission, the mission is people.', fieldType: 'text' },
     {
