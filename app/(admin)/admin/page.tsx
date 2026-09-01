@@ -15,7 +15,7 @@ import {
 } from '@/lib/data/analytics'
 import { globalEmailStats } from '@/lib/domain/email-tracking'
 
-export const metadata: Metadata = { title: 'Overview — Admin' }
+export const metadata: Metadata = { title: 'Overview | Admin' }
 export const dynamic = 'force-dynamic'
 
 async function getTopReferrers(days: number, limit: number): Promise<Array<{ referrer: string; count: number }>> {

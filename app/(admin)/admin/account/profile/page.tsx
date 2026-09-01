@@ -3,7 +3,7 @@ import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { ProfileEditor } from '@/components/admin/account/ProfileEditor'
 
-export const metadata = { title: 'Profile — Admin' }
+export const metadata = { title: 'Profile | Admin' }
 
 export default async function ProfilePage() {
   const session = await auth()

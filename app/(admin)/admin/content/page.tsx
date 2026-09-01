@@ -3,7 +3,7 @@ import { ArrowRight } from 'lucide-react'
 import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 
-export const metadata = { title: 'Pages — Admin' }
+export const metadata = { title: 'Pages | Admin' }
 export const dynamic = 'force-dynamic'
 
 const PAGES = [

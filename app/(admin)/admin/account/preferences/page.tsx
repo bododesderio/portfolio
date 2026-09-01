@@ -3,7 +3,7 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { ThemePreferenceSection } from '@/components/admin/account/ThemePreferenceSection'
 import type { ThemePreference } from '@/lib/auth'
 
-export const metadata = { title: 'Preferences — Admin' }
+export const metadata = { title: 'Preferences | Admin' }
 
 export default async function PreferencesPage() {
   const session = await auth()

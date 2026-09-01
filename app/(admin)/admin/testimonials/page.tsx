@@ -3,7 +3,7 @@ import { TestimonialsManager } from '@/components/admin/TestimonialsManager'
 import { Pagination } from '@/components/admin/Pagination'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Testimonials — Admin' }
+export const metadata: Metadata = { title: 'Testimonials | Admin' }
 
 interface Props {
   searchParams: Promise<{ page?: string }>

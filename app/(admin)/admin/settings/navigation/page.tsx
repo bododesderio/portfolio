@@ -2,7 +2,7 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { NavigationEditor, type NavLink } from '@/components/admin/settings/NavigationEditor'
 import { getSiteSetting } from '@/lib/data/content'
 
-export const metadata = { title: 'Navigation — Admin' }
+export const metadata = { title: 'Navigation | Admin' }
 
 export default async function NavigationPage() {
   const raw = await getSiteSetting('nav.links')

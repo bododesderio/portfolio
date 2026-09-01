@@ -3,7 +3,7 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { BannersManager } from '@/components/admin/BannersManager'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Banners & Popups — Admin' }
+export const metadata: Metadata = { title: 'Banners & Popups | Admin' }
 
 export default async function AdminBannersPage() {
   const banners = await prisma.banner.findMany({

@@ -4,7 +4,7 @@ import { PressManager } from '@/components/admin/PressManager'
 import { Pagination } from '@/components/admin/Pagination'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Press & Recognition — Admin' }
+export const metadata: Metadata = { title: 'Press & Recognition | Admin' }
 
 interface Props {
   searchParams: Promise<{ page?: string }>

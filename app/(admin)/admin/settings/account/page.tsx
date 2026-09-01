@@ -6,7 +6,7 @@ import { ThemePreferenceSection } from '@/components/admin/account/ThemePreferen
 import type { ThemePreference } from '@/lib/auth'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Account — Admin' }
+export const metadata: Metadata = { title: 'Account | Admin' }
 
 export default async function AccountPage() {
   const session = await auth()

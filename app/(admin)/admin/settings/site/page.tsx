@@ -4,7 +4,7 @@ import { SiteSettingsForm } from '@/components/admin/settings/SiteSettingsForm'
 import { SeoSettingsForm } from '@/components/admin/settings/SeoSettingsForm'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Site & SEO — Admin' }
+export const metadata: Metadata = { title: 'Site & SEO | Admin' }
 
 export default async function SiteSettingsPage() {
   const [settingsRows, seoPages] = await Promise.all([

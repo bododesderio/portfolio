@@ -2,7 +2,7 @@ import { prisma } from '@/lib/data/db'
 import { MediaLibrary } from '@/components/admin/MediaLibrary'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Media — Admin' }
+export const metadata: Metadata = { title: 'Media | Admin' }
 
 export default async function MediaPage() {
   const media = await prisma.media.findMany({

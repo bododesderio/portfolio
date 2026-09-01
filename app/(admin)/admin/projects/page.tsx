@@ -8,7 +8,7 @@ import { Layers, Plus, ImageIcon } from 'lucide-react'
 import type { Metadata } from 'next'
 import { DeleteProjectButton } from './DeleteProjectButton'
 
-export const metadata: Metadata = { title: 'Projects — Admin' }
+export const metadata: Metadata = { title: 'Projects | Admin' }
 export const dynamic = 'force-dynamic'
 
 const statusColors: Record<string, string> = {

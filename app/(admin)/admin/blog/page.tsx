@@ -8,7 +8,7 @@ import { Pagination } from '@/components/admin/Pagination'
 import { FileText, Plus, ImageIcon } from 'lucide-react'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Blog — Admin' }
+export const metadata: Metadata = { title: 'Blog | Admin' }
 export const dynamic = 'force-dynamic'
 
 interface Props {

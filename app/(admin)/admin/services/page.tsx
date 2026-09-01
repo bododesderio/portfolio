@@ -3,7 +3,7 @@ import { ServicesManager } from '@/components/admin/ServicesManager'
 import { Pagination } from '@/components/admin/Pagination'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Services — Admin' }
+export const metadata: Metadata = { title: 'Services | Admin' }
 
 interface Props {
   searchParams: Promise<{ page?: string }>

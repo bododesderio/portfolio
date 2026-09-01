@@ -5,7 +5,7 @@ import { EmailStatsCard } from '@/components/admin/dashboard/EmailStatsCard'
 import { Pagination } from '@/components/admin/Pagination'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Email Logs — Admin' }
+export const metadata: Metadata = { title: 'Email Logs | Admin' }
 export const dynamic = 'force-dynamic'
 
 const STATUS_STYLES: Record<string, string> = {

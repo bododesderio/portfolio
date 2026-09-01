@@ -6,7 +6,7 @@ import { Pagination } from '@/components/admin/Pagination'
 import { Mail, MailOpen } from 'lucide-react'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Messages — Admin' }
+export const metadata: Metadata = { title: 'Messages | Admin' }
 export const dynamic = 'force-dynamic'
 
 interface Props {

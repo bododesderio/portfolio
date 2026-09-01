@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { Palette, Settings, Network, Search, Plug } from 'lucide-react'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 
-export const metadata = { title: 'Settings — Admin' }
+export const metadata = { title: 'Settings | Admin' }
 
 const areas = [
   { href: '/admin/settings/appearance',   label: 'Appearance',    desc: 'Brand colour, login background, availability.',   icon: Palette },

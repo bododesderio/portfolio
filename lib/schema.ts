@@ -48,7 +48,7 @@ export function websiteSchema() {
     '@id': WEBSITE_ID,
     url: SITE_URL,
     name: 'Bodo Desderio',
-    description: 'Personal brand site of Bodo Desderio — founder, engineer, community leader.',
+    description: 'Personal brand site of Bodo Desderio: founder, engineer, community leader.',
     inLanguage: 'en-UG',
     publisher: { '@id': PERSON_ID },
     potentialAction: {
@@ -80,7 +80,7 @@ export function servicesSchema(services: Array<{ title: string; description: str
     '@type': 'WebPage',
     '@id': `${SITE_URL}/services`,
     url: `${SITE_URL}/services`,
-    name: 'Services — Bodo Desderio',
+    name: 'Services | Bodo Desderio',
     breadcrumb: breadcrumbList([
       { name: 'Home', url: SITE_URL },
       { name: 'Services', url: `${SITE_URL}/services` },
@@ -105,7 +105,7 @@ export function imageGallerySchema(items: Array<{ url: string; caption?: string 
     '@type': 'ImageGallery',
     '@id': `${SITE_URL}/gallery`,
     url: `${SITE_URL}/gallery`,
-    name: 'Gallery — Bodo Desderio',
+    name: 'Gallery | Bodo Desderio',
     breadcrumb: breadcrumbList([
       { name: 'Home', url: SITE_URL },
       { name: 'Gallery', url: `${SITE_URL}/gallery` },
@@ -125,7 +125,7 @@ export function blogIndexSchema(posts: Array<{ slug: string; title: string; exce
     '@type': 'Blog',
     '@id': `${SITE_URL}/blog`,
     url: `${SITE_URL}/blog`,
-    name: 'Writing — Bodo Desderio',
+    name: 'Writing | Bodo Desderio',
     description: 'Essays on tech, business, and building in Africa.',
     breadcrumb: breadcrumbList([
       { name: 'Home', url: SITE_URL },

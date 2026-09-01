@@ -5,7 +5,7 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
-export const metadata: Metadata = { title: 'Edit Post — Admin' }
+export const metadata: Metadata = { title: 'Edit Post | Admin' }
 
 interface Props { params: Promise<{ id: string }> }
 

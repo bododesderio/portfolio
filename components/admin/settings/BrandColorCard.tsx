@@ -32,25 +32,25 @@ const TEMPLATES: ThemeTemplate[] = [
   {
     name: 'Warm Luxury',
     brand: '#C9A84C',
-    description: 'Gold tones with warm neutrals — elegant and premium.',
+    description: 'Gold tones with warm neutrals. Elegant and premium.',
     preview: { bg: '#FAFAF7', card: '#FFFFFF', text: '#0A0A0B', accent: '#C9A84C' },
   },
   {
     name: 'Minimal Tech',
     brand: '#5E6AD2',
-    description: 'Cool indigo with clean whites — modern SaaS aesthetic.',
+    description: 'Cool indigo with clean whites. Modern SaaS aesthetic.',
     preview: { bg: '#FAFAFA', card: '#FFFFFF', text: '#111111', accent: '#5E6AD2' },
   },
   {
     name: 'Bold Creative',
     brand: '#E8614D',
-    description: 'Vibrant coral with energy — stands out and commands attention.',
+    description: 'Vibrant coral with energy. Stands out and commands attention.',
     preview: { bg: '#FFF8F6', card: '#FFFFFF', text: '#1A1A1A', accent: '#E8614D' },
   },
   {
     name: 'Nature Trust',
     brand: '#2D5F3F',
-    description: 'Deep forest green — grounded, trustworthy, sustainable.',
+    description: 'Deep forest green. Grounded, trustworthy, sustainable.',
     preview: { bg: '#F7FAF8', card: '#FFFFFF', text: '#0D1B12', accent: '#2D5F3F' },
   },
 ]

@@ -4,7 +4,7 @@ import { LoginBackgroundCard } from '@/components/admin/settings/LoginBackground
 import { BrandColorCard } from '@/components/admin/settings/BrandColorCard'
 import { AvailabilityCard } from '@/components/admin/settings/AvailabilityCard'
 
-export const metadata = { title: 'Appearance — Admin' }
+export const metadata = { title: 'Appearance | Admin' }
 
 export default async function AppearancePage() {
   const rows = await prisma.siteSettings.findMany()

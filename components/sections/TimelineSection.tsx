@@ -46,7 +46,7 @@ export function TimelineSection({ items }: TimelineSectionProps) {
             The Story So Far
           </h2>
           <p className="mt-4 text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
-            Every chapter shaped the next — from restless curiosity to building things that matter.
+            Every chapter shaped the next, from restless curiosity to building things that matter.
             Here is how the journey has unfolded.
           </p>
         </motion.div>

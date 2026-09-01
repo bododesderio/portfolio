@@ -4,7 +4,7 @@ import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { Pagination } from '@/components/admin/Pagination'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Clients — Admin' }
+export const metadata: Metadata = { title: 'Clients | Admin' }
 export const dynamic = 'force-dynamic'
 
 interface Props {

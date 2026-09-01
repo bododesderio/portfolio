@@ -33,7 +33,7 @@ export function ClientsSection({ clients }: { clients: Client[] }) {
             Organisations I&apos;ve built with and for.
           </h2>
           <p className="text-ink-500 dark:text-ink-300">
-            From youth-led startups to established universities — every partnership has shaped how I think about technology.
+            From youth-led startups to established universities, every partnership has shaped how I think about technology.
           </p>
         </motion.div>
       </Container>

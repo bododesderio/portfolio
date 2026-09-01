@@ -7,7 +7,7 @@ import { Pagination } from '@/components/admin/Pagination'
 import { globalEmailStats } from '@/lib/domain/email-tracking'
 import type { Metadata } from 'next'
 
-export const metadata: Metadata = { title: 'Newsletter — Admin' }
+export const metadata: Metadata = { title: 'Newsletter | Admin' }
 export const dynamic = 'force-dynamic'
 
 interface Props {

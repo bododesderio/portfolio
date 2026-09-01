@@ -1,7 +1,7 @@
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { PasswordChangeForm } from '@/components/admin/account/PasswordChangeForm'
 
-export const metadata = { title: 'Security — Admin' }
+export const metadata = { title: 'Security | Admin' }
 
 export default function SecurityPage() {
   return (

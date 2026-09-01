@@ -47,10 +47,10 @@ const FILTER_TABS = [
 function formatDuration(startDate: Date | string | null, endDate: Date | string | null, ongoing: boolean): string {
   if (!startDate) return ''
   const start = new Date(startDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-  if (ongoing) return `${start} — Present`
+  if (ongoing) return `${start} – Present`
   if (endDate) {
     const end = new Date(endDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })
-    return `${start} — ${end}`
+    return `${start} – ${end}`
   }
   return start
 }

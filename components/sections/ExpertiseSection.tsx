@@ -94,7 +94,7 @@ export function ExpertiseSection({ content, services }: { content: ExpertiseCont
                     href="/services"
                     className="inline-flex items-center gap-1.5 text-sm font-medium text-brand opacity-0 -translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500"
                   >
-                    Learn more
+                    Explore services
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </Link>
                 </div>

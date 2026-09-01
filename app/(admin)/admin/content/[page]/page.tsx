@@ -12,7 +12,7 @@ interface Props { params: Promise<{ page: string }> }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { page } = await params
-  return { title: `Edit ${page} — Admin` }
+  return { title: `Edit ${page} | Admin` }
 }
 
 export default async function ContentEditorPage({ params }: Props) {
@@ -41,7 +41,7 @@ export default async function ContentEditorPage({ params }: Props) {
   return (
     <div>
       <h1 className="font-serif text-3xl text-fg mb-2 capitalize">
-        {page} — Content
+        {page} | Content
       </h1>
       <p className="text-ink-500 text-sm mb-8">
         Changes are saved individually and go live instantly.

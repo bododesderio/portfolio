@@ -3,7 +3,7 @@ import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { IntegrationsForm } from '@/components/admin/settings/IntegrationsForm'
 
-export const metadata = { title: 'Integrations — Admin' }
+export const metadata = { title: 'Integrations | Admin' }
 
 export default async function IntegrationsPage() {
   const config = await getAllConfig()

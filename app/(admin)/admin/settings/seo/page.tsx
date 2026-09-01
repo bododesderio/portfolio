@@ -2,7 +2,7 @@ import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 import { SeoSettingsForm } from '@/components/admin/settings/SeoSettingsForm'
 
-export const metadata = { title: 'SEO & Meta — Admin' }
+export const metadata = { title: 'SEO & Meta | Admin' }
 
 export default async function SeoSettingsPage() {
   const pages = await prisma.seoSettings.findMany()
