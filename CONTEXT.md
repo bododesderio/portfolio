@@ -1,5 +1,5 @@
 # Project Context
-Last updated: 2026-09-01
+Last updated: 2026-09-04
 
 ## What this is
 Personal brand site for Bodo Desderio — **not** a static portfolio. A
@@ -176,7 +176,29 @@ by typecheck + lint + 159 tests + a clean production build):
    terms were static). Verified live against `next start`: 0 CSP violations
    across public + admin; login/sidebar/CRUD/theme/CKEditor all work.
 
-## DEPLOYED — live at https://bodo.rooibok.tech (2026-07-27)
+## MIGRATED — live at https://bododesderio.com (2026-09-04)
+
+Moved off the `bodo.rooibok.tech` subdomain onto the newly-registered apex
+domain **bododesderio.com** (Hostinger DNS, apex A → 195.110.59.36, www CNAME →
+apex). Re-deployed **fresh** (empty DB, re-seeded — prior subscribers/messages
+were seed sample data, not real signups) as compose project **`myportfolio`** in
+**`/opt/myportfolio`**; the old `portfolio` project, its volumes, and
+`/opt/portfolio` were removed. New secrets generated; admin login unchanged email
+(`rooiboktechltd@gmail.com`), new password (rotate in `/admin`). Traefik router
+`myportfolio` serves apex + `www` with a permanent www→apex 301 and an LE cert
+covering both (`compose.vps.yaml`, `2e66e98`). Verified: HTTPS 200, valid cert,
+www 301, `bodo.rooibok.tech` now 404.
+
+**Redeploy (routine):**
+```bash
+ssh root@195.110.59.36 'cd /opt/myportfolio && git pull --ff-only origin main \
+  && docker compose -f compose.vps.yaml up -d --build'
+```
+Left to do: delete the stale `bodo` A record from the `rooibok.tech` zone in
+hPanel (the DNS MCP delete tool can't scope to one record, so it wasn't removed
+automatically — the subdomain already 404s regardless).
+
+## (superseded) DEPLOYED — live at https://bodo.rooibok.tech (2026-07-27)
 
 First production deploy done. The site is live with valid Let's Encrypt TLS.
 
