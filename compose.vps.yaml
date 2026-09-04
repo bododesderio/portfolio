@@ -7,12 +7,12 @@
 # nginx/certbot of its own; it just attaches to `web` and declares its route.
 #
 # Deploy:
-#   docker compose -f compose.vps.yaml -p portfolio up -d --build
+#   docker compose -f compose.vps.yaml -p myportfolio up -d --build
 #
 # Requires the same secrets as compose.prod.yaml in .env, plus the host is fixed
-# to bodo.rooibok.tech. Postgres/Redis stay on the private `internal` network.
+# to bododesderio.com. Postgres/Redis stay on the private `internal` network.
 
-name: portfolio
+name: myportfolio
 
 services:
   db:
@@ -93,10 +93,17 @@ services:
     labels:
       - "traefik.enable=true"
       - "traefik.docker.network=web"
-      - "traefik.http.routers.portfolio.rule=Host(`bodo.rooibok.tech`)"
-      - "traefik.http.routers.portfolio.entrypoints=websecure"
-      - "traefik.http.routers.portfolio.tls.certresolver=le"
-      - "traefik.http.services.portfolio.loadbalancer.server.port=3000"
+      - "traefik.http.routers.myportfolio.rule=Host(`bododesderio.com`) || Host(`www.bododesderio.com`)"
+      - "traefik.http.routers.myportfolio.entrypoints=websecure"
+      - "traefik.http.routers.myportfolio.tls.certresolver=le"
+      - "traefik.http.routers.myportfolio.tls.domains[0].main=bododesderio.com"
+      - "traefik.http.routers.myportfolio.tls.domains[0].sans=www.bododesderio.com"
+      - "traefik.http.services.myportfolio.loadbalancer.server.port=3000"
+      # Canonicalise www → apex (compose needs $$ to emit a literal $ for Traefik)
+      - "traefik.http.middlewares.myportfolio-wwwredir.redirectregex.regex=^https://www\\.bododesderio\\.com/(.*)"
+      - "traefik.http.middlewares.myportfolio-wwwredir.redirectregex.replacement=https://bododesderio.com/$${1}"
+      - "traefik.http.middlewares.myportfolio-wwwredir.redirectregex.permanent=true"
+      - "traefik.http.routers.myportfolio.middlewares=myportfolio-wwwredir"
 
 networks:
   web:
