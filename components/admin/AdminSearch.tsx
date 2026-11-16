@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Search, Loader2 } from 'lucide-react'
 
 type Result = {
-  type: 'post' | 'media' | 'message' | 'subscriber' | 'client'
+  type: 'post' | 'project' | 'media' | 'message' | 'subscriber' | 'client'
   id: string
   title: string
   href: string
@@ -14,6 +14,7 @@ type Result = {
 
 const TYPE_LABEL: Record<Result['type'], string> = {
   post: 'Post',
+  project: 'Work',
   media: 'Media',
   message: 'Message',
   subscriber: 'Subscriber',
@@ -21,11 +22,12 @@ const TYPE_LABEL: Record<Result['type'], string> = {
 }
 
 const TYPE_BADGE_BG: Record<Result['type'], string> = {
-  post: 'bg-blue-500/10 text-blue-500 dark:text-blue-300',
-  media: 'bg-violet-500/10 text-violet-500 dark:text-violet-300',
-  message: 'bg-emerald-500/10 text-emerald-500 dark:text-emerald-300',
-  subscriber: 'bg-amber-500/10 text-amber-500 dark:text-amber-300',
-  client: 'bg-pink-500/10 text-pink-500 dark:text-pink-300',
+  post: 'bg-muted text-fg-muted',
+  project: 'bg-muted text-fg-muted',
+  media: 'bg-muted text-fg-muted',
+  message: 'bg-muted text-fg-muted',
+  subscriber: 'bg-muted text-fg-muted',
+  client: 'bg-muted text-fg-muted',
 }
 
 export function AdminSearch() {
@@ -33,6 +35,7 @@ export function AdminSearch() {
   const [results, setResults] = useState<Result[] | null>(null)
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
+  const [failed, setFailed] = useState(false)
   const inputRef = useRef<HTMLInputElement>(null)
   const boxRef = useRef<HTMLDivElement>(null)
 
@@ -55,7 +58,8 @@ export function AdminSearch() {
   // Close on outside click
   useEffect(() => {
     const onClick = (e: MouseEvent) => {
-      if (boxRef.current && !boxRef.current.contains(e.target as Node)) setOpen(false)
+      if (boxRef.current && !boxRef.current.contains(e.target as Node))
+        setOpen(false)
     }
     window.addEventListener('mousedown', onClick)
     return () => window.removeEventListener('mousedown', onClick)
@@ -63,24 +67,37 @@ export function AdminSearch() {
 
   // Debounced fetch
   useEffect(() => {
-    if (!q.trim()) {
+    if (q.trim().length < 2) {
       setResults(null)
+      setLoading(false)
+      setFailed(false)
       return
     }
+    const controller = new AbortController()
     setLoading(true)
+    setFailed(false)
     const handle = setTimeout(async () => {
       try {
-        const res = await fetch(`/api/admin/search?q=${encodeURIComponent(q)}`)
+        const res = await fetch(
+          `/api/admin/search?q=${encodeURIComponent(q.trim())}`,
+          { signal: controller.signal }
+        )
         if (!res.ok) throw new Error()
         const data = (await res.json()) as Result[]
-        setResults(data)
+        if (!controller.signal.aborted) setResults(data)
       } catch {
-        setResults([])
+        if (!controller.signal.aborted) {
+          setResults(null)
+          setFailed(true)
+        }
       } finally {
-        setLoading(false)
+        if (!controller.signal.aborted) setLoading(false)
       }
     }, 250)
-    return () => clearTimeout(handle)
+    return () => {
+      clearTimeout(handle)
+      controller.abort()
+    }
   }, [q])
 
   return (
@@ -90,10 +107,14 @@ export function AdminSearch() {
         <input
           ref={inputRef}
           type="search"
+          maxLength={120}
           value={q}
-          onChange={e => { setQ(e.target.value); setOpen(true) }}
+          onChange={(e) => {
+            setQ(e.target.value)
+            setOpen(true)
+          }}
           onFocus={() => q && setOpen(true)}
-          placeholder="Search posts, media, messages…"
+          placeholder="Search your workspace…"
           className="w-full pl-10 pr-14 py-2 bg-muted border border-hairline rounded-xl text-sm text-fg placeholder-fg-muted focus:outline-none focus:ring-2 focus:ring-brand focus:border-brand/40"
           aria-label="Admin search"
         />
@@ -109,24 +130,42 @@ export function AdminSearch() {
               <Loader2 className="h-4 w-4 animate-spin" />
             </div>
           )}
-          {!loading && results !== null && results.length === 0 && (
-            <p className="p-6 text-center text-sm text-fg-muted">No results for &ldquo;{q}&rdquo;.</p>
+          {!loading && failed && (
+            <p className="p-6 text-center text-sm text-fg-muted" role="status">
+              Search is unavailable. Please try again.
+            </p>
+          )}
+          {!loading && q.trim().length < 2 && (
+            <p className="p-6 text-sm text-fg-muted">
+              Type at least two characters to search.
+            </p>
+          )}
+          {!loading && !failed && results !== null && results.length === 0 && (
+            <p className="p-6 text-center text-sm text-fg-muted">
+              No results for &ldquo;{q}&rdquo;.
+            </p>
           )}
           {!loading && results && results.length > 0 && (
             <ul className="py-2">
-              {results.map(r => (
+              {results.map((r) => (
                 <li key={`${r.type}:${r.id}`}>
                   <Link
                     href={r.href}
                     onClick={() => setOpen(false)}
                     className="flex items-center gap-3 px-3 py-2 hover:bg-muted transition-colors"
                   >
-                    <span className={`shrink-0 text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${TYPE_BADGE_BG[r.type]}`}>
+                    <span
+                      className={`shrink-0 text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded ${TYPE_BADGE_BG[r.type]}`}
+                    >
                       {TYPE_LABEL[r.type]}
                     </span>
                     <div className="min-w-0 flex-1">
                       <p className="text-sm text-fg truncate">{r.title}</p>
-                      {r.subtitle && <p className="text-xs text-fg-muted truncate">{r.subtitle}</p>}
+                      {r.subtitle && (
+                        <p className="text-xs text-fg-muted truncate">
+                          {r.subtitle}
+                        </p>
+                      )}
                     </div>
                   </Link>
                 </li>

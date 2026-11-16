@@ -7,7 +7,11 @@ interface PaginationProps {
   basePath: string
 }
 
-export function Pagination({ currentPage, totalPages, basePath }: PaginationProps) {
+export function Pagination({
+  currentPage,
+  totalPages,
+  basePath,
+}: PaginationProps) {
   if (totalPages <= 1) return null
 
   // Build page numbers to show: always show first, last, and pages around current
@@ -25,11 +29,18 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
   }
 
   function href(page: number) {
-    return page === 1 ? basePath : `${basePath}?page=${page}`
+    const [path, query] = basePath.split('?')
+    const params = new URLSearchParams(query)
+    if (page > 1) params.set('page', String(page))
+    else params.delete('page')
+    return `${path}${params.size ? `?${params}` : ''}`
   }
 
   return (
-    <nav className="flex items-center justify-center gap-1.5 mt-8" aria-label="Pagination">
+    <nav
+      className="flex items-center justify-center gap-1.5 mt-8"
+      aria-label="Pagination"
+    >
       {/* Previous */}
       {currentPage > 1 ? (
         <Link
@@ -48,7 +59,10 @@ export function Pagination({ currentPage, totalPages, basePath }: PaginationProp
       {/* Page numbers */}
       {pages.map((p, i) =>
         p === 'ellipsis' ? (
-          <span key={`ellipsis-${i}`} className="inline-flex items-center justify-center w-9 h-9 text-fg-muted text-sm">
+          <span
+            key={`ellipsis-${i}`}
+            className="inline-flex items-center justify-center w-9 h-9 text-fg-muted text-sm"
+          >
             &hellip;
           </span>
         ) : (

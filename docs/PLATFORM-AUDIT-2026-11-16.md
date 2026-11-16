@@ -6,7 +6,7 @@
 
 The portfolio needs a shorter narrative and a consistent visual system. Its underlying Next.js/PostgreSQL CMS can support that change. Keep the stack, make selected work the centre of the experience, and repair the publishing and configuration paths that currently undermine the admin controls.
 
-**Delivered in this change:** the Google ProfilePage code fix, regression tests, this audit, machine-readable evidence, screenshots, and a working design prototype. **Proposed for subsequent implementation:** the production redesign and the additional backend/security changes below. Nothing was deployed or changed in the production database.
+**Delivered in this change:** the Google ProfilePage code fix, regression tests, this audit, machine-readable evidence, screenshots, and a working design prototype. **Proposed for subsequent implementation:** the production redesign and the additional backend/security changes below. That baseline audit did not deploy code or change production records. Deployment and implementation follow-up are recorded at the end of this document.
 
 ## Review the design
 
@@ -172,3 +172,11 @@ Release criteria:
 - Production-like dependency scan is triaged, local type/lint/test/build checks pass, and a backup/rollback plan is verified.
 
 The next concrete decision is the visual direction shown in the prototype. The production application remains on its existing UI until that proposed redesign is implemented.
+
+## Implemented follow-up
+
+The original design proposal above is superseded by [the personal archive implementation](personal-redesign/README.md). The follow-up fixes the ProfilePage JSON-LD, verifies concrete authenticated identities at admin boundaries, repairs uppercase gallery image optimization, makes the public content visible without JavaScript, and adds bounded public search and server-filtered archives. Production has been backed up before the app-only deployment.
+
+The second UI pass also redesigns the administration workspace, editors, inbox, and content lists. It removes analytics queries from the main overview, counts distinct visitor sessions in PostgreSQL, adds work to authenticated search, prevents stale search responses, corrects global list counts, retains filters during pagination, preserves in-progress fields during section collapse/filtering, and fixes the timeline editor's field-shape mismatch. All admin pages now inherit noindex metadata. See the release report and verification artifacts for actual checks.
+
+This is not a claim that every baseline backend finding is closed. Dependency refreshes, stricter session-expiry policy, durable campaign delivery and webhook deduplication, centralized upload ingestion, and scheduled off-host recovery/restore rehearsals remain separate follow-up work.

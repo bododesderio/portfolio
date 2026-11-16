@@ -16,6 +16,7 @@ import {
   RichText,
 } from '@/components/personal/ProfileContent'
 import { PhotoCollection } from '@/components/personal/PhotoCollection'
+import { safePublicHref } from '@/lib/domain/profile'
 export const dynamic = 'force-dynamic'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 export const metadata: Metadata = {
@@ -53,7 +54,11 @@ export default async function AboutPage() {
       : []),
   ]
   return (
-    <EntryLayout contents={contents}>
+    <EntryLayout
+      contents={contents}
+      relatedHref="/projects"
+      relatedLabel="Explore my work"
+    >
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: ldJson(profilePageSchema()) }}
@@ -119,7 +124,19 @@ export default async function AboutPage() {
             <div key={index}>
               <p className="personal-meta">{role.period}</p>
               <h3>{role.title}</h3>
-              <p>{role.org}</p>
+              <p>
+                {role.url && safePublicHref(role.url) ? (
+                  <a
+                    href={safePublicHref(role.url)!}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {role.org} ↗
+                  </a>
+                ) : (
+                  role.org
+                )}
+              </p>
             </div>
           ))}
         </div>

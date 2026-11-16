@@ -3,13 +3,20 @@
 import { useState, useCallback } from 'react'
 import Image from 'next/image'
 import dynamic from 'next/dynamic'
-const RichTextEditor = dynamic(() => import('@/components/admin/RichTextEditor').then(m => m.RichTextEditor), { ssr: false, loading: () => <div className="border border-hairline rounded-lg bg-muted animate-pulse h-48" /> })
+const RichTextEditor = dynamic(
+  () =>
+    import('@/components/admin/RichTextEditor').then((m) => m.RichTextEditor),
+  {
+    ssr: false,
+    loading: () => (
+      <div className="border border-hairline rounded-lg bg-muted animate-pulse h-48" />
+    ),
+  }
+)
 import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import slugify from 'slugify'
-import {
-  Save, Eye, Star, X as XIcon,
-} from 'lucide-react'
+import { Save, Eye, Star, X as XIcon } from 'lucide-react'
 import { MediaPickerField, type PickedMedia } from './MediaPickerField'
 
 interface ProjectImage {
@@ -43,9 +50,23 @@ interface Project {
 }
 
 const STATUS_OPTIONS = [
-  { value: 'planned', label: 'Planned', color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400' },
-  { value: 'in_progress', label: 'In Progress', color: 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400' },
-  { value: 'completed', label: 'Completed', color: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' },
+  {
+    value: 'planned',
+    label: 'Planned',
+    color: 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400',
+  },
+  {
+    value: 'in_progress',
+    label: 'In Progress',
+    color:
+      'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
+  },
+  {
+    value: 'completed',
+    label: 'Completed',
+    color:
+      'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
+  },
 ]
 
 function formatDateForInput(date: Date | string | null | undefined): string {
@@ -64,14 +85,22 @@ export function ProjectEditor({ project }: { project: Project | null }) {
   const [slug, setSlug] = useState(project?.slug ?? '')
   const [excerpt, setExcerpt] = useState(project?.excerpt ?? '')
   const [body, setBody] = useState(project?.body ?? '')
-  const [featuredImageUrl, setFeaturedImageUrl] = useState(project?.featuredImageUrl ?? '')
-  const [featuredImageAlt, setFeaturedImageAlt] = useState(project?.featuredImageAlt ?? '')
+  const [featuredImageUrl, setFeaturedImageUrl] = useState(
+    project?.featuredImageUrl ?? ''
+  )
+  const [featuredImageAlt, setFeaturedImageAlt] = useState(
+    project?.featuredImageAlt ?? ''
+  )
   const [status, setStatus] = useState(project?.status ?? 'planned')
   const [category, setCategory] = useState(project?.category ?? '')
-  const [techStackInput, setTechStackInput] = useState(project?.techStack.join(', ') ?? '')
+  const [techStackInput, setTechStackInput] = useState(
+    project?.techStack.join(', ') ?? ''
+  )
   const [liveUrl, setLiveUrl] = useState(project?.liveUrl ?? '')
   const [githubUrl, setGithubUrl] = useState(project?.githubUrl ?? '')
-  const [startDate, setStartDate] = useState(formatDateForInput(project?.startDate))
+  const [startDate, setStartDate] = useState(
+    formatDateForInput(project?.startDate)
+  )
   const [endDate, setEndDate] = useState(formatDateForInput(project?.endDate))
   const [ongoing, setOngoing] = useState(project?.ongoing ?? false)
   const [visible, setVisible] = useState(project?.visible ?? true)
@@ -80,10 +109,13 @@ export function ProjectEditor({ project }: { project: Project | null }) {
   const [images, setImages] = useState<ProjectImage[]>(project?.images ?? [])
   const [saving, setSaving] = useState(false)
 
-  const handleTitleChange = useCallback((val: string) => {
-    setTitle(val)
-    if (!project) setSlug(slugify(val, { lower: true, strict: true }))
-  }, [project])
+  const handleTitleChange = useCallback(
+    (val: string) => {
+      setTitle(val)
+      if (!project) setSlug(slugify(val, { lower: true, strict: true }))
+    },
+    [project]
+  )
 
   function handleFeaturedPick(p: PickedMedia) {
     setFeaturedImageUrl(p.url)
@@ -91,38 +123,70 @@ export function ProjectEditor({ project }: { project: Project | null }) {
   }
 
   function addGalleryImage(p: PickedMedia) {
-    setImages(prev => [...prev, { url: p.url, alt: p.alt ?? null, caption: null, order: prev.length }])
+    setImages((prev) => [
+      ...prev,
+      { url: p.url, alt: p.alt ?? null, caption: null, order: prev.length },
+    ])
   }
 
   function removeGalleryImage(index: number) {
-    setImages(prev => prev.filter((_, i) => i !== index).map((img, i) => ({ ...img, order: i })))
+    setImages((prev) =>
+      prev.filter((_, i) => i !== index).map((img, i) => ({ ...img, order: i }))
+    )
   }
 
   function getTechStack(): string[] {
-    return techStackInput.split(',').map(s => s.trim()).filter(Boolean)
+    return techStackInput
+      .split(',')
+      .map((s) => s.trim())
+      .filter(Boolean)
   }
 
   async function handleSave() {
-    if (!title.trim()) { toast.error('Title is required.'); return }
-    if (!slug.trim()) { toast.error('Slug is required.'); return }
-    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) { toast.error('Slug must be URL-safe (lowercase letters, numbers, hyphens).'); return }
-    if (startDate && endDate && !ongoing && new Date(startDate) > new Date(endDate)) {
-      toast.error('Start date must be before end date.'); return
+    if (!title.trim()) {
+      toast.error('Title is required.')
+      return
+    }
+    if (!slug.trim()) {
+      toast.error('Slug is required.')
+      return
+    }
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+      toast.error(
+        'Slug must be URL-safe (lowercase letters, numbers, hyphens).'
+      )
+      return
+    }
+    if (
+      startDate &&
+      endDate &&
+      !ongoing &&
+      new Date(startDate) > new Date(endDate)
+    ) {
+      toast.error('Start date must be before end date.')
+      return
     }
 
     setSaving(true)
     try {
       const payload = {
-        title, slug, excerpt, body,
+        title,
+        slug,
+        excerpt,
+        body,
         featuredImageUrl: featuredImageUrl || null,
         featuredImageAlt: featuredImageAlt || null,
-        status, category: category || null,
+        status,
+        category: category || null,
         techStack: getTechStack(),
         liveUrl: liveUrl || null,
         githubUrl: githubUrl || null,
         startDate: startDate || null,
-        endDate: ongoing ? null : (endDate || null),
-        ongoing, visible, featured, order,
+        endDate: ongoing ? null : endDate || null,
+        ongoing,
+        visible,
+        featured,
+        order,
         images: images.map((img, i) => ({
           url: img.url,
           alt: img.alt,
@@ -137,7 +201,7 @@ export function ProjectEditor({ project }: { project: Project | null }) {
           method: project ? 'PATCH' : 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(payload),
-        },
+        }
       )
 
       if (!res.ok) {
@@ -155,51 +219,73 @@ export function ProjectEditor({ project }: { project: Project | null }) {
     }
   }
 
-  const statusOption = STATUS_OPTIONS.find(s => s.value === status) ?? STATUS_OPTIONS[0]
+  const statusOption =
+    STATUS_OPTIONS.find((s) => s.value === status) ?? STATUS_OPTIONS[0]
 
   return (
-    <div className="space-y-6">
-      {/* Featured image */}
-      <div className="rounded-2xl border border-hairline bg-card p-6 space-y-4">
-        <div>
-          <h2 className="font-serif text-lg text-fg">Featured image</h2>
-          <p className="text-sm text-fg-muted mt-1">Main image shown on the project card and hero.</p>
-        </div>
-
-        {featuredImageUrl ? (
-          <div className="grid md:grid-cols-[1fr_2fr] gap-4">
-            <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-hairline bg-muted">
-              <Image src={featuredImageUrl} alt={featuredImageAlt || 'Featured image'} fill className="object-cover" sizes="(max-width:768px) 100vw, 400px" unoptimized />
-            </div>
-            <div className="space-y-3">
-              <MediaPickerField value={featuredImageUrl} onChange={setFeaturedImageUrl} onPick={handleFeaturedPick} mode="image" placeholder="/images/… or https://…" />
-              <div>
-                <label htmlFor="fea-alt" className="block text-xs text-fg-muted mb-1">Alt text</label>
-                <input id="fea-alt" value={featuredImageAlt} onChange={e => setFeaturedImageAlt(e.target.value)} placeholder="Describe the image" className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" />
-              </div>
-            </div>
-          </div>
-        ) : (
-          <MediaPickerField value={featuredImageUrl} onChange={setFeaturedImageUrl} onPick={handleFeaturedPick} mode="image" placeholder="Pick an image, upload, or paste URL" />
-        )}
+    <div className="admin-editor space-y-6">
+      <div className="admin-editor-savebar">
+        <span>
+          {visible ? 'Visible on your portfolio' : 'Hidden from your portfolio'}{' '}
+          · {statusOption.label}
+        </span>
+        {/* Save */}
+        <button
+          type="button"
+          onClick={handleSave}
+          disabled={saving}
+          className="w-full py-3 bg-brand hover:bg-brand-600 disabled:opacity-60 text-white font-medium rounded-full transition-colors inline-flex items-center justify-center gap-2"
+        >
+          <Save className="h-4 w-4" />
+          {saving ? 'Saving...' : project ? 'Update project' : 'Create project'}
+        </button>
       </div>
-
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Main content */}
         <div className="lg:col-span-2 space-y-6">
           <div>
-            <label className="block text-sm font-medium text-fg-muted mb-2">Title</label>
-            <input value={title} onChange={e => handleTitleChange(e.target.value)} className="w-full px-4 py-3 bg-card border border-hairline rounded-xl text-fg focus:outline-none focus:ring-2 focus:ring-brand text-lg" placeholder="Project title" />
+            <label
+              htmlFor="work-title"
+              className="block text-sm font-medium text-fg-muted mb-2"
+            >
+              Title
+            </label>
+            <input
+              id="work-title"
+              value={title}
+              onChange={(e) => handleTitleChange(e.target.value)}
+              className="w-full px-4 py-3 bg-card border border-hairline rounded-xl text-fg focus:outline-none focus:ring-2 focus:ring-brand text-lg"
+              placeholder="Project title"
+            />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-fg-muted mb-2">Excerpt</label>
-            <textarea value={excerpt} onChange={e => setExcerpt(e.target.value)} rows={3} className="w-full px-4 py-3 bg-card border border-hairline rounded-xl text-fg focus:outline-none focus:ring-2 focus:ring-brand resize-none" placeholder="Short description of the project..." />
+            <label
+              htmlFor="work-excerpt"
+              className="block text-sm font-medium text-fg-muted mb-2"
+            >
+              Excerpt
+            </label>
+            <textarea
+              id="work-excerpt"
+              value={excerpt}
+              onChange={(e) => setExcerpt(e.target.value)}
+              rows={3}
+              className="w-full px-4 py-3 bg-card border border-hairline rounded-xl text-fg focus:outline-none focus:ring-2 focus:ring-brand resize-none"
+              placeholder="Short description of the project..."
+            />
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-fg-muted mb-2">Description</label>
-            <RichTextEditor value={body} onChange={setBody} minHeight={300} placeholder="Full project description..." />
+            <label className="block text-sm font-medium text-fg-muted mb-2">
+              Description
+            </label>
+            <RichTextEditor
+              value={body}
+              onChange={setBody}
+              minHeight={300}
+              placeholder="Full project description..."
+            />
           </div>
 
           {/* Gallery images */}
@@ -207,15 +293,27 @@ export function ProjectEditor({ project }: { project: Project | null }) {
             <div className="flex items-center justify-between">
               <div>
                 <h2 className="font-serif text-lg text-fg">Project Gallery</h2>
-                <p className="text-sm text-fg-muted mt-1">Additional images showcasing the project.</p>
+                <p className="text-sm text-fg-muted mt-1">
+                  Additional images showcasing the project.
+                </p>
               </div>
             </div>
 
             {images.length > 0 && (
               <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                 {images.map((img, i) => (
-                  <div key={i} className="relative group rounded-xl overflow-hidden border border-hairline bg-muted aspect-[16/10]">
-                    <Image src={img.url} alt={img.alt || ''} fill className="object-cover" sizes="200px" unoptimized />
+                  <div
+                    key={i}
+                    className="relative group rounded-xl overflow-hidden border border-hairline bg-muted aspect-[16/10]"
+                  >
+                    <Image
+                      src={img.url}
+                      alt={img.alt || ''}
+                      fill
+                      className="object-cover"
+                      sizes="200px"
+                      unoptimized
+                    />
                     <button
                       type="button"
                       onClick={() => removeGalleryImage(i)}
@@ -246,67 +344,172 @@ export function ProjectEditor({ project }: { project: Project | null }) {
           <div className="bg-card rounded-2xl border border-hairline p-6 space-y-5">
             {/* Status */}
             <div>
-              <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${statusOption.color}`}>
-                <span className={`h-1.5 w-1.5 rounded-full ${status === 'completed' ? 'bg-emerald-500' : status === 'in_progress' ? 'bg-amber-500' : 'bg-blue-500'}`} />
+              <span
+                className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${statusOption.color}`}
+              >
+                <span
+                  className={`h-1.5 w-1.5 rounded-full ${status === 'completed' ? 'bg-emerald-500' : status === 'in_progress' ? 'bg-amber-500' : 'bg-blue-500'}`}
+                />
                 {statusOption.label}
               </span>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-fg-muted mb-2">Status</label>
-              <select value={status} onChange={e => setStatus(e.target.value)} className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm">
-                {STATUS_OPTIONS.map(opt => (
-                  <option key={opt.value} value={opt.value}>{opt.label}</option>
+              <label
+                htmlFor="work-status"
+                className="block text-sm font-medium text-fg-muted mb-2"
+              >
+                Status
+              </label>
+              <select
+                id="work-status"
+                value={status}
+                onChange={(e) => setStatus(e.target.value)}
+                className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+              >
+                {STATUS_OPTIONS.map((opt) => (
+                  <option key={opt.value} value={opt.value}>
+                    {opt.label}
+                  </option>
                 ))}
               </select>
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-fg-muted mb-2">Slug</label>
-              <input value={slug} onChange={e => setSlug(e.target.value)} placeholder="auto-generated-from-title" className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" />
+              <label
+                htmlFor="work-slug"
+                className="block text-sm font-medium text-fg-muted mb-2"
+              >
+                Slug
+              </label>
+              <input
+                id="work-slug"
+                value={slug}
+                onChange={(e) => setSlug(e.target.value)}
+                placeholder="auto-generated-from-title"
+                className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+              />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-fg-muted mb-2">Category</label>
-              <input value={category} onChange={e => setCategory(e.target.value)} className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" placeholder="e.g. Web App, Mobile, API" />
+              <label
+                htmlFor="work-category"
+                className="block text-sm font-medium text-fg-muted mb-2"
+              >
+                Category
+              </label>
+              <input
+                id="work-category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+                className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+                placeholder="e.g. Web App, Mobile, API"
+              />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-fg-muted mb-2">Tech Stack</label>
-              <input value={techStackInput} onChange={e => setTechStackInput(e.target.value)} className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" placeholder="Next.js, TypeScript, Prisma" />
+              <label
+                htmlFor="work-techStackInput"
+                className="block text-sm font-medium text-fg-muted mb-2"
+              >
+                Tech Stack
+              </label>
+              <input
+                id="work-techStackInput"
+                value={techStackInput}
+                onChange={(e) => setTechStackInput(e.target.value)}
+                className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+                placeholder="Next.js, TypeScript, Prisma"
+              />
               <p className="text-xs text-fg-muted mt-1">Comma-separated tags</p>
             </div>
 
             {/* Duration */}
             <div className="space-y-3">
-              <label className="block text-sm font-medium text-fg-muted">Duration</label>
+              <label className="block text-sm font-medium text-fg-muted">
+                Duration
+              </label>
               <div>
-                <label className="block text-xs text-fg-muted mb-1">Start date</label>
-                <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" />
+                <label
+                  htmlFor="work-startDate"
+                  className="block text-xs text-fg-muted mb-1"
+                >
+                  Start date
+                </label>
+                <input
+                  id="work-startDate"
+                  type="date"
+                  value={startDate}
+                  onChange={(e) => setStartDate(e.target.value)}
+                  className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+                />
               </div>
               <label className="flex items-center gap-2 cursor-pointer">
-                <input type="checkbox" checked={ongoing} onChange={e => setOngoing(e.target.checked)} className="h-4 w-4 accent-brand rounded" />
+                <input
+                  type="checkbox"
+                  checked={ongoing}
+                  onChange={(e) => setOngoing(e.target.checked)}
+                  className="h-4 w-4 accent-brand rounded"
+                />
                 <span className="text-sm text-fg">Ongoing project</span>
               </label>
               {!ongoing && (
                 <div>
-                  <label className="block text-xs text-fg-muted mb-1">End date</label>
-                  <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" />
+                  <label
+                    htmlFor="work-endDate"
+                    className="block text-xs text-fg-muted mb-1"
+                  >
+                    End date
+                  </label>
+                  <input
+                    id="work-endDate"
+                    type="date"
+                    value={endDate}
+                    onChange={(e) => setEndDate(e.target.value)}
+                    className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+                  />
                 </div>
               )}
             </div>
 
             {/* Links */}
             <div className="space-y-3">
-              <label className="block text-sm font-medium text-fg-muted">Links</label>
-              <input value={liveUrl} onChange={e => setLiveUrl(e.target.value)} className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" placeholder="Live URL" />
-              <input value={githubUrl} onChange={e => setGithubUrl(e.target.value)} className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" placeholder="GitHub URL" />
+              <label className="block text-sm font-medium text-fg-muted">
+                Links
+              </label>
+              <input
+                aria-label="Live website URL"
+                id="work-liveUrl"
+                value={liveUrl}
+                onChange={(e) => setLiveUrl(e.target.value)}
+                className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+                placeholder="Live URL"
+              />
+              <input
+                aria-label="GitHub URL"
+                id="work-githubUrl"
+                value={githubUrl}
+                onChange={(e) => setGithubUrl(e.target.value)}
+                className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+                placeholder="GitHub URL"
+              />
             </div>
 
             {/* Order */}
             <div>
-              <label className="block text-sm font-medium text-fg-muted mb-2">Display order</label>
-              <input type="number" value={order} onChange={e => setOrder(Number(e.target.value))} className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm" />
+              <label
+                htmlFor="work-order"
+                className="block text-sm font-medium text-fg-muted mb-2"
+              >
+                Display order
+              </label>
+              <input
+                id="work-order"
+                type="number"
+                value={order}
+                onChange={(e) => setOrder(Number(e.target.value))}
+                className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+              />
             </div>
 
             {/* Toggles */}
@@ -315,27 +518,85 @@ export function ProjectEditor({ project }: { project: Project | null }) {
                 <span className="text-sm text-fg flex items-center gap-2">
                   <Eye className="h-4 w-4 text-fg-muted" /> Visible
                 </span>
-                <input type="checkbox" checked={visible} onChange={e => setVisible(e.target.checked)} className="h-4 w-4 accent-brand rounded" />
+                <input
+                  type="checkbox"
+                  checked={visible}
+                  onChange={(e) => setVisible(e.target.checked)}
+                  className="h-4 w-4 accent-brand rounded"
+                />
               </label>
               <label className="flex items-center justify-between cursor-pointer">
                 <span className="text-sm text-fg flex items-center gap-2">
                   <Star className="h-4 w-4 text-fg-muted" /> Featured
                 </span>
-                <input type="checkbox" checked={featured} onChange={e => setFeatured(e.target.checked)} className="h-4 w-4 accent-brand rounded" />
+                <input
+                  type="checkbox"
+                  checked={featured}
+                  onChange={(e) => setFeatured(e.target.checked)}
+                  className="h-4 w-4 accent-brand rounded"
+                />
               </label>
             </div>
-
-            {/* Save */}
-            <button
-              type="button"
-              onClick={handleSave}
-              disabled={saving}
-              className="w-full py-3 bg-brand hover:bg-brand-600 disabled:opacity-60 text-white font-medium rounded-full transition-colors inline-flex items-center justify-center gap-2"
-            >
-              <Save className="h-4 w-4" />
-              {saving ? 'Saving...' : project ? 'Update project' : 'Create project'}
-            </button>
           </div>
+          <details className="admin-cover-details" open={!project}>
+            <summary>Cover image & alt text</summary>
+            {/* Featured image */}
+            <div className="rounded-2xl border border-hairline bg-card p-6 space-y-4">
+              <div>
+                <h2 className="font-serif text-lg text-fg">Featured image</h2>
+                <p className="text-sm text-fg-muted mt-1">
+                  Main image shown on the project card and hero.
+                </p>
+              </div>
+
+              {featuredImageUrl ? (
+                <div className="grid md:grid-cols-[1fr_2fr] gap-4">
+                  <div className="relative aspect-[16/10] rounded-xl overflow-hidden border border-hairline bg-muted">
+                    <Image
+                      src={featuredImageUrl}
+                      alt={featuredImageAlt || 'Featured image'}
+                      fill
+                      className="object-cover"
+                      sizes="(max-width:768px) 100vw, 400px"
+                      unoptimized
+                    />
+                  </div>
+                  <div className="space-y-3">
+                    <MediaPickerField
+                      value={featuredImageUrl}
+                      onChange={setFeaturedImageUrl}
+                      onPick={handleFeaturedPick}
+                      mode="image"
+                      placeholder="/images/… or https://…"
+                    />
+                    <div>
+                      <label
+                        htmlFor="fea-alt"
+                        className="block text-xs text-fg-muted mb-1"
+                      >
+                        Alt text
+                      </label>
+                      <input
+                        id="fea-alt"
+                        value={featuredImageAlt}
+                        onChange={(e) => setFeaturedImageAlt(e.target.value)}
+                        placeholder="Describe the image"
+                        className="w-full px-3 py-2.5 bg-muted border border-hairline rounded-lg text-fg focus:outline-none focus:ring-2 focus:ring-brand text-sm"
+                      />
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <MediaPickerField
+                  value={featuredImageUrl}
+                  onChange={setFeaturedImageUrl}
+                  onPick={handleFeaturedPick}
+                  mode="image"
+                  placeholder="Pick an image, upload, or paste URL"
+                />
+              )}
+            </div>
+          </details>
         </div>
       </div>
     </div>

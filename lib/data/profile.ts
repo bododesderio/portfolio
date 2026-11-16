@@ -39,7 +39,10 @@ export async function getPersonalProfile() {
     introduction: [1, 2, 3]
       .map((index) => getField(home, `about.paragraph_${index}`))
       .filter(Boolean),
-    roles: readRoles(getField(home, 'bio.roles')),
+    roles: readRoles(getField(home, 'bio.roles')).map((role) => ({
+      ...role,
+      url: role.url ? safePublicHref(role.url) || undefined : undefined,
+    })),
     timeline: readTimeline(getField(about, 'story.items')),
     values: readValues(getField(about, 'values.items')),
     resumeUrl: safePublicHref(settings['site.resume_url'] || '') || undefined,

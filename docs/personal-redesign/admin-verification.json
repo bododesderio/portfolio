@@ -1,0 +1,387 @@
+{
+  "environment": "isolated local preview",
+  "pages": [
+    {
+      "title": "Workspace | Bodo Desderio",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Writing \u00b7 Studio | Bodo Desderio",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/blog",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Work \u00b7 Studio | Bodo Desderio",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/projects",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Pages | Admin | Bodo Desderio",
+      "h1": [
+        "Pages"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/content",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Edit home | Admin | Bodo Desderio",
+      "h1": [
+        "home | Content"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/content/home",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Edit about | Admin | Bodo Desderio",
+      "h1": [
+        "about | Content"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/content/about",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Media | Admin | Bodo Desderio",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/media",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Media | Admin | Bodo Desderio",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/gallery",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Messages \u00b7 Studio | Bodo Desderio",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/messages",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Newsletter | Admin | Bodo Desderio",
+      "h1": [
+        "Newsletter"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/newsletter",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Site activity | Bodo Desderio",
+      "h1": [
+        "Site activity"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/analytics",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Site & SEO | Admin | Bodo Desderio",
+      "h1": [
+        "Site & SEO"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/settings/site",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Navigation | Admin | Bodo Desderio",
+      "h1": [
+        "Navigation"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/settings/navigation",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Appearance | Admin | Bodo Desderio",
+      "h1": [
+        "Appearance"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/settings/appearance",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "SEO & Meta | Admin | Bodo Desderio",
+      "h1": [
+        "SEO & Meta"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/settings/seo",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Profile | Admin | Bodo Desderio",
+      "h1": [
+        "Profile"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/account/profile",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Security | Admin | Bodo Desderio",
+      "h1": [
+        "Security"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/account/security",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Workspace | Bodo Desderio",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "dark": true,
+      "route": "/admin",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Writing \u00b7 Studio | Bodo Desderio",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/blog",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Work \u00b7 Studio | Bodo Desderio",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/projects",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Edit about | Admin | Bodo Desderio",
+      "h1": [
+        "about | Content"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/content/about",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Media | Admin | Bodo Desderio",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/media",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Media | Admin | Bodo Desderio",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/gallery",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Messages \u00b7 Studio | Bodo Desderio",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "dark": true,
+      "route": "/admin/messages",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Newsletter | Admin | Bodo Desderio",
+      "h1": [
+        "Newsletter"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/newsletter",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Site activity | Bodo Desderio",
+      "h1": [
+        "Site activity"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/analytics",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Navigation | Admin | Bodo Desderio",
+      "h1": [
+        "Navigation"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/settings/navigation",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Edit Project | Admin | Bodo Desderio",
+      "h1": [
+        "New Project"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "route": "/admin/projects/new",
+      "width": 1440,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Edit Project | Admin | Bodo Desderio",
+      "h1": [
+        "New Project"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "dark": true,
+      "route": "/admin/projects/new",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    },
+    {
+      "title": "Writing \u00b7 Editor | Bodo Desderio",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "noindex": "noindex, nofollow",
+      "dark": true,
+      "route": "/admin/blog/new",
+      "width": 390,
+      "status": 200,
+      "pageErrors": []
+    }
+  ],
+  "interactions": [
+    "Writing status filters show correct empty state",
+    "Work search filters server results",
+    "Authenticated workspace search finds work",
+    "Rich-text editor update persists and retains published status; local record restored",
+    "Timeline JSON editor preserves its actual fields",
+    "Mobile navigation traps focus, closes with Escape, and restores focus",
+    "Active contents tracks reading position; requested company/profile links are present",
+    "Mobile contents closes after a section is selected",
+    "Inbox selection fits at 1440px",
+    "Inbox selection fits at 390px",
+    "Work save control is visible at 1440px",
+    "Work save control is visible at 390px",
+    "Timeline fields retain unsaved values across collapse and filtering, with no mobile overflow",
+    "Mobile writing and work editors fit after CKEditor grid sizing correction"
+  ],
+  "failures": [],
+  "failedCount": 0
+}

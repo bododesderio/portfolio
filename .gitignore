@@ -55,3 +55,8 @@ public/stock/*.webp
 
 # Precompiled DB seed (generated in Docker build, never committed)
 prisma/seed.cjs
+
+# Browser audit runtime artifacts (reports and selected screenshots are tracked)
+docs/personal-redesign/live-e2e/*
+!docs/personal-redesign/live-e2e/README.md
+!docs/personal-redesign/live-e2e/report.json

@@ -1,0 +1,11 @@
+{
+  "site": "https://bododesderio.com",
+  "transport": "@playwright/mcp 0.0.85, stdio JSON-RPC, headed Chrome",
+  "firstDeployedRevision": "c56e5e90479a592baa891ad675f4ea4d25fc7bf4",
+  "publicScenariosPassed": ["Home and About navigation", "History, interests, and ProfilePage Person schema", "Work filters and detail", "Writing topics, search, and detail", "Global search results and empty state", "Reading preferences, persistence, and reset", "Search Escape and focus restoration", "Gallery categories, arrow keys, Escape, and focus", "Contact validation and simulated success", "Mobile navigation and search"],
+  "contactSubmission": "Intercepted inside browser; no production message or email sent",
+  "adminEnvironment": "Isolated local database; demo content only",
+  "adminLayoutChecks": 30,
+  "latestProductionRefinement": "Pending deployment and final live walkthrough",
+  "localTrace": "playwright-trace.zip"
+}

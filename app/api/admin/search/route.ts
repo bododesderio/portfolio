@@ -4,7 +4,7 @@ import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
 
 type Result = {
-  type: 'post' | 'media' | 'message' | 'subscriber' | 'client'
+  type: 'post' | 'project' | 'media' | 'message' | 'subscriber' | 'client'
   id: string
   title: string
   href: string
@@ -13,46 +13,80 @@ type Result = {
 
 export async function GET(req: NextRequest) {
   const session = await auth()
-  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session))
+    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
-  const q = (req.nextUrl.searchParams.get('q') ?? '').trim()
+  const q = (req.nextUrl.searchParams.get('q') ?? '').trim().slice(0, 120)
   if (!q) return NextResponse.json([])
   if (q.length < 2) return NextResponse.json([])
 
   const results: Result[] = []
 
   try {
-    const [posts, media, messages, subscribers, clients] = await Promise.all([
-      prisma.blogPost.findMany({
-        where: { OR: [{ title: { contains: q, mode: 'insensitive' } }, { excerpt: { contains: q, mode: 'insensitive' } }] },
-        select: { id: true, title: true, slug: true, status: true },
-        take: 5,
-        orderBy: { updatedAt: 'desc' },
-      }),
-      prisma.media.findMany({
-        where: { OR: [{ filename: { contains: q, mode: 'insensitive' } }, { altText: { contains: q, mode: 'insensitive' } }] },
-        select: { id: true, filename: true, altText: true, url: true },
-        take: 5,
-        orderBy: { uploadedAt: 'desc' },
-      }),
-      prisma.message.findMany({
-        where: { OR: [{ name: { contains: q, mode: 'insensitive' } }, { subject: { contains: q, mode: 'insensitive' } }, { email: { contains: q, mode: 'insensitive' } }] },
-        select: { id: true, name: true, subject: true, email: true },
-        take: 5,
-        orderBy: { receivedAt: 'desc' },
-      }),
-      prisma.subscriber.findMany({
-        where: { OR: [{ email: { contains: q, mode: 'insensitive' } }, { name: { contains: q, mode: 'insensitive' } }] },
-        select: { id: true, email: true, name: true },
-        take: 5,
-        orderBy: { subscribedAt: 'desc' },
-      }),
-      prisma.client.findMany({
-        where: { name: { contains: q, mode: 'insensitive' } },
-        select: { id: true, name: true, website: true },
-        take: 5,
-      }),
-    ])
+    const [posts, projects, media, messages, subscribers, clients] =
+      await Promise.all([
+        prisma.blogPost.findMany({
+          where: {
+            OR: [
+              { title: { contains: q, mode: 'insensitive' } },
+              { excerpt: { contains: q, mode: 'insensitive' } },
+            ],
+          },
+          select: { id: true, title: true, slug: true, status: true },
+          take: 5,
+          orderBy: { updatedAt: 'desc' },
+        }),
+        prisma.project.findMany({
+          where: {
+            OR: [
+              { title: { contains: q, mode: 'insensitive' } },
+              { excerpt: { contains: q, mode: 'insensitive' } },
+            ],
+          },
+          select: { id: true, title: true, visible: true },
+          take: 5,
+          orderBy: { updatedAt: 'desc' },
+        }),
+        prisma.media.findMany({
+          where: {
+            OR: [
+              { filename: { contains: q, mode: 'insensitive' } },
+              { altText: { contains: q, mode: 'insensitive' } },
+            ],
+          },
+          select: { id: true, filename: true, altText: true, url: true },
+          take: 5,
+          orderBy: { uploadedAt: 'desc' },
+        }),
+        prisma.message.findMany({
+          where: {
+            OR: [
+              { name: { contains: q, mode: 'insensitive' } },
+              { subject: { contains: q, mode: 'insensitive' } },
+              { email: { contains: q, mode: 'insensitive' } },
+            ],
+          },
+          select: { id: true, name: true, subject: true, email: true },
+          take: 5,
+          orderBy: { receivedAt: 'desc' },
+        }),
+        prisma.subscriber.findMany({
+          where: {
+            OR: [
+              { email: { contains: q, mode: 'insensitive' } },
+              { name: { contains: q, mode: 'insensitive' } },
+            ],
+          },
+          select: { id: true, email: true, name: true },
+          take: 5,
+          orderBy: { subscribedAt: 'desc' },
+        }),
+        prisma.client.findMany({
+          where: { name: { contains: q, mode: 'insensitive' } },
+          select: { id: true, name: true, website: true },
+          take: 5,
+        }),
+      ])
 
     for (const p of posts) {
       results.push({
@@ -61,6 +95,15 @@ export async function GET(req: NextRequest) {
         title: p.title,
         href: `/admin/blog/${p.id}`,
         subtitle: p.status,
+      })
+    }
+    for (const project of projects) {
+      results.push({
+        type: 'project',
+        id: project.id,
+        title: project.title,
+        href: `/admin/projects/${project.id}`,
+        subtitle: project.visible ? 'Public work' : 'Hidden work',
       })
     }
     for (const m of media) {
@@ -100,7 +143,10 @@ export async function GET(req: NextRequest) {
       })
     }
   } catch {
-    return NextResponse.json([], { status: 200 })
+    return NextResponse.json(
+      { error: 'Search is temporarily unavailable.' },
+      { status: 503 }
+    )
   }
 
   return NextResponse.json(results)

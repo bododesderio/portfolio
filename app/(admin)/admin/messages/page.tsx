@@ -1,118 +1,88 @@
 import { prisma } from '@/lib/data/db'
-import { format } from 'date-fns'
-import { MessageActions } from '@/components/admin/MessageActions'
-import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-import { Pagination } from '@/components/admin/Pagination'
-import { Mail, MailOpen } from 'lucide-react'
+import type { Prisma } from '@prisma/client'
 import type { Metadata } from 'next'
-
-export const metadata: Metadata = { title: 'Messages | Admin' }
+import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
+import { CollectionToolbar } from '@/components/admin/CollectionToolbar'
+import { Pagination } from '@/components/admin/Pagination'
+import { Inbox } from '@/components/admin/Inbox'
+export const metadata: Metadata = { title: 'Messages · Studio' }
 export const dynamic = 'force-dynamic'
-
-interface Props {
-  searchParams: Promise<{ page?: string }>
-}
-
-export default async function MessagesPage({ searchParams }: Props) {
+export default async function MessagesPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; status?: string; page?: string }>
+}) {
   const params = await searchParams
-  const page = Math.max(1, parseInt(params.page || '1', 10))
-  const pageSize = 20
-  const skip = (page - 1) * pageSize
-
-  const [messages, total, archivedCount] = await Promise.all([
-    prisma.message.findMany({
-      where: { archived: false },
-      orderBy: { receivedAt: 'desc' },
-      skip,
-      take: pageSize,
-    }),
+  const query =
+    typeof params.q === 'string' ? params.q.trim().slice(0, 120) : ''
+  const status = ['unread', 'archived'].includes(params.status || '')
+    ? params.status!
+    : 'all'
+  const where: Prisma.MessageWhereInput = {
+    archived: status === 'archived',
+    ...(status === 'unread' ? { read: false } : {}),
+    ...(query
+      ? {
+          OR: [
+            { name: { contains: query, mode: 'insensitive' } },
+            { subject: { contains: query, mode: 'insensitive' } },
+            { email: { contains: query, mode: 'insensitive' } },
+          ],
+        }
+      : {}),
+  }
+  const [total, all, unread, archived] = await Promise.all([
+    prisma.message.count({ where }),
     prisma.message.count({ where: { archived: false } }),
+    prisma.message.count({ where: { archived: false, read: false } }),
     prisma.message.count({ where: { archived: true } }),
   ])
-
-  const totalPages = Math.ceil(total / pageSize)
-  const unread = messages.filter(m => !m.read).length
-
+  const totalPages = Math.max(1, Math.ceil(total / 20))
+  const page = Math.min(
+    totalPages,
+    Math.max(1, Number.parseInt(params.page || '1', 10) || 1)
+  )
+  const messages = await prisma.message.findMany({
+    where,
+    orderBy: { receivedAt: 'desc' },
+    skip: (page - 1) * 20,
+    take: 20,
+    select: {
+      id: true,
+      name: true,
+      email: true,
+      subject: true,
+      body: true,
+      read: true,
+      receivedAt: true,
+    },
+  })
+  const base = new URLSearchParams()
+  if (query) base.set('q', query)
+  if (status !== 'all') base.set('status', status)
   return (
     <div>
       <AdminPageHeader
         title="Messages"
-        description={`${total} message${total === 1 ? '' : 's'} · ${unread} unread · ${archivedCount} archived`}
+        description="Conversations from the people who find their way here."
       />
-
-      <div className="grid lg:grid-cols-[1fr_1.5fr] gap-6">
-        {/* Left — message list */}
-        <div className="space-y-2 lg:max-h-[calc(100vh-200px)] lg:overflow-y-auto lg:pr-2">
-          {messages.length === 0 && page === 1 && (
-            <div className="rounded-2xl border border-hairline bg-card p-12 text-center">
-              <Mail className="h-8 w-8 text-fg-muted mx-auto mb-3" />
-              <p className="text-fg-muted">No messages yet.</p>
-            </div>
-          )}
-          {messages.map(msg => (
-            <a
-              key={msg.id}
-              href={`#msg-${msg.id}`}
-              className={`block rounded-xl border p-4 transition-colors hover:border-brand/40 ${
-                msg.read ? 'border-hairline bg-card' : 'border-brand/30 bg-brand/5'
-              }`}
-            >
-              <div className="flex items-center gap-2 mb-1">
-                {!msg.read ? (
-                  <Mail className="h-3.5 w-3.5 text-brand flex-shrink-0" />
-                ) : (
-                  <MailOpen className="h-3.5 w-3.5 text-fg-muted flex-shrink-0" />
-                )}
-                <span className="text-sm font-medium text-fg truncate">{msg.name}</span>
-                <span className="text-[11px] text-fg-muted ml-auto flex-shrink-0">
-                  {format(new Date(msg.receivedAt), 'MMM d')}
-                </span>
-              </div>
-              <p className="text-sm text-fg-muted truncate">{msg.subject}</p>
-              <p className="text-xs text-fg-muted/70 truncate mt-0.5">{msg.body.slice(0, 80)}...</p>
-            </a>
-          ))}
-        </div>
-
-        {/* Right — message details */}
-        <div className="space-y-4">
-          {messages.length === 0 ? (
-            <div className="rounded-2xl border border-hairline bg-card p-12 text-center">
-              <p className="text-fg-muted">Select a message to view details.</p>
-            </div>
-          ) : (
-            messages.map(msg => (
-              <div
-                key={msg.id}
-                id={`msg-${msg.id}`}
-                className={`bg-card rounded-2xl border p-6 ${
-                  msg.read ? 'border-hairline' : 'border-brand/40'
-                }`}
-              >
-                <div className="flex items-start justify-between gap-4 mb-4">
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-3 mb-1">
-                      {!msg.read && <span className="w-2 h-2 rounded-full bg-brand flex-shrink-0" />}
-                      <p className="font-semibold text-fg">{msg.name}</p>
-                    </div>
-                    <p className="text-sm text-fg-muted">{msg.email}</p>
-                  </div>
-                  <div className="flex-shrink-0 text-right">
-                    <p className="text-xs text-fg-muted mb-3">
-                      {format(new Date(msg.receivedAt), 'MMM d, yyyy · HH:mm')}
-                    </p>
-                    <MessageActions id={msg.id} read={msg.read} email={msg.email} />
-                  </div>
-                </div>
-                <h3 className="font-medium text-fg mb-3">{msg.subject}</h3>
-                <p className="text-fg-muted text-sm leading-relaxed whitespace-pre-wrap">{msg.body}</p>
-              </div>
-            ))
-          )}
-        </div>
-      </div>
-
-      <Pagination currentPage={page} totalPages={totalPages} basePath="/admin/messages" />
+      <CollectionToolbar
+        basePath="/admin/messages"
+        query={query}
+        status={status}
+        label="Messages"
+        filters={[
+          { value: 'all', label: 'Inbox', count: all },
+          { value: 'unread', label: 'Unread', count: unread },
+          { value: 'archived', label: 'Archived', count: archived },
+        ]}
+      />
+      <Inbox messages={messages} />
+      <Pagination
+        currentPage={page}
+        totalPages={totalPages}
+        basePath={`/admin/messages${base.size ? `?${base}` : ''}`}
+      />
     </div>
   )
 }

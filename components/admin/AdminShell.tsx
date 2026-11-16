@@ -20,7 +20,7 @@ export function AdminShell({
   const [mobileOpen, setMobileOpen] = useState(false)
 
   return (
-    <div className="h-screen bg-surface flex overflow-hidden">
+    <div className="admin-site h-screen bg-surface flex overflow-hidden">
       <AdminThemeApplier preference={themePreference} />
       <AdminSidebar
         email={email}
@@ -33,8 +33,12 @@ export function AdminShell({
           unreadMessageCount={unreadMessageCount}
           onOpenMobileSidebar={() => setMobileOpen(true)}
         />
-        <main className="flex-1 p-4 sm:p-6 lg:p-8 overflow-auto">
-          {children}
+        <main
+          id="admin-main"
+          className="admin-main flex-1 overflow-auto"
+          tabIndex={-1}
+        >
+          <div className="admin-main-inner">{children}</div>
         </main>
       </div>
     </div>

@@ -2,8 +2,16 @@ import { SessionProvider } from 'next-auth/react'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
 import { AdminShell } from '@/components/admin/AdminShell'
+import './admin.css'
+import type { Metadata } from 'next'
 
-export default async function AdminLayout({ children }: { children: React.ReactNode }) {
+export const metadata: Metadata = { robots: { index: false, follow: false } }
+
+export default async function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   const session = await auth()
 
   // Login page overrides this layout via its own nested layout, and middleware

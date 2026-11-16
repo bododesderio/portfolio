@@ -145,7 +145,7 @@ export default async function HomePage() {
             {
               label: 'Currently',
               value: profile.roles[0]?.org || 'Rooibok Technologies',
-              href: '/projects',
+              href: profile.roles[0]?.url || '/projects',
             },
           ]}
         />

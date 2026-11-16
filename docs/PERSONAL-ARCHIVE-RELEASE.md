@@ -7,9 +7,9 @@ The production update uses the existing `myportfolio` compose project at `/opt/m
 ## Validation
 
 - TypeScript and ESLint pass.
-- 194 tests pass, including malformed-session rejection, private-content search exclusion, and uppercase image routing.
-- The production build is checked before deployment.
-- The earlier browser pass covers 30 responsive pages, nine interaction checks, and the admin rich-text editors; production smoke checks are recorded after deployment.
+- 198 tests pass, including malformed-session rejection, private-content search exclusion, and uppercase image routing.
+- The full production build passes before deployment.
+- The first production pass covers 30 responsive layouts with zero failures, validates ProfilePage → Person, checks anonymous admin rejection, image optimization, and visible content without JavaScript. The second pass covers 30 admin layouts, six public refinements, editor persistence, keyboard behavior, timeline fields, and inbox selection. See the JSON reports in `docs/personal-redesign/`.
 
 ## Recovery point
 
@@ -28,3 +28,9 @@ Rollback uses the saved image and the existing volumes, without rebuilding or re
 ## Search Console
 
 After the deployed `/about` markup is verified, run the live URL in Google's Rich Results Test and select **Validate fix** in the Search Console Profile page report. A code deployment alone does not make Google re-crawl or close its report immediately.
+
+## Editing studio refinement
+
+The second release adds the admin studio, separate analytics page, searchable work/writing lists, a responsive inbox, focused editors, safe structured-field handling, and active public section navigation. Rooibok’s website and Kakebe’s team listing are linked through a targeted CMS update. There are still no new migrations and production seeding remains disabled.
+
+The original personal archive app revision is `c56e5e90479a592baa891ad675f4ea4d25fc7bf4`. The final refinement revision and production walkthrough are recorded after deployment.

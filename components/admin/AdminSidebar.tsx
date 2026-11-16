@@ -1,67 +1,74 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { signOut } from 'next-auth/react'
 import {
-  LayoutDashboard, FileText, FolderOpen, Layers,
-  PenLine, Mail, MessageSquare, Users, Palette, Plug,
-  User, LogOut, ChevronRight, Megaphone,
-  Quote, Briefcase, X as XIcon, Newspaper, Settings as SettingsIcon, MailOpen,
+  LayoutDashboard,
+  FileText,
+  FolderOpen,
+  Layers,
+  PenLine,
+  Mail,
+  MessageSquare,
+  Users,
+  Palette,
+  Plug,
+  User,
+  LogOut,
+  Megaphone,
+  Quote,
+  Briefcase,
+  X,
+  Newspaper,
+  Settings,
+  Image,
+  BarChart3,
+  ArrowUpRight,
+  ChevronDown,
+  Navigation,
+  Search,
+  Shield,
 } from 'lucide-react'
+import { BrandMark } from '@/components/personal/BrandMark'
 
-type NavItem = { label: string; href: string; icon: React.ElementType; exact?: boolean }
-type NavGroup = { label: string; items: NavItem[] }
-
-const groups: NavGroup[] = [
-  {
-    label: 'Overview',
-    items: [
-      { label: 'Overview', href: '/admin', icon: LayoutDashboard, exact: true },
-    ],
-  },
-  {
-    label: 'Content',
-    items: [
-      { label: 'Blog Posts',    href: '/admin/blog',         icon: FileText },
-      { label: 'Projects',     href: '/admin/projects',     icon: Layers },
-      { label: 'Pages',         href: '/admin/content',      icon: PenLine },
-      { label: 'Press',         href: '/admin/press',        icon: Newspaper },
-      { label: 'Media Library', href: '/admin/media',        icon: FolderOpen },
-    ],
-  },
-  {
-    label: 'Engage',
-    items: [
-      { label: 'Services',      href: '/admin/services',     icon: Briefcase },
-      { label: 'Testimonials',  href: '/admin/testimonials', icon: Quote },
-      { label: 'Clients',       href: '/admin/clients',      icon: Users },
-      { label: 'Banners',       href: '/admin/banners',      icon: Megaphone },
-    ],
-  },
-  {
-    label: 'Audience',
-    items: [
-      { label: 'Subscribers', href: '/admin/newsletter', icon: Mail },
-      { label: 'Email Logs',  href: '/admin/email-logs', icon: MailOpen },
-      { label: 'Messages',    href: '/admin/messages',   icon: MessageSquare },
-    ],
-  },
-  {
-    label: 'Settings',
-    items: [
-      { label: 'Appearance',    href: '/admin/settings/appearance',   icon: Palette },
-      { label: 'Site & SEO',    href: '/admin/settings/site',         icon: SettingsIcon },
-      { label: 'Integrations',  href: '/admin/settings/integrations', icon: Plug },
-      { label: 'Account',       href: '/admin/settings/account',      icon: User },
-    ],
-  },
-]
-
-function isActive(pathname: string, href: string, exact?: boolean): boolean {
-  if (exact) return pathname === href
-  return pathname === href || pathname.startsWith(href + '/')
+type Item = {
+  label: string
+  href: string
+  icon: React.ElementType
+  exact?: boolean
 }
+const archive: Item[] = [
+  { label: 'Overview', href: '/admin', icon: LayoutDashboard, exact: true },
+  { label: 'Pages & biography', href: '/admin/content', icon: PenLine },
+  { label: 'Writing', href: '/admin/blog', icon: FileText },
+  { label: 'Work & ventures', href: '/admin/projects', icon: Layers },
+  { label: 'Photographs', href: '/admin/gallery', icon: Image },
+  { label: 'Media library', href: '/admin/media', icon: FolderOpen },
+  { label: 'Mentions', href: '/admin/press', icon: Newspaper },
+]
+const audience: Item[] = [
+  { label: 'Messages', href: '/admin/messages', icon: MessageSquare },
+  { label: 'Newsletter', href: '/admin/newsletter', icon: Mail },
+  { label: 'Site activity', href: '/admin/analytics', icon: BarChart3 },
+]
+const website: Item[] = [
+  { label: 'Capabilities', href: '/admin/services', icon: Briefcase },
+  { label: 'Testimonials', href: '/admin/testimonials', icon: Quote },
+  { label: 'Clients & partners', href: '/admin/clients', icon: Users },
+  { label: 'Banners', href: '/admin/banners', icon: Megaphone },
+  { label: 'Email delivery', href: '/admin/email-logs', icon: Mail },
+]
+const settings: Item[] = [
+  { label: 'Site details', href: '/admin/settings/site', icon: Settings },
+  { label: 'Appearance', href: '/admin/settings/appearance', icon: Palette },
+  { label: 'Navigation', href: '/admin/settings/navigation', icon: Navigation },
+  { label: 'Search & SEO', href: '/admin/settings/seo', icon: Search },
+  { label: 'Integrations', href: '/admin/settings/integrations', icon: Plug },
+  { label: 'My profile', href: '/admin/account/profile', icon: User },
+  { label: 'Security', href: '/admin/account/security', icon: Shield },
+]
 
 export function AdminSidebar({
   mobileOpen = false,
@@ -73,109 +80,134 @@ export function AdminSidebar({
   email: string
 }) {
   const pathname = usePathname()
-
-  return (
-    <>
-      {mobileOpen && (
-        <div
-          className="fixed inset-0 z-30 bg-black/50 backdrop-blur-sm md:hidden animate-fade-in"
-          onClick={onCloseMobile}
-          aria-hidden
-        />
-      )}
-
-      <aside
-        className={`fixed md:static top-0 left-0 z-40 flex h-screen w-64 flex-col bg-card border-r border-hairline transition-transform duration-300 ease-out-expo ${
-          mobileOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-        }`}
-      >
-        <div className="flex items-center justify-between px-5 py-5 border-b border-hairline">
-          <Link href="/admin" className="group inline-flex items-center gap-2">
-            <span className="h-2 w-2 rounded-full bg-brand shadow-glow-sm" />
-            <span className="font-serif text-base text-fg tracking-tight">Bodo Desderio</span>
+  const dialog = useRef<HTMLDialogElement>(null)
+  useEffect(() => {
+    if (mobileOpen && !dialog.current?.open) dialog.current?.showModal()
+    if (!mobileOpen && dialog.current?.open) dialog.current.close()
+  }, [mobileOpen])
+  useEffect(() => {
+    const media = matchMedia('(min-width: 768px)')
+    function closeOnDesktop() {
+      if (media.matches) onCloseMobile?.()
+    }
+    media.addEventListener('change', closeOnDesktop)
+    return () => media.removeEventListener('change', closeOnDesktop)
+  }, [onCloseMobile])
+  const active = (item: Item) =>
+    item.exact
+      ? pathname === item.href
+      : pathname === item.href || pathname.startsWith(item.href + '/')
+  function links(items: Item[]) {
+    return (
+      <ul>
+        {items.map((item) => (
+          <li key={item.href}>
+            <Link
+              href={item.href}
+              onClick={onCloseMobile}
+              aria-current={active(item) ? 'page' : undefined}
+            >
+              <item.icon size={17} aria-hidden="true" />
+              <span>{item.label}</span>
+            </Link>
+          </li>
+        ))}
+      </ul>
+    )
+  }
+  function contents(mobile = false) {
+    return (
+      <>
+        <div className="admin-sidebar-brand">
+          <Link href="/admin" onClick={onCloseMobile}>
+            <BrandMark />
+            <span>
+              Bodo Desderio<small>Personal archive · Studio</small>
+            </span>
           </Link>
-          <button
-            type="button"
-            onClick={onCloseMobile}
-            className="md:hidden p-1.5 rounded-lg text-fg-muted hover:bg-muted"
-            aria-label="Close menu"
-          >
-            <XIcon className="h-4 w-4" />
-          </button>
+          {mobile && (
+            <button
+              type="button"
+              onClick={onCloseMobile}
+              aria-label="Close menu"
+            >
+              <X size={20} />
+            </button>
+          )}
         </div>
-
-        <nav className="flex-1 overflow-y-auto px-3 py-4">
-          {groups.map(group => (
-            <div key={group.label} className="mb-6 last:mb-0">
-              <p className="px-3 mb-2 text-[10px] font-semibold uppercase tracking-widest text-fg-muted/70">
-                {group.label}
-              </p>
-              <ul className="space-y-0.5">
-                {group.items.map(item => {
-                  const Icon = item.icon
-                  const active = isActive(pathname, item.href, item.exact)
-                  return (
-                    <li key={item.href}>
-                      <Link
-                        href={item.href}
-                        onClick={onCloseMobile}
-                        className={`group flex items-center gap-3 px-3 py-2 rounded-lg text-[13px] font-medium transition-colors ${
-                          active
-                            ? 'bg-brand/10 text-brand'
-                            : 'text-fg-muted hover:bg-muted hover:text-fg'
-                        }`}
-                      >
-                        <Icon className="h-4 w-4 flex-shrink-0" />
-                        <span className="flex-1">{item.label}</span>
-                        {active && <ChevronRight className="h-3 w-3" aria-hidden />}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            </div>
-          ))}
+        <nav
+          aria-label={mobile ? 'Mobile administration' : 'Administration'}
+          className="admin-sidebar-nav"
+        >
+          <div className="admin-nav-section">
+            <p>Your archive</p>
+            {links(archive)}
+          </div>
+          <div className="admin-nav-section">
+            <p>Conversations & activity</p>
+            {links(audience)}
+          </div>
+          <details className="admin-nav-section" open={website.some(active)}>
+            <summary>
+              Website tools
+              <ChevronDown size={14} />
+            </summary>
+            {links(website)}
+          </details>
+          <details className="admin-nav-section" open={settings.some(active)}>
+            <summary>
+              Settings & account
+              <ChevronDown size={14} />
+            </summary>
+            {links(settings)}
+          </details>
         </nav>
-
-        <div className="border-t border-hairline p-3">
-          <Link
-            href="/admin/settings/account"
-            onClick={onCloseMobile}
-            className="flex items-center gap-3 rounded-xl bg-muted/60 px-3 py-2.5 hover:bg-muted transition-colors"
-          >
-            <Avatar email={email} />
-            <div className="min-w-0 flex-1">
-              <p className="text-[13px] font-medium text-fg truncate">Admin</p>
-              <p className="text-[11px] text-fg-muted truncate">{email}</p>
-            </div>
-            <ChevronRight className="h-3.5 w-3.5 text-fg-muted" />
-          </Link>
+        <div className="admin-sidebar-footer">
           <Link
             href="/"
             target="_blank"
-            className="mt-2 block text-center text-[11px] text-fg-muted hover:text-brand transition-colors"
+            rel="noopener noreferrer"
+            className="admin-view-site"
           >
-            View site ↗
+            View portfolio
+            <ArrowUpRight size={16} />
           </Link>
-          <button
-            type="button"
-            onClick={() => signOut({ callbackUrl: '/admin/login' })}
-            className="mt-1.5 w-full flex items-center justify-center gap-2 py-2 rounded-lg text-[12px] text-fg-muted hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition-colors"
-          >
-            <LogOut className="h-3.5 w-3.5" />
-            Sign out
-          </button>
+          <div className="admin-account">
+            <span className="admin-avatar">{email[0]?.toUpperCase()}</span>
+            <Link href="/admin/account/profile" onClick={onCloseMobile}>
+              <strong>Your workspace</strong>
+              <small>{email}</small>
+            </Link>
+            <button
+              type="button"
+              onClick={() => signOut({ callbackUrl: '/admin/login' })}
+              aria-label="Sign out"
+            >
+              <LogOut size={17} />
+            </button>
+          </div>
         </div>
-      </aside>
-    </>
-  )
-}
-
-function Avatar({ email }: { email: string }) {
-  const letter = (email || '?')[0]?.toUpperCase() ?? '?'
+      </>
+    )
+  }
   return (
-    <div className="relative h-8 w-8 flex-shrink-0 rounded-full bg-gradient-to-br from-brand to-brand-700 text-white flex items-center justify-center text-[12px] font-semibold">
-      {letter}
-    </div>
+    <>
+      <a href="#admin-main" className="admin-skip">
+        Skip to workspace
+      </a>
+      <aside className="admin-sidebar">{contents()}</aside>
+      <dialog
+        ref={dialog}
+        className="admin-site admin-mobile-drawer"
+        onClose={onCloseMobile}
+        onCancel={onCloseMobile}
+        onClick={(event) => {
+          if (event.target === event.currentTarget) onCloseMobile?.()
+        }}
+        aria-label="Administration menu"
+      >
+        <div className="admin-drawer-content">{contents(true)}</div>
+      </dialog>
+    </>
   )
 }

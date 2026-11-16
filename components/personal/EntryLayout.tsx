@@ -1,26 +1,19 @@
 import Link from 'next/link'
 import type { ReactNode } from 'react'
+import { ContentsNavigation } from './ContentsNavigation'
 
 export type ContentsItem = { id: string; label: string }
 export function EntryLayout({
   children,
   contents = [],
+  relatedHref = '/about',
+  relatedLabel = 'The full story',
 }: {
   children: ReactNode
   contents?: ContentsItem[]
+  relatedHref?: string
+  relatedLabel?: string
 }) {
-  const links = (
-    <ol>
-      {contents.map((item, index) => (
-        <li key={item.id}>
-          <a href={`#${item.id}`}>
-            <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
-            {item.label}
-          </a>
-        </li>
-      ))}
-    </ol>
-  )
   return (
     <div
       className={`personal-entry-layout personal-wrap ${contents.length ? '' : 'personal-entry-layout-wide'}`}
@@ -29,10 +22,10 @@ export function EntryLayout({
         <aside className="personal-contents">
           <nav aria-label="On this page">
             <p>On this page</p>
-            {links}
+            <ContentsNavigation items={contents} />
           </nav>
-          <Link href="/about">
-            The full story <span aria-hidden="true">↗</span>
+          <Link href={relatedHref}>
+            {relatedLabel} <span aria-hidden="true">↗</span>
           </Link>
         </aside>
       )}
@@ -40,7 +33,9 @@ export function EntryLayout({
         {contents.length > 0 && (
           <details className="personal-mobile-contents">
             <summary>On this page</summary>
-            <nav aria-label="Page sections">{links}</nav>
+            <nav aria-label="Page sections">
+              <ContentsNavigation items={contents} mobile />
+            </nav>
           </details>
         )}
         {children}

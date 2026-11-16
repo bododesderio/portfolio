@@ -2,7 +2,7 @@
 
 The implemented direction is a substantial personal portfolio: an introduction to Bodo on Home, a detailed biography and history on About, and dedicated archives for work, writing, and photographs. The homepage offers a snippet of every part of that life. It does not use a product pitch or sales funnel.
 
-This supersedes the earlier “Quiet confidence” product-style proposal. The application source is the working implementation; the screenshots in this folder show it with the existing seeded CMS content. Production content has not been overwritten or deployed.
+This supersedes the earlier “Quiet confidence” product-style proposal. The personal archive is deployed at https://bododesderio.com. Screenshots prefixed `live-` and `production-verification.json` record the first production pass. Admin previews use a separate local database with demo content. Existing production records were retained.
 
 ## Benchmarks
 
@@ -82,8 +82,20 @@ The public navigation parser now validates saved JSON, filters unsafe destinatio
 
 ## Validation and limits
 
-The check artifacts are stored beside this document in [verification.json](verification.json). Repository validation includes TypeScript, ESLint, 194 unit/API tests, and a successful production build. The scratch database was initialized using all nine committed migrations. Thirty browser page checks cover the public pages at desktop/mobile widths, narrower 320px and 768px layouts, and selected dark layouts. Nine interaction checks cover search, reader preferences, gallery navigation, content filters, and the contact UI. Five additional admin screen checks include both mounted rich-text editors. Focused production checks found no console errors on Home, About, or Search, confirmed the CSP remained present, and verified that the profile remains visible with JavaScript disabled. The contact POST is intercepted during that UI check so it does not send mail.
+The check artifacts are stored beside this document in [verification.json](verification.json). Repository validation includes TypeScript, ESLint, 198 unit/API tests, and a successful production build. The scratch database was initialized using all nine committed migrations. Thirty browser page checks cover the public pages at desktop/mobile widths, narrower 320px and 768px layouts, and selected dark layouts. Nine interaction checks cover search, reader preferences, gallery navigation, content filters, and the contact UI. Five additional admin screen checks include both mounted rich-text editors. Focused production checks found no console errors on Home, About, or Search, confirmed the CSP remained present, and verified that the profile remains visible with JavaScript disabled. The contact POST is intercepted during that UI check so it does not send mail.
 
 An additional database-backed check inserted a draft article and hidden project with a unique search sentinel, confirmed that public search returned no matches, and removed the fixtures. All test records and services are isolated from production.
 
-This work does not claim to close every baseline audit finding. Dependency updates, session-policy changes, durable campaign delivery, production backup restoration, and Search Console validation remain separate work. Deploy the completed code and run Google's live URL/Rich Results validation before marking the original Search Console issue resolved.
+This work does not claim to close every baseline audit finding. Dependency updates, session-policy changes, durable campaign delivery, production backup restoration, and Search Console validation remain separate work. The deployed markup has been checked in a browser; Google’s Rich Results Test and Search Console validation are still required before Google closes its report.
+
+## Second refinement: the editing studio
+
+The administration area now shares the archive’s BD identity and one Inter type family, with restrained green accents, clearer spacing, and a responsive navigation drawer. The overview prioritizes writing, work, the inbox, and biography upkeep. Detailed analytics moved to `/admin/analytics`; it is no longer queried by the overview. Unique visitors are counted in PostgreSQL rather than loading session groups into application memory.
+
+Writing and work have searchable, filtered lists, accurate collection counts, bounded pagination, and separate delete controls. The inbox opens one conversation at a time and supports unread, archived, and sender/subject search. Its mobile detail view has a return control. Editors put the text first, keep save controls accessible, and put cover-image settings in a disclosure panel. Published articles no longer expose the misleading Save draft action.
+
+Page editing mounts rich editors as sections are opened. Opened sections remain mounted when collapsed or filtered, preserving in-progress edits. The structured editor uses the record’s actual keys, so life history, values, statistics, and roles do not share an incorrect field shape. Roles accept an optional website URL. Admin search now includes work, cancels stale requests, and distinguishes service errors from empty results. All admin pages inherit noindex metadata.
+
+Public refinements include an active section index, a compact cookie-preferences notice, consistent control colors, and mobile contents that close on selection. The Rooibok website is corrected to `https://rooibok.tech`; biography organizations and the Kakebe team listing are linked using the existing CMS. `scripts/update-profile-links.cjs` documents the idempotent, explicitly applied content update.
+
+Verification: [admin-verification.json](admin-verification.json), [refinement-verification.json](refinement-verification.json), and the [live MCP walkthrough](live-e2e/README.md).

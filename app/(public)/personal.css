@@ -1918,3 +1918,90 @@ html[data-reading-width='wide'] .personal-site {
 .personal-introduction > .personal-prose {
   margin-bottom: 18px;
 }
+/* Quiet, readable navigation and controls throughout the archive. */
+.personal-site {
+  --brand: 49 95 89;
+  --brand-dark: 37 75 70;
+  --brand-600: 37 75 70;
+  --brand-700: 29 62 58;
+}
+.dark .personal-site {
+  --brand: 112 155 137;
+  --brand-dark: 90 135 116;
+  --brand-600: 90 135 116;
+}
+.personal-contents li a {
+  position: relative;
+  padding-left: 12px;
+  margin-left: -13px;
+  border-left: 2px solid transparent;
+  transition:
+    color 0.15s,
+    border-color 0.15s;
+}
+.personal-contents li a[aria-current='location'] {
+  color: var(--text);
+  border-left-color: var(--link);
+  font-weight: 500;
+}
+.personal-contents nav > p {
+  font-size: 12px;
+}
+.personal-mobile-contents a[aria-current='location'] {
+  color: var(--link);
+  font-weight: 600;
+}
+.personal-eyebrow {
+  font-size: 12px !important;
+  letter-spacing: 0.045em;
+}
+.personal-cookie-banner {
+  padding: 18px !important;
+  pointer-events: none;
+}
+.personal-cookie-banner > div {
+  max-width: 580px;
+  margin: 0 0 0 auto;
+  border-radius: 10px;
+  background: var(--paper);
+  box-shadow: 0 8px 32px rgb(20 35 28/0.1);
+  padding: 20px !important;
+  pointer-events: auto;
+}
+.personal-cookie-banner > div > div {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 14px;
+}
+.personal-cookie-banner p {
+  font-size: 12px;
+  color: var(--subtle);
+  line-height: 1.7;
+}
+.personal-cookie-banner button {
+  min-height: 36px;
+  font-size: 12px;
+  border-radius: 5px;
+  padding: 6px 16px;
+}
+.personal-cookie-banner button:last-child {
+  background: var(--link);
+  color: var(--paper);
+}
+.personal-profile-card dd a {
+  text-underline-offset: 3px;
+}
+@media (max-width: 700px) {
+  .personal-cookie-banner {
+    padding: 12px !important;
+  }
+  .personal-cookie-banner > div {
+    max-width: none;
+    padding: 16px !important;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .personal-contents li a {
+    transition: none;
+  }
+}

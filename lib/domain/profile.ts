@@ -9,6 +9,7 @@ const roleItem = z.object({
   title: z.string().min(1),
   org: z.string().min(1),
   period: z.string().optional(),
+  url: z.string().optional(),
 })
 const valueItem = z.object({
   title: z.string().min(1),

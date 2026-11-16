@@ -5,10 +5,20 @@ import { EmbedManager } from '@/components/admin/EmbedManager'
 import { HeroImagesManager } from '@/components/admin/HeroImagesManager'
 import type { Metadata } from 'next'
 
-const EDITABLE_PAGES = ['home', 'about', 'services', 'gallery', 'blog', 'contact', 'global']
+const EDITABLE_PAGES = [
+  'home',
+  'about',
+  'services',
+  'gallery',
+  'blog',
+  'contact',
+  'global',
+]
 const EMBED_PAGES = ['home', 'about', 'services', 'contact']
 
-interface Props { params: Promise<{ page: string }> }
+interface Props {
+  params: Promise<{ page: string }>
+}
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { page } = await params
@@ -44,7 +54,7 @@ export default async function ContentEditorPage({ params }: Props) {
         {page} | Content
       </h1>
       <p className="text-ink-500 text-sm mb-8">
-        Changes are saved individually and go live instantly.
+        Open a section to edit it. Each field has its own save button.
       </p>
       {page === 'home' && heroImages.length > 0 && (
         <div className="mb-8">
