@@ -1,0 +1,445 @@
+[
+  {
+    "path": "/api/admin/analytics/cleanup",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/analytics/cleanup/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/analytics/digest",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/analytics/digest/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/analytics/reset",
+    "methods": [
+      "DELETE"
+    ],
+    "source": "app/api/admin/analytics/reset/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/appearance/login-background",
+    "methods": [
+      "POST",
+      "DELETE"
+    ],
+    "source": "app/api/admin/appearance/login-background/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/banners/[id]/duplicate",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/banners/[id]/duplicate/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/banners/[id]",
+    "methods": [
+      "GET",
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/banners/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/banners",
+    "methods": [
+      "GET",
+      "POST"
+    ],
+    "source": "app/api/admin/banners/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/blog/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/blog/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/blog",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/blog/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/clients/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/clients/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/clients",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/clients/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/config",
+    "methods": [
+      "GET",
+      "PATCH"
+    ],
+    "source": "app/api/admin/config/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/content",
+    "methods": [
+      "PATCH"
+    ],
+    "source": "app/api/admin/content/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/email-logs",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/admin/email-logs/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/gallery/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/gallery/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/gallery",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/gallery/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/hero-images/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/hero-images/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/hero-images",
+    "methods": [
+      "GET",
+      "POST"
+    ],
+    "source": "app/api/admin/hero-images/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/link-check",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/link-check/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/me",
+    "methods": [
+      "GET",
+      "PATCH"
+    ],
+    "source": "app/api/admin/me/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/media/[id]",
+    "methods": [
+      "DELETE"
+    ],
+    "source": "app/api/admin/media/[id]/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/media",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/admin/media/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/media/upload",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/media/upload/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/media/upload-ckeditor",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/media/upload-ckeditor/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/messages/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/messages/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/newsletter/send",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/newsletter/send/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/page-embeds/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/page-embeds/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/page-embeds/reorder",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/page-embeds/reorder/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/page-embeds",
+    "methods": [
+      "GET",
+      "POST"
+    ],
+    "source": "app/api/admin/page-embeds/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/password",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/password/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/press/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/press/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/press",
+    "methods": [
+      "GET",
+      "POST"
+    ],
+    "source": "app/api/admin/press/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/projects/[id]",
+    "methods": [
+      "GET",
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/projects/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/projects",
+    "methods": [
+      "GET",
+      "POST"
+    ],
+    "source": "app/api/admin/projects/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/search",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/admin/search/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/seo",
+    "methods": [
+      "PATCH"
+    ],
+    "source": "app/api/admin/seo/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/services/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/services/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/services",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/services/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/settings",
+    "methods": [
+      "PATCH"
+    ],
+    "source": "app/api/admin/settings/route.ts",
+    "guard": "auth()"
+  },
+  {
+    "path": "/api/admin/testimonials/[id]",
+    "methods": [
+      "PATCH",
+      "DELETE"
+    ],
+    "source": "app/api/admin/testimonials/[id]/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/admin/testimonials",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/admin/testimonials/route.ts",
+    "guard": "withAdmin"
+  },
+  {
+    "path": "/api/auth/[...nextauth]",
+    "methods": [],
+    "source": "app/api/auth/[...nextauth]/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/banners/active",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/banners/active/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/banners/event",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/banners/event/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/contact",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/contact/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/health",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/health/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/newsletter/confirm",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/newsletter/confirm/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/newsletter/subscribe",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/newsletter/subscribe/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/newsletter/unsubscribe",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/newsletter/unsubscribe/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/pv",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/pv/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/t/click/[id]",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/t/click/[id]/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/t/open/[id]",
+    "methods": [
+      "GET"
+    ],
+    "source": "app/api/t/open/[id]/route.ts",
+    "guard": "public / separate validation"
+  },
+  {
+    "path": "/api/webhooks/postal",
+    "methods": [
+      "POST"
+    ],
+    "source": "app/api/webhooks/postal/route.ts",
+    "guard": "public / separate validation"
+  }
+]

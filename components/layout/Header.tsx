@@ -1,102 +1,88 @@
 'use client'
-
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Menu, X, ArrowUpRight } from 'lucide-react'
-
+import { Menu, X } from 'lucide-react'
+import { BrandMark } from '@/components/personal/BrandMark'
+import { ReaderTools } from '@/components/personal/ReaderTools'
 type NavLink = { label: string; href: string }
-
-const defaultNavLinks: NavLink[] = [
-  { label: 'Home',     href: '/'         },
-  { label: 'About',    href: '/about'    },
-  { label: 'Services', href: '/services' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Gallery',  href: '/gallery'  },
-  { label: 'Blog',     href: '/blog'     },
-  { label: 'Contact',  href: '/contact'  },
+const defaults: NavLink[] = [
+  { label: 'Home', href: '/' },
+  { label: 'About', href: '/about' },
+  { label: 'Work', href: '/projects' },
+  { label: 'Writing', href: '/blog' },
+  { label: 'Gallery', href: '/gallery' },
+  { label: 'Contact', href: '/contact' },
 ]
-
-function isActive(pathname: string, href: string): boolean {
-  if (href === '/') return pathname === '/'
-  return pathname === href || pathname.startsWith(href + '/')
-}
-
-export function Header({ navLinks }: { navLinks?: NavLink[] }) {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+export function Header({ navLinks = defaults }: { navLinks?: NavLink[] }) {
+  const [open, setOpen] = useState(false)
   const pathname = usePathname()
-  const links = navLinks ?? defaultNavLinks
-
+  const toggle = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    function onEscape(event: KeyboardEvent) {
+      if (event.key === 'Escape' && open) {
+        setOpen(false)
+        toggle.current?.focus()
+      }
+    }
+    document.addEventListener('keydown', onEscape)
+    return () => document.removeEventListener('keydown', onEscape)
+  }, [open])
   return (
-    <header className="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl border-b border-hairline">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
-          <Link href="/" className="group flex items-center gap-2 font-serif text-lg tracking-tight text-fg transition-colors">
-            <span className="h-2 w-2 rounded-full bg-brand shadow-glow-sm transition-transform duration-500 group-hover:scale-150" />
+    <header className="personal-header">
+      <div className="personal-wrap personal-header-inner">
+        <Link
+          href="/"
+          className="personal-wordmark"
+          onClick={() => setOpen(false)}
+        >
+          <BrandMark className="personal-brand-mark" />
+          <span>
             Bodo Desderio
-          </Link>
-
-          <nav className="hidden md:flex items-center gap-1" aria-label="Primary">
-            {links.map((link) => {
-              const active = isActive(pathname, link.href)
-              return (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className={`px-3.5 py-2 text-[13px] font-medium rounded-full transition-colors ${
-                    active
-                      ? 'text-brand bg-brand/10'
-                      : 'text-fg-muted hover:text-fg hover:bg-muted'
-                  }`}
-                >
-                  {link.label}
-                </Link>
-              )
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <Link
-              href="/contact"
-              className="group hidden md:inline-flex items-center gap-1.5 px-4 py-2 text-[13px] font-medium rounded-full bg-brand text-white hover:bg-brand-600 transition-colors shadow-glow-sm"
-            >
-              Let&apos;s work together
-              <ArrowUpRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </Link>
-
-            <button
-              type="button"
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 rounded-full text-fg-muted hover:bg-muted transition-colors"
-              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={mobileMenuOpen}
-            >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
+            <span className="personal-wordmark-caption">
+              A personal archive
+            </span>
+          </span>
+        </Link>
+        <div className="personal-header-controls">
+          <ReaderTools />
+          <button
+            ref={toggle}
+            type="button"
+            className="personal-menu-toggle"
+            aria-controls="personal-navigation"
+            aria-expanded={open}
+            aria-label={open ? 'Close navigation' : 'Open navigation'}
+            onClick={() => setOpen(!open)}
+          >
+            {open ? <X size={21} /> : <Menu size={21} />}
+          </button>
         </div>
-
-        {mobileMenuOpen && (
-          <div className="md:hidden py-6 border-t border-hairline animate-fade-in">
-            <nav className="flex flex-col gap-1" aria-label="Mobile">
-              {links.map((link) => {
-                const active = isActive(pathname, link.href)
-                return (
-                  <Link
-                    key={link.href}
-                    href={link.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`px-4 py-3 rounded-xl text-[15px] font-medium transition-colors ${
-                      active ? 'text-brand bg-brand/10' : 'text-fg hover:bg-muted'
-                    }`}
-                  >
-                    {link.label}
-                  </Link>
+        <nav
+          id="personal-navigation"
+          className={`personal-navigation ${open ? 'is-open' : ''}`}
+          aria-label="Primary"
+        >
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              aria-current={
+                (
+                  link.href === '/'
+                    ? pathname === '/'
+                    : pathname === link.href ||
+                      pathname.startsWith(link.href + '/')
                 )
-              })}
-            </nav>
-          </div>
-        )}
+                  ? 'page'
+                  : undefined
+              }
+              onClick={() => setOpen(false)}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </nav>
       </div>
     </header>
   )

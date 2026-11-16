@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
+import { isAdminSession } from '@/lib/util/admin-session'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -54,6 +55,14 @@ function buildCsp(nonce: string): string {
 export default auth((req) => {
   const { pathname } = req.nextUrl
 
+  // Uppercase image extensions do not match the static-file matcher below.
+  // Next's internal image optimizer sends no user agent, so applying the bot
+  // check to those public files turns valid .JPG photographs into 400 errors.
+  // Keep this exemption restricted to the two public image directories.
+  if (/^\/(?:images|uploads)\//.test(pathname) && /\.(?:png|jpe?g|gif|svg|webp|avif|ico)$/i.test(pathname)) {
+    return NextResponse.next()
+  }
+
   // Honeypot: only bots ignoring robots.txt reach /trap — 403 them.
   if (pathname.startsWith('/trap')) {
     return new NextResponse('Forbidden', { status: 403 })
@@ -68,21 +77,22 @@ export default auth((req) => {
   const isLogin = pathname === '/admin/login'
   const isAdmin = pathname.startsWith('/admin')
   const isAdminApi = pathname.startsWith('/api/admin')
+  const authenticated = isAdminSession(req.auth)
 
   // Protect admin API routes
-  if (isAdminApi && !req.auth) {
+  if (isAdminApi && !authenticated) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
   // Redirect unauthenticated users to login
-  if (isAdmin && !isLogin && !req.auth) {
+  if (isAdmin && !isLogin && !authenticated) {
     const loginUrl = new URL('/admin/login', req.url)
     loginUrl.searchParams.set('callbackUrl', pathname)
     return NextResponse.redirect(loginUrl)
   }
 
   // Redirect authenticated users away from login page
-  if (isLogin && req.auth) {
+  if (isLogin && authenticated) {
     return NextResponse.redirect(new URL('/admin', req.url))
   }
 

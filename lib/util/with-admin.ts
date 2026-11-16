@@ -2,6 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import type { Session } from 'next-auth'
 import { z } from 'zod'
 import { auth } from '@/lib/auth'
+import { isAdminSession } from '@/lib/util/admin-session'
 
 /**
  * Wraps an admin route handler so the auth guard cannot be forgotten, and folds
@@ -50,7 +51,7 @@ export function withAdmin<S extends z.ZodTypeAny = z.ZodNever>(
 ) {
   return async (req: NextRequest, context: RouteContext): Promise<NextResponse> => {
     const session = await auth()
-    if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
     try {
       const data = opts.schema ? opts.schema.parse(await req.json()) : undefined

@@ -1,0 +1,58 @@
+import { getField, getPageContent, getSiteSettings } from '@/lib/data/content'
+import {
+  readRoles,
+  readTimeline,
+  readValues,
+  safePublicHref,
+} from '@/lib/domain/profile'
+export async function getPersonalProfile() {
+  const [home, about, settings] = await Promise.all([
+    getPageContent('home'),
+    getPageContent('about'),
+    getSiteSettings(),
+  ])
+  const fullBiography = getField(home, 'bio.body')
+  const interests =
+    getField(about, 'interests.body') ||
+    (fullBiography.match(/<p\b[^>]*>[\s\S]*?<\/p>/gi) || []).find((paragraph) =>
+      /away from the keyboard|away from work|outside of work|outside work/i.test(
+        paragraph
+      )
+    ) ||
+    ''
+  return {
+    home,
+    about,
+    settings,
+    name: getField(home, 'hero.headline') || 'Bodo Desderio',
+    role:
+      getField(home, 'hero.pretitle') ||
+      'Software engineer, entrepreneur & community builder',
+    tagline: getField(home, 'hero.tagline'),
+    photo: getField(home, 'hero.photo') || '/images/hero/portrait-home.png',
+    location: settings['site.location'] || 'Kampala, Uganda',
+    biography:
+      interests && fullBiography.includes(interests)
+        ? fullBiography.replace(interests, '')
+        : fullBiography,
+    interests,
+    introduction: [1, 2, 3]
+      .map((index) => getField(home, `about.paragraph_${index}`))
+      .filter(Boolean),
+    roles: readRoles(getField(home, 'bio.roles')),
+    timeline: readTimeline(getField(about, 'story.items')),
+    values: readValues(getField(about, 'values.items')),
+    resumeUrl: safePublicHref(settings['site.resume_url'] || '') || undefined,
+    socials: [
+      { label: 'LinkedIn', key: 'social.linkedin' },
+      { label: 'GitHub', key: 'social.github' },
+      { label: 'Medium', key: 'social.medium' },
+      { label: 'Instagram', key: 'social.instagram' },
+      { label: 'Facebook', key: 'social.facebook' },
+      { label: 'X', key: 'social.twitter' },
+    ].flatMap((item) => {
+      const href = safePublicHref(settings[item.key] || '')
+      return href ? [{ label: item.label, href }] : []
+    }),
+  }
+}

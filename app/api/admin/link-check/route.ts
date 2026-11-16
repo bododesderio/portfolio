@@ -1,3 +1,4 @@
+import { isAdminSession } from '@/lib/util/admin-session'
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
@@ -37,7 +38,7 @@ async function checkUrl(url: string): Promise<{ status: number | null; ok: boole
 
 export async function POST() {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   // Collect all URLs to check
   const urlMap = new Map<string, string>() // url -> source label

@@ -1,3 +1,4 @@
+import { isAdminSession } from '@/lib/util/admin-session'
 import { NextRequest, NextResponse } from 'next/server'
 import { revalidatePath, revalidateTag } from 'next/cache'
 import { CACHE_TAGS, REVALIDATE_PROFILE } from '@/lib/data/cache-tags'
@@ -15,7 +16,7 @@ const batchSettingsSchema = z.object({ settings: z.array(settingEntrySchema).max
 
 export async function PATCH(req: NextRequest) {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
     const body = await req.json()

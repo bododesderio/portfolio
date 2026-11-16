@@ -1,9 +1,10 @@
+import { isAdminSession } from '@/lib/util/admin-session'
 import { auth } from '@/lib/auth'
 import { NextResponse } from 'next/server'
 
 export async function POST(req: Request) {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const formData = await req.formData()
   const file = formData.get('upload') as File | null

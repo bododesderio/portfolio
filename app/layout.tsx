@@ -7,9 +7,7 @@ import "./globals.css"
 import { Toaster } from 'react-hot-toast'
 import { ThemeProvider } from 'next-themes'
 import { ThemeInjector } from '@/components/layout/ThemeInjector'
-import { ContentProtection } from '@/components/ui/ContentProtection'
-import { AxiomUI } from '@/components/ui/AxiomUI'
-import { personSchema, websiteSchema } from '@/lib/schema'
+import { ldJson, personSchema, websiteSchema } from '@/lib/schema'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 
@@ -21,6 +19,10 @@ export const metadata: Metadata = {
   },
   description: 'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies.',
   applicationName: 'Bodo Desderio',
+  icons: {
+    icon: [{ url: '/identity/favicon.svg', type: 'image/svg+xml' }, { url: '/favicon.ico', sizes: 'any' }],
+    apple: '/apple-touch-icon.png',
+  },
   authors: [{ name: 'Bodo Desderio', url: SITE_URL }],
   creator: 'Bodo Desderio',
   publisher: 'Bodo Desderio',
@@ -34,9 +36,6 @@ export const metadata: Metadata = {
   },
   twitter: { card: 'summary_large_image', creator: '@bodo_desderio' },
   robots: { index: true, follow: true },
-  other: {
-    'application/ld+json': JSON.stringify([personSchema(), websiteSchema()]),
-  },
 }
 
 export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -47,13 +46,15 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
     <html lang="en" suppressHydrationWarning>
       <head>
         <ThemeInjector />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: ldJson([personSchema(), websiteSchema()]) }}
+        />
       </head>
       <body className="antialiased" suppressHydrationWarning>
         <ThemeProvider nonce={nonce} attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
           <Toaster position="bottom-right" />
-          <ContentProtection />
-          <AxiomUI />
         </ThemeProvider>
       </body>
     </html>

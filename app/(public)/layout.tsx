@@ -1,20 +1,19 @@
 import { Header } from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
-import { PageTransition } from '@/components/layout/PageTransition'
 import { PageViewTracker } from '@/components/analytics/PageViewTracker'
-import { FloatingButtons } from '@/components/ui/FloatingButtons'
 import { BannerRenderer } from '@/components/ui/BannerRenderer'
 import { getSiteSetting } from '@/lib/data/content'
+import { readNavigation } from '@/lib/domain/profile'
+import './personal.css'
 
 type NavLink = { label: string; href: string; visible: boolean }
 
 const DEFAULT_NAV_LINKS: NavLink[] = [
   { label: 'Home', href: '/', visible: true },
   { label: 'About', href: '/about', visible: true },
-  { label: 'Services', href: '/services', visible: true },
-  { label: 'Projects', href: '/projects', visible: true },
+  { label: 'Work', href: '/projects', visible: true },
   { label: 'Gallery', href: '/gallery', visible: true },
-  { label: 'Blog', href: '/blog', visible: true },
+  { label: 'Writing', href: '/blog', visible: true },
   { label: 'Contact', href: '/contact', visible: true },
 ]
 
@@ -24,20 +23,13 @@ export default async function PublicLayout({ children }: { children: React.React
     getSiteSetting('nav.links'),
   ])
 
-  let navLinks: NavLink[] = DEFAULT_NAV_LINKS
-  if (navLinksRaw) {
-    try {
-      navLinks = JSON.parse(navLinksRaw) as NavLink[]
-    } catch {
-      // fall back to defaults
-    }
-  }
+  const navLinks = readNavigation(navLinksRaw, DEFAULT_NAV_LINKS)
 
   // Only pass visible links to the public site
   const visibleLinks = navLinks.filter(l => l.visible)
 
   return (
-    <>
+    <div className="personal-site">
       <link rel="alternate" type="application/rss+xml" title="Bodo Desderio Blog" href="/feed.xml" />
       <a
         href="#main-content"
@@ -46,13 +38,12 @@ export default async function PublicLayout({ children }: { children: React.React
         Skip to main content
       </a>
       <Header navLinks={visibleLinks} />
-      <main id="main-content" className="min-h-screen pt-16">
-        <PageTransition>{children}</PageTransition>
+      <main id="main-content" className="personal-main">
+        {children}
       </main>
       <Footer navLinks={visibleLinks} />
-      <FloatingButtons />
       <BannerRenderer />
       {analyticsEnabled && <PageViewTracker />}
-    </>
+    </div>
   )
 }

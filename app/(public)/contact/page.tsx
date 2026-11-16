@@ -1,107 +1,70 @@
-export const dynamic = 'force-dynamic'
-
-import { getPageContent, getField, getSiteSettings } from '@/lib/data/content'
-import { prisma } from '@/lib/data/db'
-import { PageHero } from '@/components/sections/PageHero'
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
-import { CTASection } from '@/components/sections/CTASection'
+import type { Metadata } from 'next'
+import { getPersonalProfile } from '@/lib/data/profile'
+import { EntryHeading, EntryLayout } from '@/components/personal/EntryLayout'
 import { ContactForm } from '@/components/sections/ContactForm'
 import { ldJson, contactPageSchema } from '@/lib/schema'
-import type { Metadata } from 'next'
-
+import { safePublicHref } from '@/lib/domain/profile'
+export const dynamic = 'force-dynamic'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-
 export const metadata: Metadata = {
-  title: 'Contact | Bodo Desderio',
-  description: 'Get in touch with Bodo Desderio. Ready to build something together?',
+  title: 'Contact',
+  description:
+    'Get in touch with Bodo Desderio. Email, social profiles, and a place to say hello.',
   alternates: { canonical: `${SITE_URL}/contact` },
-  openGraph: {
-    title: 'Contact | Bodo Desderio',
-    description: 'Get in touch. Whether it\'s a project, partnership, or just a conversation, let\'s connect.',
-    url: '/contact',
-    type: 'website',
-    images: [{ url: `${SITE_URL}/opengraph-image` }],
-  },
-  twitter: { card: 'summary_large_image', images: [`${SITE_URL}/opengraph-image`] },
+  openGraph: { title: 'Contact · Bodo Desderio', url: '/contact' },
 }
-
 export default async function ContactPage() {
-  const content = await getPageContent('contact')
-  const settings = await getSiteSettings()
-
-  const hero = {
-    title: getField(content, 'hero.heading') || 'Contact',
-    subtitle: getField(content, 'hero.subtitle') || 'Ready to build something together?',
-    image: getField(content, 'hero.image') || '/images/stock/contact-hero.svg',
-  }
-
-  const allTestimonials = await prisma.testimonial.findMany({
-    where: { visible: true },
-    include: { photo: true },
-  }).catch(() => [])
-  const testimonials = allTestimonials.filter(t => t.pages.includes('contact'))
-
-  const cta = {
-    heading: "Let's build something that matters.",
-    lead: "Whether you need a technology partner, a strategic consultant, or a collaborator on something bigger, I'm open to conversations that lead somewhere real.",
-    buttonLabel: 'Book a consultation',
-    buttonUrl: settings['site.calendly_url'] || '/contact',
-  }
-
+  const profile = await getPersonalProfile()
+  const email = profile.settings['site.email'] || 'info@bododesderio.com'
+  const booking = safePublicHref(profile.settings['site.calendly_url'] || '')
   return (
-    <>
+    <EntryLayout>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: ldJson(contactPageSchema(settings['site.email'] || 'info@bododesderio.com', settings['site.location'] || 'Kampala, Uganda')) }}
+        dangerouslySetInnerHTML={{
+          __html: ldJson(contactPageSchema(email, profile.location)),
+        }}
       />
-      <PageHero title={hero.title} subtitle={hero.subtitle} image={hero.image} />
-
-      <section className="py-24 md:py-32">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-2 gap-16">
-            <div>
-              <p className="text-brand text-sm uppercase tracking-widest mb-2">Get in touch</p>
-              <h2 className="font-serif text-4xl md:text-5xl text-slate-900 dark:text-white mb-6">
-                Ready to build something together?
-              </h2>
-              <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-                Fill in the form and I&apos;ll get back to you within 24–48 hours.
-              </p>
-
-              <div className="space-y-4">
-                <div>
-                  <p className="text-sm text-slate-500 uppercase tracking-wide mb-1">Email</p>
-                  <a href={`mailto:${settings['site.email']}`} className="text-brand hover:underline font-medium">
-                    {settings['site.email']}
-                  </a>
-                </div>
-                <div>
-                  <p className="text-sm text-slate-500 uppercase tracking-wide mb-1">Location</p>
-                  <p className="text-slate-700 dark:text-slate-300">{settings['site.location']}</p>
-                </div>
-                {settings['site.calendly_url'] && (
-                  <div>
-                    <p className="text-sm text-slate-500 uppercase tracking-wide mb-1">Book a call</p>
-                    <a
-                      href={settings['site.calendly_url']}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-brand hover:underline font-medium"
-                    >
-                      Schedule via Calendly →
-                    </a>
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <ContactForm />
+      <EntryHeading
+        eyebrow="A place to say hello"
+        title="Get in touch"
+        description="An idea, a question, a shared interest, or simply a hello. I’d love to hear from you."
+      />
+      <div className="personal-contact-layout">
+        <div className="personal-contact-details">
+          <p className="personal-eyebrow">Email</p>
+          <a className="personal-contact-email" href={`mailto:${email}`}>
+            {email} ↗
+          </a>
+          <p>
+            I’m based in {profile.location}. You can email me directly or leave
+            a message here.
+          </p>
+          <div className="personal-contact-socials">
+            {profile.socials.map((item) => (
+              <a
+                href={item.href}
+                key={item.label}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {item.label} ↗
+              </a>
+            ))}
           </div>
+          {booking && (
+            <a
+              className="personal-inline-link"
+              href={booking}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Find a time to talk ↗
+            </a>
+          )}
         </div>
-      </section>
-
-      <TestimonialsSection testimonials={testimonials} />
-      <CTASection content={cta} />
-    </>
+        <ContactForm />
+      </div>
+    </EntryLayout>
   )
 }

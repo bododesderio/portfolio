@@ -1,3 +1,4 @@
+import { isAdminSession } from '@/lib/util/admin-session'
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
@@ -15,7 +16,7 @@ const schema = z.object({
 
 export async function PATCH(req: NextRequest) {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
     const body = await req.json()

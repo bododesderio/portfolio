@@ -1,0 +1,4533 @@
+{
+  "observedAt": "2026-11-16",
+  "pages": [
+    {
+      "title": "Bodo Desderio: Founder, Engineer & Community Leader | Kampala, Uganda | Bodo Desderio",
+      "description": "Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda.",
+      "canonical": null,
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "h2": [
+        "More than a developer.",
+        "The story so far.",
+        "How I create value.",
+        "Building Uganda's tech generation.",
+        "Writing beyond the page.",
+        "From idea to impact.",
+        "Organisations I've built with and for.",
+        "What people say",
+        "Technologies I work with",
+        "Let's build something that matters.",
+        "Thoughts on tech, business & building in Africa.",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 20092,
+      "overflow": [
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 143.99996948242188
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 143.99996948242188
+        },
+        {
+          "tag": "IMG",
+          "text": "",
+          "width": 143.99996948242188
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "IMG",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144.00006103515625
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144.00006103515625
+        }
+      ],
+      "brokenImages": [],
+      "images": 27,
+      "links": [
+        {
+          "text": "Let's work together",
+          "href": "/contact"
+        },
+        {
+          "text": "See my work",
+          "href": "/services"
+        },
+        {
+          "text": "Read my full story",
+          "href": "/about"
+        },
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "View all services",
+          "href": "/services"
+        },
+        {
+          "text": "See the gallery",
+          "href": "/gallery"
+        },
+        {
+          "text": "Read on X",
+          "href": "https://x.com/NDCUganda/status/1790297774686191874"
+        },
+        {
+          "text": "Download",
+          "href": "/images/press/vnsac234-essay.jpg"
+        },
+        {
+          "text": "@NDCUganda",
+          "href": "https://x.com/NDCUganda"
+        },
+        {
+          "text": "Read article",
+          "href": "https://www.sedrickotolo.com/desderio-new-african-youth-council-president"
+        },
+        {
+          "text": "Sedrick Otolo",
+          "href": "https://www.sedrickotolo.com"
+        },
+        {
+          "text": "Read article",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "MediumAug 29, 2025When Foreign Interests Triumph Over Ugandan WelfareA view of K",
+          "href": "https://medium.com/@bodo_desderio/when-foreign-interests-trump-ugandan-welfare-2438573708e5?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 13, 2023A Journey Through the Mind: Exploring Mental Health in Today's",
+          "href": "https://medium.com/@bodo_desderio/a-journey-through-the-mind-exploring-mental-health-in-todays-world-096c077bc3da?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 11, 2023Turning Off the Faucet: A Call to Action for Climate ChangeEmi",
+          "href": "https://medium.com/@bodo_desderio/turning-off-the-faucet-a-call-to-action-for-climate-change-6b798d0856a0?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "Start a conversation",
+          "href": "/contact"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/how-data-centers-transitioning-100-renewable-energy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/innovative-approaches-tech-recycling-circular-economy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/quantum-computing-breakthroughs-practical-applications"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/closing-gender-gap-computer-science-education"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/responsible-ai-development-balancing-innovation-and-ethics"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+        },
+        {
+          "text": "View all posts",
+          "href": "/blog"
+        },
+        {
+          "text": "Get in touch",
+          "href": "/contact"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif",
+        "ui-monospace, SFMono-Regular, Menlo, Monaco, monospace"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 30,
+        "bytes": 353043
+      },
+      "lcp": [],
+      "route": "/",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.56,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Bodo Desderio: Founder, Engineer & Community Leader | Kampala, Uganda | Bodo Desderio",
+      "description": "Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda.",
+      "canonical": null,
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "h2": [
+        "More than a developer.",
+        "The story so far.",
+        "How I create value.",
+        "Building Uganda's tech generation.",
+        "Writing beyond the page.",
+        "From idea to impact.",
+        "Organisations I've built with and for.",
+        "What people say",
+        "Technologies I work with",
+        "Let's build something that matters.",
+        "Thoughts on tech, business & building in Africa.",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 13384,
+      "overflow": [
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "IMG",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "IMG",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        }
+      ],
+      "brokenImages": [],
+      "images": 27,
+      "links": [
+        {
+          "text": "Let's work together",
+          "href": "/contact"
+        },
+        {
+          "text": "See my work",
+          "href": "/services"
+        },
+        {
+          "text": "Read my full story",
+          "href": "/about"
+        },
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "View all services",
+          "href": "/services"
+        },
+        {
+          "text": "See the gallery",
+          "href": "/gallery"
+        },
+        {
+          "text": "Read on X",
+          "href": "https://x.com/NDCUganda/status/1790297774686191874"
+        },
+        {
+          "text": "Download",
+          "href": "/images/press/vnsac234-essay.jpg"
+        },
+        {
+          "text": "@NDCUganda",
+          "href": "https://x.com/NDCUganda"
+        },
+        {
+          "text": "Read article",
+          "href": "https://www.sedrickotolo.com/desderio-new-african-youth-council-president"
+        },
+        {
+          "text": "Sedrick Otolo",
+          "href": "https://www.sedrickotolo.com"
+        },
+        {
+          "text": "Read article",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "MediumAug 29, 2025When Foreign Interests Triumph Over Ugandan WelfareA view of K",
+          "href": "https://medium.com/@bodo_desderio/when-foreign-interests-trump-ugandan-welfare-2438573708e5?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 13, 2023A Journey Through the Mind: Exploring Mental Health in Today's",
+          "href": "https://medium.com/@bodo_desderio/a-journey-through-the-mind-exploring-mental-health-in-todays-world-096c077bc3da?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 11, 2023Turning Off the Faucet: A Call to Action for Climate ChangeEmi",
+          "href": "https://medium.com/@bodo_desderio/turning-off-the-faucet-a-call-to-action-for-climate-change-6b798d0856a0?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "Start a conversation",
+          "href": "/contact"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/how-data-centers-transitioning-100-renewable-energy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/innovative-approaches-tech-recycling-circular-economy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/quantum-computing-breakthroughs-practical-applications"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/closing-gender-gap-computer-science-education"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/responsible-ai-development-balancing-innovation-and-ethics"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+        },
+        {
+          "text": "View all posts",
+          "href": "/blog"
+        },
+        {
+          "text": "Get in touch",
+          "href": "/contact"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif",
+        "ui-monospace, SFMono-Regular, Menlo, Monaco, monospace"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 38,
+        "bytes": 420892
+      },
+      "lcp": [],
+      "route": "/",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.75,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "About | Bodo Desderio | Bodo Desderio",
+      "description": "Learn more about Bodo Desderio: his story, values, mission, and the work he does across tech, business, and community in Uganda.",
+      "canonical": "https://bododesderio.com/about",
+      "h1": [
+        "About Bodo"
+      ],
+      "h2": [
+        "The story so far.",
+        "The work has a life outside the screen.",
+        "The Story So Far",
+        "Values",
+        "Why work with me",
+        "A few things people usually ask before we work together.",
+        "Writing beyond the page.",
+        "What people say",
+        "Let's build something that matters.",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "ProfilePage",
+            "url": "https://bododesderio.com/about",
+            "mainEntity": {
+              "@id": "https://bododesderio.com/#bodo"
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "About",
+                  "item": "https://bododesderio.com/about"
+                }
+              ]
+            },
+            "name": "About Bodo Desderio",
+            "description": "The story, values, and milestones behind Bodo Desderio's work."
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 13488,
+      "overflow": [
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 3204
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 256
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 256
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 256
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 256.0001220703125
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 256
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 256
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 256
+        }
+      ],
+      "brokenImages": [
+        "https://bododesderio.com/_next/image?url=%2Fimages%2Fgallery%2FIMG_2496.JPG&w=640&q=75"
+      ],
+      "images": 37,
+      "links": [
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "View full gallery",
+          "href": "/gallery"
+        },
+        {
+          "text": "Read on X",
+          "href": "https://x.com/NDCUganda/status/1790297774686191874"
+        },
+        {
+          "text": "Download",
+          "href": "/images/press/vnsac234-essay.jpg"
+        },
+        {
+          "text": "@NDCUganda",
+          "href": "https://x.com/NDCUganda"
+        },
+        {
+          "text": "Read article",
+          "href": "https://www.sedrickotolo.com/desderio-new-african-youth-council-president"
+        },
+        {
+          "text": "Sedrick Otolo",
+          "href": "https://www.sedrickotolo.com"
+        },
+        {
+          "text": "Read article",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "MediumAug 29, 2025When Foreign Interests Triumph Over Ugandan WelfareA view of K",
+          "href": "https://medium.com/@bodo_desderio/when-foreign-interests-trump-ugandan-welfare-2438573708e5?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 13, 2023A Journey Through the Mind: Exploring Mental Health in Today's",
+          "href": "https://medium.com/@bodo_desderio/a-journey-through-the-mind-exploring-mental-health-in-todays-world-096c077bc3da?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 11, 2023Turning Off the Faucet: A Call to Action for Climate ChangeEmi",
+          "href": "https://medium.com/@bodo_desderio/turning-off-the-faucet-a-call-to-action-for-climate-change-6b798d0856a0?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "Start a conversation",
+          "href": "/contact"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 41,
+        "bytes": 687872
+      },
+      "lcp": [],
+      "route": "/about",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 4.91,
+      "errors": [],
+      "badResponses": [
+        {
+          "status": 400,
+          "url": "https://bododesderio.com/_next/image?url=%2Fimages%2Fgallery%2FIMG_2496.JPG&w=640&q=75"
+        }
+      ]
+    },
+    {
+      "title": "About | Bodo Desderio | Bodo Desderio",
+      "description": "Learn more about Bodo Desderio: his story, values, mission, and the work he does across tech, business, and community in Uganda.",
+      "canonical": "https://bododesderio.com/about",
+      "h1": [
+        "About Bodo"
+      ],
+      "h2": [
+        "The story so far.",
+        "The work has a life outside the screen.",
+        "The Story So Far",
+        "Values",
+        "Why work with me",
+        "A few things people usually ask before we work together.",
+        "Writing beyond the page.",
+        "What people say",
+        "Let's build something that matters.",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "ProfilePage",
+            "url": "https://bododesderio.com/about",
+            "mainEntity": {
+              "@id": "https://bododesderio.com/#bodo"
+            },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "About",
+                  "item": "https://bododesderio.com/about"
+                }
+              ]
+            },
+            "name": "About Bodo Desderio",
+            "description": "The story, values, and milestones behind Bodo Desderio's work."
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 16194,
+      "overflow": [
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 2436
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 191.99996948242188
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 192
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 192
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 192.00006103515625
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 192
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 192
+        },
+        {
+          "tag": "FIGURE",
+          "text": "",
+          "width": 192
+        }
+      ],
+      "brokenImages": [],
+      "images": 37,
+      "links": [
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "View full gallery",
+          "href": "/gallery"
+        },
+        {
+          "text": "Read on X",
+          "href": "https://x.com/NDCUganda/status/1790297774686191874"
+        },
+        {
+          "text": "Download",
+          "href": "/images/press/vnsac234-essay.jpg"
+        },
+        {
+          "text": "@NDCUganda",
+          "href": "https://x.com/NDCUganda"
+        },
+        {
+          "text": "Read article",
+          "href": "https://www.sedrickotolo.com/desderio-new-african-youth-council-president"
+        },
+        {
+          "text": "Sedrick Otolo",
+          "href": "https://www.sedrickotolo.com"
+        },
+        {
+          "text": "Read article",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "MediumAug 29, 2025When Foreign Interests Triumph Over Ugandan WelfareA view of K",
+          "href": "https://medium.com/@bodo_desderio/when-foreign-interests-trump-ugandan-welfare-2438573708e5?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 13, 2023A Journey Through the Mind: Exploring Mental Health in Today's",
+          "href": "https://medium.com/@bodo_desderio/a-journey-through-the-mind-exploring-mental-health-in-todays-world-096c077bc3da?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 11, 2023Turning Off the Faucet: A Call to Action for Climate ChangeEmi",
+          "href": "https://medium.com/@bodo_desderio/turning-off-the-faucet-a-call-to-action-for-climate-change-6b798d0856a0?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "Start a conversation",
+          "href": "/contact"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 27,
+        "bytes": 355991
+      },
+      "lcp": [],
+      "route": "/about",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.26,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Services | Bodo Desderio | Bodo Desderio",
+      "description": "Explore the services I offer: company building, software engineering, SEO & digital strategy, technical consulting, and community programmes.",
+      "canonical": "https://bododesderio.com/services",
+      "h1": [
+        "Services"
+      ],
+      "h2": [
+        "What I do",
+        "From idea to impact.",
+        "How we can work together.",
+        "What people say",
+        "Ready to start a project?",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://bododesderio.com/services",
+            "url": "https://bododesderio.com/services",
+            "name": "Services | Bodo Desderio",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://bododesderio.com/services"
+                }
+              ]
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": [
+                {
+                  "@type": "Service",
+                  "position": 1,
+                  "name": "Company Building",
+                  "description": "I help founders and organisations build companies from the ground up, from idea validation to team structure, product strategy, and go-to-market.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "position": 2,
+                  "name": "Software Engineering",
+                  "description": "Full-stack development across web and mobile. I build fast, secure, and scalable applications using modern JavaScript ecosystems.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "position": 3,
+                  "name": "SEO & Digital Strategy",
+                  "description": "End-to-end SEO strategy and digital growth. I've helped organisations across East Africa grow their online presence and organic reach.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "position": 4,
+                  "name": "Technical Consulting",
+                  "description": "Strategic technology guidance for organisations navigating digital transformation, from architecture decisions to team capability building.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "position": 5,
+                  "name": "Community & Programmes",
+                  "description": "I design and run technology education programmes, workshops, and community events. Built on my experience leading the African Youth Congress Uganda Chapter.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 8560,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 3,
+      "links": [
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "View all services",
+          "href": "/services"
+        },
+        {
+          "text": "Start a project",
+          "href": "/contact"
+        },
+        {
+          "text": "Book a retainer",
+          "href": "/contact"
+        },
+        {
+          "text": "Book a session",
+          "href": "https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio"
+        },
+        {
+          "text": "Book a consultation",
+          "href": "https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif",
+        "ui-monospace, SFMono-Regular, Menlo, Monaco, monospace"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 21,
+        "bytes": 260014
+      },
+      "lcp": [],
+      "route": "/services",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 2.74,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Services | Bodo Desderio | Bodo Desderio",
+      "description": "Explore the services I offer: company building, software engineering, SEO & digital strategy, technical consulting, and community programmes.",
+      "canonical": "https://bododesderio.com/services",
+      "h1": [
+        "Services"
+      ],
+      "h2": [
+        "What I do",
+        "From idea to impact.",
+        "How we can work together.",
+        "What people say",
+        "Ready to start a project?",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "@id": "https://bododesderio.com/services",
+            "url": "https://bododesderio.com/services",
+            "name": "Services | Bodo Desderio",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Services",
+                  "item": "https://bododesderio.com/services"
+                }
+              ]
+            },
+            "mainEntity": {
+              "@type": "ItemList",
+              "itemListElement": [
+                {
+                  "@type": "Service",
+                  "position": 1,
+                  "name": "Company Building",
+                  "description": "I help founders and organisations build companies from the ground up, from idea validation to team structure, product strategy, and go-to-market.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "position": 2,
+                  "name": "Software Engineering",
+                  "description": "Full-stack development across web and mobile. I build fast, secure, and scalable applications using modern JavaScript ecosystems.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "position": 3,
+                  "name": "SEO & Digital Strategy",
+                  "description": "End-to-end SEO strategy and digital growth. I've helped organisations across East Africa grow their online presence and organic reach.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "position": 4,
+                  "name": "Technical Consulting",
+                  "description": "Strategic technology guidance for organisations navigating digital transformation, from architecture decisions to team capability building.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                },
+                {
+                  "@type": "Service",
+                  "position": 5,
+                  "name": "Community & Programmes",
+                  "description": "I design and run technology education programmes, workshops, and community events. Built on my experience leading the African Youth Congress Uganda Chapter.",
+                  "provider": {
+                    "@id": "https://bododesderio.com/#bodo"
+                  },
+                  "areaServed": {
+                    "@type": "Country",
+                    "name": "Uganda"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 5600,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 3,
+      "links": [
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "View all services",
+          "href": "/services"
+        },
+        {
+          "text": "Start a project",
+          "href": "/contact"
+        },
+        {
+          "text": "Book a retainer",
+          "href": "/contact"
+        },
+        {
+          "text": "Book a session",
+          "href": "https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio"
+        },
+        {
+          "text": "Book a consultation",
+          "href": "https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif",
+        "ui-monospace, SFMono-Regular, Menlo, Monaco, monospace"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 32,
+        "bytes": 273531
+      },
+      "lcp": [],
+      "route": "/services",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.77,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Projects | Bodo Desderio | Bodo Desderio",
+      "description": "A showcase of projects I have worked on, am currently building, or am planning.",
+      "canonical": "https://bododesderio.com/projects",
+      "h1": [
+        "Projects"
+      ],
+      "h2": [
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 4061,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "RIn Progress",
+          "href": "/projects/rooibok-technologies"
+        },
+        {
+          "text": "Rooibok Technologies",
+          "href": "/projects/rooibok-technologies"
+        },
+        {
+          "text": "View details \u2192",
+          "href": "/projects/rooibok-technologies"
+        },
+        {
+          "text": "",
+          "href": "https://rooibok.com"
+        },
+        {
+          "text": "KIn Progress",
+          "href": "/projects/kakebe-technologies"
+        },
+        {
+          "text": "Kakebe Technologies",
+          "href": "/projects/kakebe-technologies"
+        },
+        {
+          "text": "View details \u2192",
+          "href": "/projects/kakebe-technologies"
+        },
+        {
+          "text": "",
+          "href": "https://www.kakebe.tech"
+        },
+        {
+          "text": "PCompleted",
+          "href": "/projects/portfolio-website"
+        },
+        {
+          "text": "Portfolio Website",
+          "href": "/projects/portfolio-website"
+        },
+        {
+          "text": "View details \u2192",
+          "href": "/projects/portfolio-website"
+        },
+        {
+          "text": "CPlanned",
+          "href": "/projects/community-platform"
+        },
+        {
+          "text": "Community Platform",
+          "href": "/projects/community-platform"
+        },
+        {
+          "text": "View details \u2192",
+          "href": "/projects/community-platform"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 263144
+      },
+      "lcp": [],
+      "route": "/projects",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.92,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Gallery | Bodo Desderio | Bodo Desderio",
+      "description": "Explore photos from tech camps, community events, and projects.",
+      "canonical": "https://bododesderio.com/gallery",
+      "h1": [
+        "Gallery",
+        "Moments & Projects"
+      ],
+      "h2": [
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "ImageGallery",
+            "@id": "https://bododesderio.com/gallery",
+            "url": "https://bododesderio.com/gallery",
+            "name": "Gallery | Bodo Desderio",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Gallery",
+                  "item": "https://bododesderio.com/gallery"
+                }
+              ]
+            },
+            "creator": {
+              "@id": "https://bododesderio.com/#bodo"
+            },
+            "image": [
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/85d3f15f-bbdb-4a25-bb62-a039a4ce3533.jpg",
+                "caption": "Gallery image: 85d3f15f-bbdb-4a25-bb62-a039a4ce3533.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/89324abb-6cdb-4f3b-8506-5295a63108c7.jpg",
+                "caption": "Gallery image: 89324abb-6cdb-4f3b-8506-5295a63108c7.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/aa.jpg",
+                "caption": "Gallery image: aa.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/dd.jpg",
+                "caption": "Gallery image: dd.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/ffg.jpg",
+                "caption": "Gallery image: ffg.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_2496.JPG",
+                "caption": "Gallery image: IMG_2496.JPG"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_5207.jpg",
+                "caption": "Gallery image: IMG_5207.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_5544.jpg",
+                "caption": "Gallery image: IMG_5544.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_7110.jpg",
+                "caption": "Gallery image: IMG_7110.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_7739.jpg",
+                "caption": "Gallery image: IMG_7739.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/og.jpg",
+                "caption": "Gallery image: og.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/pp.jpg",
+                "caption": "Gallery image: pp.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/ss.jpg",
+                "caption": "Gallery image: ss.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/tt.JPG",
+                "caption": "Gallery image: tt.JPG"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/uvybu-i.jpg",
+                "caption": "Gallery image: uvybu-i.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/x10.jpg",
+                "caption": "Gallery image: x10.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/x4.jpg",
+                "caption": "Gallery image: x4.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/yxthn.jpg",
+                "caption": "Gallery image: yxthn.jpg"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 3659,
+      "overflow": [],
+      "brokenImages": [
+        "https://bododesderio.com/_next/image?url=%2Fimages%2Fgallery%2FIMG_2496.JPG&w=384&q=75",
+        "https://bododesderio.com/_next/image?url=%2Fimages%2Fgallery%2Ftt.JPG&w=384&q=75"
+      ],
+      "images": 19,
+      "links": [],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 51,
+        "bytes": 644067
+      },
+      "lcp": [],
+      "route": "/gallery",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 4.27,
+      "errors": [],
+      "badResponses": [
+        {
+          "status": 400,
+          "url": "https://bododesderio.com/_next/image?url=%2Fimages%2Fgallery%2FIMG_2496.JPG&w=384&q=75"
+        },
+        {
+          "status": 400,
+          "url": "https://bododesderio.com/_next/image?url=%2Fimages%2Fgallery%2Ftt.JPG&w=384&q=75"
+        }
+      ]
+    },
+    {
+      "title": "Projects | Bodo Desderio | Bodo Desderio",
+      "description": "A showcase of projects I have worked on, am currently building, or am planning.",
+      "canonical": "https://bododesderio.com/projects",
+      "h1": [
+        "Projects"
+      ],
+      "h2": [
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 2728,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "RIn Progress",
+          "href": "/projects/rooibok-technologies"
+        },
+        {
+          "text": "Rooibok Technologies",
+          "href": "/projects/rooibok-technologies"
+        },
+        {
+          "text": "View details \u2192",
+          "href": "/projects/rooibok-technologies"
+        },
+        {
+          "text": "",
+          "href": "https://rooibok.com"
+        },
+        {
+          "text": "KIn Progress",
+          "href": "/projects/kakebe-technologies"
+        },
+        {
+          "text": "Kakebe Technologies",
+          "href": "/projects/kakebe-technologies"
+        },
+        {
+          "text": "View details \u2192",
+          "href": "/projects/kakebe-technologies"
+        },
+        {
+          "text": "",
+          "href": "https://www.kakebe.tech"
+        },
+        {
+          "text": "PCompleted",
+          "href": "/projects/portfolio-website"
+        },
+        {
+          "text": "Portfolio Website",
+          "href": "/projects/portfolio-website"
+        },
+        {
+          "text": "View details \u2192",
+          "href": "/projects/portfolio-website"
+        },
+        {
+          "text": "CPlanned",
+          "href": "/projects/community-platform"
+        },
+        {
+          "text": "Community Platform",
+          "href": "/projects/community-platform"
+        },
+        {
+          "text": "View details \u2192",
+          "href": "/projects/community-platform"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 41,
+        "bytes": 283995
+      },
+      "lcp": [],
+      "route": "/projects",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 5.45,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Blog | Bodo Desderio | Bodo Desderio",
+      "description": "Thoughts on tech, business & building in Africa.",
+      "canonical": "https://bododesderio.com/blog",
+      "h1": [
+        "Writing"
+      ],
+      "h2": [
+        "How Data Centers Are Transitioning to 100% Renewable Energy",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "@id": "https://bododesderio.com/blog",
+            "url": "https://bododesderio.com/blog",
+            "name": "Writing | Bodo Desderio",
+            "description": "Essays on tech, business, and building in Africa.",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Blog",
+                  "item": "https://bododesderio.com/blog"
+                }
+              ]
+            },
+            "publisher": {
+              "@id": "https://bododesderio.com/#bodo"
+            },
+            "blogPost": [
+              {
+                "@type": "BlogPosting",
+                "headline": "How Data Centers Are Transitioning to 100% Renewable Energy",
+                "description": "Tracking the data center industry's move toward renewable energy sources.",
+                "url": "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy",
+                "datePublished": "2025-04-25T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "Renewable Energy"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Innovative Approaches to Tech Recycling and Circular Economy",
+                "description": "How tech recycling and circular economy principles can address e-waste challenges.",
+                "url": "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy",
+                "datePublished": "2025-04-12T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "E-Waste"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Quantum Computing Breakthroughs and Practical Applications",
+                "description": "A look at recent quantum computing advances and what they mean for practical applications.",
+                "url": "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications",
+                "datePublished": "2025-03-28T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "Future Tech"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Closing the Gender Gap in Computer Science Education",
+                "description": "Strategies for increasing female participation in computer science and technology fields.",
+                "url": "https://bododesderio.com/blog/closing-gender-gap-computer-science-education",
+                "datePublished": "2025-03-05T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "STEM Education"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Responsible AI Development: Balancing Innovation and Ethics",
+                "description": "Examining the ethical considerations that must guide AI development in Africa and beyond.",
+                "url": "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics",
+                "datePublished": "2025-02-10T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "AI Ethics"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Sustainable Web Development: Reducing Digital Carbon Footprints",
+                "description": "Exploring how sustainable practices in web development can reduce our digital carbon footprint.",
+                "url": "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+                "datePublished": "2025-01-15T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "Green Tech"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 6073,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 8,
+      "links": [
+        {
+          "text": "Read article \u2192",
+          "href": "/blog/how-data-centers-transitioning-100-renewable-energy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/how-data-centers-transitioning-100-renewable-energy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/innovative-approaches-tech-recycling-circular-economy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/quantum-computing-breakthroughs-practical-applications"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/closing-gender-gap-computer-science-education"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/responsible-ai-development-balancing-innovation-and-ethics"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 21,
+        "bytes": 257042
+      },
+      "lcp": [],
+      "route": "/blog",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 4.9,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Gallery | Bodo Desderio | Bodo Desderio",
+      "description": "Explore photos from tech camps, community events, and projects.",
+      "canonical": "https://bododesderio.com/gallery",
+      "h1": [
+        "Gallery",
+        "Moments & Projects"
+      ],
+      "h2": [
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "ImageGallery",
+            "@id": "https://bododesderio.com/gallery",
+            "url": "https://bododesderio.com/gallery",
+            "name": "Gallery | Bodo Desderio",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Gallery",
+                  "item": "https://bododesderio.com/gallery"
+                }
+              ]
+            },
+            "creator": {
+              "@id": "https://bododesderio.com/#bodo"
+            },
+            "image": [
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/85d3f15f-bbdb-4a25-bb62-a039a4ce3533.jpg",
+                "caption": "Gallery image: 85d3f15f-bbdb-4a25-bb62-a039a4ce3533.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/89324abb-6cdb-4f3b-8506-5295a63108c7.jpg",
+                "caption": "Gallery image: 89324abb-6cdb-4f3b-8506-5295a63108c7.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/aa.jpg",
+                "caption": "Gallery image: aa.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/dd.jpg",
+                "caption": "Gallery image: dd.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/ffg.jpg",
+                "caption": "Gallery image: ffg.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_2496.JPG",
+                "caption": "Gallery image: IMG_2496.JPG"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_5207.jpg",
+                "caption": "Gallery image: IMG_5207.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_5544.jpg",
+                "caption": "Gallery image: IMG_5544.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_7110.jpg",
+                "caption": "Gallery image: IMG_7110.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/IMG_7739.jpg",
+                "caption": "Gallery image: IMG_7739.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/og.jpg",
+                "caption": "Gallery image: og.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/pp.jpg",
+                "caption": "Gallery image: pp.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/ss.jpg",
+                "caption": "Gallery image: ss.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/tt.JPG",
+                "caption": "Gallery image: tt.JPG"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/uvybu-i.jpg",
+                "caption": "Gallery image: uvybu-i.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/x10.jpg",
+                "caption": "Gallery image: x10.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/x4.jpg",
+                "caption": "Gallery image: x4.jpg"
+              },
+              {
+                "@type": "ImageObject",
+                "contentUrl": "https://bododesderio.com/images/gallery/yxthn.jpg",
+                "caption": "Gallery image: yxthn.jpg"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 4100,
+      "overflow": [],
+      "brokenImages": [
+        "https://bododesderio.com/_next/image?url=%2Fimages%2Fgallery%2FIMG_2496.JPG&w=256&q=75"
+      ],
+      "images": 19,
+      "links": [],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 37,
+        "bytes": 399588
+      },
+      "lcp": [],
+      "route": "/gallery",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 6.45,
+      "errors": [],
+      "badResponses": [
+        {
+          "status": 400,
+          "url": "https://bododesderio.com/_next/image?url=%2Fimages%2Fgallery%2FIMG_2496.JPG&w=256&q=75"
+        }
+      ]
+    },
+    {
+      "title": "Blog | Bodo Desderio | Bodo Desderio",
+      "description": "Thoughts on tech, business & building in Africa.",
+      "canonical": "https://bododesderio.com/blog",
+      "h1": [
+        "Writing"
+      ],
+      "h2": [
+        "How Data Centers Are Transitioning to 100% Renewable Energy",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "Blog",
+            "@id": "https://bododesderio.com/blog",
+            "url": "https://bododesderio.com/blog",
+            "name": "Writing | Bodo Desderio",
+            "description": "Essays on tech, business, and building in Africa.",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Blog",
+                  "item": "https://bododesderio.com/blog"
+                }
+              ]
+            },
+            "publisher": {
+              "@id": "https://bododesderio.com/#bodo"
+            },
+            "blogPost": [
+              {
+                "@type": "BlogPosting",
+                "headline": "How Data Centers Are Transitioning to 100% Renewable Energy",
+                "description": "Tracking the data center industry's move toward renewable energy sources.",
+                "url": "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy",
+                "datePublished": "2025-04-25T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "Renewable Energy"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Innovative Approaches to Tech Recycling and Circular Economy",
+                "description": "How tech recycling and circular economy principles can address e-waste challenges.",
+                "url": "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy",
+                "datePublished": "2025-04-12T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "E-Waste"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Quantum Computing Breakthroughs and Practical Applications",
+                "description": "A look at recent quantum computing advances and what they mean for practical applications.",
+                "url": "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications",
+                "datePublished": "2025-03-28T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "Future Tech"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Closing the Gender Gap in Computer Science Education",
+                "description": "Strategies for increasing female participation in computer science and technology fields.",
+                "url": "https://bododesderio.com/blog/closing-gender-gap-computer-science-education",
+                "datePublished": "2025-03-05T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "STEM Education"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Responsible AI Development: Balancing Innovation and Ethics",
+                "description": "Examining the ethical considerations that must guide AI development in Africa and beyond.",
+                "url": "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics",
+                "datePublished": "2025-02-10T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "AI Ethics"
+              },
+              {
+                "@type": "BlogPosting",
+                "headline": "Sustainable Web Development: Reducing Digital Carbon Footprints",
+                "description": "Exploring how sustainable practices in web development can reduce our digital carbon footprint.",
+                "url": "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+                "datePublished": "2025-01-15T00:00:00.000Z",
+                "author": {
+                  "@id": "https://bododesderio.com/#bodo"
+                },
+                "articleSection": "Green Tech"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 3627,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 8,
+      "links": [
+        {
+          "text": "Read article \u2192",
+          "href": "/blog/how-data-centers-transitioning-100-renewable-energy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/how-data-centers-transitioning-100-renewable-energy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/innovative-approaches-tech-recycling-circular-economy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/quantum-computing-breakthroughs-practical-applications"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/closing-gender-gap-computer-science-education"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/responsible-ai-development-balancing-innovation-and-ethics"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 37,
+        "bytes": 275828
+      },
+      "lcp": [],
+      "route": "/blog",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 6.11,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Contact | Bodo Desderio | Bodo Desderio",
+      "description": "Get in touch with Bodo Desderio. Ready to build something together?",
+      "canonical": "https://bododesderio.com/contact",
+      "h1": [
+        "Get in touch"
+      ],
+      "h2": [
+        "Ready to build something together?",
+        "What people say",
+        "Let's build something that matters.",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "@id": "https://bododesderio.com/contact",
+            "url": "https://bododesderio.com/contact",
+            "name": "Contact Bodo Desderio",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Contact",
+                  "item": "https://bododesderio.com/contact"
+                }
+              ]
+            },
+            "mainEntity": {
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "@id": "https://bododesderio.com/#bodo",
+              "name": "Bodo Desderio",
+              "alternateName": "Bodo",
+              "url": "https://bododesderio.com",
+              "image": "https://bododesderio.com/opengraph-image",
+              "jobTitle": "Founder & CEO",
+              "worksFor": [
+                {
+                  "@type": "Organization",
+                  "name": "Rooibok Technologies Limited",
+                  "url": "https://rooibok.com"
+                },
+                {
+                  "@type": "Organization",
+                  "name": "Kakebe Technologies Limited",
+                  "url": "https://www.kakebe.tech"
+                }
+              ],
+              "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "Kampala International University"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Kampala",
+                "addressCountry": "UG"
+              },
+              "sameAs": [
+                "https://www.linkedin.com/in/bododesderio/",
+                "https://github.com/bododesderio/",
+                "https://x.com/bodo_desderio/",
+                "https://www.instagram.com/bodo_desderio/",
+                "https://www.facebook.com/bododesderio1/"
+              ],
+              "knowsAbout": [
+                "Software Engineering",
+                "Entrepreneurship",
+                "SEO",
+                "Community Building",
+                "STEM Education"
+              ],
+              "description": "Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda Chapter.",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer support",
+                "email": "info@bododesderio.com",
+                "areaServed": "Kampala, Uganda",
+                "availableLanguage": [
+                  "English"
+                ]
+              }
+            }
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 4686,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 3,
+      "links": [
+        {
+          "text": "info@bododesderio.com",
+          "href": "mailto:info@bododesderio.com"
+        },
+        {
+          "text": "Schedule via Calendly \u2192",
+          "href": "https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio"
+        },
+        {
+          "text": "Book a consultation",
+          "href": "https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 265151
+      },
+      "lcp": [],
+      "route": "/contact",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.94,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Contact | Bodo Desderio | Bodo Desderio",
+      "description": "Get in touch with Bodo Desderio. Ready to build something together?",
+      "canonical": "https://bododesderio.com/contact",
+      "h1": [
+        "Get in touch"
+      ],
+      "h2": [
+        "Ready to build something together?",
+        "What people say",
+        "Let's build something that matters.",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "@id": "https://bododesderio.com/contact",
+            "url": "https://bododesderio.com/contact",
+            "name": "Contact Bodo Desderio",
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                {
+                  "@type": "ListItem",
+                  "position": 1,
+                  "name": "Home",
+                  "item": "https://bododesderio.com"
+                },
+                {
+                  "@type": "ListItem",
+                  "position": 2,
+                  "name": "Contact",
+                  "item": "https://bododesderio.com/contact"
+                }
+              ]
+            },
+            "mainEntity": {
+              "@context": "https://schema.org",
+              "@type": "Person",
+              "@id": "https://bododesderio.com/#bodo",
+              "name": "Bodo Desderio",
+              "alternateName": "Bodo",
+              "url": "https://bododesderio.com",
+              "image": "https://bododesderio.com/opengraph-image",
+              "jobTitle": "Founder & CEO",
+              "worksFor": [
+                {
+                  "@type": "Organization",
+                  "name": "Rooibok Technologies Limited",
+                  "url": "https://rooibok.com"
+                },
+                {
+                  "@type": "Organization",
+                  "name": "Kakebe Technologies Limited",
+                  "url": "https://www.kakebe.tech"
+                }
+              ],
+              "alumniOf": {
+                "@type": "CollegeOrUniversity",
+                "name": "Kampala International University"
+              },
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Kampala",
+                "addressCountry": "UG"
+              },
+              "sameAs": [
+                "https://www.linkedin.com/in/bododesderio/",
+                "https://github.com/bododesderio/",
+                "https://x.com/bodo_desderio/",
+                "https://www.instagram.com/bodo_desderio/",
+                "https://www.facebook.com/bododesderio1/"
+              ],
+              "knowsAbout": [
+                "Software Engineering",
+                "Entrepreneurship",
+                "SEO",
+                "Community Building",
+                "STEM Education"
+              ],
+              "description": "Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda Chapter.",
+              "contactPoint": {
+                "@type": "ContactPoint",
+                "contactType": "customer support",
+                "email": "info@bododesderio.com",
+                "areaServed": "Kampala, Uganda",
+                "availableLanguage": [
+                  "English"
+                ]
+              }
+            }
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 3758,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 3,
+      "links": [
+        {
+          "text": "info@bododesderio.com",
+          "href": "mailto:info@bododesderio.com"
+        },
+        {
+          "text": "Schedule via Calendly \u2192",
+          "href": "https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio"
+        },
+        {
+          "text": "Book a consultation",
+          "href": "https://calendly.com/derricklamarh/strategy-consultation-call-with-desderio"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 35,
+        "bytes": 279870
+      },
+      "lcp": [],
+      "route": "/contact",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 4.37,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Privacy Policy | Bodo Desderio | Bodo Desderio",
+      "description": "Privacy policy for bododesderio.com: how we collect, use, and protect your data.",
+      "canonical": null,
+      "h1": [
+        "Privacy Policy"
+      ],
+      "h2": [
+        "1. Information We Collect",
+        "2. How We Use Your Information",
+        "3. Data Sharing",
+        "4. Cookies",
+        "5. Your Rights",
+        "6. Data Retention",
+        "7. Contact",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 2927,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "hello@bododesderio.com",
+          "href": "mailto:hello@bododesderio.com"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 31,
+        "bytes": 284875
+      },
+      "lcp": [],
+      "route": "/privacy",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 4.32,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Privacy Policy | Bodo Desderio | Bodo Desderio",
+      "description": "Privacy policy for bododesderio.com: how we collect, use, and protect your data.",
+      "canonical": null,
+      "h1": [
+        "Privacy Policy"
+      ],
+      "h2": [
+        "1. Information We Collect",
+        "2. How We Use Your Information",
+        "3. Data Sharing",
+        "4. Cookies",
+        "5. Your Rights",
+        "6. Data Retention",
+        "7. Contact",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 3871,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "hello@bododesderio.com",
+          "href": "mailto:hello@bododesderio.com"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 19,
+        "bytes": 270892
+      },
+      "lcp": [],
+      "route": "/privacy",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.3,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Terms & Conditions | Bodo Desderio | Bodo Desderio",
+      "description": "Terms and conditions for using bododesderio.com.",
+      "canonical": null,
+      "h1": [
+        "Terms & Conditions"
+      ],
+      "h2": [
+        "1. Acceptance of Terms",
+        "2. Intellectual Property",
+        "3. User Content",
+        "4. Blog Content",
+        "5. Services",
+        "6. Limitation of Liability",
+        "7. Changes to Terms",
+        "8. Governing Law",
+        "9. Contact",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 3495,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "Privacy Policy",
+          "href": "/privacy"
+        },
+        {
+          "text": "hello@bododesderio.com",
+          "href": "mailto:hello@bododesderio.com"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 19,
+        "bytes": 270893
+      },
+      "lcp": [],
+      "route": "/terms",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.27,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Terms & Conditions | Bodo Desderio | Bodo Desderio",
+      "description": "Terms and conditions for using bododesderio.com.",
+      "canonical": null,
+      "h1": [
+        "Terms & Conditions"
+      ],
+      "h2": [
+        "1. Acceptance of Terms",
+        "2. Intellectual Property",
+        "3. User Content",
+        "4. Blog Content",
+        "5. Services",
+        "6. Limitation of Liability",
+        "7. Changes to Terms",
+        "8. Governing Law",
+        "9. Contact",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 2635,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "Privacy Policy",
+          "href": "/privacy"
+        },
+        {
+          "text": "hello@bododesderio.com",
+          "href": "mailto:hello@bododesderio.com"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 31,
+        "bytes": 284874
+      },
+      "lcp": [],
+      "route": "/terms",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 4.0,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Admin Login | Bodo Desderio | Bodo Desderio",
+      "description": "Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies.",
+      "canonical": null,
+      "h1": [
+        "Welcome Back"
+      ],
+      "h2": [
+        "Bodo Desderio"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 844,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 2,
+      "links": [],
+      "fontFamilies": [],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 328174
+      },
+      "lcp": [],
+      "route": "/admin/login",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 2.8,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Admin Login | Bodo Desderio | Bodo Desderio",
+      "description": "Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies.",
+      "canonical": null,
+      "h1": [
+        "Welcome Back"
+      ],
+      "h2": [
+        "Bodo Desderio"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 1000,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 2,
+      "links": [],
+      "fontFamilies": [],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 548301
+      },
+      "lcp": [],
+      "route": "/admin/login",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 7.9,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Bodo Desderio: Founder, Engineer & Community Leader | Kampala, Uganda | Bodo Desderio",
+      "description": "Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda.",
+      "canonical": null,
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "h2": [
+        "More than a developer.",
+        "The story so far.",
+        "How I create value.",
+        "Building Uganda's tech generation.",
+        "Writing beyond the page.",
+        "From idea to impact.",
+        "Organisations I've built with and for.",
+        "What people say",
+        "Technologies I work with",
+        "Let's build something that matters.",
+        "Thoughts on tech, business & building in Africa.",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 13384,
+      "overflow": [
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "IMG",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "IMG",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        },
+        {
+          "tag": "DIV",
+          "text": "",
+          "width": 144
+        }
+      ],
+      "brokenImages": [],
+      "images": 27,
+      "links": [
+        {
+          "text": "Let's work together",
+          "href": "/contact"
+        },
+        {
+          "text": "See my work",
+          "href": "/services"
+        },
+        {
+          "text": "Read my full story",
+          "href": "/about"
+        },
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "Explore services",
+          "href": "/services"
+        },
+        {
+          "text": "View all services",
+          "href": "/services"
+        },
+        {
+          "text": "See the gallery",
+          "href": "/gallery"
+        },
+        {
+          "text": "Read on X",
+          "href": "https://x.com/NDCUganda/status/1790297774686191874"
+        },
+        {
+          "text": "Download",
+          "href": "/images/press/vnsac234-essay.jpg"
+        },
+        {
+          "text": "@NDCUganda",
+          "href": "https://x.com/NDCUganda"
+        },
+        {
+          "text": "Read article",
+          "href": "https://www.sedrickotolo.com/desderio-new-african-youth-council-president"
+        },
+        {
+          "text": "Sedrick Otolo",
+          "href": "https://www.sedrickotolo.com"
+        },
+        {
+          "text": "Read article",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "Medium",
+          "href": "https://medium.com/@bodo_desderio"
+        },
+        {
+          "text": "MediumAug 29, 2025When Foreign Interests Triumph Over Ugandan WelfareA view of K",
+          "href": "https://medium.com/@bodo_desderio/when-foreign-interests-trump-ugandan-welfare-2438573708e5?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 13, 2023A Journey Through the Mind: Exploring Mental Health in Today's",
+          "href": "https://medium.com/@bodo_desderio/a-journey-through-the-mind-exploring-mental-health-in-todays-world-096c077bc3da?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "MediumDec 11, 2023Turning Off the Faucet: A Call to Action for Climate ChangeEmi",
+          "href": "https://medium.com/@bodo_desderio/turning-off-the-faucet-a-call-to-action-for-climate-change-6b798d0856a0?source=rss-21ae8513d297------2"
+        },
+        {
+          "text": "Start a conversation",
+          "href": "/contact"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/how-data-centers-transitioning-100-renewable-energy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/innovative-approaches-tech-recycling-circular-economy"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/quantum-computing-breakthroughs-practical-applications"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/closing-gender-gap-computer-science-education"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/responsible-ai-development-balancing-innovation-and-ethics"
+        },
+        {
+          "text": "Read more \u2192",
+          "href": "/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+        },
+        {
+          "text": "View all posts",
+          "href": "/blog"
+        },
+        {
+          "text": "Get in touch",
+          "href": "/contact"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif",
+        "ui-monospace, SFMono-Regular, Menlo, Monaco, monospace"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 38,
+        "bytes": 420887
+      },
+      "lcp": [],
+      "route": "/",
+      "viewport": 1440,
+      "theme": "dark",
+      "status": 200,
+      "seconds": 3.55,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Sustainable Web Development: Reducing Digital Carbon Footprints | Bodo Desderio | Bodo Desderio",
+      "description": "Exploring how sustainable practices in web development can reduce our digital carbon footprint.",
+      "canonical": "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "h2": [
+        "The Scale of the Problem",
+        "What Developers Can Do",
+        "The African Context",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Sustainable Web Development: Reducing Digital Carbon Footprints",
+            "description": "Exploring how sustainable practices in web development can reduce our digital carbon footprint.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-01-15T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.501Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+            },
+            "keywords": "sustainability, web dev, carbon footprint",
+            "articleSection": "Green Tech"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Sustainable Web Development: Reducing Digital Carbon Footprints",
+                "item": "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 3732,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 35,
+        "bytes": 295089
+      },
+      "lcp": [],
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.62,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Rooibok Technologies | Bodo Desderio | Bodo Desderio",
+      "description": "Building digital solutions for businesses across Africa, web apps, mobile apps, and cloud infrastructure.",
+      "canonical": "https://bododesderio.com/projects/rooibok-technologies",
+      "h1": [
+        "Rooibok Technologies"
+      ],
+      "h2": [
+        "Related projects",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 2190,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "View live site",
+          "href": "https://rooibok.com"
+        },
+        {
+          "text": "Kakebe TechnologiesA technology company that uses AI and data to solve real prob",
+          "href": "/projects/kakebe-technologies"
+        },
+        {
+          "text": "Back to projects",
+          "href": "/projects"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 34,
+        "bytes": 270519
+      },
+      "lcp": [],
+      "route": "/projects/rooibok-technologies",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.85,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Sustainable Web Development: Reducing Digital Carbon Footprints | Bodo Desderio | Bodo Desderio",
+      "description": "Exploring how sustainable practices in web development can reduce our digital carbon footprint.",
+      "canonical": "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "h2": [
+        "The Scale of the Problem",
+        "What Developers Can Do",
+        "The African Context",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Sustainable Web Development: Reducing Digital Carbon Footprints",
+            "description": "Exploring how sustainable practices in web development can reduce our digital carbon footprint.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-01-15T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.501Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+            },
+            "keywords": "sustainability, web dev, carbon footprint",
+            "articleSection": "Green Tech"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Sustainable Web Development: Reducing Digital Carbon Footprints",
+                "item": "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 4632,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 281107
+      },
+      "lcp": [],
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.53,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Responsible AI Development: Balancing Innovation and Ethics | Bodo Desderio | Bodo Desderio",
+      "description": "Examining the ethical considerations that must guide AI development in Africa and beyond.",
+      "canonical": "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics",
+      "h1": [
+        "Responsible AI Development: Balancing Innovation and Ethics"
+      ],
+      "h2": [
+        "The Promise",
+        "The Risks",
+        "A Framework for Responsible Development",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Responsible AI Development: Balancing Innovation and Ethics",
+            "description": "Examining the ethical considerations that must guide AI development in Africa and beyond.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-02-10T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.505Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics"
+            },
+            "keywords": "AI, ethics, responsible innovation",
+            "articleSection": "AI Ethics"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Responsible AI Development: Balancing Innovation and Ethics",
+                "item": "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 4848,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 281107
+      },
+      "lcp": [],
+      "route": "/blog/responsible-ai-development-balancing-innovation-and-ethics",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.52,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Responsible AI Development: Balancing Innovation and Ethics | Bodo Desderio | Bodo Desderio",
+      "description": "Examining the ethical considerations that must guide AI development in Africa and beyond.",
+      "canonical": "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics",
+      "h1": [
+        "Responsible AI Development: Balancing Innovation and Ethics"
+      ],
+      "h2": [
+        "The Promise",
+        "The Risks",
+        "A Framework for Responsible Development",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Responsible AI Development: Balancing Innovation and Ethics",
+            "description": "Examining the ethical considerations that must guide AI development in Africa and beyond.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-02-10T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.505Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics"
+            },
+            "keywords": "AI, ethics, responsible innovation",
+            "articleSection": "AI Ethics"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Responsible AI Development: Balancing Innovation and Ethics",
+                "item": "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 3816,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 35,
+        "bytes": 295090
+      },
+      "lcp": [],
+      "route": "/blog/responsible-ai-development-balancing-innovation-and-ethics",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 4.32,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Closing the Gender Gap in Computer Science Education | Bodo Desderio | Bodo Desderio",
+      "description": "Strategies for increasing female participation in computer science and technology fields.",
+      "canonical": "https://bododesderio.com/blog/closing-gender-gap-computer-science-education",
+      "h1": [
+        "Closing the Gender Gap in Computer Science Education"
+      ],
+      "h2": [
+        "The Numbers",
+        "Root Causes",
+        "What Works",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Closing the Gender Gap in Computer Science Education",
+            "description": "Strategies for increasing female participation in computer science and technology fields.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-03-05T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.508Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/closing-gender-gap-computer-science-education"
+            },
+            "keywords": "gender gap, STEM, education",
+            "articleSection": "STEM Education"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Closing the Gender Gap in Computer Science Education",
+                "item": "https://bododesderio.com/blog/closing-gender-gap-computer-science-education"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 4603,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 281108
+      },
+      "lcp": [],
+      "route": "/blog/closing-gender-gap-computer-science-education",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.18,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Closing the Gender Gap in Computer Science Education | Bodo Desderio | Bodo Desderio",
+      "description": "Strategies for increasing female participation in computer science and technology fields.",
+      "canonical": "https://bododesderio.com/blog/closing-gender-gap-computer-science-education",
+      "h1": [
+        "Closing the Gender Gap in Computer Science Education"
+      ],
+      "h2": [
+        "The Numbers",
+        "Root Causes",
+        "What Works",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Closing the Gender Gap in Computer Science Education",
+            "description": "Strategies for increasing female participation in computer science and technology fields.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-03-05T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.508Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/closing-gender-gap-computer-science-education"
+            },
+            "keywords": "gender gap, STEM, education",
+            "articleSection": "STEM Education"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Closing the Gender Gap in Computer Science Education",
+                "item": "https://bododesderio.com/blog/closing-gender-gap-computer-science-education"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 3815,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 35,
+        "bytes": 295088
+      },
+      "lcp": [],
+      "route": "/blog/closing-gender-gap-computer-science-education",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.87,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Quantum Computing Breakthroughs and Practical Applications | Bodo Desderio | Bodo Desderio",
+      "description": "A look at recent quantum computing advances and what they mean for practical applications.",
+      "canonical": "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications",
+      "h1": [
+        "Quantum Computing Breakthroughs and Practical Applications"
+      ],
+      "h2": [
+        "How Quantum Computing Works",
+        "Recent Breakthroughs",
+        "Practical Applications",
+        "What It Means for Africa",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Quantum Computing Breakthroughs and Practical Applications",
+            "description": "A look at recent quantum computing advances and what they mean for practical applications.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-03-28T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.514Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications"
+            },
+            "keywords": "quantum, computing, research",
+            "articleSection": "Future Tech"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Quantum Computing Breakthroughs and Practical Applications",
+                "item": "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 4132,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 35,
+        "bytes": 295089
+      },
+      "lcp": [],
+      "route": "/blog/quantum-computing-breakthroughs-practical-applications",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.89,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Quantum Computing Breakthroughs and Practical Applications | Bodo Desderio | Bodo Desderio",
+      "description": "A look at recent quantum computing advances and what they mean for practical applications.",
+      "canonical": "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications",
+      "h1": [
+        "Quantum Computing Breakthroughs and Practical Applications"
+      ],
+      "h2": [
+        "How Quantum Computing Works",
+        "Recent Breakthroughs",
+        "Practical Applications",
+        "What It Means for Africa",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Quantum Computing Breakthroughs and Practical Applications",
+            "description": "A look at recent quantum computing advances and what they mean for practical applications.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-03-28T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.514Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications"
+            },
+            "keywords": "quantum, computing, research",
+            "articleSection": "Future Tech"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Quantum Computing Breakthroughs and Practical Applications",
+                "item": "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 5027,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 281108
+      },
+      "lcp": [],
+      "route": "/blog/quantum-computing-breakthroughs-practical-applications",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 2.88,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Innovative Approaches to Tech Recycling and Circular Economy | Bodo Desderio | Bodo Desderio",
+      "description": "How tech recycling and circular economy principles can address e-waste challenges.",
+      "canonical": "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy",
+      "h1": [
+        "Innovative Approaches to Tech Recycling and Circular Economy"
+      ],
+      "h2": [
+        "The E-Waste Challenge in East Africa",
+        "Circular Economy Principles",
+        "Innovations Worth Watching",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Innovative Approaches to Tech Recycling and Circular Economy",
+            "description": "How tech recycling and circular economy principles can address e-waste challenges.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-04-12T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.517Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy"
+            },
+            "keywords": "e-waste, recycling, circular economy",
+            "articleSection": "E-Waste"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Innovative Approaches to Tech Recycling and Circular Economy",
+                "item": "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 3799,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 35,
+        "bytes": 295088
+      },
+      "lcp": [],
+      "route": "/blog/innovative-approaches-tech-recycling-circular-economy",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.56,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Innovative Approaches to Tech Recycling and Circular Economy | Bodo Desderio | Bodo Desderio",
+      "description": "How tech recycling and circular economy principles can address e-waste challenges.",
+      "canonical": "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy",
+      "h1": [
+        "Innovative Approaches to Tech Recycling and Circular Economy"
+      ],
+      "h2": [
+        "The E-Waste Challenge in East Africa",
+        "Circular Economy Principles",
+        "Innovations Worth Watching",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "Innovative Approaches to Tech Recycling and Circular Economy",
+            "description": "How tech recycling and circular economy principles can address e-waste challenges.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-04-12T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.517Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy"
+            },
+            "keywords": "e-waste, recycling, circular economy",
+            "articleSection": "E-Waste"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Innovative Approaches to Tech Recycling and Circular Economy",
+                "item": "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 4743,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 281108
+      },
+      "lcp": [],
+      "route": "/blog/innovative-approaches-tech-recycling-circular-economy",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 2.87,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "How Data Centers Are Transitioning to 100% Renewable Energy | Bodo Desderio | Bodo Desderio",
+      "description": "Tracking the data center industry's move toward renewable energy sources.",
+      "canonical": "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy",
+      "h1": [
+        "How Data Centers Are Transitioning to 100% Renewable Energy"
+      ],
+      "h2": [
+        "The Energy Footprint",
+        "The Transition",
+        "Technologies Driving Change",
+        "Implications for Africa",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "How Data Centers Are Transitioning to 100% Renewable Energy",
+            "description": "Tracking the data center industry's move toward renewable energy sources.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-04-25T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.518Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy"
+            },
+            "keywords": "data centers, renewable energy, sustainability",
+            "articleSection": "Renewable Energy"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How Data Centers Are Transitioning to 100% Renewable Energy",
+                "item": "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 3955,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 35,
+        "bytes": 295095
+      },
+      "lcp": [],
+      "route": "/blog/how-data-centers-transitioning-100-renewable-energy",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.46,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "How Data Centers Are Transitioning to 100% Renewable Energy | Bodo Desderio | Bodo Desderio",
+      "description": "Tracking the data center industry's move toward renewable energy sources.",
+      "canonical": "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy",
+      "h1": [
+        "How Data Centers Are Transitioning to 100% Renewable Energy"
+      ],
+      "h2": [
+        "The Energy Footprint",
+        "The Transition",
+        "Technologies Driving Change",
+        "Implications for Africa",
+        "Stay in the loop"
+      ],
+      "schema": [
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            "headline": "How Data Centers Are Transitioning to 100% Renewable Energy",
+            "description": "Tracking the data center industry's move toward renewable energy sources.",
+            "image": [
+              "/images/stock/blog-hero.svg"
+            ],
+            "datePublished": "2025-04-25T00:00:00.000Z",
+            "dateModified": "2026-09-04T14:28:19.518Z",
+            "author": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "publisher": {
+              "@type": "Person",
+              "name": "Bodo Desderio",
+              "url": "https://bododesderio.com"
+            },
+            "mainEntityOfPage": {
+              "@type": "WebPage",
+              "@id": "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy"
+            },
+            "keywords": "data centers, renewable energy, sustainability",
+            "articleSection": "Renewable Energy"
+          }
+        ],
+        [
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://bododesderio.com"
+              },
+              {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://bododesderio.com/blog"
+              },
+              {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "How Data Centers Are Transitioning to 100% Renewable Energy",
+                "item": "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy"
+              }
+            ]
+          }
+        ]
+      ],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 4915,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 1,
+      "links": [
+        {
+          "text": "\u2190 Back to blog",
+          "href": "/blog"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 23,
+        "bytes": 281107
+      },
+      "lcp": [],
+      "route": "/blog/how-data-centers-transitioning-100-renewable-energy",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.17,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Rooibok Technologies | Bodo Desderio | Bodo Desderio",
+      "description": "Building digital solutions for businesses across Africa, web apps, mobile apps, and cloud infrastructure.",
+      "canonical": "https://bododesderio.com/projects/rooibok-technologies",
+      "h1": [
+        "Rooibok Technologies"
+      ],
+      "h2": [
+        "Related projects",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 2712,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "View live site",
+          "href": "https://rooibok.com"
+        },
+        {
+          "text": "Kakebe TechnologiesA technology company that uses AI and data to solve real prob",
+          "href": "/projects/kakebe-technologies"
+        },
+        {
+          "text": "Back to projects",
+          "href": "/projects"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 20,
+        "bytes": 254164
+      },
+      "lcp": [],
+      "route": "/projects/rooibok-technologies",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.19,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Kakebe Technologies | Bodo Desderio | Bodo Desderio",
+      "description": "A technology company that uses AI and data to solve real problems in agriculture, education, and healthcare.",
+      "canonical": "https://bododesderio.com/projects/kakebe-technologies",
+      "h1": [
+        "Kakebe Technologies"
+      ],
+      "h2": [
+        "Related projects",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 2102,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "View live site",
+          "href": "https://www.kakebe.tech"
+        },
+        {
+          "text": "Rooibok TechnologiesBuilding digital solutions for businesses across Africa, web",
+          "href": "/projects/rooibok-technologies"
+        },
+        {
+          "text": "Back to projects",
+          "href": "/projects"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 34,
+        "bytes": 270519
+      },
+      "lcp": [],
+      "route": "/projects/kakebe-technologies",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.35,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Kakebe Technologies | Bodo Desderio | Bodo Desderio",
+      "description": "A technology company that uses AI and data to solve real problems in agriculture, education, and healthcare.",
+      "canonical": "https://bododesderio.com/projects/kakebe-technologies",
+      "h1": [
+        "Kakebe Technologies"
+      ],
+      "h2": [
+        "Related projects",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 2560,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "View live site",
+          "href": "https://www.kakebe.tech"
+        },
+        {
+          "text": "Rooibok TechnologiesBuilding digital solutions for businesses across Africa, web",
+          "href": "/projects/rooibok-technologies"
+        },
+        {
+          "text": "Back to projects",
+          "href": "/projects"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 22,
+        "bytes": 256532
+      },
+      "lcp": [],
+      "route": "/projects/kakebe-technologies",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.06,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Portfolio Website | Bodo Desderio | Bodo Desderio",
+      "description": "This very website, a full-stack Next.js portfolio with a custom CMS, newsletter system, and analytics.",
+      "canonical": "https://bododesderio.com/projects/portfolio-website",
+      "h1": [
+        "Portfolio Website"
+      ],
+      "h2": [
+        "Related projects",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 2182,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "Community PlatformA platform connecting African youth with mentorship, resources",
+          "href": "/projects/community-platform"
+        },
+        {
+          "text": "Back to projects",
+          "href": "/projects"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 34,
+        "bytes": 270504
+      },
+      "lcp": [],
+      "route": "/projects/portfolio-website",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.5,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Portfolio Website | Bodo Desderio | Bodo Desderio",
+      "description": "This very website, a full-stack Next.js portfolio with a custom CMS, newsletter system, and analytics.",
+      "canonical": "https://bododesderio.com/projects/portfolio-website",
+      "h1": [
+        "Portfolio Website"
+      ],
+      "h2": [
+        "Related projects",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 2672,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "Community PlatformA platform connecting African youth with mentorship, resources",
+          "href": "/projects/community-platform"
+        },
+        {
+          "text": "Back to projects",
+          "href": "/projects"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 20,
+        "bytes": 254164
+      },
+      "lcp": [],
+      "route": "/projects/portfolio-website",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 2.93,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Community Platform | Bodo Desderio | Bodo Desderio",
+      "description": "A platform connecting African youth with mentorship, resources, and collaboration opportunities.",
+      "canonical": "https://bododesderio.com/projects/community-platform",
+      "h1": [
+        "Community Platform"
+      ],
+      "h2": [
+        "Related projects",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 390,
+      "scrollWidth": 390,
+      "height": 2512,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "Portfolio WebsiteThis very website, a full-stack Next.js portfolio with a custom",
+          "href": "/projects/portfolio-website"
+        },
+        {
+          "text": "Back to projects",
+          "href": "/projects"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 22,
+        "bytes": 256530
+      },
+      "lcp": [],
+      "route": "/projects/community-platform",
+      "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "seconds": 2.82,
+      "errors": [],
+      "badResponses": []
+    },
+    {
+      "title": "Community Platform | Bodo Desderio | Bodo Desderio",
+      "description": "A platform connecting African youth with mentorship, resources, and collaboration opportunities.",
+      "canonical": "https://bododesderio.com/projects/community-platform",
+      "h1": [
+        "Community Platform"
+      ],
+      "h2": [
+        "Related projects",
+        "Stay in the loop"
+      ],
+      "schema": [],
+      "schemaMeta": true,
+      "width": 1440,
+      "scrollWidth": 1440,
+      "height": 2094,
+      "overflow": [],
+      "brokenImages": [],
+      "images": 0,
+      "links": [
+        {
+          "text": "Portfolio WebsiteThis very website, a full-stack Next.js portfolio with a custom",
+          "href": "/projects/portfolio-website"
+        },
+        {
+          "text": "Back to projects",
+          "href": "/projects"
+        }
+      ],
+      "fontFamilies": [
+        "Inter, ui-sans-serif, system-ui, sans-serif",
+        "\"Playfair Display\", ui-serif, Georgia, serif, \"Playfair Display\", ui-serif, Georgia, serif"
+      ],
+      "bodyFont": "Inter, ui-sans-serif, system-ui, sans-serif",
+      "bodyWeight": "400",
+      "modal": false,
+      "resources": {
+        "count": 34,
+        "bytes": 270508
+      },
+      "lcp": [],
+      "route": "/projects/community-platform",
+      "viewport": 1440,
+      "theme": "light",
+      "status": 200,
+      "seconds": 3.59,
+      "errors": [],
+      "badResponses": []
+    }
+  ],
+  "endpoints": [
+    {
+      "route": "/robots.txt",
+      "status": 200,
+      "contentType": "text/plain; charset=UTF-8",
+      "location": null,
+      "sample": "# === anti-scrape (managed by ~/.claude/skills/anti-scrape) ===\n# AI training / scraper crawlers \u2014 full block.\nUser-agent: GPTBot\nUser-agent: ChatGPT-User\nUser-agent: OAI-SearchBot\nUser-agent: ClaudeB"
+    },
+    {
+      "route": "/sitemap.xml",
+      "status": 200,
+      "contentType": "application/xml",
+      "location": null,
+      "sample": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n<url>\n<loc>https://bododesderio.com</loc>\n<lastmod>2026-11-16T13:39:20.753Z</lastmod>\n<changefreq>we",
+      "urls": [
+        "https://bododesderio.com",
+        "https://bododesderio.com/about",
+        "https://bododesderio.com/services",
+        "https://bododesderio.com/projects",
+        "https://bododesderio.com/gallery",
+        "https://bododesderio.com/blog",
+        "https://bododesderio.com/contact",
+        "https://bododesderio.com/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+        "https://bododesderio.com/blog/responsible-ai-development-balancing-innovation-and-ethics",
+        "https://bododesderio.com/blog/closing-gender-gap-computer-science-education",
+        "https://bododesderio.com/blog/quantum-computing-breakthroughs-practical-applications",
+        "https://bododesderio.com/blog/innovative-approaches-tech-recycling-circular-economy",
+        "https://bododesderio.com/blog/how-data-centers-transitioning-100-renewable-energy",
+        "https://bododesderio.com/projects/rooibok-technologies",
+        "https://bododesderio.com/projects/kakebe-technologies",
+        "https://bododesderio.com/projects/portfolio-website",
+        "https://bododesderio.com/projects/community-platform"
+      ]
+    },
+    {
+      "route": "/feed.xml",
+      "status": 200,
+      "contentType": "application/rss+xml; charset=utf-8",
+      "location": null,
+      "sample": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n  <channel>\n    <title>Bodo Desderio Blog</title>\n    <link>https://bododesderio.com/blog</link>\n   "
+    },
+    {
+      "route": "/rss.xml",
+      "status": 200,
+      "contentType": "application/rss+xml; charset=utf-8",
+      "location": null,
+      "sample": "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<rss version=\"2.0\" xmlns:atom=\"http://www.w3.org/2005/Atom\">\n  <channel>\n    <title>Bodo Desderio</title>\n    <link>https://bododesderio.com</link>\n    <descrip"
+    },
+    {
+      "route": "/api/health",
+      "status": 200,
+      "contentType": "application/json",
+      "location": null,
+      "sample": "{\"status\":\"ok\",\"timestamp\":\"2026-11-16T13:39:29.540Z\",\"uptime\":2570957.251564553,\"dbConnected\":true}"
+    },
+    {
+      "route": "/api/admin/projects",
+      "status": 401,
+      "contentType": "application/json",
+      "location": null,
+      "sample": null
+    },
+    {
+      "route": "/api/admin/config",
+      "status": 401,
+      "contentType": "application/json",
+      "location": null,
+      "sample": null
+    },
+    {
+      "route": "/api/admin/media",
+      "status": 401,
+      "contentType": "application/json",
+      "location": null,
+      "sample": null
+    },
+    {
+      "route": "/admin",
+      "status": 307,
+      "contentType": null,
+      "location": "https://bododesderio.com/admin/login?callbackUrl=%2Fadmin",
+      "sample": null
+    },
+    {
+      "route": "/does-not-exist",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "location": null,
+      "sample": null
+    }
+  ]
+}

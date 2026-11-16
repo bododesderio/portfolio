@@ -1,3 +1,4 @@
+import { isAdminSession } from '@/lib/util/admin-session'
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { getAllConfig, setConfig, clearConfigCache, CONFIG_KEYS } from '@/lib/config'
@@ -7,7 +8,7 @@ const SMTP_KEYS = ['SMTP_HOST', 'SMTP_PORT', 'SMTP_USER', 'SMTP_PASS', 'SMTP_FRO
 
 export async function GET() {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   const config = await getAllConfig()
   return NextResponse.json(config)
@@ -15,7 +16,7 @@ export async function GET() {
 
 export async function PATCH(req: NextRequest) {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
     const { key, value } = await req.json()

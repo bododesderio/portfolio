@@ -1,181 +1,304 @@
-export const dynamic = 'force-dynamic'
-
-import { getPageContent, getField, getJsonField } from '@/lib/data/content'
+import Link from 'next/link'
+import type { Metadata } from 'next'
 import { prisma } from '@/lib/data/db'
-import { HeroSection } from '@/components/sections/HeroSection'
-import { StatsSection } from '@/components/sections/StatsSection'
-import { AboutSection } from '@/components/sections/AboutSection'
-import { BioSection } from '@/components/sections/BioSection'
-import { FeaturedProjectSection } from '@/components/sections/FeaturedProjectSection'
-import { ExpertiseSection } from '@/components/sections/ExpertiseSection'
-import { CommunitySection } from '@/components/sections/CommunitySection'
-import { ProcessSection } from '@/components/sections/ProcessSection'
-import { ClientsSection } from '@/components/sections/ClientsSection'
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection'
-import { ToolsSection } from '@/components/sections/ToolsSection'
-import { CTASection } from '@/components/sections/CTASection'
-import { BlogSection } from '@/components/sections/BlogSection'
-import { AvailabilitySection } from '@/components/sections/AvailabilitySection'
-import { PressSection } from '@/components/sections/PressSection'
-import { fetchMediumPosts } from '@/lib/domain/medium'
-
-export const metadata = {
-  title: 'Bodo Desderio: Founder, Engineer & Community Leader | Kampala, Uganda',
-  description: 'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda.',
+import { getPersonalProfile } from '@/lib/data/profile'
+import { getField } from '@/lib/data/content'
+import {
+  EntryHeading,
+  EntryLayout,
+  EntrySection,
+} from '@/components/personal/EntryLayout'
+import { ProfileCard } from '@/components/personal/ProfileCard'
+import { PersonalIcon } from '@/components/personal/PersonalIcon'
+import { PhotoCollection } from '@/components/personal/PhotoCollection'
+import {
+  PersonalTimeline,
+  PressList,
+  RichText,
+  WorkRows,
+  WritingRows,
+} from '@/components/personal/ProfileContent'
+export const dynamic = 'force-dynamic'
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+export const metadata: Metadata = {
+  title: { absolute: 'Bodo Desderio · Life, work & ideas' },
+  description:
+    'The personal website of Bodo Desderio. Biography, work, community, writing, and photographs from Kampala, Uganda.',
+  alternates: { canonical: SITE_URL },
   openGraph: {
-    title: 'Bodo Desderio: Founder, Leader, Builder',
-    description: 'Building companies, communities, and technology that move people forward.',
+    title: 'Bodo Desderio · Life, work & ideas',
     url: '/',
     type: 'website',
   },
-  twitter: { card: 'summary_large_image' },
 }
-
 export default async function HomePage() {
-  const content = await getPageContent('home')
-
-  const hero = {
-    pretitle: getField(content, 'hero.pretitle'),
-    headline: getField(content, 'hero.headline'),
-    tagline: getField(content, 'hero.tagline'),
-    ctaPrimaryLabel: getField(content, 'hero.cta_primary_label'),
-    ctaPrimaryUrl: getField(content, 'hero.cta_primary_url'),
-    ctaSecondaryLabel: getField(content, 'hero.cta_secondary_label'),
-    ctaSecondaryUrl: getField(content, 'hero.cta_secondary_url'),
-    photo: getField(content, 'hero.photo'),
-    backgroundImage: getField(content, 'hero.background_image') || undefined,
-    heroImages: [] as string[],
-  }
-
-  const heroImagesDb = await prisma.heroImage.findMany({
-    where: { active: true },
-    orderBy: { order: 'asc' },
-    include: { media: { select: { url: true } } },
-  }).catch(() => [])
-  if (heroImagesDb.length > 0) {
-    hero.heroImages = heroImagesDb.map(h => h.media.url)
-  }
-
-  const stats = getJsonField<Array<{value: string; suffix: string; label: string}>>(content, 'stats.items') || []
-
-  const about = {
-    pretitle: getField(content, 'about.pretitle'),
-    heading: getField(content, 'about.heading'),
-    paragraphs: [
-      getField(content, 'about.paragraph_1'),
-      getField(content, 'about.paragraph_2'),
-      getField(content, 'about.paragraph_3'),
-    ],
-    ctaLabel: getField(content, 'about.cta_label'),
-    ctaUrl: getField(content, 'about.cta_url'),
-  }
-
-  const bio = {
-    heading: getField(content, 'bio.heading'),
-    body: getField(content, 'bio.body'),
-    pullquote: getField(content, 'bio.pullquote'),
-    roles: getJsonField<Array<{title: string; org: string; period: string}>>(content, 'bio.roles') || [],
-  }
-
-  // Featured project pulls the gallery item flagged `featured`, not page content.
-  const featuredGalleryItem = await prisma.galleryItem.findFirst({
-    where: { featured: true },
-    include: { media: true },
-  }).catch(() => null)
-
-  const expertise = {
-    pretitle: getField(content, 'expertise.pretitle'),
-    heading: getField(content, 'expertise.heading'),
-    lead: getField(content, 'expertise.lead'),
-    ctaLabel: getField(content, 'expertise.cta_label'),
-  }
-  const services = await prisma.service.findMany({
-    where: { visible: true, homeFeatured: true },
-    orderBy: { order: 'asc' },
-  }).catch(() => [])
-
-  const community = {
-    pretitle: getField(content, 'community.pretitle'),
-    heading: getField(content, 'community.heading'),
-    body: getField(content, 'community.body'),
-    ctaLabel: getField(content, 'community.cta_label'),
-    ctaUrl: getField(content, 'community.cta_url'),
-  }
-
-  const process = {
-    pretitle: getField(content, 'process.pretitle'),
-    heading: getField(content, 'process.heading'),
-    steps: getJsonField<Array<{icon: string; title: string; desc: string}>>(content, 'process.steps') || [],
-  }
-
-  const clients = await prisma.client.findMany({
-    where: { visible: true },
-    orderBy: { order: 'asc' },
-    include: { logo: true },
-  }).catch(() => [])
-
-  const testimonials = await prisma.testimonial.findMany({
-    where: { visible: true },
-    orderBy: { order: 'asc' },
-    include: { photo: true },
-  }).catch(() => [])
-
-  const pressItems = await prisma.pressItem.findMany({
-    where: { visible: true },
-    orderBy: { order: 'asc' },
-  }).catch(() => [])
-
-  const mediumPosts = await fetchMediumPosts()
-
-  const blogPosts = await prisma.blogPost.findMany({
-    where: { status: 'published' },
-    orderBy: { publishedAt: 'desc' },
-    take: 6,
-  }).catch(() => [])
-
-  const cta = {
-    heading: getField(content, 'cta.heading'),
-    lead: getField(content, 'cta.lead'),
-    buttonLabel: getField(content, 'cta.button_label'),
-    buttonUrl: getField(content, 'cta.button_url'),
-  }
-
-  const availability = {
-    status: getField(content, 'availability.status'),
-    label: getField(content, 'availability.label'),
-    note: getField(content, 'availability.note'),
-    ctaLabel: getField(content, 'availability.cta_label'),
-    ctaUrl: getField(content, 'availability.cta_url'),
-  }
-
+  const [profile, projects, posts, photos, press, services] = await Promise.all(
+    [
+      getPersonalProfile(),
+      prisma.project.findMany({
+        where: { visible: true },
+        orderBy: [{ featured: 'desc' }, { order: 'asc' }],
+        take: 3,
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          excerpt: true,
+          category: true,
+          status: true,
+        },
+      }),
+      prisma.blogPost.findMany({
+        where: { status: 'published' },
+        orderBy: { publishedAt: 'desc' },
+        take: 3,
+        select: {
+          id: true,
+          title: true,
+          slug: true,
+          excerpt: true,
+          category: true,
+          publishedAt: true,
+        },
+      }),
+      prisma.galleryItem.findMany({
+        orderBy: [{ featured: 'desc' }, { order: 'asc' }],
+        take: 3,
+        include: { media: { select: { url: true, altText: true } } },
+      }),
+      prisma.pressItem.findMany({
+        where: { visible: true },
+        orderBy: { order: 'asc' },
+        take: 2,
+      }),
+      prisma.service.findMany({
+        where: { visible: true },
+        orderBy: { order: 'asc' },
+        take: 6,
+        select: { id: true, title: true },
+      }),
+    ]
+  )
+  const contents = [
+    { id: 'introduction', label: 'Introduction' },
+    { id: 'story', label: 'My story' },
+    ...(projects.length ? [{ id: 'work', label: 'Work & ventures' }] : []),
+    { id: 'community', label: 'Community' },
+    ...(profile.interests
+      ? [{ id: 'interests', label: 'Interests & curiosities' }]
+      : []),
+    ...(posts.length ? [{ id: 'writing', label: 'Writing' }] : []),
+    ...(photos.length ? [{ id: 'photographs', label: 'Photographs' }] : []),
+    ...(press.length ? [{ id: 'mentions', label: 'In the world' }] : []),
+    { id: 'elsewhere', label: 'Elsewhere' },
+  ]
   return (
-    <>
-      <HeroSection content={hero} />
-      <StatsSection stats={stats} />
-      <AboutSection content={about} />
-      <BioSection content={bio} />
-      {featuredGalleryItem && (
-        <FeaturedProjectSection
-          project={{
-            id: featuredGalleryItem.id,
-            caption: featuredGalleryItem.caption,
-            media: {
-              url: featuredGalleryItem.media.url,
-              altText: featuredGalleryItem.media.altText,
+    <EntryLayout contents={contents}>
+      <EntryHeading
+        eyebrow="Life, work & everything in between"
+        title={profile.name}
+        description={profile.role}
+      />
+      <div className="personal-overview" id="introduction">
+        <div className="personal-introduction">
+          <p className="personal-welcome">Hello, I’m Bodo.</p>
+          {profile.introduction[0] ? (
+            <RichText html={profile.introduction[0]} />
+          ) : (
+            <p>
+              I’m a software engineer, entrepreneur, and community builder based
+              in {profile.location}.
+            </p>
+          )}
+          <p>
+            This is my home on the internet. A place for my story, the things
+            I’m working on, the ideas I’m exploring, and the people and moments
+            along the way.
+          </p>
+          <div className="personal-intro-links">
+            <Link href="/about">
+              More about me <span aria-hidden="true">↗</span>
+            </Link>
+            <Link href="/contact">
+              Say hello <span aria-hidden="true">↗</span>
+            </Link>
+          </div>
+          <div className="personal-interests-note">
+            <PersonalIcon name="interests" />
+            <p>
+              {getField(profile.home, 'bio.pullquote') ||
+                'Technology, people, and a curiosity about the world.'}
+            </p>
+          </div>
+        </div>
+        <ProfileCard
+          name={profile.name}
+          photo={profile.photo}
+          location={profile.location}
+          resumeUrl={profile.resumeUrl}
+          facts={[
+            { label: 'Based in', value: profile.location },
+            {
+              label: 'Known for',
+              value: 'Engineering, entrepreneurship & community',
             },
-          }}
+            {
+              label: 'Currently',
+              value: profile.roles[0]?.org || 'Rooibok Technologies',
+              href: '/projects',
+            },
+          ]}
         />
+      </div>
+      <EntrySection
+        id="story"
+        title="A little of my story"
+        href="/about"
+        linkLabel="Read the biography"
+      >
+        <p className="personal-section-intro">
+          The chapters that brought me here, and the things I’ve picked up along
+          the way.
+        </p>
+        <PersonalTimeline
+          compact
+          items={profile.timeline
+            .filter((item) => item.year && /^\d{4}/.test(item.year))
+            .slice(0, 3)}
+        />
+        {profile.timeline.length === 0 && profile.introduction[2] && (
+          <RichText html={profile.introduction[2]} />
+        )}
+      </EntrySection>
+      {projects.length > 0 && (
+        <EntrySection
+          id="work"
+          title="Work & ventures"
+          href="/projects"
+          linkLabel="All my work"
+        >
+          <WorkRows items={projects} />
+          {services.length > 0 && (
+            <div className="personal-topics">
+              <span>Areas I work in</span>
+              {services.map((service) => (
+                <Link href="/services" key={service.id}>
+                  {service.title}
+                </Link>
+              ))}
+            </div>
+          )}
+        </EntrySection>
       )}
-      <ExpertiseSection content={expertise} services={services} />
-      <CommunitySection content={community} />
-      <PressSection items={pressItems} mediumPosts={mediumPosts} />
-      <ProcessSection content={process} />
-      <ClientsSection clients={clients} />
-      <TestimonialsSection testimonials={testimonials} />
-      <ToolsSection />
-      <CTASection content={cta} />
-      <BlogSection posts={blogPosts} />
-      <AvailabilitySection content={availability} />
-    </>
+      <EntrySection
+        id="community"
+        title="Beyond the work"
+        href="/about#community"
+        linkLabel="Community & public life"
+      >
+        <div className="personal-community-snippet">
+          <span className="personal-section-symbol">
+            <PersonalIcon name="community" />
+          </span>
+          <div>
+            {profile.introduction[2] ? (
+              <RichText html={profile.introduction[2]} />
+            ) : (
+              <p>{getField(profile.home, 'community.body')}</p>
+            )}
+            <p>
+              There’s more to my story than a job title. Community, education,
+              and the people around me are part of it too.
+            </p>
+          </div>
+        </div>
+      </EntrySection>
+      {profile.interests && (
+        <EntrySection
+          id="interests"
+          title="The things that keep me curious"
+          href="/about#interests"
+          linkLabel="Beyond the biography"
+        >
+          <p className="personal-section-intro">
+            {profile.interests
+              .replace(/<[^>]*>/g, ' ')
+              .replace(/\s+/g, ' ')
+              .trim()
+              .slice(0, 360)
+              .replace(/\s\S*$/, '')}
+            …
+          </p>
+        </EntrySection>
+      )}
+      {posts.length > 0 && (
+        <EntrySection
+          id="writing"
+          title="From my notebook"
+          href="/blog"
+          linkLabel="All writing"
+        >
+          <WritingRows items={posts} />
+          {profile.socials.find((item) => item.label === 'Medium') && (
+            <p className="personal-footnote">
+              I also write on{' '}
+              <a
+                href={
+                  profile.socials.find((item) => item.label === 'Medium')!.href
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Medium ↗
+              </a>
+              .
+            </p>
+          )}
+        </EntrySection>
+      )}
+      {photos.length > 0 && (
+        <EntrySection
+          id="photographs"
+          title="Life in pictures"
+          href="/gallery"
+          linkLabel="Open the gallery"
+        >
+          <p className="personal-section-intro">
+            A few moments from work, community, and life along the way.
+          </p>
+          <PhotoCollection items={photos} />
+        </EntrySection>
+      )}
+      {press.length > 0 && (
+        <EntrySection
+          id="mentions"
+          title="Out in the world"
+          href="/about#mentions"
+          linkLabel="More mentions & contributions"
+        >
+          <PressList items={press} />
+        </EntrySection>
+      )}
+      <EntrySection id="elsewhere" title="Elsewhere on the internet">
+        <p className="personal-section-intro">
+          Other places to find my work, follow my thoughts, or get in touch.
+        </p>
+        <div className="personal-elsewhere">
+          {profile.socials.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {item.label} <span aria-hidden="true">↗</span>
+            </a>
+          ))}
+          <Link href="/contact">
+            Contact <span aria-hidden="true">↗</span>
+          </Link>
+        </div>
+      </EntrySection>
+    </EntryLayout>
   )
 }

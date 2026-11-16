@@ -13,10 +13,9 @@ export type NavLink = {
 const DEFAULT_LINKS: NavLink[] = [
   { label: 'Home', href: '/', visible: true },
   { label: 'About', href: '/about', visible: true },
-  { label: 'Services', href: '/services', visible: true },
-  { label: 'Projects', href: '/projects', visible: true },
+  { label: 'Work', href: '/projects', visible: true },
   { label: 'Gallery', href: '/gallery', visible: true },
-  { label: 'Blog', href: '/blog', visible: true },
+  { label: 'Writing', href: '/blog', visible: true },
   { label: 'Contact', href: '/contact', visible: true },
 ]
 

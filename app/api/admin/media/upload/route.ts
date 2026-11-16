@@ -1,3 +1,4 @@
+import { isAdminSession } from '@/lib/util/admin-session'
 import { NextRequest, NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
@@ -23,7 +24,7 @@ function validateMagicBytes(buffer: Buffer, mimeType: string): boolean {
 
 export async function POST(req: NextRequest) {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
     const formData = await req.formData()

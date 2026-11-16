@@ -1,3 +1,4 @@
+import { isAdminSession } from '@/lib/util/admin-session'
 import { NextRequest, NextResponse } from 'next/server'
 import { revalidateTag } from 'next/cache'
 import { CACHE_TAGS, REVALIDATE_PROFILE } from '@/lib/data/cache-tags'
@@ -10,7 +11,7 @@ const MAX_BYTES = 5 * 1024 * 1024
 
 export async function POST(req: NextRequest) {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
     const fd = await req.formData()
@@ -41,7 +42,7 @@ export async function POST(req: NextRequest) {
 
 export async function DELETE() {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
     await prisma.siteSettings.delete({ where: { key: 'login_background_url' } }).catch(() => null)

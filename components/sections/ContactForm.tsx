@@ -3,9 +3,10 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { Button } from '@/components/ui/Button'
-import { CustomSelect } from '@/components/ui/CustomSelect'
 
 const subjects = [
+  'Just saying hello',
+  'A question or shared interest',
   'Software Development Project',
   'Technical Consulting',
   'SEO & Digital Strategy',
@@ -32,7 +33,7 @@ export function ContactForm() {
         const data = await res.json().catch(() => ({}))
         throw new Error((data as { error?: string }).error || 'Failed to send')
       }
-      toast.success("Message sent! I'll get back to you within 24\u201348 hours.")
+      toast.success('Thanks—your message has been received.')
       setForm({ name: '', email: '', subject: '', message: '' })
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong'
@@ -72,14 +73,11 @@ export function ContactForm() {
       </div>
 
       <div>
-        <CustomSelect
-          label="Subject"
-          options={subjects}
-          value={form.subject}
-          onChange={v => setForm(f => ({ ...f, subject: v }))}
-          placeholder="Select a subject"
-          required
-        />
+        <label htmlFor="contact-subject" className="block text-sm font-medium text-fg-muted mb-2">Subject</label>
+        <select id="contact-subject" required value={form.subject} onChange={event => setForm(current => ({ ...current, subject: event.target.value }))}>
+          <option value="">What would you like to talk about?</option>
+          {subjects.map(subject => <option key={subject} value={subject}>{subject}</option>)}
+        </select>
       </div>
 
       <div>
@@ -91,11 +89,11 @@ export function ContactForm() {
           value={form.message}
           onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
           className="w-full px-4 py-3 bg-card border border-hairline rounded-xl text-fg placeholder-ink-400 focus:outline-none focus:ring-2 focus:ring-brand resize-none"
-          placeholder="Tell me about your project or idea..."
+          placeholder="What’s on your mind?"
         />
       </div>
 
-      <Button type="submit" disabled={loading} aria-busy={loading} variant="primary" className="w-full">
+      <Button type="submit" disabled={loading} aria-busy={loading} variant="primary" className="w-full personal-send-button">
         {loading ? 'Sending...' : 'Send message'}
       </Button>
     </form>

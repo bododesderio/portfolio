@@ -1,0 +1,487 @@
+{
+  "schema": [
+    {
+      "route": "/",
+      "status": 200,
+      "types": [
+        "Person",
+        "WebSite"
+      ],
+      "namedProfilePerson": false,
+      "metadataTagAbsent": true
+    },
+    {
+      "route": "/about",
+      "status": 200,
+      "types": [
+        "Person",
+        "WebSite",
+        "ProfilePage"
+      ],
+      "namedProfilePerson": true,
+      "metadataTagAbsent": true
+    },
+    {
+      "route": "/contact",
+      "status": 200,
+      "types": [
+        "Person",
+        "WebSite",
+        "ContactPage"
+      ],
+      "namedProfilePerson": false,
+      "metadataTagAbsent": true
+    }
+  ],
+  "prototype": [
+    {
+      "route": "home",
+      "width": 320,
+      "scroll": 320,
+      "h1": [
+        "Thoughtful technology.Meaningful impact."
+      ],
+      "broken": [],
+      "height": 3340
+    },
+    {
+      "route": "work",
+      "width": 320,
+      "scroll": 320,
+      "h1": [
+        "Building thingsthat move us forward."
+      ],
+      "broken": [],
+      "height": 1552
+    },
+    {
+      "route": "about",
+      "width": 320,
+      "scroll": 320,
+      "h1": [
+        "A builder.A people person.Always curious."
+      ],
+      "broken": [],
+      "height": 2491
+    },
+    {
+      "route": "writing",
+      "width": 320,
+      "scroll": 320,
+      "h1": [
+        "Thinking out loud.Building with intention."
+      ],
+      "broken": [],
+      "height": 1264
+    },
+    {
+      "route": "contact",
+      "width": 320,
+      "scroll": 320,
+      "h1": [
+        "Good things startwith a conversation."
+      ],
+      "broken": [],
+      "height": 1291
+    },
+    {
+      "route": "rooibok",
+      "width": 320,
+      "scroll": 320,
+      "h1": [
+        "Rooibok Technologies"
+      ],
+      "broken": [],
+      "height": 1439
+    },
+    {
+      "route": "kakebe",
+      "width": 320,
+      "scroll": 320,
+      "h1": [
+        "Kakebe Technologies"
+      ],
+      "broken": [],
+      "height": 1313
+    },
+    {
+      "route": "home",
+      "width": 390,
+      "scroll": 390,
+      "h1": [
+        "Thoughtful technology.Meaningful impact."
+      ],
+      "broken": [],
+      "height": 3267
+    },
+    {
+      "route": "work",
+      "width": 390,
+      "scroll": 390,
+      "h1": [
+        "Building thingsthat move us forward."
+      ],
+      "broken": [],
+      "height": 1607
+    },
+    {
+      "route": "about",
+      "width": 390,
+      "scroll": 390,
+      "h1": [
+        "A builder.A people person.Always curious."
+      ],
+      "broken": [],
+      "height": 2323
+    },
+    {
+      "route": "writing",
+      "width": 390,
+      "scroll": 390,
+      "h1": [
+        "Thinking out loud.Building with intention."
+      ],
+      "broken": [],
+      "height": 1168
+    },
+    {
+      "route": "contact",
+      "width": 390,
+      "scroll": 390,
+      "h1": [
+        "Good things startwith a conversation."
+      ],
+      "broken": [],
+      "height": 1156
+    },
+    {
+      "route": "rooibok",
+      "width": 390,
+      "scroll": 390,
+      "h1": [
+        "Rooibok Technologies"
+      ],
+      "broken": [],
+      "height": 1362
+    },
+    {
+      "route": "kakebe",
+      "width": 390,
+      "scroll": 390,
+      "h1": [
+        "Kakebe Technologies"
+      ],
+      "broken": [],
+      "height": 1306
+    },
+    {
+      "route": "home",
+      "width": 768,
+      "scroll": 768,
+      "h1": [
+        "Thoughtful technology.Meaningful impact."
+      ],
+      "broken": [],
+      "height": 2603
+    },
+    {
+      "route": "work",
+      "width": 768,
+      "scroll": 768,
+      "h1": [
+        "Building thingsthat move us forward."
+      ],
+      "broken": [],
+      "height": 1198
+    },
+    {
+      "route": "about",
+      "width": 768,
+      "scroll": 768,
+      "h1": [
+        "A builder.A people person.Always curious."
+      ],
+      "broken": [],
+      "height": 1885
+    },
+    {
+      "route": "writing",
+      "width": 768,
+      "scroll": 768,
+      "h1": [
+        "Thinking out loud.Building with intention."
+      ],
+      "broken": [],
+      "height": 1163
+    },
+    {
+      "route": "contact",
+      "width": 768,
+      "scroll": 768,
+      "h1": [
+        "Good things startwith a conversation."
+      ],
+      "broken": [],
+      "height": 1010
+    },
+    {
+      "route": "rooibok",
+      "width": 768,
+      "scroll": 768,
+      "h1": [
+        "Rooibok Technologies"
+      ],
+      "broken": [],
+      "height": 1436
+    },
+    {
+      "route": "kakebe",
+      "width": 768,
+      "scroll": 768,
+      "h1": [
+        "Kakebe Technologies"
+      ],
+      "broken": [],
+      "height": 1406
+    },
+    {
+      "route": "home",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": [
+        "Thoughtful technology.Meaningful impact."
+      ],
+      "broken": [],
+      "height": 2863
+    },
+    {
+      "route": "work",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": [
+        "Building thingsthat move us forward."
+      ],
+      "broken": [],
+      "height": 1385
+    },
+    {
+      "route": "about",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": [
+        "A builder.A people person.Always curious."
+      ],
+      "broken": [],
+      "height": 1872
+    },
+    {
+      "route": "writing",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": [
+        "Thinking out loud.Building with intention."
+      ],
+      "broken": [],
+      "height": 1204
+    },
+    {
+      "route": "contact",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": [
+        "Good things startwith a conversation."
+      ],
+      "broken": [],
+      "height": 1041
+    },
+    {
+      "route": "rooibok",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": [
+        "Rooibok Technologies"
+      ],
+      "broken": [],
+      "height": 1645
+    },
+    {
+      "route": "kakebe",
+      "width": 1440,
+      "scroll": 1440,
+      "h1": [
+        "Kakebe Technologies"
+      ],
+      "broken": [],
+      "height": 1615
+    }
+  ],
+  "admin": [
+    {
+      "route": "/admin",
+      "status": 200,
+      "finalPath": "/admin",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/blog",
+      "status": 200,
+      "finalPath": "/admin/blog",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/projects",
+      "status": 200,
+      "finalPath": "/admin/projects",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/content",
+      "status": 200,
+      "finalPath": "/admin/content",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/content/home",
+      "status": 200,
+      "finalPath": "/admin/content/home",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/press",
+      "status": 200,
+      "finalPath": "/admin/press",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/media",
+      "status": 200,
+      "finalPath": "/admin/media",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/gallery",
+      "status": 200,
+      "finalPath": "/admin/media",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/services",
+      "status": 200,
+      "finalPath": "/admin/services",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/testimonials",
+      "status": 200,
+      "finalPath": "/admin/testimonials",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/clients",
+      "status": 200,
+      "finalPath": "/admin/clients",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/banners",
+      "status": 200,
+      "finalPath": "/admin/banners",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/newsletter",
+      "status": 200,
+      "finalPath": "/admin/newsletter",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/email-logs",
+      "status": 200,
+      "finalPath": "/admin/email-logs",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/messages",
+      "status": 200,
+      "finalPath": "/admin/messages",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/settings/appearance",
+      "status": 200,
+      "finalPath": "/admin/settings/appearance",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/settings/site",
+      "status": 200,
+      "finalPath": "/admin/settings/site",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/settings/navigation",
+      "status": 200,
+      "finalPath": "/admin/settings/navigation",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/settings/seo",
+      "status": 200,
+      "finalPath": "/admin/settings/seo",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/settings/integrations",
+      "status": 200,
+      "finalPath": "/admin/settings/integrations",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/settings/account",
+      "status": 200,
+      "finalPath": "/admin/settings/account",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/account/profile",
+      "status": 200,
+      "finalPath": "/admin/account/profile",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/account/preferences",
+      "status": 200,
+      "finalPath": "/admin/account/preferences",
+      "hasErrorBoundary": false
+    },
+    {
+      "route": "/admin/account/security",
+      "status": 200,
+      "finalPath": "/admin/account/security",
+      "hasErrorBoundary": false
+    }
+  ],
+  "sessionLifetime": {
+    "rememberMe": false,
+    "expires": "2026-12-16T13:48:22.854Z"
+  },
+  "seoOverride": {
+    "saveStatus": 200,
+    "renderedTitle": "Bodo Desderio: Founder, Engineer & Community Leader | Kampala, Uganda | Bodo Desderio",
+    "savedTitleUsed": false
+  },
+  "localPageErrors": [],
+  "prototypeNavigation": "Mobile menu, route change, back, and Escape passed",
+  "editorChecks": [
+    {
+      "route": "/admin/blog/cmwjba7nu0032zehr6gvuvr64",
+      "status": 200,
+      "editorMounted": true
+    },
+    {
+      "route": "/admin/projects/cmwjba7vg005tzehru4emk5u7",
+      "status": 200,
+      "editorMounted": true
+    }
+  ]
+}

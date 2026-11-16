@@ -6,7 +6,7 @@
  * static once rendered.
  */
 
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com').replace(/\/+$/, '')
 const PERSON_ID = `${SITE_URL}/#bodo`
 const WEBSITE_ID = `${SITE_URL}/#website`
 
@@ -26,7 +26,6 @@ export function personSchema() {
     name: 'Bodo Desderio',
     alternateName: 'Bodo',
     url: SITE_URL,
-    image: `${SITE_URL}/opengraph-image`,
     jobTitle: 'Founder & CEO',
     worksFor: [
       { '@type': 'Organization', name: 'Rooibok Technologies Limited', url: 'https://rooibok.com' },
@@ -51,11 +50,6 @@ export function websiteSchema() {
     description: 'Personal brand site of Bodo Desderio: founder, engineer, community leader.',
     inLanguage: 'en-UG',
     publisher: { '@id': PERSON_ID },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: { '@type': 'EntryPoint', urlTemplate: `${SITE_URL}/blog?q={search_term_string}` },
-      'query-input': 'required name=search_term_string',
-    },
   }
 }
 
@@ -64,7 +58,9 @@ export function profilePageSchema() {
     '@context': 'https://schema.org',
     '@type': 'ProfilePage',
     url: `${SITE_URL}/about`,
-    mainEntity: { '@id': PERSON_ID },
+    // Keep the entity self-contained: Google must be able to identify a Person
+    // from this script alone, without resolving a reference in another block.
+    mainEntity: personSchema(),
     breadcrumb: breadcrumbList([
       { name: 'Home', url: SITE_URL },
       { name: 'About', url: `${SITE_URL}/about` },

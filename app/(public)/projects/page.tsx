@@ -1,48 +1,119 @@
-export const dynamic = 'force-dynamic'
-
-import { prisma } from '@/lib/data/db'
-import { ProjectGrid } from '@/components/sections/ProjectGrid'
 import type { Metadata } from 'next'
-
+import Link from 'next/link'
+import Image from 'next/image'
+import { prisma } from '@/lib/data/db'
+import { EntryHeading, EntryLayout } from '@/components/personal/EntryLayout'
+import { PersonalIcon } from '@/components/personal/PersonalIcon'
+export const dynamic = 'force-dynamic'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-
 export const metadata: Metadata = {
-  title: 'Projects | Bodo Desderio',
-  description: 'A showcase of projects I have worked on, am currently building, or am planning.',
+  title: 'Work',
+  description:
+    'The companies, software, and projects Bodo Desderio has worked on, is building, and is exploring.',
   alternates: { canonical: `${SITE_URL}/projects` },
-  openGraph: {
-    title: 'Projects | Bodo Desderio',
-    description: 'A showcase of projects I have worked on, am currently building, or am planning.',
-    url: '/projects',
-    type: 'website',
-    images: [{ url: `${SITE_URL}/opengraph-image` }],
-  },
-  twitter: { card: 'summary_large_image', images: [`${SITE_URL}/opengraph-image`] },
+  openGraph: { title: 'Work · Bodo Desderio', url: '/projects' },
 }
-
-export default async function ProjectsPage() {
+const statuses: Record<string, string> = {
+  completed: 'Completed',
+  in_progress: 'In progress',
+  planned: 'On the horizon',
+}
+export default async function WorkPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ status?: string }>
+}) {
+  const params = await searchParams
+  const status =
+    typeof params.status === 'string' &&
+    ['completed', 'in_progress', 'planned'].includes(params.status)
+      ? params.status
+      : 'all'
   const projects = await prisma.project.findMany({
-    where: { visible: true },
-    orderBy: [{ order: 'asc' }, { createdAt: 'desc' }],
-  }).catch(() => [])
-
+    where: { visible: true, ...(status !== 'all' ? { status } : {}) },
+    orderBy: [{ featured: 'desc' }, { order: 'asc' }, { createdAt: 'desc' }],
+    include: { _count: { select: { images: true } } },
+  })
   return (
-    <>
-      <section className="relative h-[50vh] min-h-[300px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-brand/20 via-surface to-surface" />
-          <div className="absolute inset-0 bg-grid-dark bg-grid-md opacity-[0.04] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_40%,black,transparent_70%)]" />
-        </div>
-        <div className="relative z-10 text-center px-4">
-          <p className="text-[11px] uppercase tracking-brand text-brand mb-4">Portfolio</p>
-          <h1 className="font-serif text-5xl md:text-6xl text-fg mb-4">Projects</h1>
-          <p className="text-xl text-fg-muted max-w-2xl mx-auto">
-            Things I&apos;ve built, am building, or plan to build.
-          </p>
-        </div>
-      </section>
-
-      <ProjectGrid projects={projects} />
-    </>
+    <EntryLayout>
+      <EntryHeading
+        eyebrow="The things I put my time into"
+        title="Work & ventures"
+        description="Companies, software, and projects. Some finished, some still unfolding."
+      />
+      <nav className="personal-filter-list" aria-label="Filter work">
+        {[
+          { value: 'all', label: 'Everything' },
+          { value: 'in_progress', label: 'In progress' },
+          { value: 'completed', label: 'Completed' },
+          { value: 'planned', label: 'On the horizon' },
+        ].map((item) => (
+          <Link
+            key={item.value}
+            href={
+              item.value === 'all'
+                ? '/projects'
+                : `/projects?status=${item.value}`
+            }
+            aria-current={status === item.value ? 'page' : undefined}
+          >
+            {item.label}
+          </Link>
+        ))}
+      </nav>
+      <div className="personal-project-grid">
+        {projects.map((project) => (
+          <article key={project.id} className="personal-project-entry">
+            <Link
+              href={`/projects/${project.slug}`}
+              className="personal-project-cover"
+            >
+              {project.featuredImageUrl ? (
+                <Image
+                  src={project.featuredImageUrl}
+                  alt={project.featuredImageAlt || project.title}
+                  fill
+                  sizes="(max-width: 760px) 90vw, 48vw"
+                  className="object-cover"
+                />
+              ) : (
+                <div className="personal-project-type">
+                  <PersonalIcon name="work" />
+                  <span>{project.category || 'Project'}</span>
+                </div>
+              )}
+              <span className="personal-project-state">
+                {statuses[project.status] || project.status}
+              </span>
+            </Link>
+            <div className="personal-project-copy">
+              <p className="personal-meta">
+                {[project.category, project.startDate?.getUTCFullYear()]
+                  .filter(Boolean)
+                  .join(' · ')}
+              </p>
+              <h2>
+                <Link href={`/projects/${project.slug}`}>{project.title}</Link>
+              </h2>
+              <p>{project.excerpt}</p>
+              {project.techStack.length > 0 && (
+                <p className="personal-project-technologies">
+                  {project.techStack.slice(0, 5).join(' · ')}
+                </p>
+              )}
+              <Link
+                className="personal-inline-link"
+                href={`/projects/${project.slug}`}
+              >
+                Explore the project <span aria-hidden="true">↗</span>
+              </Link>
+            </div>
+          </article>
+        ))}
+      </div>
+      {projects.length === 0 && (
+        <p className="personal-empty">No projects in this collection yet.</p>
+      )}
+    </EntryLayout>
   )
 }

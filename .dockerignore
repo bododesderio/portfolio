@@ -42,6 +42,7 @@ Dockerfile
 Dockerfile.dev
 
 # Project docs (not needed in runtime image)
+docs/
 CLAUDE.md
 SPEC.md
 README.md

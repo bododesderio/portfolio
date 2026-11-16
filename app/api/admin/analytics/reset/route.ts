@@ -1,10 +1,11 @@
+import { isAdminSession } from '@/lib/util/admin-session'
 import { auth } from '@/lib/auth'
 import { prisma } from '@/lib/data/db'
 import { NextResponse } from 'next/server'
 
 export async function DELETE() {
   const session = await auth()
-  if (!session) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+  if (!isAdminSession(session)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
 
   try {
     const { count } = await prisma.pageView.deleteMany()

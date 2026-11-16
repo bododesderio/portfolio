@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import { getPageContent, getField } from '@/lib/data/content'
-import { sanitizeHtml } from '@/lib/util/sanitize'
+import { EntryHeading, EntryLayout } from '@/components/personal/EntryLayout'
+import { RichText } from '@/components/personal/ProfileContent'
 
 export const metadata: Metadata = {
-  title: 'Terms & Conditions | Bodo Desderio',
+  title: 'Terms & Conditions',
   description: 'Terms and conditions for using bododesderio.com.',
   openGraph: {
-    title: 'Terms & Conditions | Bodo Desderio',
+    title: 'Terms & Conditions',
     description: 'Terms and conditions for using bododesderio.com.',
     url: '/terms',
     type: 'website',
@@ -21,14 +22,16 @@ export default async function TermsPage() {
   const body = getField(content, 'body.html') || defaultBody
 
   return (
-    <article className="max-w-3xl mx-auto px-6 py-24 text-fg">
-      <h1 className="font-serif text-4xl md:text-5xl mb-8">{title}</h1>
-      <p className="text-fg-muted mb-6">Last updated: {updated}</p>
-      <div
-        className="prose prose-slate dark:prose-invert max-w-none space-y-6 [&_h2]:font-serif [&_h2]:text-2xl [&_h2]:mt-10 [&_h2]:mb-4 [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:space-y-2 [&_a]:text-brand [&_a:hover]:underline"
-        dangerouslySetInnerHTML={{ __html: sanitizeHtml(body) }}
+    <EntryLayout>
+      <EntryHeading
+        eyebrow="Site information"
+        title={title}
+        description={`Last updated: ${updated}`}
       />
-    </article>
+      <div className="personal-article-body">
+        <RichText html={body} />
+      </div>
+    </EntryLayout>
   )
 }
 

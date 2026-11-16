@@ -1,116 +1,162 @@
-export const dynamic = 'force-dynamic'
-
-import { getPageContent, getField } from '@/lib/data/content'
-import { prisma } from '@/lib/data/db'
-import Image from 'next/image'
 import Link from 'next/link'
-import { BlogGrid } from '@/components/sections/BlogGrid'
+import type { Metadata } from 'next'
+import { prisma } from '@/lib/data/db'
+import { getPageContent, getField, getSiteSetting } from '@/lib/data/content'
+import { EntryHeading, EntryLayout } from '@/components/personal/EntryLayout'
+import { WritingRows } from '@/components/personal/ProfileContent'
 import { NewsletterForm } from '@/components/layout/NewsletterForm'
 import { ldJson, blogIndexSchema } from '@/lib/schema'
-import type { Metadata } from 'next'
-
+import { safePublicHref } from '@/lib/domain/profile'
+export const dynamic = 'force-dynamic'
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-
 export const metadata: Metadata = {
-  title: 'Blog | Bodo Desderio',
-  description: 'Thoughts on tech, business & building in Africa.',
+  title: 'Writing',
+  description:
+    'Essays, notes, and reflections by Bodo Desderio on technology, leadership, community, and life.',
   alternates: { canonical: `${SITE_URL}/blog` },
-  openGraph: {
-    title: 'Blog | Bodo Desderio',
-    description: 'Thoughts on tech, business, and building companies and communities across Africa.',
-    url: '/blog',
-    type: 'website',
-    images: [{ url: `${SITE_URL}/opengraph-image` }],
-  },
-  twitter: { card: 'summary_large_image', images: [`${SITE_URL}/opengraph-image`] },
+  openGraph: { title: 'Writing · Bodo Desderio', url: '/blog' },
 }
-
-export default async function BlogPage() {
-  const content = await getPageContent('blog')
-
-  const hero = {
-    title: getField(content, 'hero.heading') || 'Blog',
-    subtitle: getField(content, 'hero.subtitle') || '',
-    image: getField(content, 'hero.image') || '/images/stock/blog-hero.svg',
+export default async function WritingPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ q?: string; category?: string; page?: string }>
+}) {
+  const params = await searchParams
+  const query =
+    typeof params.q === 'string' ? params.q.trim().slice(0, 120) : ''
+  const category =
+    typeof params.category === 'string' ? params.category.slice(0, 100) : ''
+  const requestedPage = Number(params.page)
+  const page =
+    Number.isSafeInteger(requestedPage) && requestedPage > 0
+      ? Math.min(requestedPage, 10000)
+      : 1
+  const where = {
+    status: 'published',
+    ...(category ? { category } : {}),
+    ...(query
+      ? {
+          OR: [
+            { title: { contains: query, mode: 'insensitive' as const } },
+            { excerpt: { contains: query, mode: 'insensitive' as const } },
+          ],
+        }
+      : {}),
   }
-
-  const featuredPost = await prisma.blogPost.findFirst({
-    where: { status: 'published' },
-    orderBy: { publishedAt: 'desc' },
-  }).catch(() => null)
-
-  const allPosts = await prisma.blogPost.findMany({
-    where: { status: 'published' },
-    orderBy: { publishedAt: 'desc' },
-  }).catch(() => [])
-
+  const [content, posts, total, categories, medium] = await Promise.all([
+    getPageContent('blog'),
+    prisma.blogPost.findMany({
+      where,
+      select: {
+        id: true,
+        title: true,
+        slug: true,
+        excerpt: true,
+        category: true,
+        publishedAt: true,
+      },
+      orderBy: { publishedAt: 'desc' },
+      skip: (page - 1) * 12,
+      take: 12,
+    }),
+    prisma.blogPost.count({ where }),
+    prisma.blogPost.groupBy({
+      by: ['category'],
+      where: { status: 'published', category: { not: null } },
+      orderBy: { category: 'asc' },
+    }),
+    getSiteSetting('social.medium'),
+  ])
+  function href(next: { category?: string; page?: number }) {
+    const search = new URLSearchParams()
+    if (query) search.set('q', query)
+    if (next.category ?? category)
+      search.set('category', next.category ?? category)
+    if (next.page && next.page > 1) search.set('page', String(next.page))
+    return `/blog${search.size ? `?${search}` : ''}`
+  }
+  const mediumUrl = safePublicHref(medium || '')
   return (
-    <>
+    <EntryLayout>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: ldJson(blogIndexSchema(allPosts.map(p => ({ slug: p.slug, title: p.title, excerpt: p.excerpt, publishedAt: p.publishedAt, category: p.category })))) }}
+        dangerouslySetInnerHTML={{ __html: ldJson(blogIndexSchema(posts)) }}
       />
-      <section className="relative h-[50vh] min-h-[300px] flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0">
-          <Image src={hero.image} alt="" fill sizes="100vw" className="object-cover" priority />
-          <div className="absolute inset-0 bg-black/60" />
+      <EntryHeading
+        eyebrow="Essays, notes & things on my mind"
+        title="Writing"
+        description={
+          getField(content, 'hero.subtitle') ||
+          'A notebook for the things I’m learning, questioning, and thinking about.'
+        }
+      />
+      <form action="/blog" method="get" className="personal-search-page-form">
+        <label htmlFor="writing-search">Find something to read</label>
+        <div>
+          <input
+            type="search"
+            id="writing-search"
+            name="q"
+            defaultValue={query}
+            maxLength={120}
+            placeholder="Search the writing archive"
+          />
+          {category && <input type="hidden" name="category" value={category} />}
+          <button type="submit">Search</button>
         </div>
-        <div className="relative z-10 text-center px-4">
-          <h1 className="font-serif text-5xl md:text-6xl text-white mb-4">{hero.title}</h1>
-          {hero.subtitle && (
-            <p className="text-xl text-white/90 max-w-2xl mx-auto">{hero.subtitle}</p>
-          )}
-        </div>
-      </section>
-
-      {featuredPost && (
-        <section className="py-16 bg-white dark:bg-slate-950">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8">
-              <p className="text-brand text-sm uppercase tracking-widest">Featured</p>
-            </div>
-            <article className="grid md:grid-cols-2 gap-8 items-center">
-              {featuredPost.featuredImageUrl && (
-                <div className="relative h-64 md:h-96 rounded-2xl overflow-hidden">
-                  <Image src={featuredPost.featuredImageUrl} alt={featuredPost.featuredImageAlt} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />
-                </div>
-              )}
-              <div>
-                {featuredPost.category && (
-                  <span className="px-2 py-1 bg-brand/10 text-brand text-sm rounded-full">
-                    {featuredPost.category}
-                  </span>
-                )}
-                <h2 className="font-serif text-4xl text-slate-900 dark:text-white my-4">
-                  {featuredPost.title}
-                </h2>
-                <p className="text-slate-600 dark:text-slate-300 text-lg mb-4">
-                  {featuredPost.excerpt}
-                </p>
-                <Link href={`/blog/${featuredPost.slug}`} className="inline-flex items-center text-brand hover:underline font-medium">
-                  Read article →
-                </Link>
-              </div>
-            </article>
-          </div>
-        </section>
+      </form>
+      <nav className="personal-filter-list" aria-label="Writing topics">
+        <Link
+          href={href({ category: '' })}
+          aria-current={!category ? 'page' : undefined}
+        >
+          All topics
+        </Link>
+        {categories.map((item) => (
+          <Link
+            key={item.category}
+            href={href({ category: item.category! })}
+            aria-current={category === item.category ? 'page' : undefined}
+          >
+            {item.category}
+          </Link>
+        ))}
+      </nav>
+      {posts.length ? (
+        <WritingRows items={posts} />
+      ) : (
+        <p className="personal-empty">
+          No writing matches this search.{' '}
+          <Link href="/blog">Browse all writing.</Link>
+        </p>
       )}
-
-      <section className="py-16">
-        <BlogGrid posts={allPosts} />
-      </section>
-
-      <section className="py-16 bg-slate-50 dark:bg-slate-900">
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h3 className="font-serif text-3xl text-slate-900 dark:text-white mb-4">Stay in the loop</h3>
-          <p className="text-slate-600 dark:text-slate-300 mb-6">
-            Get notified when I publish new articles directly to your inbox.
-          </p>
-          <div className="flex justify-center">
-            <NewsletterForm />
-          </div>
+      {total > 12 && (
+        <nav className="personal-pagination" aria-label="Writing pages">
+          {page > 1 && <Link href={href({ page: page - 1 })}>← Previous</Link>}
+          <span>
+            Page {page} of {Math.ceil(total / 12)}
+          </span>
+          {page * 12 < total && (
+            <Link href={href({ page: page + 1 })}>Next →</Link>
+          )}
+        </nav>
+      )}
+      {mediumUrl && (
+        <p className="personal-footnote">
+          There’s more of my writing on{' '}
+          <a href={mediumUrl} target="_blank" rel="noopener noreferrer">
+            Medium ↗
+          </a>
+          .
+        </p>
+      )}
+      <section className="personal-subscribe">
+        <div>
+          <h2>Letters, occasionally.</h2>
+          <p>New writing and a few things from my corner of the world.</p>
         </div>
+        <NewsletterForm />
       </section>
-    </>
+    </EntryLayout>
   )
 }
