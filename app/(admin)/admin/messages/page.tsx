@@ -54,6 +54,7 @@ export default async function MessagesPage({
       subject: true,
       body: true,
       read: true,
+      archived: true,
       receivedAt: true,
     },
   })

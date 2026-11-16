@@ -380,7 +380,8 @@
     "Work save control is visible at 1440px",
     "Work save control is visible at 390px",
     "Timeline fields retain unsaved values across collapse and filtering, with no mobile overflow",
-    "Mobile writing and work editors fit after CKEditor grid sizing correction"
+    "Mobile writing and work editors fit after CKEditor grid sizing correction",
+    "Archive then restore returns the original local message to the inbox"
   ],
   "failures": [],
   "failedCount": 0

@@ -9,6 +9,7 @@ type Message = {
   subject: string
   body: string
   read: boolean
+  archived: boolean
   receivedAt: Date
 }
 export function Inbox({ messages }: { messages: Message[] }) {
@@ -86,6 +87,7 @@ export function Inbox({ messages }: { messages: Message[] }) {
                   id={active.id}
                   read={active.read}
                   email={active.email}
+                  archived={active.archived}
                 />
               </div>
             </header>
