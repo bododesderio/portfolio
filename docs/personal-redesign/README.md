@@ -39,7 +39,7 @@ Reading settings offer:
 - Standard or wide reading width.
 - Reset to the default preferences.
 
-Text/width preferences are stored locally on the reader's device and scoped to the public site. The controls use native dialogs for focus isolation and Escape handling. The admin remains a separate visual environment.
+Text/width preferences are stored locally on the reader's device and scoped to the public site. The controls use native dialogs for focus isolation. Escape closes search even when the search field contains text, and returns focus to its trigger. The admin remains a separate visual environment.
 
 ## Identity
 

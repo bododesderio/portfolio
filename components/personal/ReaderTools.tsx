@@ -53,6 +53,16 @@ export function ReaderTools() {
   }, [pathname])
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
+      if (
+        event.key === 'Escape' &&
+        (searchDialog.current?.open || settingsDialog.current?.open)
+      ) {
+        event.preventDefault()
+        event.stopPropagation()
+        searchDialog.current?.close()
+        settingsDialog.current?.close()
+        return
+      }
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault()
         settingsDialog.current?.close()
@@ -60,8 +70,8 @@ export function ReaderTools() {
         searchInput.current?.focus()
       }
     }
-    document.addEventListener('keydown', onKey)
-    return () => document.removeEventListener('keydown', onKey)
+    document.addEventListener('keydown', onKey, true)
+    return () => document.removeEventListener('keydown', onKey, true)
   }, [])
   useEffect(() => {
     if (query.trim().length < 2) {

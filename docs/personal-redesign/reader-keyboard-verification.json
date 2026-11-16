@@ -1,0 +1,18 @@
+{
+  "environment": "isolated local preview",
+  "checks": [
+    {
+      "width": 1440,
+      "typedSearchEscapeCloses": true,
+      "searchFocusRestored": true,
+      "settingsEscapeCloses": true
+    },
+    {
+      "width": 390,
+      "typedSearchEscapeCloses": true,
+      "searchFocusRestored": true,
+      "settingsEscapeCloses": true
+    }
+  ],
+  "failures": []
+}
