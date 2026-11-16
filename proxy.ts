@@ -7,11 +7,30 @@ const isDev = process.env.NODE_ENV !== 'production'
 // AI-training and SEO-scraper user agents blocked at the edge. Paired with the
 // full block in public/robots.txt — this catches the crawlers that ignore it.
 const BAD_BOTS = [
-  'gptbot', 'chatgpt-user', 'oai-searchbot', 'claudebot', 'claude-web',
-  'anthropic-ai', 'cohere-ai', 'ccbot', 'bytespider', 'amazonbot',
-  'meta-externalagent', 'meta-externalfetcher', 'perplexitybot', 'diffbot',
-  'imagesiftbot', 'omgili', 'dataforseobot', 'petalbot', 'mj12bot',
-  'ahrefsbot', 'semrushbot', 'dotbot', 'timpibot', 'scrapy',
+  'gptbot',
+  'chatgpt-user',
+  'oai-searchbot',
+  'claudebot',
+  'claude-web',
+  'anthropic-ai',
+  'cohere-ai',
+  'ccbot',
+  'bytespider',
+  'amazonbot',
+  'meta-externalagent',
+  'meta-externalfetcher',
+  'perplexitybot',
+  'diffbot',
+  'imagesiftbot',
+  'omgili',
+  'dataforseobot',
+  'petalbot',
+  'mj12bot',
+  'ahrefsbot',
+  'semrushbot',
+  'dotbot',
+  'timpibot',
+  'scrapy',
 ]
 
 /**
@@ -48,7 +67,9 @@ function buildCsp(nonce: string): string {
     "form-action 'self'",
     "base-uri 'self'",
     "object-src 'none'",
-    "upgrade-insecure-requests",
+    // WebKit upgrades loopback asset URLs too; the HTTP dev server has no TLS.
+    // Keep transport upgrading on the HTTPS production deployment.
+    ...(isDev ? [] : ['upgrade-insecure-requests']),
   ].join('; ')
 }
 
@@ -59,7 +80,10 @@ export default auth((req) => {
   // Next's internal image optimizer sends no user agent, so applying the bot
   // check to those public files turns valid .JPG photographs into 400 errors.
   // Keep this exemption restricted to the two public image directories.
-  if (/^\/(?:images|uploads)\//.test(pathname) && /\.(?:png|jpe?g|gif|svg|webp|avif|ico)$/i.test(pathname)) {
+  if (
+    /^\/(?:images|uploads)\//.test(pathname) &&
+    /\.(?:png|jpe?g|gif|svg|webp|avif|ico)$/i.test(pathname)
+  ) {
     return NextResponse.next()
   }
 

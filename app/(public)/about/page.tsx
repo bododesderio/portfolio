@@ -42,7 +42,16 @@ export default async function AboutPage() {
   const contents = [
     { id: 'biography', label: 'Biography' },
     { id: 'timeline', label: 'Life & history' },
+    ...(profile.education.length
+      ? [{ id: 'education', label: 'Education & qualifications' }]
+      : []),
     { id: 'experience', label: 'Work & experience' },
+    ...(profile.volunteering.length
+      ? [{ id: 'volunteering', label: 'Volunteering' }]
+      : []),
+    ...(profile.skills.length
+      ? [{ id: 'skills', label: 'Skills & languages' }]
+      : []),
     { id: 'community', label: 'Community' },
     { id: 'values', label: 'What matters to me' },
     ...(profile.interests
@@ -90,7 +99,7 @@ export default async function AboutPage() {
           resumeUrl={profile.resumeUrl}
           facts={[
             { label: 'Home', value: profile.location },
-            { label: 'Education', value: 'Kampala International University' },
+            { label: 'Education', value: 'KIU · IUEA · FIMAT · ALX · Udemy' },
             {
               label: 'Interests',
               value: 'Technology, people & the world around us',
@@ -113,6 +122,24 @@ export default async function AboutPage() {
         </p>
         <PersonalTimeline items={profile.timeline} />
       </EntrySection>
+      {profile.education.length > 0 && (
+        <EntrySection id="education" title="Education & qualifications">
+          <div className="personal-records">
+            {profile.education.map((item) => (
+              <article key={item.title}>
+                <p className="personal-meta">{item.period}</p>
+                <h3>{item.title}</h3>
+                <p>{item.organization}</p>
+                {item.description && (
+                  <p className="personal-record-description">
+                    {item.description}
+                  </p>
+                )}
+              </article>
+            ))}
+          </div>
+        </EntrySection>
+      )}
       <EntrySection
         id="experience"
         title="Work & experience"
@@ -137,10 +164,48 @@ export default async function AboutPage() {
                   role.org
                 )}
               </p>
+              {role.description && (
+                <p className="personal-record-description">
+                  {role.description}
+                </p>
+              )}
             </div>
           ))}
         </div>
       </EntrySection>
+      {profile.volunteering.length > 0 && (
+        <EntrySection id="volunteering" title="Volunteering & service">
+          <div className="personal-records">
+            {profile.volunteering.map((item) => (
+              <article key={`${item.title}-${item.organization}`}>
+                <p className="personal-meta">{item.period}</p>
+                <h3>{item.title}</h3>
+                <p>{item.organization}</p>
+                <p className="personal-record-description">
+                  {item.description}
+                </p>
+              </article>
+            ))}
+          </div>
+        </EntrySection>
+      )}
+      {profile.skills.length > 0 && (
+        <EntrySection id="skills" title="Skills & languages">
+          <ul className="personal-skill-list">
+            {profile.skills.map((skill) => (
+              <li key={skill}>{skill}</li>
+            ))}
+          </ul>
+          <dl className="personal-language-list">
+            {profile.languages.map((language) => (
+              <div key={language.title}>
+                <dt>{language.title}</dt>
+                <dd>{language.description}</dd>
+              </div>
+            ))}
+          </dl>
+        </EntrySection>
+      )}
       <EntrySection id="community" title="Community & public life">
         {profile.introduction[2] && <RichText html={profile.introduction[2]} />}
         <p>{getField(profile.home, 'community.body')}</p>

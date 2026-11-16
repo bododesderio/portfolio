@@ -1,0 +1,2718 @@
+{
+  "environment": "isolated local preview",
+  "pages": [
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 240,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 320,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 600,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 430,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 768,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 29.44,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 1280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 1920,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 3840,
+      "height": 2160,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 2560,
+      "height": 2160,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 240,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 320,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 600,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 430,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 768,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 29.44,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 1280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 1920,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 2560,
+      "height": 2160,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 3840,
+      "height": 2160,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/projects",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/projects",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/projects",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/projects",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/blog",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/blog",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/blog",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/blog",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Life in pictures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/gallery",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Life in pictures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/gallery",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Life in pictures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/gallery",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Life in pictures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/gallery",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Get in touch"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/contact",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Get in touch"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/contact",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Get in touch"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/contact",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Get in touch"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/contact",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Search"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/search?q=ALX",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Search"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/search?q=ALX",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Search"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/search?q=ALX",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Search"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/search?q=ALX",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.1,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/",
+      "width": 1024,
+      "height": 360,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/about",
+      "width": 844,
+      "height": 390,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/messages",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/messages",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/messages",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/messages",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/messages",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/messages",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "about | Content"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/content/about",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "about | Content"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/content/about",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "about | Content"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/content/about",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "about | Content"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/content/about",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "about | Content"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/content/about",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "about | Content"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/content/about",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site & SEO"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/settings/site",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site & SEO"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/settings/site",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site & SEO"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/settings/site",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site & SEO"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/settings/site",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site & SEO"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/settings/site",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site & SEO"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/settings/site",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/media",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/media",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/media",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/media",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/media",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site activity"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/analytics",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site activity"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/analytics",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Media Library"
+      ],
+      "overflow": false,
+      "mainTitleSize": 26.25,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/media",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site activity"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/analytics",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site activity"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/analytics",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site activity"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/analytics",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Site activity"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/analytics",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog/new",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog/new",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog/new",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog/new",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog/new",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/blog/new",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "New Project"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects/new",
+      "width": 280,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "New Project"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects/new",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "New Project"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects/new",
+      "width": 820,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "New Project"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects/new",
+      "width": 1024,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "New Project"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects/new",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "New Project"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin/projects/new",
+      "width": 2560,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin",
+      "width": 844,
+      "height": 390,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.7,
+      "brokenImages": [],
+      "engine": "chromium",
+      "route": "/admin",
+      "width": 1280,
+      "height": 360,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/",
+      "width": 320,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/",
+      "width": 768,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/",
+      "width": 2560,
+      "height": 2160,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/about",
+      "width": 320,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/about",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/about",
+      "width": 768,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/about",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/about",
+      "width": 2560,
+      "height": 2160,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/projects",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/projects",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/blog",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/blog",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Life in pictures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/gallery",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Life in pictures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/gallery",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Get in touch"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/contact",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Get in touch"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/contact",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Search"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/search?q=ALX",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Search"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/search?q=ALX",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "overflow": false,
+      "mainTitleSize": 30.0938,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/about",
+      "width": 844,
+      "height": 390,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 23.8125,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/",
+      "width": 1024,
+      "height": 360,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.6875,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/admin",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.6875,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/admin",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.6875,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/admin/messages",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.6875,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/admin/messages",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.6875,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/admin/blog/new",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.6875,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/admin/blog/new",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.6875,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/admin",
+      "width": 1280,
+      "height": 360,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.6875,
+      "brokenImages": [],
+      "engine": "firefox",
+      "route": "/admin",
+      "width": 844,
+      "height": 390,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/",
+      "width": 320,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/",
+      "width": 768,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/",
+      "width": 2560,
+      "height": 2160,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/about",
+      "width": 320,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/about",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/about",
+      "width": 768,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/about",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/about",
+      "width": 2560,
+      "height": 2160,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/projects",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Work & ventures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/projects",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/blog",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/blog",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Life in pictures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/gallery",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Life in pictures"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/gallery",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Get in touch"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/contact",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Get in touch"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/contact",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Search"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/search?q=ALX",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Search"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/search?q=ALX",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Sustainable Web Development: Reducing Digital Carbon Footprints"
+      ],
+      "overflow": false,
+      "mainTitleSize": 25.9,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/blog/sustainable-web-development-reducing-digital-carbon-footprints",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "About me"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/about",
+      "width": 844,
+      "height": 390,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Bodo Desderio"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/",
+      "width": 1024,
+      "height": 360,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.700001,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/admin",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.700001,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/admin",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.700001,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/admin/messages",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Messages"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.700001,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/admin/messages",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.700001,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/admin/blog/new",
+      "width": 390,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "A new piece of writing"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.700001,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/admin/blog/new",
+      "width": 1440,
+      "height": 900,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.700001,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/admin",
+      "width": 844,
+      "height": 390,
+      "status": 200,
+      "errors": []
+    },
+    {
+      "size": "14px",
+      "h1": [
+        "Your personal archive"
+      ],
+      "overflow": false,
+      "mainTitleSize": 21.700001,
+      "brokenImages": [],
+      "engine": "webkit",
+      "route": "/admin",
+      "width": 1280,
+      "height": 360,
+      "status": 200,
+      "errors": []
+    }
+  ],
+  "interactions": [
+    "chromium: CV sections and dates verified",
+    "chromium: theme and text size shared in both directions through authenticated admin",
+    "chromium: folded sidebar persists, mobile labels stay visible, drawer Escape works",
+    "firefox: CV sections and dates verified",
+    "firefox: theme and text size shared in both directions through authenticated admin",
+    "firefox: folded sidebar persists, mobile labels stay visible, drawer Escape works",
+    "webkit: CV sections and dates verified",
+    "webkit: theme and text size shared in both directions through authenticated admin",
+    "webkit: folded sidebar persists, mobile labels stay visible, drawer Escape works"
+  ],
+  "browserFailures": [],
+  "failures": []
+}

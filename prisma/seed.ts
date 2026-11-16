@@ -1,5 +1,8 @@
 import { PrismaClient } from '@prisma/client'
 import path from 'path'
+import { createRequire } from 'node:module'
+const cvRequire = createRequire(path.join(process.cwd(), 'prisma', 'seed.cjs'))
+const { sync: syncCvProfile } = cvRequire('../scripts/sync-cv-profile.cjs') as { sync: (client: PrismaClient) => Promise<unknown> }
 
 const prisma = new PrismaClient()
 const DEFAULT_ADMIN_EMAIL = 'derricklamarh@gmail.com'
@@ -949,6 +952,7 @@ async function main() {
   console.log(`  ✓ Upserted ${seoRows.length} SEO settings`)
 
   if (contentOnly) {
+    await syncCvProfile(prisma)
     console.log('✅ CONTENT_ONLY: site copy + SEO refreshed. No other data touched.')
     return
   }
@@ -1052,6 +1056,7 @@ async function main() {
   }
   console.log(`  ✓ Created ${projects.length} projects`)
 
+  await syncCvProfile(prisma)
   console.log('✅ Seed completed successfully!')
 }
 

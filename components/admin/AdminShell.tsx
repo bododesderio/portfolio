@@ -1,35 +1,52 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { AdminSidebar } from './AdminSidebar'
 import { AdminTopBar } from './AdminTopBar'
-import { AdminThemeApplier } from './AdminThemeApplier'
-import type { ThemePreference } from '@/lib/auth'
 
 export function AdminShell({
   email,
-  themePreference,
   unreadMessageCount,
   children,
 }: {
   email: string
-  themePreference: ThemePreference
   unreadMessageCount: number
   children: React.ReactNode
 }) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [collapsed, setCollapsed] = useState(false)
+  const closeMobile = useCallback(() => setMobileOpen(false), [])
+  useEffect(() => {
+    try {
+      setCollapsed(localStorage.getItem('bodo-admin-sidebar') === 'collapsed')
+    } catch {}
+  }, [])
+  function toggleSidebar() {
+    setCollapsed((value) => {
+      const next = !value
+      try {
+        localStorage.setItem(
+          'bodo-admin-sidebar',
+          next ? 'collapsed' : 'expanded'
+        )
+      } catch {}
+      return next
+    })
+  }
 
   return (
-    <div className="admin-site h-screen bg-surface flex overflow-hidden">
-      <AdminThemeApplier preference={themePreference} />
+    <div
+      className={`admin-site h-screen bg-surface flex overflow-hidden ${collapsed ? 'is-folded' : ''}`}
+    >
       <AdminSidebar
         email={email}
         mobileOpen={mobileOpen}
-        onCloseMobile={() => setMobileOpen(false)}
+        onCloseMobile={closeMobile}
+        collapsed={collapsed}
+        onToggleCollapsed={toggleSidebar}
       />
       <div className="flex-1 flex flex-col min-w-0">
         <AdminTopBar
-          themePreference={themePreference}
           unreadMessageCount={unreadMessageCount}
           onOpenMobileSidebar={() => setMobileOpen(true)}
         />

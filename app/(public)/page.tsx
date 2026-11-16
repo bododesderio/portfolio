@@ -23,7 +23,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 export const metadata: Metadata = {
   title: { absolute: 'Bodo Desderio · Life, work & ideas' },
   description:
-    'The personal website of Bodo Desderio. Biography, work, community, writing, and photographs from Kampala, Uganda.',
+    'The personal website of Bodo Desderio. Biography, work, community, writing, and photographs from Lira City, Uganda.',
   alternates: { canonical: SITE_URL },
   openGraph: {
     title: 'Bodo Desderio · Life, work & ideas',
@@ -162,9 +162,10 @@ export default async function HomePage() {
         </p>
         <PersonalTimeline
           compact
-          items={profile.timeline
-            .filter((item) => item.year && /^\d{4}/.test(item.year))
-            .slice(0, 3)}
+          items={(profile.timeline.some((item) => item.featured)
+            ? profile.timeline.filter((item) => item.featured)
+            : profile.timeline
+          ).slice(-4)}
         />
         {profile.timeline.length === 0 && profile.introduction[2] && (
           <RichText html={profile.introduction[2]} />

@@ -1,12 +1,13 @@
-import type { Metadata } from "next"
-import { headers } from "next/headers"
-import "@fontsource-variable/inter"
-import "@fontsource/playfair-display"
-import "@fontsource/playfair-display/700.css"
-import "./globals.css"
+import type { Metadata } from 'next'
+import { headers } from 'next/headers'
+import '@fontsource-variable/inter'
+import './globals.css'
+import './appearance.css'
+import { PreferencesProvider } from '@/components/appearance/PreferencesProvider'
 import { Toaster } from 'react-hot-toast'
 import { ThemeProvider } from 'next-themes'
 import { ThemeInjector } from '@/components/layout/ThemeInjector'
+import { preferenceBootScript } from '@/lib/domain/appearance'
 import { ldJson, personSchema, websiteSchema } from '@/lib/schema'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
@@ -17,10 +18,14 @@ export const metadata: Metadata = {
     default: 'Bodo Desderio: Founder, Leader, Builder',
     template: '%s | Bodo Desderio',
   },
-  description: 'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies.',
+  description:
+    'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies.',
   applicationName: 'Bodo Desderio',
   icons: {
-    icon: [{ url: '/identity/favicon.svg', type: 'image/svg+xml' }, { url: '/favicon.ico', sizes: 'any' }],
+    icon: [
+      { url: '/identity/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon.ico', sizes: 'any' },
+    ],
     apple: '/apple-touch-icon.png',
   },
   authors: [{ name: 'Bodo Desderio', url: SITE_URL }],
@@ -32,13 +37,16 @@ export const metadata: Metadata = {
     url: SITE_URL,
     siteName: 'Bodo Desderio',
     title: 'Bodo Desderio: Founder, Leader, Builder',
-    description: 'Building companies, communities, and technology that move people forward.',
+    description:
+      'Building companies, communities, and technology that move people forward.',
   },
   twitter: { card: 'summary_large_image', creator: '@bodo_desderio' },
   robots: { index: true, follow: true },
 }
 
-export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({
+  children,
+}: Readonly<{ children: React.ReactNode }>) {
   // Per-request nonce from the middleware CSP; next-themes' pre-paint script
   // carries it so it isn't blocked under the nonce-based production policy.
   const nonce = (await headers()).get('x-nonce') ?? undefined
@@ -47,13 +55,26 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
       <head>
         <ThemeInjector />
         <script
+          nonce={nonce}
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{ __html: preferenceBootScript }}
+        />
+        <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: ldJson([personSchema(), websiteSchema()]) }}
+          dangerouslySetInnerHTML={{
+            __html: ldJson([personSchema(), websiteSchema()]),
+          }}
         />
       </head>
       <body className="antialiased" suppressHydrationWarning>
-        <ThemeProvider nonce={nonce} attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-          {children}
+        <ThemeProvider
+          nonce={nonce}
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <PreferencesProvider>{children}</PreferencesProvider>
           <Toaster position="bottom-right" />
         </ThemeProvider>
       </body>

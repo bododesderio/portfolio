@@ -1,5 +1,10 @@
 import { prisma } from '@/lib/data/db'
-import { readTimeline } from '@/lib/domain/profile'
+import {
+  readTimeline,
+  readDatedEntries,
+  readStringList,
+  readValues,
+} from '@/lib/domain/profile'
 
 export type PublicSearchResult = {
   title: string
@@ -35,6 +40,12 @@ const sections = [
   { page: 'home', section: 'bio', fieldKey: 'body' },
   { page: 'home', section: 'community', fieldKey: 'body' },
   { page: 'about', section: 'story', fieldKey: 'items' },
+  {
+    page: 'about',
+    section: { in: ['education', 'volunteering', 'skills', 'languages'] },
+    fieldKey: 'items',
+  },
+  { page: 'about', section: 'interests', fieldKey: 'body' },
 ]
 const pages = [
   {
@@ -97,6 +108,37 @@ export async function searchPublicContent(
     }),
   ])
   const biographies: PublicSearchResult[] = content.flatMap((row) => {
+    if (row.section === 'education' || row.section === 'volunteering')
+      return readDatedEntries(row.value)
+        .filter((item) =>
+          `${item.title} ${item.organization} ${item.period} ${item.description}`
+            .toLowerCase()
+            .includes(query.toLowerCase())
+        )
+        .map((item) => ({
+          title: item.title,
+          excerpt: [item.organization, item.period, item.description]
+            .filter(Boolean)
+            .join(' · '),
+          href: `/about#${row.section}`,
+          kind: 'Biography' as const,
+        }))
+    if (row.section === 'skills' || row.section === 'languages') {
+      const text =
+        row.section === 'skills'
+          ? readStringList(row.value).join(' · ')
+          : readValues(row.value)
+              .map((item) => `${item.title}: ${item.description}`)
+              .join(' · ')
+      return [
+        {
+          title: 'Skills & languages',
+          excerpt: excerpt(text, query),
+          href: '/about#skills',
+          kind: 'Biography' as const,
+        },
+      ]
+    }
     if (row.section === 'story')
       return readTimeline(row.value)
         .filter((item) =>

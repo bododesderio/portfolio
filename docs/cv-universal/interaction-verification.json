@@ -1,0 +1,10 @@
+{
+  "checks": [
+    "Theme and size synchronize across public and admin tabs",
+    "Fullscreen enters and exits through the native browser API",
+    "Automatic appearance follows the device preference; Large and Wide synchronize",
+    "Search finds the new CV qualifications; Escape closes a populated search",
+    "WebKit iPhone touch emulation at 3\u00d7 density: focused inputs, landscape, and small-mode dialog controls remain accessible"
+  ],
+  "failures": []
+}

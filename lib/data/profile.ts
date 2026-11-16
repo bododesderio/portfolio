@@ -4,6 +4,8 @@ import {
   readTimeline,
   readValues,
   safePublicHref,
+  readDatedEntries,
+  readStringList,
 } from '@/lib/domain/profile'
 export async function getPersonalProfile() {
   const [home, about, settings] = await Promise.all([
@@ -30,7 +32,7 @@ export async function getPersonalProfile() {
       'Software engineer, entrepreneur & community builder',
     tagline: getField(home, 'hero.tagline'),
     photo: getField(home, 'hero.photo') || '/images/hero/portrait-home.png',
-    location: settings['site.location'] || 'Kampala, Uganda',
+    location: settings['site.location'] || 'Lira City, Uganda',
     biography:
       interests && fullBiography.includes(interests)
         ? fullBiography.replace(interests, '')
@@ -44,6 +46,10 @@ export async function getPersonalProfile() {
       url: role.url ? safePublicHref(role.url) || undefined : undefined,
     })),
     timeline: readTimeline(getField(about, 'story.items')),
+    education: readDatedEntries(getField(about, 'education.items')),
+    volunteering: readDatedEntries(getField(about, 'volunteering.items')),
+    skills: readStringList(getField(about, 'skills.items')),
+    languages: readValues(getField(about, 'languages.items')),
     values: readValues(getField(about, 'values.items')),
     resumeUrl: safePublicHref(settings['site.resume_url'] || '') || undefined,
     socials: [

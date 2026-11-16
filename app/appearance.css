@@ -1,0 +1,217 @@
+/* Shared design tokens and reader preferences for every route. */
+:root {
+  --reader-size: 14px;
+  --reader-scale: 1;
+  --reader-width: 1240px;
+  --reader-measure: 72ch;
+  --font-inter: 'Inter Variable', Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-playfair: var(--font-inter);
+  --surface: 250 250 248;
+  --surface-2: 241 243 239;
+  --card: 255 255 253;
+  --muted: 234 238 231;
+  --ink: 35 44 39;
+  --ink-muted: 91 104 95;
+  --hairline: 35 44 39;
+  --hairline-a: 0.12;
+  --paper: rgb(var(--surface));
+  --panel: rgb(var(--surface-2));
+  --text: rgb(var(--ink));
+  --subtle: rgb(var(--ink-muted));
+  --rule: rgb(var(--hairline)/0.14);
+  --link: rgb(var(--brand-700));
+  --accent: rgb(var(--brand-700));
+  font-size: var(--reader-size);
+}
+:root.dark {
+  --surface: 24 30 27;
+  --surface-2: 32 40 35;
+  --card: 29 36 32;
+  --muted: 39 48 42;
+  --ink: 229 235 228;
+  --ink-muted: 171 185 173;
+  --hairline: 229 235 228;
+  --link: rgb(var(--brand-200));
+  --accent: rgb(var(--brand-200));
+}
+html[data-reading-size='small'] {
+  --reader-size: 12px;
+  --reader-scale: 0.857143;
+}
+html[data-reading-size='large'] {
+  --reader-size: 16px;
+  --reader-scale: 1.142857;
+}
+html[data-reading-width='wide'] {
+  --reader-width: 1640px;
+  --reader-measure: 88ch;
+}
+body {
+  min-width: 0;
+  font-family: var(--font-inter);
+  font-size: 1rem;
+}
+:where(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--font-inter);
+}
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+:where(
+  main,
+  section,
+  article,
+  form,
+  fieldset,
+  header,
+  footer,
+  nav,
+  aside,
+  dialog
+) {
+  min-width: 0;
+}
+main :is(.grid, .flex) > * {
+  min-width: 0;
+}
+:where(img, video, canvas, svg) {
+  max-width: 100%;
+}
+:where(p, h1, h2, h3, h4, dd, figcaption) {
+  overflow-wrap: anywhere;
+}
+:where(button, a, input, select, textarea, summary):focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+}
+.appearance-trigger,
+.admin-fullscreen,
+.admin-sidebar-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 36px;
+  flex-shrink: 0;
+  color: var(--subtle);
+  border-radius: 6px;
+}
+.appearance-trigger:hover,
+.admin-fullscreen:hover,
+.admin-sidebar-toggle:hover {
+  color: var(--text);
+  background: rgb(var(--muted));
+}
+.appearance-dialog {
+  width: min(460px, calc(100vw - 24px));
+  max-width: calc(100vw - 24px);
+  max-height: calc(100dvh - 24px);
+  margin: auto;
+  padding: 24px;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  color: var(--text);
+  background: rgb(var(--card));
+  box-shadow: 0 12px 60px rgb(0 0 0/0.18);
+  overflow: auto;
+  font-family: var(--font-inter);
+  font-size: 1rem;
+}
+.appearance-dialog::backdrop {
+  background: rgb(10 25 17/0.45);
+}
+.appearance-dialog > header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.appearance-dialog h2 {
+  font-size: 1.15rem;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+.appearance-dialog header p {
+  font-size: 0.875rem;
+  color: var(--subtle);
+  margin: 6px 0 0;
+}
+.appearance-dialog header > button {
+  padding: 4px;
+}
+.appearance-dialog fieldset {
+  border: 0;
+  padding: 0;
+  margin: 18px 0;
+}
+.appearance-dialog legend {
+  font-size: 0.85rem;
+  margin-bottom: 9px;
+  color: var(--subtle);
+}
+.appearance-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.appearance-options button {
+  border: 1px solid var(--rule);
+  border-radius: 5px;
+  padding: 8px 11px;
+  font-size: 0.9rem;
+  flex: 1;
+  white-space: normal;
+}
+.appearance-options button[aria-pressed='true'] {
+  background: rgb(var(--brand) / 0.12);
+  color: var(--link);
+  border-color: var(--link);
+}
+.appearance-dialog footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: space-between;
+  padding-top: 18px;
+  margin-top: 22px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.8rem;
+  color: var(--subtle);
+}
+.appearance-dialog footer button {
+  color: var(--link);
+}
+@media (pointer: coarse) {
+  .appearance-trigger,
+  .admin-fullscreen,
+  .admin-sidebar-toggle {
+    width: 40px;
+    height: 44px;
+  }
+  :where(input, select, textarea):focus {
+    font-size: max(1rem, 16px);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+  }
+}
+:is(.personal-site, .admin-site) .text-brand {
+  color: var(--link);
+}
+:is(.personal-site, .admin-site) .bg-brand.text-white {
+  background-color: rgb(var(--brand-700));
+  color: #fff;
+}
+@media (pointer: coarse) {
+  :is(.personal-site, .admin-site) :is(input, select, textarea):focus {
+    font-size: max(1rem, 16px) !important;
+  }
+}

@@ -4,12 +4,17 @@ const timelineItem = z.object({
   title: z.string().min(1),
   organization: z.string().optional(),
   description: z.string().optional(),
+  featured: z
+    .union([z.boolean(), z.string()])
+    .transform((value) => value === true || value === 'true')
+    .optional(),
 })
 const roleItem = z.object({
   title: z.string().min(1),
   org: z.string().min(1),
   period: z.string().optional(),
   url: z.string().optional(),
+  description: z.string().optional(),
 })
 const valueItem = z.object({
   title: z.string().min(1),
@@ -33,6 +38,24 @@ function readItems<S extends z.ZodTypeAny>(
 export const readTimeline = (raw: string) => readItems(raw, timelineItem)
 export const readRoles = (raw: string) => readItems(raw, roleItem)
 export const readValues = (raw: string) => readItems(raw, valueItem)
+const datedItem = z.object({
+  title: z.string().min(1),
+  organization: z.string().min(1),
+  period: z.string().optional(),
+  description: z.string().optional(),
+})
+export const readDatedEntries = (raw: string) => readItems(raw, datedItem)
+export function readStringList(raw: string): string[] {
+  try {
+    return z
+      .array(z.string())
+      .parse(JSON.parse(raw))
+      .map((item) => item.trim())
+      .filter(Boolean)
+  } catch {
+    return []
+  }
+}
 export function safePublicHref(value: string): string | null {
   if (/^\/(?!\/)/.test(value) && !/[\\\s]/.test(value)) return value
   try {

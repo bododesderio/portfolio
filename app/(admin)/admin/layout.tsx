@@ -28,7 +28,6 @@ export default async function AdminLayout({
     <SessionProvider session={session}>
       <AdminShell
         email={session.user.email}
-        themePreference={session.user.themePreference}
         unreadMessageCount={unreadMessageCount}
       >
         {children}

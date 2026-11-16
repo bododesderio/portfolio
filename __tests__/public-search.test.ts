@@ -101,3 +101,51 @@ describe('public archive search', () => {
     )
   })
 })
+
+describe('CV additions in public search', () => {
+  it('returns education qualifications as readable records with a section link', async () => {
+    content.mockResolvedValue([
+      {
+        page: 'about',
+        section: 'education',
+        fieldKey: 'items',
+        value: JSON.stringify([
+          {
+            title: 'Certificate in Professional Foundations',
+            organization: 'ALX',
+            description: 'Professional foundations certification.',
+          },
+        ]),
+      },
+    ] as never)
+    const results = await searchPublicContent('ALX')
+    expect(results).toContainEqual({
+      title: 'Certificate in Professional Foundations',
+      excerpt: 'ALX · Professional foundations certification.',
+      href: '/about#education',
+      kind: 'Biography',
+    })
+    expect(JSON.stringify(results)).not.toContain('fieldKey')
+  })
+  it('formats language records without exposing their stored JSON', async () => {
+    content.mockResolvedValue([
+      {
+        page: 'about',
+        section: 'languages',
+        fieldKey: 'items',
+        value: JSON.stringify([
+          { title: 'Lango', description: 'Native' },
+          { title: 'English', description: 'Expert' },
+        ]),
+      },
+    ] as never)
+    const results = await searchPublicContent('Lango')
+    expect(results).toContainEqual(
+      expect.objectContaining({
+        title: 'Skills & languages',
+        excerpt: 'Lango: Native · English: Expert',
+        href: '/about#skills',
+      })
+    )
+  })
+})

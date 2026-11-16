@@ -7,20 +7,46 @@ import { Sun, Moon, Monitor } from 'lucide-react'
 import toast from 'react-hot-toast'
 import type { ThemePreference } from '@/lib/auth'
 
-const OPTIONS: Array<{ value: ThemePreference; label: string; icon: React.ElementType; desc: string }> = [
-  { value: 'light',  label: 'Light',  icon: Sun,     desc: 'Always use the light theme.' },
-  { value: 'dark',   label: 'Dark',   icon: Moon,    desc: 'Always use the dark theme.' },
-  { value: 'system', label: 'System', icon: Monitor, desc: 'Match your OS preference.' },
+const OPTIONS: Array<{
+  value: ThemePreference
+  label: string
+  icon: React.ElementType
+  desc: string
+}> = [
+  {
+    value: 'light',
+    label: 'Light',
+    icon: Sun,
+    desc: 'Always use the light theme.',
+  },
+  {
+    value: 'dark',
+    label: 'Dark',
+    icon: Moon,
+    desc: 'Always use the dark theme.',
+  },
+  {
+    value: 'system',
+    label: 'System',
+    icon: Monitor,
+    desc: 'Match your OS preference.',
+  },
 ]
 
-export function ThemePreferenceSection({ initial }: { initial: ThemePreference }) {
+export function ThemePreferenceSection({
+  initial,
+}: {
+  initial: ThemePreference
+}) {
   const [pref, setPref] = useState<ThemePreference>(initial)
   const [saving, setSaving] = useState(false)
   const [mounted, setMounted] = useState(false)
   const { theme, setTheme } = useTheme()
   const { update } = useSession()
 
-  useEffect(() => { setMounted(true) }, [])
+  useEffect(() => {
+    setMounted(true)
+  }, [])
 
   // Keep local state in sync with next-themes
   useEffect(() => {
@@ -54,11 +80,12 @@ export function ThemePreferenceSection({ initial }: { initial: ThemePreference }
     <div className="rounded-2xl border border-hairline bg-card p-6">
       <h2 className="font-serif text-lg text-fg mb-1">Theme</h2>
       <p className="text-sm text-fg-muted mb-5">
-        This applies only to the admin panel. Public visitors always see the site in their OS preference.
+        This browser uses the same theme across the portfolio and the studio.
+        Other visitors keep their own preferences.
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {OPTIONS.map(opt => {
+        {OPTIONS.map((opt) => {
           const Icon = opt.icon
           const active = opt.value === pref
           return (
@@ -74,7 +101,9 @@ export function ThemePreferenceSection({ initial }: { initial: ThemePreference }
                   : 'border-hairline hover:border-brand/50 hover:bg-muted'
               }`}
             >
-              <Icon className={`h-5 w-5 mb-2 ${active ? 'text-brand' : 'text-fg-muted'}`} />
+              <Icon
+                className={`h-5 w-5 mb-2 ${active ? 'text-brand' : 'text-fg-muted'}`}
+              />
               <p className="text-sm font-medium text-fg">{opt.label}</p>
               <p className="text-xs text-fg-muted mt-0.5">{opt.desc}</p>
             </button>

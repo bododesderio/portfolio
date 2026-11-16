@@ -2,70 +2,34 @@
 import { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useTheme } from 'next-themes'
-import { Search, SlidersHorizontal, X } from 'lucide-react'
+import { Search, X } from 'lucide-react'
+import { AppearanceSettings } from '@/components/appearance/AppearanceSettings'
 import type { PublicSearchResult } from '@/lib/data/public-search'
 
-type ReaderSize = 'small' | 'standard' | 'large'
-type ReaderWidth = 'standard' | 'wide'
-const STORAGE_KEY = 'bodo-reading-preferences'
 export function ReaderTools() {
   const searchDialog = useRef<HTMLDialogElement>(null)
-  const settingsDialog = useRef<HTMLDialogElement>(null)
   const searchButton = useRef<HTMLButtonElement>(null)
-  const settingsButton = useRef<HTMLButtonElement>(null)
   const searchInput = useRef<HTMLInputElement>(null)
   const [query, setQuery] = useState('')
   const [results, setResults] = useState<PublicSearchResult[]>([])
   const [status, setStatus] = useState<'idle' | 'loading' | 'ready' | 'error'>(
     'idle'
   )
-  const [size, setSize] = useState<ReaderSize>('standard')
-  const [width, setWidth] = useState<ReaderWidth>('standard')
-  const [loaded, setLoaded] = useState(false)
-  const { theme, setTheme } = useTheme()
   const pathname = usePathname()
 
   useEffect(() => {
-    try {
-      const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}')
-      if (['small', 'standard', 'large'].includes(saved.size))
-        setSize(saved.size)
-      if (['standard', 'wide'].includes(saved.width)) setWidth(saved.width)
-    } catch {
-      /* Use readable defaults if storage is unavailable. */
-    }
-    setLoaded(true)
-  }, [])
-  useEffect(() => {
-    if (!loaded) return
-    document.documentElement.dataset.readingSize = size
-    document.documentElement.dataset.readingWidth = width
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify({ size, width }))
-    } catch {
-      /* Preferences still work for this visit. */
-    }
-  }, [loaded, size, width])
-  useEffect(() => {
     searchDialog.current?.close()
-    settingsDialog.current?.close()
   }, [pathname])
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
-      if (
-        event.key === 'Escape' &&
-        (searchDialog.current?.open || settingsDialog.current?.open)
-      ) {
+      if (event.key === 'Escape' && searchDialog.current?.open) {
         event.preventDefault()
         event.stopPropagation()
         searchDialog.current?.close()
-        settingsDialog.current?.close()
         return
       }
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
         event.preventDefault()
-        settingsDialog.current?.close()
         searchDialog.current?.showModal()
         searchInput.current?.focus()
       }
@@ -119,15 +83,7 @@ export function ReaderTools() {
         <span>Search</span>
         <kbd>⌘ K</kbd>
       </button>
-      <button
-        ref={settingsButton}
-        type="button"
-        className="personal-reader-trigger"
-        aria-label="Reading settings"
-        onClick={() => settingsDialog.current?.showModal()}
-      >
-        <SlidersHorizontal size={18} />
-      </button>
+      <AppearanceSettings />
       <dialog
         ref={searchDialog}
         className="personal-dialog personal-search-dialog"
@@ -226,90 +182,6 @@ export function ReaderTools() {
           <span>
             <kbd>Esc</kbd> to close
           </span>
-        </div>
-      </dialog>
-      <dialog
-        ref={settingsDialog}
-        className="personal-dialog personal-settings-dialog"
-        aria-labelledby="reader-settings-title"
-        onClose={() => settingsButton.current?.focus()}
-        onClick={(event) => {
-          if (event.target === event.currentTarget)
-            settingsDialog.current?.close()
-        }}
-      >
-        <div className="personal-dialog-heading">
-          <h2 id="reader-settings-title">Make yourself comfortable</h2>
-          <button
-            type="button"
-            aria-label="Close reading settings"
-            onClick={() => settingsDialog.current?.close()}
-          >
-            <X size={20} />
-          </button>
-        </div>
-        <p className="personal-settings-intro">
-          A few ways to make this space feel more like yours.
-        </p>
-        <fieldset>
-          <legend>Appearance</legend>
-          <div className="personal-segmented">
-            {['light', 'dark', 'system'].map((value) => (
-              <button
-                type="button"
-                key={value}
-                aria-pressed={loaded && theme === value}
-                onClick={() => setTheme(value)}
-              >
-                {value === 'system'
-                  ? 'Automatic'
-                  : value[0].toUpperCase() + value.slice(1)}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Text size</legend>
-          <div className="personal-segmented">
-            {(['small', 'standard', 'large'] as const).map((value) => (
-              <button
-                type="button"
-                key={value}
-                aria-pressed={size === value}
-                onClick={() => setSize(value)}
-              >
-                {value[0].toUpperCase() + value.slice(1)}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-        <fieldset>
-          <legend>Reading width</legend>
-          <div className="personal-segmented">
-            {(['standard', 'wide'] as const).map((value) => (
-              <button
-                type="button"
-                key={value}
-                aria-pressed={width === value}
-                onClick={() => setWidth(value)}
-              >
-                {value[0].toUpperCase() + value.slice(1)}
-              </button>
-            ))}
-          </div>
-        </fieldset>
-        <div className="personal-dialog-foot">
-          <button
-            type="button"
-            onClick={() => {
-              setSize('standard')
-              setWidth('standard')
-              setTheme('system')
-            }}
-          >
-            Reset preferences
-          </button>
-          <span>Saved on this device</span>
         </div>
       </dialog>
     </>

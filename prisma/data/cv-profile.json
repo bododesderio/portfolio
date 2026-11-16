@@ -1,0 +1,134 @@
+{
+  "source": "My Resume.pdf, supplied by the owner on 2026-11-16",
+  "location": "Lira City, Uganda",
+  "education": [
+    {
+      "title": "Certificate in Electrical Engineering",
+      "organization": "Fountainhead Institute of Management and Technology (FIMAT)",
+      "period": "March 2019 – December 2020",
+      "description": "Electrical engineering certificate programme in Uganda."
+    },
+    {
+      "title": "Diploma in Computer Science",
+      "organization": "International University East Africa (IUEA)",
+      "period": "August 2021",
+      "description": "Computer science studies."
+    },
+    {
+      "title": "Bachelor’s in Computer Science",
+      "organization": "Kampala International University (KIU)",
+      "period": "August 2023",
+      "description": "Computer science studies."
+    },
+    {
+      "title": "Advanced SEO Engineering",
+      "organization": "Udemy",
+      "period": "March – December 2025",
+      "description": "Advanced search engine optimisation studies, online."
+    },
+    {
+      "title": "Certificate in Professional Foundations",
+      "organization": "ALX",
+      "description": "Professional foundations certification."
+    }
+  ],
+  "roles": [
+    {
+      "title": "Founder & CEO",
+      "org": "Rooibok Technologies Limited",
+      "period": "Present",
+      "url": "https://rooibok.tech",
+      "description": "Build software and digital solutions for businesses and organisations."
+    },
+    {
+      "title": "Software Engineer & SEO Specialist",
+      "org": "Kakebe Technologies Limited",
+      "period": "November 2023 – Present",
+      "url": "https://kakebe.tech/about.html",
+      "description": "Lead mobile app and software development, build responsive websites, and deliver technical SEO, keyword research, on-page and off-page optimisation. Analyse performance with Google Analytics and Search Console, contribute to digital marketing campaigns, and develop content and metadata strategies."
+    },
+    {
+      "title": "Founder & Executive Director",
+      "org": "Parler Foundation",
+      "period": "2023 – Present",
+      "description": "Lead professionals and volunteers delivering community outreach and support programmes. Oversee programme development, implementation and evaluation, and build strategic plans and partnerships."
+    },
+    {
+      "title": "Social Media Manager",
+      "org": "A Better Life International",
+      "period": "June 2024 – Present",
+      "description": "Develop social media strategies and manage posts, graphics and videos. Monitor engagement and campaign performance, and build relationships with the online community."
+    },
+    {
+      "title": "Board Member",
+      "org": "Transform Open Arena",
+      "period": "May 2023 – Present",
+      "description": "Provide strategic guidance, governance and oversight, contributing to the organisation’s decision-making."
+    },
+    {
+      "title": "President",
+      "org": "African Youth Congress, Uganda Chapter",
+      "period": "2023 – 2024",
+      "description": "Led the Uganda Chapter’s youth participation, leadership and advocacy work. Organised events, workshops and forums, built partnerships, represented youth interests, mentored emerging leaders, and coordinated the executive team."
+    }
+  ],
+  "volunteering": [
+    {
+      "title": "Model",
+      "organization": "Derowaa",
+      "period": "December 2020",
+      "description": "Participated in fundraising fashion shows supporting underprivileged children."
+    },
+    {
+      "title": "Junior Developer",
+      "organization": "Kakebe Technologies",
+      "period": "December 2021 – October 2023",
+      "description": "Assisted with the design and development of responsive, dynamic websites, improving user experience and functionality."
+    },
+    {
+      "title": "Data Analyst",
+      "organization": "Global Education Innovators",
+      "period": "July 2024",
+      "description": "Analysed educational data, identified trends and produced visualisations to support efforts to reduce dropout and increase enrolment among young children in northern Uganda."
+    },
+    {
+      "title": "Mental Health Mentor",
+      "organization": "Journey International",
+      "period": "August 2024",
+      "description": "Participated in food distribution and support for the Odek community in Omoro district."
+    }
+  ],
+  "skills": [
+    "Leadership and team management",
+    "Entrepreneurship",
+    "Advanced software development",
+    "Technical innovation",
+    "Community development and nonprofit management",
+    "Strategic planning and implementation",
+    "Graphic design",
+    "Social media management",
+    "SEO strategy and technical audits",
+    "Communication and client service"
+  ],
+  "languages": [
+    {
+      "title": "Lango",
+      "description": "Native"
+    },
+    {
+      "title": "English",
+      "description": "Expert"
+    }
+  ],
+  "interests": [
+    "Mental health awareness",
+    "Wildlife",
+    "Education access",
+    "Climate change",
+    "Leadership and youth empowerment",
+    "Pan-Africanism",
+    "Entrepreneurship",
+    "Technology and innovation",
+    "AI and robotics"
+  ]
+}

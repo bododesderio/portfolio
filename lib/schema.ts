@@ -6,7 +6,9 @@
  * static once rendered.
  */
 
-const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com').replace(/\/+$/, '')
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
+).replace(/\/+$/, '')
 const PERSON_ID = `${SITE_URL}/#bodo`
 const WEBSITE_ID = `${SITE_URL}/#website`
 
@@ -28,13 +30,34 @@ export function personSchema() {
     url: SITE_URL,
     jobTitle: 'Founder & CEO',
     worksFor: [
-      { '@type': 'Organization', name: 'Rooibok Technologies Limited', url: 'https://rooibok.com' },
-      { '@type': 'Organization', name: 'Kakebe Technologies Limited', url: 'https://www.kakebe.tech' },
+      {
+        '@type': 'Organization',
+        name: 'Rooibok Technologies Limited',
+        url: 'https://rooibok.com',
+      },
+      {
+        '@type': 'Organization',
+        name: 'Kakebe Technologies Limited',
+        url: 'https://www.kakebe.tech',
+      },
     ],
-    alumniOf: { '@type': 'CollegeOrUniversity', name: 'Kampala International University' },
-    address: { '@type': 'PostalAddress', addressLocality: 'Kampala', addressCountry: 'UG' },
+    alumniOf: {
+      '@type': 'CollegeOrUniversity',
+      name: 'Kampala International University',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Lira City',
+      addressCountry: 'UG',
+    },
     sameAs: SOCIAL,
-    knowsAbout: ['Software Engineering', 'Entrepreneurship', 'SEO', 'Community Building', 'STEM Education'],
+    knowsAbout: [
+      'Software Engineering',
+      'Entrepreneurship',
+      'SEO',
+      'Community Building',
+      'STEM Education',
+    ],
     description:
       'Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda Chapter.',
   }
@@ -47,7 +70,8 @@ export function websiteSchema() {
     '@id': WEBSITE_ID,
     url: SITE_URL,
     name: 'Bodo Desderio',
-    description: 'Personal brand site of Bodo Desderio: founder, engineer, community leader.',
+    description:
+      'Personal brand site of Bodo Desderio: founder, engineer, community leader.',
     inLanguage: 'en-UG',
     publisher: { '@id': PERSON_ID },
   }
@@ -66,11 +90,14 @@ export function profilePageSchema() {
       { name: 'About', url: `${SITE_URL}/about` },
     ]),
     name: 'About Bodo Desderio',
-    description: 'The story, values, and milestones behind Bodo Desderio\'s work.',
+    description:
+      "The story, values, and milestones behind Bodo Desderio's work.",
   }
 }
 
-export function servicesSchema(services: Array<{ title: string; description: string }>) {
+export function servicesSchema(
+  services: Array<{ title: string; description: string }>
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -95,7 +122,13 @@ export function servicesSchema(services: Array<{ title: string; description: str
   }
 }
 
-export function imageGallerySchema(items: Array<{ url: string; caption?: string | null; altText?: string | null }>) {
+export function imageGallerySchema(
+  items: Array<{
+    url: string
+    caption?: string | null
+    altText?: string | null
+  }>
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'ImageGallery',
@@ -107,7 +140,7 @@ export function imageGallerySchema(items: Array<{ url: string; caption?: string 
       { name: 'Gallery', url: `${SITE_URL}/gallery` },
     ]),
     creator: { '@id': PERSON_ID },
-    image: items.slice(0, 24).map(i => ({
+    image: items.slice(0, 24).map((i) => ({
       '@type': 'ImageObject',
       contentUrl: i.url.startsWith('http') ? i.url : `${SITE_URL}${i.url}`,
       caption: i.caption ?? i.altText ?? undefined,
@@ -115,7 +148,15 @@ export function imageGallerySchema(items: Array<{ url: string; caption?: string 
   }
 }
 
-export function blogIndexSchema(posts: Array<{ slug: string; title: string; excerpt: string; publishedAt: Date | null; category: string | null }>) {
+export function blogIndexSchema(
+  posts: Array<{
+    slug: string
+    title: string
+    excerpt: string
+    publishedAt: Date | null
+    category: string | null
+  }>
+) {
   return {
     '@context': 'https://schema.org',
     '@type': 'Blog',
@@ -128,7 +169,7 @@ export function blogIndexSchema(posts: Array<{ slug: string; title: string; exce
       { name: 'Blog', url: `${SITE_URL}/blog` },
     ]),
     publisher: { '@id': PERSON_ID },
-    blogPost: posts.slice(0, 12).map(p => ({
+    blogPost: posts.slice(0, 12).map((p) => ({
       '@type': 'BlogPosting',
       headline: p.title,
       description: p.excerpt,
@@ -181,5 +222,8 @@ export function breadcrumbList(items: Array<{ name: string; url: string }>) {
  * string for use inside <script type="application/ld+json">.
  */
 export function ldJson(schema: unknown | unknown[]): string {
-  return JSON.stringify(Array.isArray(schema) ? schema : [schema]).replace(/</g, '\\u003c')
+  return JSON.stringify(Array.isArray(schema) ? schema : [schema]).replace(
+    /</g,
+    '\\u003c'
+  )
 }

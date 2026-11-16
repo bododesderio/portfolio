@@ -4,16 +4,14 @@ import { Menu } from 'lucide-react'
 import { AdminBreadcrumbs } from './AdminBreadcrumbs'
 import { AdminSearch } from './AdminSearch'
 import { AdminQuickCreate } from './AdminQuickCreate'
-import { AdminThemeSelector } from './AdminThemeSelector'
 import { AdminNotifications } from './AdminNotifications'
-import type { ThemePreference } from '@/lib/auth'
+import { AppearanceSettings } from '@/components/appearance/AppearanceSettings'
+import { FullscreenToggle } from '@/components/appearance/FullscreenToggle'
 
 export function AdminTopBar({
-  themePreference,
   unreadMessageCount,
   onOpenMobileSidebar,
 }: {
-  themePreference: ThemePreference
   unreadMessageCount: number
   onOpenMobileSidebar: () => void
 }) {
@@ -23,23 +21,24 @@ export function AdminTopBar({
         <button
           type="button"
           onClick={onOpenMobileSidebar}
-          className="md:hidden p-2 rounded-lg text-fg-muted hover:bg-muted"
+          className="lg:hidden p-2 rounded-lg text-fg-muted hover:bg-muted"
           aria-label="Open menu"
         >
           <Menu className="h-5 w-5" />
         </button>
 
-        <div className="admin-breadcrumbs hidden md:block flex-shrink-0 min-w-0">
+        <div className="admin-breadcrumbs hidden lg:block flex-shrink-0 min-w-0">
           <AdminBreadcrumbs />
         </div>
 
-        <div className="flex-1 max-w-md mx-auto md:mx-0 md:ml-auto">
+        <div className="admin-search-wrap flex-1 max-w-md mx-auto lg:mx-0 lg:ml-auto">
           <AdminSearch />
         </div>
 
         <div className="flex items-center gap-1.5">
           <AdminQuickCreate />
-          <AdminThemeSelector initial={themePreference} />
+          <FullscreenToggle />
+          <AppearanceSettings />
           <AdminNotifications unreadCount={unreadMessageCount} />
         </div>
       </div>

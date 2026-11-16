@@ -30,6 +30,8 @@ import {
   Navigation,
   Search,
   Shield,
+  PanelLeftClose,
+  PanelLeftOpen,
 } from 'lucide-react'
 import { BrandMark } from '@/components/personal/BrandMark'
 
@@ -74,10 +76,14 @@ export function AdminSidebar({
   mobileOpen = false,
   onCloseMobile,
   email,
+  collapsed = false,
+  onToggleCollapsed,
 }: {
   mobileOpen?: boolean
   onCloseMobile?: () => void
   email: string
+  collapsed?: boolean
+  onToggleCollapsed?: () => void
 }) {
   const pathname = usePathname()
   const dialog = useRef<HTMLDialogElement>(null)
@@ -86,7 +92,7 @@ export function AdminSidebar({
     if (!mobileOpen && dialog.current?.open) dialog.current.close()
   }, [mobileOpen])
   useEffect(() => {
-    const media = matchMedia('(min-width: 768px)')
+    const media = matchMedia('(min-width: 1024px)')
     function closeOnDesktop() {
       if (media.matches) onCloseMobile?.()
     }
@@ -105,6 +111,8 @@ export function AdminSidebar({
             <Link
               href={item.href}
               onClick={onCloseMobile}
+              title={collapsed ? item.label : undefined}
+              aria-label={item.label}
               aria-current={active(item) ? 'page' : undefined}
             >
               <item.icon size={17} aria-hidden="true" />
@@ -125,6 +133,21 @@ export function AdminSidebar({
               Bodo Desderio<small>Personal archive · Studio</small>
             </span>
           </Link>
+          {!mobile && (
+            <button
+              type="button"
+              className="admin-sidebar-toggle"
+              aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              title={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+              onClick={onToggleCollapsed}
+            >
+              {collapsed ? (
+                <PanelLeftOpen size={16} />
+              ) : (
+                <PanelLeftClose size={16} />
+              )}
+            </button>
+          )}
           {mobile && (
             <button
               type="button"
@@ -147,14 +170,20 @@ export function AdminSidebar({
             <p>Conversations & activity</p>
             {links(audience)}
           </div>
-          <details className="admin-nav-section" open={website.some(active)}>
+          <details
+            className="admin-nav-section"
+            open={collapsed || website.some(active)}
+          >
             <summary>
               Website tools
               <ChevronDown size={14} />
             </summary>
             {links(website)}
           </details>
-          <details className="admin-nav-section" open={settings.some(active)}>
+          <details
+            className="admin-nav-section"
+            open={collapsed || settings.some(active)}
+          >
             <summary>
               Settings & account
               <ChevronDown size={14} />
@@ -169,7 +198,7 @@ export function AdminSidebar({
             rel="noopener noreferrer"
             className="admin-view-site"
           >
-            View portfolio
+            <span>View portfolio</span>
             <ArrowUpRight size={16} />
           </Link>
           <div className="admin-account">

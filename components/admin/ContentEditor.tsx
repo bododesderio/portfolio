@@ -66,6 +66,56 @@ function JsonFieldEditor({
   try {
     const parsed = JSON.parse(value)
     if (
+      Array.isArray(parsed) &&
+      (parsed.length > 0 || section === 'skills') &&
+      parsed.every((item) => typeof item === 'string')
+    ) {
+      return (
+        <div className="p-4 space-y-2">
+          {parsed.map((item: string, index: number) => (
+            <div className="flex items-center gap-2" key={index}>
+              <input
+                aria-label={`Item ${index + 1}`}
+                className="w-full min-w-0 px-3 py-2 bg-muted rounded border border-hairline"
+                value={item}
+                onChange={(event) =>
+                  onChange(
+                    JSON.stringify(
+                      parsed.map((current: string, position: number) =>
+                        position === index ? event.target.value : current
+                      )
+                    )
+                  )
+                }
+              />
+              <button
+                type="button"
+                aria-label={`Remove item ${index + 1}`}
+                onClick={() =>
+                  onChange(
+                    JSON.stringify(
+                      parsed.filter(
+                        (_: string, position: number) => position !== index
+                      )
+                    )
+                  )
+                }
+              >
+                <Trash2 size={15} />
+              </button>
+            </div>
+          ))}
+          <button
+            type="button"
+            className="text-brand text-sm"
+            onClick={() => onChange(JSON.stringify([...parsed, '']))}
+          >
+            Add item
+          </button>
+        </div>
+      )
+    }
+    if (
       !Array.isArray(parsed) ||
       parsed.some(
         (item) => !item || typeof item !== 'object' || Array.isArray(item)
