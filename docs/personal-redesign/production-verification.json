@@ -1,6 +1,6 @@
 {
   "site": "https://bododesderio.com",
-  "release": "c56e5e90479a592baa891ad675f4ea4d25fc7bf4",
+  "release": "39ab77ad4634c2679c3f7646c752934eacbd3ce3",
   "pages": [
     {
       "width": 390,
@@ -99,22 +99,6 @@
       "consoleErrors": []
     },
     {
-      "width": 1440,
-      "scrollWidth": 1440,
-      "h1": [
-        "Writing"
-      ],
-      "brokenImages": [],
-      "title": "Writing | Bodo Desderio",
-      "canonical": "https://bododesderio.com/blog",
-      "path": "/blog",
-      "viewport": 1440,
-      "theme": "light",
-      "status": 200,
-      "pageErrors": [],
-      "consoleErrors": []
-    },
-    {
       "width": 390,
       "scrollWidth": 390,
       "h1": [
@@ -125,6 +109,22 @@
       "canonical": "https://bododesderio.com/blog",
       "path": "/blog",
       "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "pageErrors": [],
+      "consoleErrors": []
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "h1": [
+        "Writing"
+      ],
+      "brokenImages": [],
+      "title": "Writing | Bodo Desderio",
+      "canonical": "https://bododesderio.com/blog",
+      "path": "/blog",
+      "viewport": 1440,
       "theme": "light",
       "status": 200,
       "pageErrors": [],
@@ -163,22 +163,6 @@
       "consoleErrors": []
     },
     {
-      "width": 1440,
-      "scrollWidth": 1440,
-      "h1": [
-        "Get in touch"
-      ],
-      "brokenImages": [],
-      "title": "Contact | Bodo Desderio",
-      "canonical": "https://bododesderio.com/contact",
-      "path": "/contact",
-      "viewport": 1440,
-      "theme": "light",
-      "status": 200,
-      "pageErrors": [],
-      "consoleErrors": []
-    },
-    {
       "width": 390,
       "scrollWidth": 390,
       "h1": [
@@ -198,12 +182,12 @@
       "width": 1440,
       "scrollWidth": 1440,
       "h1": [
-        "Areas of work"
+        "Get in touch"
       ],
       "brokenImages": [],
-      "title": "Areas of work | Bodo Desderio",
-      "canonical": "https://bododesderio.com/services",
-      "path": "/services",
+      "title": "Contact | Bodo Desderio",
+      "canonical": "https://bododesderio.com/contact",
+      "path": "/contact",
       "viewport": 1440,
       "theme": "light",
       "status": 200,
@@ -221,6 +205,22 @@
       "canonical": "https://bododesderio.com/services",
       "path": "/services",
       "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "pageErrors": [],
+      "consoleErrors": []
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "h1": [
+        "Areas of work"
+      ],
+      "brokenImages": [],
+      "title": "Areas of work | Bodo Desderio",
+      "canonical": "https://bododesderio.com/services",
+      "path": "/services",
+      "viewport": 1440,
       "theme": "light",
       "status": 200,
       "pageErrors": [],
@@ -259,22 +259,6 @@
       "consoleErrors": []
     },
     {
-      "width": 1440,
-      "scrollWidth": 1440,
-      "h1": [
-        "Terms & Conditions"
-      ],
-      "brokenImages": [],
-      "title": "Terms & Conditions | Bodo Desderio",
-      "canonical": null,
-      "path": "/terms",
-      "viewport": 1440,
-      "theme": "light",
-      "status": 200,
-      "pageErrors": [],
-      "consoleErrors": []
-    },
-    {
       "width": 390,
       "scrollWidth": 390,
       "h1": [
@@ -294,12 +278,12 @@
       "width": 1440,
       "scrollWidth": 1440,
       "h1": [
-        "Search"
+        "Terms & Conditions"
       ],
       "brokenImages": [],
-      "title": "Search | Bodo Desderio",
+      "title": "Terms & Conditions | Bodo Desderio",
       "canonical": null,
-      "path": "/search?q=Rooibok",
+      "path": "/terms",
       "viewport": 1440,
       "theme": "light",
       "status": 200,
@@ -317,6 +301,22 @@
       "canonical": null,
       "path": "/search?q=Rooibok",
       "viewport": 390,
+      "theme": "light",
+      "status": 200,
+      "pageErrors": [],
+      "consoleErrors": []
+    },
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "h1": [
+        "Search"
+      ],
+      "brokenImages": [],
+      "title": "Search | Bodo Desderio",
+      "canonical": null,
+      "path": "/search?q=Rooibok",
+      "viewport": 1440,
       "theme": "light",
       "status": 200,
       "pageErrors": [],
@@ -396,6 +396,22 @@
       "title": "Bodo Desderio \u00b7 Life, work & ideas",
       "canonical": "https://bododesderio.com/",
       "path": "/",
+      "viewport": 320,
+      "theme": "light",
+      "status": 200,
+      "pageErrors": [],
+      "consoleErrors": []
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320,
+      "h1": [
+        "About me"
+      ],
+      "brokenImages": [],
+      "title": "About | Bodo Desderio",
+      "canonical": "https://bododesderio.com/about",
+      "path": "/about",
       "viewport": 320,
       "theme": "light",
       "status": 200,
@@ -419,8 +435,8 @@
       "consoleErrors": []
     },
     {
-      "width": 320,
-      "scrollWidth": 320,
+      "width": 390,
+      "scrollWidth": 390,
       "h1": [
         "About me"
       ],
@@ -428,8 +444,8 @@
       "title": "About | Bodo Desderio",
       "canonical": "https://bododesderio.com/about",
       "path": "/about",
-      "viewport": 320,
-      "theme": "light",
+      "viewport": 390,
+      "theme": "dark",
       "status": 200,
       "pageErrors": [],
       "consoleErrors": []
@@ -445,22 +461,6 @@
       "canonical": "https://bododesderio.com/",
       "path": "/",
       "viewport": 1440,
-      "theme": "dark",
-      "status": 200,
-      "pageErrors": [],
-      "consoleErrors": []
-    },
-    {
-      "width": 390,
-      "scrollWidth": 390,
-      "h1": [
-        "About me"
-      ],
-      "brokenImages": [],
-      "title": "About | Bodo Desderio",
-      "canonical": "https://bododesderio.com/about",
-      "path": "/about",
-      "viewport": 390,
       "theme": "dark",
       "status": 200,
       "pageErrors": [],
@@ -514,6 +514,10 @@
     },
     {
       "path": "/admin",
+      "status": 307
+    },
+    {
+      "path": "/admin/analytics",
       "status": 307
     },
     {

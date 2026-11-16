@@ -2,7 +2,7 @@
 
 The implemented direction is a substantial personal portfolio: an introduction to Bodo on Home, a detailed biography and history on About, and dedicated archives for work, writing, and photographs. The homepage offers a snippet of every part of that life. It does not use a product pitch or sales funnel.
 
-This supersedes the earlier “Quiet confidence” product-style proposal. The personal archive is deployed at https://bododesderio.com. Screenshots prefixed `live-` and `production-verification.json` record the first production pass. Admin previews use a separate local database with demo content. Existing production records were retained.
+This supersedes the earlier “Quiet confidence” product-style proposal. The personal archive is deployed at https://bododesderio.com. Screenshots prefixed `live-` and `production-verification.json` record the latest production pass. Admin previews use a separate local database with demo content. Existing production records were retained.
 
 ## Benchmarks
 
@@ -99,3 +99,5 @@ Page editing mounts rich editors as sections are opened. Opened sections remain 
 Public refinements include an active section index, a compact cookie-preferences notice, consistent control colors, and mobile contents that close on selection. The Rooibok website is corrected to `https://rooibok.tech`; biography organizations and the Kakebe team listing are linked using the existing CMS. `scripts/update-profile-links.cjs` documents the idempotent, explicitly applied content update.
 
 Verification: [admin-verification.json](admin-verification.json), [refinement-verification.json](refinement-verification.json), and the [live MCP walkthrough](live-e2e/README.md).
+
+The final production verification is pinned to `39ab77ad4634c2679c3f7646c752934eacbd3ce3`: 30 public layouts, zero failures, a healthy app, protected anonymous admin endpoints, successful uppercase image optimization, and visible server-rendered content without JavaScript. The final keyboard regression also passes in the visible MCP browser.

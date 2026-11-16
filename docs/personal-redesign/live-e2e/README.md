@@ -18,4 +18,12 @@ The subsequent admin pass uses an isolated local database with demo records. The
 
 Reports: [initial live checks](../production-verification.json), [admin checks](../admin-verification.json), [refinement checks](../refinement-verification.json), and [MCP summary](report.json).
 
-Raw MCP transcripts, snapshots, screenshots, session recordings, and `playwright-trace.zip` remain in this directory locally and are excluded from Git. The trace can be opened with Playwright Trace Viewer. The initial session includes retried test selectors and two transient `ERR_NETWORK_CHANGED` requests; the independent production crawl found no application errors. No production credentials are recorded.
+Raw MCP transcripts, snapshots, screenshots, session recordings, and `final-playwright-trace.zip` remain in this directory locally and are excluded from Git. The trace can be opened with Playwright Trace Viewer. The initial session includes retried test selectors and two transient `ERR_NETWORK_CHANGED` requests; the independent production crawl found no application errors. No production credentials are recorded.
+
+## Final refinement pass
+
+The public walkthrough was repeated against the deployed refinement: active biography contents, Rooibok’s corrected website link, Kakebe’s team listing, work filters, article search/detail, global search, persisted reading settings, gallery keyboard controls, contact UI, and mobile navigation. The populated-search Escape check exposed a browser-native clear action; the fix is covered by `reader-keyboard-verification.json` and passes again on production at 1440px and 390px. The final app revision is `39ab77ad4634c2679c3f7646c752934eacbd3ce3`; its visible browser reports zero console errors.
+
+Authenticated admin save, structured editing, navigation, and archive/restore operations use isolated demo data. The production browser’s admin tab remains available for the owner to sign in; these tests do not obtain or mint a production session.
+
+[Open the final local Playwright trace](final-playwright-trace.zip). The final login checks cover responsive layout, required fields, password visibility, and noindex metadata; production credentials were not entered by the agent.
