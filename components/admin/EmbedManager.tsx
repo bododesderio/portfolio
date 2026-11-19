@@ -150,7 +150,6 @@ export function EmbedManager({ page, initialEmbeds }: { page: string; initialEmb
 
   return (
     <div className="space-y-8">
-      {/* Add embed form */}
       <div className="p-4 rounded-xl border border-hairline bg-muted/30 space-y-3">
         <h3 className="text-sm font-semibold text-fg">Add Embed</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -199,7 +198,6 @@ export function EmbedManager({ page, initialEmbeds }: { page: string; initialEmb
         </button>
       </div>
 
-      {/* Grouped embeds */}
       {Object.entries(grouped).map(([section, items]) => (
         <div key={section}>
           <h3 className="text-sm font-semibold text-fg-muted uppercase tracking-wider mb-3">

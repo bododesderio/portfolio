@@ -185,7 +185,6 @@ export function BrandColorCard({ initialBrand }: { initialBrand: string }) {
         </button>
       </div>
 
-      {/* Current color preview + picker */}
       <div className="flex items-center gap-4">
         <div
           className="h-20 w-20 rounded-2xl border-2 border-hairline shadow-inner flex items-center justify-center"
@@ -215,7 +214,6 @@ export function BrandColorCard({ initialBrand }: { initialBrand: string }) {
           </div>
           <p className="text-[11px] text-fg-muted">Pick visually or type a hex code</p>
         </div>
-        {/* Live palette strip */}
         <div className="hidden md:flex flex-1 h-10 rounded-lg overflow-hidden border border-hairline">
           {paletteShades.map(shade => {
             const rgb = shade === 500 ? hexToRgb(color) : shiftLightness(color, paletteDeltas[shade])
@@ -235,7 +233,6 @@ export function BrandColorCard({ initialBrand }: { initialBrand: string }) {
         </div>
       </div>
 
-      {/* Tabs */}
       <div className="flex gap-1 border-b border-hairline">
         {[
           { key: 'presets' as const, label: 'Presets', icon: Palette },
@@ -257,7 +254,6 @@ export function BrandColorCard({ initialBrand }: { initialBrand: string }) {
         ))}
       </div>
 
-      {/* Tab content */}
       {activeTab === 'presets' && (
         <div className="flex flex-wrap gap-2">
           {PRESETS.map(p => (
@@ -292,16 +288,13 @@ export function BrandColorCard({ initialBrand }: { initialBrand: string }) {
                   isActive ? 'border-brand ring-2 ring-brand/20' : 'border-hairline hover:border-brand/30'
                 }`}
               >
-                {/* Mini preview */}
                 <div className="h-24 relative" style={{ backgroundColor: t.preview.bg }}>
-                  {/* Simulated nav bar */}
                   <div className="absolute top-0 inset-x-0 h-6 flex items-center px-3 gap-2" style={{ backgroundColor: t.preview.card, borderBottom: '1px solid rgba(0,0,0,0.06)' }}>
                     <div className="h-2 w-2 rounded-full" style={{ backgroundColor: t.preview.accent }} />
                     <div className="h-1.5 w-10 rounded bg-current opacity-20" style={{ color: t.preview.text }} />
                     <div className="h-1.5 w-8 rounded bg-current opacity-10 ml-auto" style={{ color: t.preview.text }} />
                     <div className="h-1.5 w-8 rounded bg-current opacity-10" style={{ color: t.preview.text }} />
                   </div>
-                  {/* Simulated content */}
                   <div className="absolute bottom-3 left-3 right-3 flex items-end gap-2">
                     <div className="flex-1 space-y-1.5">
                       <div className="h-2 w-20 rounded" style={{ backgroundColor: t.preview.text, opacity: 0.7 }} />
@@ -312,7 +305,6 @@ export function BrandColorCard({ initialBrand }: { initialBrand: string }) {
                     </div>
                   </div>
                 </div>
-                {/* Info */}
                 <div className="p-3 bg-card">
                   <div className="flex items-center gap-2">
                     <span className="h-3.5 w-3.5 rounded-full border" style={{ backgroundColor: t.brand, borderColor: 'rgba(0,0,0,0.1)' }} />
@@ -330,7 +322,6 @@ export function BrandColorCard({ initialBrand }: { initialBrand: string }) {
       {activeTab === 'custom' && (
         <div className="space-y-4">
           <p className="text-sm text-fg-muted">Use the color picker above or enter any hex code. The full palette (50–900 shades) is derived automatically.</p>
-          {/* Full palette preview */}
           <div>
             <p className="text-[10px] uppercase tracking-widest text-fg-muted mb-2">Generated Palette</p>
             <div className="grid grid-cols-5 md:grid-cols-10 gap-1.5">

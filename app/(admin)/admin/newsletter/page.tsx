@@ -52,13 +52,11 @@ export default async function NewsletterPage({ searchParams }: Props) {
         <p className="text-sm text-fg-muted mt-1">{totalSubscribers} subscriber{totalSubscribers === 1 ? '' : 's'} · {campaigns.length} campaign{campaigns.length === 1 ? '' : 's'} sent</p>
       </div>
 
-      {/* Email performance overview */}
       <div className="mb-8">
         <EmailStatsCard stats={emailStats} />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
-        {/* Subscribers */}
         <div className="bg-card rounded-2xl border border-hairline p-6">
           <div className="flex items-center justify-between mb-6">
             <h2 className="font-serif text-xl text-fg">
@@ -82,11 +80,9 @@ export default async function NewsletterPage({ searchParams }: Props) {
           <Pagination currentPage={page} totalPages={totalPages} basePath="/admin/newsletter" />
         </div>
 
-        {/* Compose */}
         <NewsletterCompose />
       </div>
 
-      {/* Campaign performance with expandable per-recipient tracking */}
       <CampaignStats campaigns={campaignsForClient} />
     </div>
   )

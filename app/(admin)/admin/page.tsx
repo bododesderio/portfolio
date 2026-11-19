@@ -1,14 +1,13 @@
 import Link from 'next/link'
 import type { Metadata } from 'next'
 import {
-  ArrowUpRight,
   PenLine,
   Layers,
   MessageSquare,
   Mail,
   Plus,
   FileText,
-  ArrowRight,
+  ChevronRight,
 } from 'lucide-react'
 import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
@@ -61,7 +60,7 @@ export default async function AdminDashboard() {
     <div>
       <AdminPageHeader
         title="Your personal archive"
-        description="A little upkeep. A new story. Something worth sharing."
+        description="Drafts, unread messages and the pages that need updating."
         actions={
           <Link href="/admin/blog/new" className="admin-primary-button">
             <Plus size={16} />
@@ -110,7 +109,7 @@ export default async function AdminDashboard() {
           <section className="admin-panel">
             <div className="admin-panel-heading">
               <h2>On your writing desk</h2>
-              <Link href="/admin/blog">All writing ↗</Link>
+              <Link href="/admin/blog">All writing</Link>
             </div>
             <div className="admin-activity-list">
               {recentPosts.length ? (
@@ -137,7 +136,7 @@ export default async function AdminDashboard() {
           <section className="admin-panel">
             <div className="admin-panel-heading">
               <h2>Work & ventures</h2>
-              <Link href="/admin/projects">Manage work ↗</Link>
+              <Link href="/admin/projects">Manage work</Link>
             </div>
             <div className="admin-activity-list">
               {recentWork.length ? (
@@ -168,7 +167,7 @@ export default async function AdminDashboard() {
           <section className="admin-panel">
             <div className="admin-panel-heading">
               <h2>In your inbox</h2>
-              <Link href="/admin/messages">Open inbox ↗</Link>
+              <Link href="/admin/messages">Open inbox</Link>
             </div>
             <div className="admin-activity-list">
               {messages.length ? (
@@ -183,7 +182,7 @@ export default async function AdminDashboard() {
                         {message.name} · {date(message.receivedAt)}
                       </small>
                     </div>
-                    <ArrowUpRight size={15} className="admin-muted" />
+                    <ChevronRight size={16} className="admin-muted" />
                   </Link>
                 ))
               ) : (
@@ -201,17 +200,17 @@ export default async function AdminDashboard() {
               {[
                 {
                   title: 'Biography & life history',
-                  detail: 'The chapters, people, and ideas that shaped you.',
+                  detail: 'Timeline, education, roles and values.',
                   href: '/admin/content/about',
                 },
                 {
                   title: 'Homepage introduction',
-                  detail: 'A glimpse of everything you’re about.',
+                  detail: 'Introduction, portrait and quick facts.',
                   href: '/admin/content/home',
                 },
                 {
                   title: 'Photographs & moments',
-                  detail: 'Add another moment to the archive.',
+                  detail: 'Upload and caption new photographs.',
                   href: '/admin/gallery',
                 },
               ].map((item) => (
@@ -220,17 +219,17 @@ export default async function AdminDashboard() {
                     <strong>{item.title}</strong>
                     <small>{item.detail}</small>
                   </div>
-                  <ArrowRight size={15} className="admin-muted" />
+                  <ChevronRight size={16} className="admin-muted" />
                 </Link>
               ))}
             </div>
           </section>
           <Link href="/admin/analytics" className="admin-analytics-link">
             <span>
-              How people find your archive
+              Site activity
               <small>Visits, popular pages, and newsletter activity</small>
             </span>
-            <ArrowUpRight size={18} />
+            <ChevronRight size={18} />
           </Link>
         </div>
       </div>

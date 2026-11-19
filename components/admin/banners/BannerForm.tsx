@@ -26,7 +26,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         <button onClick={onCancel} className="p-1.5 rounded-lg text-fg-muted hover:bg-muted"><X className="h-4 w-4" /></button>
       </div>
 
-      {/* Row 1: Name + Kind */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-medium text-fg-muted mb-1.5">Name (internal)</label>
@@ -81,7 +80,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         </div>
       </div>
 
-      {/* Body */}
       <div>
         <label className="block text-xs font-medium text-fg-muted mb-1.5">Body text</label>
         <textarea
@@ -93,7 +91,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         />
       </div>
 
-      {/* CTA */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div>
           <label className="block text-xs font-medium text-fg-muted mb-1.5">CTA label</label>
@@ -125,7 +122,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         </div>
       </div>
 
-      {/* Toggles row */}
       <div className="flex flex-wrap gap-x-6 gap-y-3">
         {[
           { key: 'enabled' as const, label: 'Enabled' },
@@ -147,7 +143,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         ))}
       </div>
 
-      {/* Scheduling + targeting */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
         <div>
           <label className="block text-xs font-medium text-fg-muted mb-1.5">Starts at</label>
@@ -188,7 +183,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         </div>
       </div>
 
-      {/* Devices */}
       <div>
         <label className="block text-xs font-medium text-fg-muted mb-1.5">Devices (empty = all)</label>
         <div className="flex gap-3">
@@ -206,7 +200,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         </div>
       </div>
 
-      {/* Page targeting */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-medium text-fg-muted mb-1.5">Pages include (comma-separated paths)</label>
@@ -228,7 +221,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         </div>
       </div>
 
-      {/* Animation + Preview */}
       <div className="space-y-3">
         <div className="flex items-center gap-4">
           <div className="flex-1">
@@ -247,7 +239,6 @@ export function BannerForm({ form, update, toggleDevice, onSave, onCancel, savin
         </div>
       </div>
 
-      {/* Save */}
       <div className="flex justify-end gap-3 pt-2">
         <button onClick={onCancel} className="px-4 py-2 text-sm text-fg-muted hover:text-fg rounded-lg border border-hairline hover:bg-muted transition-colors">
           Cancel

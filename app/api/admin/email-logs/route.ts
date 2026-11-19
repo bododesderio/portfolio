@@ -30,7 +30,8 @@ export async function GET(req: NextRequest) {
     ])
 
     return NextResponse.json({ logs, total, page, limit })
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/email-logs]', err)
     return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }

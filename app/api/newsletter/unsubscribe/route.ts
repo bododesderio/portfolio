@@ -22,7 +22,8 @@ export async function GET(req: NextRequest) {
 
     const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
     return Response.redirect(`${baseUrl}/unsubscribe?success=true`, 302)
-  } catch {
+  } catch (err) {
+    console.error('[/api/newsletter/unsubscribe]', err)
     return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }

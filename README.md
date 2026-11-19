@@ -238,7 +238,7 @@ node scripts/fetch-stock-pack.mjs
 
 ---
 
-## Rules Claude/contributors must never break
+## Rules contributors must never break
 
 - No Lorem Ipsum — always real copy rooted in Bodo's actual profile
 - No hardcoded content in JSX — always read from `site_content` via content helpers

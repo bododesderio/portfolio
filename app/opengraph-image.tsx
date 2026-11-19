@@ -62,7 +62,7 @@ export default async function OG() {
               lineHeight: 1.4,
             }}
           >
-            Building companies, communities, and technology that move people forward.
+            Software engineer and SEO specialist in Lira City, Uganda. Founder of Rooibok Technologies and Parler Foundation.
           </div>
         </div>
 

@@ -246,13 +246,6 @@
   max-width: var(--reader-measure);
   line-height: 1.85;
 }
-.personal-welcome {
-  font-size: calc(17px * var(--reader-scale)) !important;
-  font-weight: 450;
-  letter-spacing: -0.035em;
-  color: var(--text);
-  margin-bottom: 18px !important;
-}
 .personal-profile-card {
   background: var(--panel);
   border-radius: 7px;
@@ -454,7 +447,7 @@
 }
 .personal-timeline.is-compact {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
   gap: 24px;
   margin-top: 30px;
 }
@@ -1235,9 +1228,6 @@
     grid-template-columns: 1fr;
     gap: 28px;
   }
-  .personal-welcome {
-    font-size: calc(17px * var(--reader-scale)) !important;
-  }
   .personal-introduction p {
     line-height: 1.85;
   }
@@ -1318,20 +1308,27 @@
     gap: 22px;
     margin-top: 25px;
   }
+  .personal-timeline li,
   .personal-timeline.is-compact li {
-    display: grid;
-    grid-template-columns: 52px 1fr;
-    gap: 18px;
-  }
-  .personal-timeline.is-compact li > div {
-    margin: 0;
-    border-top: 0;
+    display: block;
+    position: relative;
     border-left: 1px solid var(--rule);
-    padding: 0 0 0 20px;
+    padding: 0 0 26px 20px;
   }
+  .personal-timeline li:last-child {
+    padding-bottom: 0;
+  }
+  .personal-timeline li > div,
+  .personal-timeline.is-compact li > div {
+    position: static;
+    margin: 4px 0 0;
+    border: 0;
+    padding: 0;
+  }
+  .personal-timeline li > div:before,
   .personal-timeline.is-compact li > div:before {
     left: -4px;
-    top: 8px;
+    top: 7px;
   }
   .personal-timeline.is-compact h3 {
     font-size: calc(14px * var(--reader-scale));
@@ -1339,15 +1336,8 @@
   .personal-timeline.is-compact .personal-timeline-org {
     font-size: calc(11px * var(--reader-scale));
   }
-  .personal-timeline li {
-    grid-template-columns: 58px 1fr;
-    gap: 16px;
-    padding-bottom: 28px;
-  }
-  .personal-timeline li > div {
-    padding-left: 18px;
-  }
   .personal-timeline-date {
+    display: block;
     font-size: calc(11px * var(--reader-scale));
   }
   .personal-timeline h3 {
@@ -1586,6 +1576,10 @@
   color: var(--subtle);
   font-size: calc(12px * var(--reader-scale));
 }
+.personal-project-cover.is-placeholder {
+  aspect-ratio: auto;
+  height: 112px;
+}
 .personal-project-type svg {
   height: 38px;
   width: 38px;
@@ -1823,7 +1817,7 @@
     grid-template-columns: 1fr;
     gap: 32px;
   }
-  .personal-project-cover {
+  .personal-project-cover:not(.is-placeholder) {
     aspect-ratio: 1.95;
   }
   .personal-project-copy h2 {

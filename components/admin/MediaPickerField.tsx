@@ -438,6 +438,7 @@ function PreviewCard({ detected }: { detected: DetectedMedia }) {
       </div>
       {detected.type === 'image' && (
         <div className="relative aspect-video max-w-lg rounded-lg overflow-hidden bg-muted">
+          {/* Any pasted URL can be previewed, so next/image remote patterns can't cover it. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src={detected.url} alt="Preview" className="absolute inset-0 w-full h-full object-contain" />
         </div>

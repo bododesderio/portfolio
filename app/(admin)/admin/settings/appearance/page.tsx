@@ -37,7 +37,7 @@ export default async function AppearancePage() {
           initial={{
             login_background_url: settings['login_background_url'] || '',
             login_card_image: settings['login_card_image'] || '',
-            login_heading: settings['login_heading'] || 'Welcome Back',
+            login_heading: settings['login_heading'] || 'Welcome back',
             login_subtitle:
               settings['login_subtitle'] || 'Sign in to your admin account',
             login_overlay_title:

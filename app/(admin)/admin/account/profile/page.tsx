@@ -15,14 +15,12 @@ export default async function ProfilePage() {
     <div>
       <AdminPageHeader title="Profile" description="Your admin profile." />
 
-      {/* Read-only info */}
       <div className="rounded-2xl border border-hairline bg-card p-6 space-y-4 max-w-xl mb-6">
         <Row label="Email" value={me?.email ?? '—'} />
         <Row label="Member since" value={me?.createdAt ? new Date(me.createdAt).toLocaleDateString() : '—'} />
         <Row label="Last sign-in" value={me?.lastLogin ? new Date(me.lastLogin).toLocaleString() : 'Never'} />
       </div>
 
-      {/* Editable profile */}
       <ProfileEditor
         initialName={me?.name ?? ''}
         initialAvatarUrl={me?.avatarUrl ?? ''}

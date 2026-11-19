@@ -8,6 +8,13 @@ export type PersonalPhoto = {
   category?: string | null
   media: { url: string; altText: string | null }
 }
+// Seeded media rows used the file name as alt text, which screen readers then read aloud.
+function describePhoto(photo: PersonalPhoto, fallback: string) {
+  const altText = photo.media.altText?.trim()
+  const isFileName =
+    !altText || /\.(jpe?g|png|webp|gif|avif)$/i.test(altText)
+  return (isFileName ? '' : altText) || photo.caption || fallback
+}
 export function PhotoCollection({
   items,
   filterable = false,
@@ -81,15 +88,11 @@ export function PhotoCollection({
                 opener.current = event.currentTarget
                 setSelected(index)
               }}
-              aria-label={`Open photograph: ${item.caption || item.media.altText || index + 1}`}
+              aria-label={`Open photograph: ${describePhoto(item, String(index + 1))}`}
             >
               <Image
                 src={item.media.url}
-                alt={
-                  item.media.altText ||
-                  item.caption ||
-                  'Photograph from Bodo’s personal archive'
-                }
+                alt={describePhoto(item, 'Photograph from Bodo’s archive')}
                 fill
                 sizes="(max-width: 700px) 85vw, (max-width: 1100px) 40vw, 320px"
                 className="object-cover"
@@ -145,11 +148,7 @@ export function PhotoCollection({
             <div className="personal-lightbox-image">
               <Image
                 src={active.media.url}
-                alt={
-                  active.media.altText ||
-                  active.caption ||
-                  'Photograph from Bodo’s archive'
-                }
+                alt={describePhoto(active, 'Photograph from Bodo’s archive')}
                 fill
                 sizes="90vw"
                 className="object-contain"
@@ -163,7 +162,7 @@ export function PhotoCollection({
               >
                 <ArrowLeft size={20} />
               </button>
-              <p>{active.caption || active.media.altText}</p>
+              <p>{active.caption || describePhoto(active, '')}</p>
               <button
                 type="button"
                 onClick={() => step(1)}

@@ -14,6 +14,7 @@ export function RichText({ html }: { html: string }) {
 export function PersonalTimeline({
   items,
   compact = false,
+  details = true,
 }: {
   items: Array<{
     year?: string
@@ -22,6 +23,7 @@ export function PersonalTimeline({
     description?: string
   }>
   compact?: boolean
+  details?: boolean
 }) {
   return (
     <ol className={`personal-timeline ${compact ? 'is-compact' : ''}`}>
@@ -33,7 +35,9 @@ export function PersonalTimeline({
             {item.organization && (
               <p className="personal-timeline-org">{item.organization}</p>
             )}
-            {!compact && item.description && <p>{item.description}</p>}
+            {!compact && details && item.description && (
+              <p>{item.description}</p>
+            )}
           </div>
         </li>
       ))}
@@ -69,7 +73,7 @@ export function WorkRows({
             <p>{item.excerpt}</p>
           </div>
           <span className="personal-row-arrow" aria-hidden="true">
-            ↗
+            →
           </span>
         </Link>
       ))}
@@ -117,7 +121,7 @@ export function WritingRows({
             href={`/blog/${item.slug}`}
             aria-label={`Read ${item.title}`}
           >
-            ↗
+            →
           </Link>
         </article>
       ))}

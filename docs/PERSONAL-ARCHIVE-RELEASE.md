@@ -9,7 +9,7 @@ The production update uses the existing `myportfolio` compose project at `/opt/m
 - TypeScript and ESLint pass.
 - 198 tests pass, including malformed-session rejection, private-content search exclusion, and uppercase image routing.
 - The full production build passes before deployment.
-- The first production pass covers 30 responsive layouts with zero failures, validates ProfilePage → Person, checks anonymous admin rejection, image optimization, and visible content without JavaScript. The second pass covers 30 admin layouts, six public refinements, editor persistence, keyboard behavior, timeline fields, and inbox selection. See the JSON reports in `docs/personal-redesign/`.
+- The first production pass covers 30 responsive layouts with zero failures, validates ProfilePage → Person, checks anonymous admin rejection, image optimization, and visible content without JavaScript. The second pass covers 30 admin layouts, six public refinements, editor persistence, keyboard behavior, timeline fields, and inbox selection.
 
 ## Recovery point
 
@@ -33,6 +33,6 @@ After the deployed `/about` markup is verified, run the live URL in Google's Ric
 
 The second release adds the admin studio, separate analytics page, searchable work/writing lists, a responsive inbox, focused editors, safe structured-field handling, and active public section navigation. Rooibok’s website and Kakebe’s team listing are linked through a targeted CMS update. There are still no new migrations and production seeding remains disabled.
 
-The original personal archive app revision is `c56e5e90479a592baa891ad675f4ea4d25fc7bf4`. The final deployed app revision is `39ab77ad4634c2679c3f7646c752934eacbd3ce3`. The app, PostgreSQL, and Redis are healthy. The public UI and anonymous admin login were checked in a visible Playwright MCP browser; authenticated editing/save/archive workflows were tested against the isolated local database. The final live Escape regression check passes at 1440px and 390px. The browser trace and check reports are linked from `docs/personal-redesign/live-e2e/README.md`.
+The original personal archive app revision is `c56e5e90479a592baa891ad675f4ea4d25fc7bf4`. The final deployed app revision is `39ab77ad4634c2679c3f7646c752934eacbd3ce3`. The app, PostgreSQL, and Redis are healthy. The public UI and anonymous admin login were checked in a visible Playwright MCP browser; authenticated editing/save/archive workflows were tested against the isolated local database. The final live Escape regression check passes at 1440px and 390px.
 
 The editing-studio recovery point is `/opt/myportfolio-backups/20261116T172640Z-studio`. Its database and upload archives passed gzip integrity checks, and the pre-studio image is retained through the recovery override. The existing editorial/message/subscriber/media record counts matched the pre-deployment baseline after the requested URL/profile changes.

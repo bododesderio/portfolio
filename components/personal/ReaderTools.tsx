@@ -144,7 +144,7 @@ export function ReaderTools() {
                     href={link.href}
                     onClick={() => searchDialog.current?.close()}
                   >
-                    {link.label} <span aria-hidden="true">↗</span>
+                    {link.label} <span aria-hidden="true">→</span>
                   </Link>
                 ))}
               </div>

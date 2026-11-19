@@ -116,7 +116,6 @@ export function BannersManager({ initial }: { initial: Banner[] }) {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <p className="text-sm text-fg-muted">{items.length} banner{items.length !== 1 ? 's' : ''}</p>
         <button
@@ -127,7 +126,6 @@ export function BannersManager({ initial }: { initial: Banner[] }) {
         </button>
       </div>
 
-      {/* Form */}
       {showForm && (
         <BannerForm
           form={form}
@@ -140,7 +138,6 @@ export function BannersManager({ initial }: { initial: Banner[] }) {
         />
       )}
 
-      {/* List */}
       <BannerList
         items={items}
         expanded={expanded}

@@ -25,7 +25,7 @@ export function EntryLayout({
             <ContentsNavigation items={contents} />
           </nav>
           <Link href={relatedHref}>
-            {relatedLabel} <span aria-hidden="true">↗</span>
+            {relatedLabel} <span aria-hidden="true">→</span>
           </Link>
         </aside>
       )}
@@ -83,7 +83,7 @@ export function EntrySection({
         <h2 id={`${id}-heading`}>{title}</h2>
         {href && (
           <Link href={href} className="personal-small-link">
-            {linkLabel || 'Explore'} <span aria-hidden="true">↗</span>
+            {linkLabel || 'Explore'} <span aria-hidden="true">→</span>
           </Link>
         )}
       </div>

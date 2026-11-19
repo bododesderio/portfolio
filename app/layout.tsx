@@ -15,7 +15,7 @@ const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Bodo Desderio: Founder, Leader, Builder',
+    default: 'Bodo Desderio · Software engineer in Lira City, Uganda',
     template: '%s | Bodo Desderio',
   },
   description:
@@ -36,9 +36,9 @@ export const metadata: Metadata = {
     locale: 'en_UG',
     url: SITE_URL,
     siteName: 'Bodo Desderio',
-    title: 'Bodo Desderio: Founder, Leader, Builder',
+    title: 'Bodo Desderio · Software engineer in Lira City, Uganda',
     description:
-      'Building companies, communities, and technology that move people forward.',
+      'Software engineer and SEO specialist in Lira City, Uganda. Founder of Rooibok Technologies and Parler Foundation.',
   },
   twitter: { card: 'summary_large_image', creator: '@bodo_desderio' },
   robots: { index: true, follow: true },

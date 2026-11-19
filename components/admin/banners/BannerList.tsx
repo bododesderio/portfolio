@@ -30,7 +30,6 @@ export function BannerList({ items, expanded, onToggleExpand, onEdit, onToggleEn
             const isExpanded = expanded === b.id
             return (
               <div key={b.id} className="rounded-xl border border-hairline bg-card overflow-hidden">
-                {/* Summary row */}
                 <div className="flex items-center gap-3 px-4 py-3">
                   <button
                     onClick={() => onToggleEnabled(b)}
@@ -67,7 +66,6 @@ export function BannerList({ items, expanded, onToggleExpand, onEdit, onToggleEn
                   </div>
                 </div>
 
-                {/* Expanded detail */}
                 {isExpanded && (
                   <div className="border-t border-hairline px-4 py-3 bg-muted/30">
                     <dl className="grid grid-cols-2 md:grid-cols-4 gap-x-4 gap-y-2 text-xs">

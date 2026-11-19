@@ -11,7 +11,7 @@ interface LoginFormProps {
 }
 
 export function LoginForm({
-  heading = 'Welcome Back',
+  heading = 'Welcome back',
   subtitle = 'Sign in to your admin account',
 }: LoginFormProps) {
   const searchParams = useSearchParams()
@@ -48,7 +48,6 @@ export function LoginForm({
 
   return (
     <form onSubmit={handleSubmit} className="space-y-5 w-full">
-      {/* Heading */}
       <div className="text-center mb-6">
         <h1 className="font-serif text-2xl text-ink-900 dark:text-white">{heading}</h1>
         <p className="mt-1.5 text-sm text-ink-500 dark:text-white/60">{subtitle}</p>
@@ -60,10 +59,9 @@ export function LoginForm({
         </p>
       )}
 
-      {/* Email */}
       <div>
         <label htmlFor="login-email" className="block text-sm font-medium text-ink-700 dark:text-white/70 mb-1.5">
-          Email Address
+          Email address
         </label>
         <input
           id="login-email"
@@ -76,7 +74,6 @@ export function LoginForm({
         />
       </div>
 
-      {/* Password */}
       <div>
         <label htmlFor="login-password" className="block text-sm font-medium text-ink-700 dark:text-white/70 mb-1.5">
           Password
@@ -102,7 +99,6 @@ export function LoginForm({
         </div>
       </div>
 
-      {/* Remember me + Forgot password */}
       <div className="flex items-center justify-between">
         <label className="flex items-center gap-2 cursor-pointer select-none">
           <input
@@ -115,14 +111,13 @@ export function LoginForm({
         </label>
       </div>
 
-      {/* Submit */}
       <button
         type="submit"
         disabled={loading}
         className="w-full flex items-center justify-center gap-2 py-3 bg-brand hover:bg-brand-600 disabled:opacity-60 text-white font-medium rounded-xl transition-colors shadow-glow-sm"
       >
         <LogIn className="h-4 w-4" />
-        {loading ? 'Signing in...' : 'Sign In'}
+        {loading ? 'Signing in…' : 'Sign in'}
       </button>
     </form>
   )

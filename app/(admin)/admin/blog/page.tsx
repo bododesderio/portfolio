@@ -153,7 +153,7 @@ export default async function AdminBlogPage({
               href={all ? '/admin/blog' : '/admin/blog/new'}
               className="text-brand inline-block mt-3"
             >
-              {all ? 'Clear filters' : 'Write your first piece'} ↗
+              {all ? 'Clear filters' : 'Write your first piece'}
             </Link>
           </div>
         )}

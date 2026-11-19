@@ -33,7 +33,7 @@ export function ContactForm() {
         const data = await res.json().catch(() => ({}))
         throw new Error((data as { error?: string }).error || 'Failed to send')
       }
-      toast.success('Thanks—your message has been received.')
+      toast.success('Thanks, your message has been received.')
       setForm({ name: '', email: '', subject: '', message: '' })
     } catch (err) {
       const msg = err instanceof Error ? err.message : 'Something went wrong'

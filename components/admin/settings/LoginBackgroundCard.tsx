@@ -54,7 +54,6 @@ export function LoginBackgroundCard({ initial }: { initial: LoginSettings }) {
         <p className="text-sm text-fg-muted mt-1">Customize the admin login page: images, text, and layout. Pick images from your media library or upload new ones.</p>
       </div>
 
-      {/* Image pickers */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <MediaPickerField
           value={s.login_background_url}
@@ -70,7 +69,6 @@ export function LoginBackgroundCard({ initial }: { initial: LoginSettings }) {
         />
       </div>
 
-      {/* Text fields */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-medium text-fg-muted mb-1.5">Heading</label>
@@ -78,7 +76,7 @@ export function LoginBackgroundCard({ initial }: { initial: LoginSettings }) {
             value={s.login_heading}
             onChange={e => update('login_heading', e.target.value)}
             className="w-full px-3 py-2 bg-muted border border-hairline rounded-lg text-sm text-fg focus:ring-2 focus:ring-brand focus:outline-none"
-            placeholder="Welcome Back"
+            placeholder="Welcome back"
           />
         </div>
         <div>
@@ -110,7 +108,6 @@ export function LoginBackgroundCard({ initial }: { initial: LoginSettings }) {
         </div>
       </div>
 
-      {/* Save */}
       <div className="flex justify-end">
         <button
           onClick={save}

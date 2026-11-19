@@ -24,7 +24,8 @@ export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ 
     await prisma.media.delete({ where: { id: (await params).id } })
 
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/media/[id]]', err)
     return NextResponse.json({ error: 'Delete failed.' }, { status: 500 })
   }
 }

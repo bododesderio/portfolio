@@ -10,7 +10,8 @@ export async function DELETE() {
   try {
     const { count } = await prisma.pageView.deleteMany()
     return NextResponse.json({ success: true, deleted: count })
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/analytics/reset]', err)
     return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }

@@ -37,7 +37,7 @@ export default async function Footer({
               {item.label} ↗
             </a>
           ))}
-          <Link href="/contact">Say hello ↗</Link>
+          <Link href="/contact">Say hello →</Link>
         </nav>
       </div>
       <div className="personal-footer-bottom">

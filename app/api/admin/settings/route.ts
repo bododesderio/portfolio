@@ -70,7 +70,8 @@ export async function PATCH(req: NextRequest) {
     }
 
     return NextResponse.json({ success: true, setting })
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/settings]', err)
     return NextResponse.json({ error: 'Update failed.' }, { status: 500 })
   }
 }

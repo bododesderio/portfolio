@@ -35,7 +35,8 @@ export async function POST(req: NextRequest) {
     const warnLowRes = (width ?? 0) < 1920 || (height ?? 0) < 1080
     revalidateTag(CACHE_TAGS.siteSettings, REVALIDATE_PROFILE)
     return NextResponse.json({ success: true, url, width, height, warnLowRes })
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/appearance/login-background]', err)
     return NextResponse.json({ error: 'Upload failed.' }, { status: 500 })
   }
 }
@@ -48,7 +49,8 @@ export async function DELETE() {
     await prisma.siteSettings.delete({ where: { key: 'login_background_url' } }).catch(() => null)
     revalidateTag(CACHE_TAGS.siteSettings, REVALIDATE_PROFILE)
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/appearance/login-background]', err)
     return NextResponse.json({ error: 'Reset failed.' }, { status: 500 })
   }
 }

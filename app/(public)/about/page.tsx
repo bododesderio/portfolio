@@ -73,23 +73,22 @@ export default async function AboutPage() {
         dangerouslySetInnerHTML={{ __html: ldJson(profilePageSchema()) }}
       />
       <EntryHeading
-        eyebrow="The person behind the name"
+        eyebrow="Biography"
         title="About me"
         description="My story, so far."
       />
       <div className="personal-overview">
         <div className="personal-introduction">
-          <p className="personal-welcome">I’m {profile.name}.</p>
           {profile.introduction.slice(0, 2).map((paragraph, index) => (
             <RichText key={index} html={paragraph} />
           ))}
           <p>
-            This page brings the different parts of my life together: where I’ve
-            been, what I do, and the things that keep me curious.
+            Below are my education, work history, volunteering, the values I
+            work by, and the places my work has been written about.
           </p>
           <div className="personal-intro-links">
-            <Link href="/projects">Explore my work ↗</Link>
-            <Link href="/contact">Get in touch ↗</Link>
+            <Link href="/projects">Explore my work →</Link>
+            <Link href="/contact">Get in touch →</Link>
           </div>
         </div>
         <ProfileCard
@@ -100,10 +99,16 @@ export default async function AboutPage() {
           facts={[
             { label: 'Home', value: profile.location },
             { label: 'Education', value: 'KIU · IUEA · FIMAT · ALX · Udemy' },
-            {
-              label: 'Interests',
-              value: 'Technology, people & the world around us',
-            },
+            ...(profile.languages.length
+              ? [
+                  {
+                    label: 'Languages',
+                    value: profile.languages
+                      .map((language) => language.title)
+                      .join(' · '),
+                  },
+                ]
+              : []),
           ]}
         />
       </div>
@@ -118,9 +123,10 @@ export default async function AboutPage() {
       </EntrySection>
       <EntrySection id="timeline" title="Life & history">
         <p className="personal-section-intro">
-          A chronological account of the chapters that shaped me.
+          Every chapter in order. The details for each one are in the sections
+          below.
         </p>
-        <PersonalTimeline items={profile.timeline} />
+        <PersonalTimeline items={profile.timeline} details={false} />
       </EntrySection>
       {profile.education.length > 0 && (
         <EntrySection id="education" title="Education & qualifications">
@@ -209,12 +215,8 @@ export default async function AboutPage() {
       <EntrySection id="community" title="Community & public life">
         {profile.introduction[2] && <RichText html={profile.introduction[2]} />}
         <p>{getField(profile.home, 'community.body')}</p>
-        <p>
-          Photographs, reflections, and contributions from this part of my life
-          are collected throughout this archive.
-        </p>
         <Link href="/gallery" className="personal-inline-link">
-          Browse the photographs ↗
+          Browse the photographs →
         </Link>
       </EntrySection>
       <EntrySection id="values" title="What matters to me">
@@ -240,7 +242,7 @@ export default async function AboutPage() {
       {photos.length > 0 && (
         <EntrySection
           id="photographs"
-          title="Some moments along the way"
+          title="Photographs"
           href="/gallery"
           linkLabel="The full gallery"
         >

@@ -36,20 +36,20 @@ export default async function LoginPage() {
           )}
           <BrandMark />
           <div>
-            <h2>{title || 'A place for your story.'}</h2>
+            <h2>{title || 'Bodo Desderio'}</h2>
             <p>
               {description ||
-                'Your life, work, ideas, and everything along the way.'}
+                'Biography, work, writing and photographs, edited from one place.'}
             </p>
           </div>
         </aside>
         <div className="admin-login-form">
           <LoginForm
             heading={heading || 'Welcome to your studio'}
-            subtitle={subtitle || 'Sign in to tend to your personal archive.'}
+            subtitle={subtitle || 'Sign in to edit the site.'}
           />
           <Link href="/" className="admin-login-foot">
-            ← Back to the portfolio
+            Back to the website
           </Link>
         </div>
       </div>

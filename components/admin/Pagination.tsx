@@ -41,7 +41,6 @@ export function Pagination({
       className="flex items-center justify-center gap-1.5 mt-8"
       aria-label="Pagination"
     >
-      {/* Previous */}
       {currentPage > 1 ? (
         <Link
           href={href(currentPage - 1)}
@@ -56,7 +55,6 @@ export function Pagination({
         </span>
       )}
 
-      {/* Page numbers */}
       {pages.map((p, i) =>
         p === 'ellipsis' ? (
           <span
@@ -81,7 +79,6 @@ export function Pagination({
         )
       )}
 
-      {/* Next */}
       {currentPage < totalPages ? (
         <Link
           href={href(currentPage + 1)}

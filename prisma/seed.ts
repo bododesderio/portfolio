@@ -9,7 +9,7 @@ const DEFAULT_ADMIN_EMAIL = 'derricklamarh@gmail.com'
 const DEFAULT_ADMIN_PASSWORD_HASH = '$2b$12$tAF9wpNPwdx9z2kdCvYqreeZFJBlGZq0Zjh9U1gTh6q7Kaip2.YbG'
 
 async function main() {
-  console.log('🌱 Starting seed...')
+  console.log('Starting seed...')
 
   const adminPasswordHash = process.env.ADMIN_PASSWORD_HASH || DEFAULT_ADMIN_PASSWORD_HASH
   const adminEmail = (process.env.ADMIN_EMAIL || DEFAULT_ADMIN_EMAIL).trim().toLowerCase()
@@ -43,13 +43,13 @@ async function main() {
   ])
 
   if (existingRows.some(count => count > 0) && !forceReseed && !contentOnly) {
-    console.log('✅ Existing data detected. Skipping seed. Set FORCE_RESEED=true to replace demo data.')
+    console.log('Existing data detected. Skipping seed. Set FORCE_RESEED=true to replace demo data.')
     return
   }
 
   if (forceReseed) {
     // Clear existing data only when explicitly requested.
-    console.log('🗑️  FORCE_RESEED=true: clearing existing data...')
+    console.log('FORCE_RESEED=true: clearing existing data...')
     await prisma.emailEvent.deleteMany()
     await prisma.emailLog.deleteMany()
     await prisma.projectImage.deleteMany()
@@ -74,8 +74,7 @@ async function main() {
     await prisma.adminUser.deleteMany()
   }
 
-  // ==================== SITE CONTENT ====================
-  console.log('📝 Creating site content...')
+  console.log('Creating site content...')
 
   // Helper to create content rows
   const contentRows = [
@@ -210,7 +209,6 @@ async function main() {
     { page: 'contact', section: 'hero', fieldKey: 'subtitle', value: 'Whether it\'s a product, a partnership, or just a conversation, I read every message.', fieldType: 'text' },
     { page: 'contact', section: 'hero', fieldKey: 'image', value: '/images/stock/contact-hero.svg', fieldType: 'image' },
 
-    // ─── Privacy Policy ───
     { page: 'privacy', section: 'hero', fieldKey: 'title', value: 'Privacy Policy', fieldType: 'text' },
     { page: 'privacy', section: 'hero', fieldKey: 'updated', value: 'May 2026', fieldType: 'text' },
     { page: 'privacy', section: 'body', fieldKey: 'html', value: `<h2>1. Information We Collect</h2>
@@ -259,7 +257,6 @@ async function main() {
 <h2>7. Contact</h2>
 <p>For privacy-related inquiries, contact us at <a href="mailto:hello@bododesderio.com">hello@bododesderio.com</a>.</p>`, fieldType: 'html' },
 
-    // ─── Terms & Conditions ───
     { page: 'terms', section: 'hero', fieldKey: 'title', value: 'Terms & Conditions', fieldType: 'text' },
     { page: 'terms', section: 'hero', fieldKey: 'updated', value: 'May 2026', fieldType: 'text' },
     { page: 'terms', section: 'body', fieldKey: 'html', value: `<h2>1. Acceptance of Terms</h2>
@@ -297,14 +294,13 @@ async function main() {
       create: row,
     })
   }
-  console.log(`  ✓ Upserted ${contentRows.length} site content rows`)
+  console.log(`Upserted ${contentRows.length} site content rows`)
 
   // Everything below (settings, media, services, testimonials, blog, subscribers,
   // messages, campaigns) is create-based demo/real data. In CONTENT_ONLY mode we
   // skip it entirely so a live DB keeps its real rows; only copy + SEO get refreshed.
   if (!contentOnly) {
-  // ==================== SITE SETTINGS ====================
-  console.log('⚙️  Creating site settings...')
+  console.log('Creating site settings...')
   const settingsRows = [
     { key: 'social.facebook', value: 'https://www.facebook.com/bododesderio1/' },
     { key: 'social.twitter', value: 'https://x.com/bodo_desderio/' },
@@ -321,19 +317,18 @@ async function main() {
     { key: 'theme.brand_color', value: '#C9A84C' },
     { key: 'login_background_url', value: '/images/gallery/IMG_5544.jpg' },
     { key: 'login_card_image', value: '/images/hero/portrait-home.png' },
-    { key: 'login_heading', value: 'Welcome Back' },
+    { key: 'login_heading', value: 'Welcome back' },
     { key: 'login_subtitle', value: 'Sign in to your admin account' },
     { key: 'login_overlay_title', value: 'Bodo Desderio' },
-    { key: 'login_overlay_subtitle', value: 'Building companies, communities, and technology that move people forward.' },
+    { key: 'login_overlay_subtitle', value: 'Biography, work, writing and photographs, edited from one place.' },
   ]
 
   for (const row of settingsRows) {
     await prisma.siteSettings.create({ data: row })
   }
-  console.log(`  ✓ Created ${settingsRows.length} site settings`)
+  console.log(`Created ${settingsRows.length} site settings`)
 
-  // ==================== SERVICES ====================
-  console.log('🛠️  Creating services...')
+  console.log('Creating services...')
   const services = [
     {
       title: 'Company Building',
@@ -380,10 +375,9 @@ async function main() {
   for (const service of services) {
     await prisma.service.create({ data: service })
   }
-  console.log(`  ✓ Created ${services.length} services`)
+  console.log(`Created ${services.length} services`)
 
-  // ==================== CLIENTS ====================
-  console.log('🤝 Creating clients...')
+  console.log('Creating clients...')
   const clients = [
     { name: 'Forus Foundation', website: 'https://www.forusfoundation.com', order: 0, visible: true },
     { name: 'Kakebe Technologies Limited', website: 'https://www.kakebe.tech', order: 1, visible: true },
@@ -398,10 +392,9 @@ async function main() {
   for (const client of clients) {
     await prisma.client.create({ data: client })
   }
-  console.log(`  ✓ Created ${clients.length} clients`)
+  console.log(`Created ${clients.length} clients`)
 
-  // ==================== MEDIA (CLIENT LOGOS) ====================
-  console.log('🖼️  Creating media records...')
+  console.log('Creating media records...')
   const clientLogos = [
     { filename: 'abetterlife.avif', folder: 'clients', url: '/images/clients/abetterlife.avif' },
     { filename: 'IMG_0959.JPG', folder: 'clients', url: '/images/clients/IMG_0959.JPG' },
@@ -429,10 +422,9 @@ async function main() {
     })
     mediaMap.set(img.filename, media.id)
   }
-  console.log(`  ✓ Created ${clientLogos.length} media records for client logos`)
+  console.log(`Created ${clientLogos.length} media records for client logos`)
 
-  // ==================== TESTIMONIALS ====================
-  console.log('💬 Creating testimonials...')
+  console.log('Creating testimonials...')
   const testimonials = [
     {
       body: "From day one, Desderio understood our ethos of sustainability. His e-commerce solution reflected our brand's purity, intuitive, transparent, and scalable. A partner who aligns technology with values.",
@@ -479,86 +471,9 @@ async function main() {
   for (const t of testimonials) {
     await prisma.testimonial.create({ data: t })
   }
-  console.log(`  ✓ Created ${testimonials.length} testimonials`)
+  console.log(`Created ${testimonials.length} testimonials`)
 
-  // ==================== BLOG POSTS ====================
-  console.log('📚 Creating blog posts...')
-  const blogPosts = [
-    {
-      title: 'Sustainable Web Development: Reducing Digital Carbon Footprints',
-      slug: 'sustainable-web-development-reducing-digital-carbon-footprints',
-      body: '<p>As developers, we have a responsibility to consider the environmental impact of our digital creations. The internet consumes massive amounts of energy, and every website we build contributes to that footprint.</p><h2>The Scale of the Problem</h2><p>The ICT sector accounts for roughly 2-3% of global carbon emissions — comparable to the airline industry. A single page load on a media-heavy website can generate 1.76g of CO2. Multiply that by millions of users and the numbers become staggering.</p><h2>What Developers Can Do</h2><p>Sustainable web development is not about building less — it is about building smarter. Here are practical steps every developer can take:</p><ul><li><strong>Optimise images and media.</strong> Use modern formats like WebP and AVIF. Implement lazy loading. Serve responsive sizes instead of one-size-fits-all.</li><li><strong>Minimise JavaScript bundles.</strong> Tree-shake unused code. Use code splitting. Consider whether that 200kb library is really necessary.</li><li><strong>Choose green hosting.</strong> Providers like GreenGeeks and Cloudflare run on renewable energy. Your hosting choice matters.</li><li><strong>Cache aggressively.</strong> Every request that hits your server costs energy. CDNs, service workers, and smart caching headers reduce the load.</li></ul><h2>The African Context</h2><p>In markets like Uganda, where many users access the web on lower-end devices over mobile data, sustainable development is not just environmental — it is practical. Lighter, faster websites reach more people. Efficiency is accessibility.</p><p>The web we build today shapes the web that serves the next billion users. Let us make sure it is worth inheriting.</p>',
-      excerpt: 'Exploring how sustainable practices in web development can reduce our digital carbon footprint.',
-      status: 'published',
-      category: 'Green Tech',
-      tags: ['sustainability', 'web dev', 'carbon footprint'],
-      publishedAt: new Date('2025-01-15'),
-    },
-    {
-      title: 'Responsible AI Development: Balancing Innovation and Ethics',
-      slug: 'responsible-ai-development-balancing-innovation-and-ethics',
-      body: '<p>Artificial Intelligence is transforming industries at an unprecedented pace. But with great power comes great responsibility — especially in Africa, where AI systems built elsewhere are being deployed without sufficient consideration for local contexts.</p><h2>The Promise</h2><p>AI can revolutionise healthcare diagnostics, improve agricultural yields, and democratise access to education. In East Africa, startups are already using machine learning for crop disease detection and mobile money fraud prevention.</p><h2>The Risks</h2><p>But the risks are equally real:</p><ul><li><strong>Bias in training data.</strong> Models trained on Western datasets can produce dangerously inaccurate results when applied to African populations.</li><li><strong>Privacy concerns.</strong> Many AI applications require vast amounts of personal data. In countries with weak data protection laws, this creates vulnerability.</li><li><strong>Job displacement.</strong> Automation threatens sectors that employ millions across the continent — from call centres to data entry.</li></ul><h2>A Framework for Responsible Development</h2><p>We need AI development that is:</p><ol><li><strong>Locally informed.</strong> Training data should represent the populations it will serve.</li><li><strong>Transparent.</strong> Users should understand when they are interacting with AI and how decisions are being made.</li><li><strong>Accountable.</strong> There must be clear lines of responsibility when AI systems cause harm.</li><li><strong>Inclusive.</strong> The benefits of AI should reach beyond the tech elite to the communities that need them most.</li></ol><p>As African technologists, we have the opportunity to shape AI development in ways that centre our own needs, values, and realities. Let us not cede that opportunity to others.</p>',
-      excerpt: 'Examining the ethical considerations that must guide AI development in Africa and beyond.',
-      status: 'published',
-      category: 'AI Ethics',
-      tags: ['AI', 'ethics', 'responsible innovation'],
-      publishedAt: new Date('2025-02-10'),
-    },
-    {
-      title: 'Closing the Gender Gap in Computer Science Education',
-      slug: 'closing-gender-gap-computer-science-education',
-      body: '<p>The technology sector has long struggled with gender diversity. In Uganda and across Africa, we need intentional efforts to bring more women into tech — not as an afterthought, but as a strategic priority.</p><h2>The Numbers</h2><p>Globally, women hold only 25% of computing jobs. In Sub-Saharan Africa, the number is even lower. At Kampala International University, where I studied, the computer science cohort was overwhelmingly male. The few women who enrolled often faced subtle and not-so-subtle discouragement.</p><h2>Root Causes</h2><p>The gap starts long before university:</p><ul><li><strong>Early socialisation.</strong> Girls are often steered away from STEM subjects in secondary school.</li><li><strong>Lack of role models.</strong> When young women cannot see themselves in technology, they are less likely to pursue it.</li><li><strong>Hostile environments.</strong> Even when women enter tech, workplace cultures can push them out.</li></ul><h2>What Works</h2><p>Through my work with the African Youth Congress, I have seen what changes the equation:</p><blockquote><p>"When you put a laptop in front of a 14-year-old girl and show her she can build something real — the spark is immediate. The problem was never ability. It was access."</p></blockquote><p>Mentorship programmes, coding bootcamps designed for women, and visible female tech leaders all make a measurable difference. But the most important thing is <strong>starting early</strong> — normalising technology for girls before society tells them it is not for them.</p><p>The future of African tech depends on unlocking the full talent pool. That means everyone.</p>',
-      excerpt: 'Strategies for increasing female participation in computer science and technology fields.',
-      status: 'published',
-      category: 'STEM Education',
-      tags: ['gender gap', 'STEM', 'education'],
-      publishedAt: new Date('2025-03-05'),
-    },
-    {
-      title: 'Quantum Computing Breakthroughs and Practical Applications',
-      slug: 'quantum-computing-breakthroughs-practical-applications',
-      body: '<p>Quantum computing promises to revolutionise everything from cryptography to drug discovery. While still in its early days, the breakthroughs are coming fast — and the implications for technology, business, and society are profound.</p><h2>How Quantum Computing Works</h2><p>Classical computers process information in bits — ones and zeros. Quantum computers use qubits, which can exist in multiple states simultaneously through a phenomenon called superposition. This allows them to process certain types of calculations exponentially faster.</p><h2>Recent Breakthroughs</h2><p>2024 saw several milestones:</p><ul><li><strong>Google\'s Willow chip</strong> demonstrated quantum error correction at scale for the first time.</li><li><strong>IBM\'s 1,000+ qubit processors</strong> are pushing the boundaries of what is computationally feasible.</li><li><strong>Quantum-resistant cryptography standards</strong> were finalised by NIST, preparing the world for a post-quantum security landscape.</li></ul><h2>Practical Applications</h2><p>Where will quantum computing make the biggest impact?</p><ol><li><strong>Drug discovery.</strong> Simulating molecular interactions that would take classical computers thousands of years.</li><li><strong>Financial modelling.</strong> Optimising portfolios and risk assessment in real time.</li><li><strong>Climate science.</strong> Modelling complex climate systems with unprecedented accuracy.</li><li><strong>Logistics.</strong> Solving optimisation problems across supply chains and transportation networks.</li></ol><h2>What It Means for Africa</h2><p>Quantum computing is still largely a first-world conversation, but it does not have to stay that way. African universities and research institutions should be investing now in quantum literacy — not to build quantum hardware, but to be ready to leverage quantum cloud services when they become commercially accessible.</p><p>The question is not whether quantum computing will change the world. It is whether we will be ready when it does.</p>',
-      excerpt: 'A look at recent quantum computing advances and what they mean for practical applications.',
-      status: 'published',
-      category: 'Future Tech',
-      tags: ['quantum', 'computing', 'research'],
-      publishedAt: new Date('2025-03-28'),
-    },
-    {
-      title: 'Innovative Approaches to Tech Recycling and Circular Economy',
-      slug: 'innovative-approaches-tech-recycling-circular-economy',
-      body: '<p>Electronic waste is a growing crisis in Africa. With over 50 million tonnes of e-waste generated globally each year, innovative recycling programmes and circular economy models offer a sustainable path forward — and an economic opportunity.</p><h2>The E-Waste Challenge in East Africa</h2><p>Uganda imports thousands of tonnes of electronic devices every year. When they reach end-of-life, most end up in informal dumpsites where they leach toxic materials into soil and groundwater. The formal recycling infrastructure barely exists.</p><h2>Circular Economy Principles</h2><p>A circular economy rethinks the entire lifecycle of technology:</p><ul><li><strong>Design for longevity.</strong> Products should be repairable, upgradeable, and modular.</li><li><strong>Refurbish and reuse.</strong> Before recycling, extend the life of devices through refurbishment programmes.</li><li><strong>Responsible recycling.</strong> When devices truly reach end-of-life, extract valuable materials safely and feed them back into manufacturing.</li></ul><h2>Innovations Worth Watching</h2><p>Several initiatives are making progress:</p><ul><li><strong>Closing the Loop</strong> — a social enterprise that collects scrap phones in Africa and feeds the materials back to European manufacturers.</li><li><strong>Repair cafes</strong> — community spaces where people learn to fix their own electronics, extending device lifespans.</li><li><strong>Urban mining</strong> — extracting precious metals from e-waste, which can be more efficient than traditional mining.</li></ul><p>For African technologists and entrepreneurs, e-waste is not just a problem to solve — it is a market to build. The companies that figure out efficient, local recycling infrastructure will create both environmental and economic value.</p>',
-      excerpt: 'How tech recycling and circular economy principles can address e-waste challenges.',
-      status: 'published',
-      category: 'E-Waste',
-      tags: ['e-waste', 'recycling', 'circular economy'],
-      publishedAt: new Date('2025-04-12'),
-    },
-    {
-      title: 'How Data Centers Are Transitioning to 100% Renewable Energy',
-      slug: 'how-data-centers-transitioning-100-renewable-energy',
-      body: '<p>Data centers are the backbone of our digital world, but they consume enormous amounts of electricity. The good news: the industry is making serious strides toward renewable energy, driven by both economics and environmental pressure.</p><h2>The Energy Footprint</h2><p>Data centers consume approximately 1-2% of global electricity — a figure that continues to grow as cloud computing, AI training, and streaming services expand. A single large data centre can consume as much electricity as a small city.</p><h2>The Transition</h2><p>Major tech companies are leading the charge:</p><ul><li><strong>Google</strong> has been carbon-neutral since 2007 and aims to run on 24/7 carbon-free energy by 2030.</li><li><strong>Microsoft</strong> has committed to being carbon-negative by 2030 and removing all historical emissions by 2050.</li><li><strong>Apple</strong> already powers all its facilities — including data centres — with 100% renewable energy.</li></ul><h2>Technologies Driving Change</h2><ol><li><strong>On-site solar and wind.</strong> Many new data centres are built with co-located renewable generation.</li><li><strong>Power Purchase Agreements (PPAs).</strong> Long-term contracts with renewable energy providers guarantee green electricity supply.</li><li><strong>Liquid cooling.</strong> Advanced cooling systems reduce the enormous energy overhead of keeping servers at optimal temperatures.</li><li><strong>AI-optimised operations.</strong> Machine learning is being used to dynamically adjust cooling and workload distribution for maximum efficiency.</li></ol><h2>Implications for Africa</h2><p>As Africa builds out its data centre infrastructure — with new facilities planned in Kenya, Nigeria, and South Africa — there is an opportunity to leapfrog the fossil-fuel-dependent model entirely. Africa has abundant solar and geothermal resources. The continent\'s data centres can be green from day one, if we plan accordingly.</p>',
-      excerpt: 'Tracking the data center industry\'s move toward renewable energy sources.',
-      status: 'published',
-      category: 'Renewable Energy',
-      tags: ['data centers', 'renewable energy', 'sustainability'],
-      publishedAt: new Date('2025-04-25'),
-    },
-  ]
-
-  for (const post of blogPosts) {
-    await prisma.blogPost.create({
-      data: {
-        ...post,
-        featuredImageUrl: '/images/stock/blog-hero.svg',
-        featuredImageAlt: post.title,
-      },
-    })
-  }
-  console.log(`  ✓ Created ${blogPosts.length} blog posts`)
-
-  // ==================== GALLERY MEDIA ====================
-  console.log('🖼️  Creating gallery media records...')
+  console.log('Creating gallery media records...')
   const galleryImages = [
     '85d3f15f-bbdb-4a25-bb62-a039a4ce3533.jpg',
     '89324abb-6cdb-4f3b-8506-5295a63108c7.jpg',
@@ -588,16 +503,14 @@ async function main() {
         storageId: `local/gallery/${path.parse(imgFile).name}`,
         type: 'image',
         size: 0,
-        altText: `Gallery image: ${imgFile}`,
         tags: ['gallery'],
       },
     })
     mediaMap.set(`gallery_${imgFile}`, media.id)
   }
-  console.log(`  ✓ Created ${galleryImages.length} gallery media records`)
+  console.log(`Created ${galleryImages.length} gallery media records`)
 
-  // ==================== GALLERY ITEMS ====================
-  console.log('🗺️  Creating gallery items...')
+  console.log('Creating gallery items...')
   // Assign categories; based on image names we infer
   const categoryAssignments: Record<string, string> = {
     '85d3f15f-bbdb-4a25-bb62-a039a4ce3533.jpg': 'Tech & Work',
@@ -636,10 +549,9 @@ async function main() {
       },
     })
   }
-  console.log(`  ✓ Created ${galleryImages.length} gallery items`)
+  console.log(`Created ${galleryImages.length} gallery items`)
 
-  // ==================== HERO IMAGES ====================
-  console.log('🖼️ Creating hero images...')
+  console.log('Creating hero images...')
   const heroGalleryImages = galleryImages.slice(0, 5)
   let heroOrder = 0
   for (const imgFile of heroGalleryImages) {
@@ -649,19 +561,18 @@ async function main() {
       data: { mediaId, order: heroOrder++, active: true },
     })
   }
-  console.log(`  ✓ Created ${heroGalleryImages.length} hero images`)
+  console.log(`Created ${heroGalleryImages.length} hero images`)
 
-  // ==================== PRESS ITEMS ====================
-  console.log('📰 Creating press items...')
+  console.log('Creating press items...')
   const pressItems = [
     {
       type: 'essay',
       title: "Corruption: The Rot That Has Infected Uganda\u2019s Health Sector.",
-      description: "Selected contributor to the Virtual National Students\u2019 Anti-Corruption Challenge \u2014 a partnership with the Office of the Auditor General, State House Anti-Corruption Unit, Parliament of Uganda, and German Cooperation (GIZ). The essay explores the systemic corruption plaguing Uganda\u2019s health sector and proposes institutional reforms.",
+      description: "Selected contributor to the Virtual National Students\u2019 Anti-Corruption Challenge, a partnership with the Office of the Auditor General, State House Anti-Corruption Unit, Parliament of Uganda, and German Cooperation (GIZ). The essay explores the systemic corruption plaguing Uganda\u2019s health sector and proposes institutional reforms.",
       source: '@NDCUganda',
       sourceUrl: 'https://x.com/NDCUganda',
       imageUrl: '/images/press/vnsac234-essay.jpg',
-      imageAlt: "Essay poster: Corruption \u2014 The Rot That Has Infected Uganda\u2019s Health Sector, by Bodo Desderio, Kampala International University.",
+      imageAlt: "Essay poster: Corruption: The Rot That Has Infected Uganda\u2019s Health Sector, by Bodo Desderio, Kampala International University.",
       externalUrl: 'https://x.com/NDCUganda/status/1790297774686191874',
       downloadUrl: '/images/press/vnsac234-essay.jpg',
       date: '2024',
@@ -670,7 +581,7 @@ async function main() {
     },
     {
       type: 'article',
-      title: 'Desderio Bodo Takes Charge as the New President of African Youth Congress \u2014 Ugandan Chapter',
+      title: 'Desderio Bodo Takes Charge as the New President of African Youth Congress, Ugandan Chapter',
       description: 'Written by Sedrick Otolo: "At just 22, Derrick is a student at KIU pursuing Computer Science with a software engineering specialisation. His passion for technology is evident. Yet, his contributions extend far beyond academia." The article covers Bodo\u2019s appointment as AYC President, his founding of the mental health platform "For Us", and his work with MentorMe360 and Kakebe Technologies.',
       source: 'Sedrick Otolo',
       sourceUrl: 'https://www.sedrickotolo.com',
@@ -697,10 +608,9 @@ async function main() {
   for (const item of pressItems) {
     await prisma.pressItem.create({ data: item })
   }
-  console.log(`  ✓ Created ${pressItems.length} press items`)
+  console.log(`Created ${pressItems.length} press items`)
 
-  // ==================== LINK CLIENT LOGOS ====================
-  console.log('🔗 Linking client logos to clients...')
+  console.log('Linking client logos to clients...')
   const clientLogoMap: Record<string, string> = {
     'Forus Foundation': 'IMG_0959.JPG',
     'Kakebe Technologies Limited': 'kakebe.jpg',
@@ -717,10 +627,9 @@ async function main() {
       await prisma.client.updateMany({ where: { name: clientName }, data: { logoMediaId: logoId } })
     }
   }
-  console.log('  ✓ Linked client logos')
+  console.log('Linked client logos')
 
-  // ==================== SUBSCRIBERS ====================
-  console.log('📧 Creating subscribers...')
+  console.log('Creating subscribers...')
   const subscribers = [
     { email: 'sarah.nakamya@gmail.com', name: 'Sarah Nakamya', confirmed: true, source: 'footer', subscribedAt: new Date('2025-02-12') },
     { email: 'james.otim@outlook.com', name: 'James Otim', confirmed: true, source: 'footer', subscribedAt: new Date('2025-02-20') },
@@ -736,10 +645,9 @@ async function main() {
   for (const sub of subscribers) {
     await prisma.subscriber.create({ data: sub })
   }
-  console.log(`  ✓ Created ${subscribers.length} subscribers`)
+  console.log(`Created ${subscribers.length} subscribers`)
 
-  // ==================== MESSAGES ====================
-  console.log('💌 Creating messages...')
+  console.log('Creating messages...')
   const messages = [
     {
       name: 'Harriet Auma',
@@ -763,7 +671,7 @@ async function main() {
       name: 'Monica Nanyonga',
       email: 'monica.n@kerinaturals.com',
       subject: 'Website performance report request',
-      body: 'Hi Bodo,\n\nHope you are doing well. The Keri Naturals e-commerce site has been performing brilliantly since your last round of updates — sales through the website have increased by 40% this quarter.\n\nWe would like to commission a performance audit and discuss adding a wholesale portal for our B2B customers. Could you send over a proposal?\n\nThanks,\nMonica',
+      body: 'Hi Bodo,\n\nHope you are doing well. The Keri Naturals e-commerce site has been performing brilliantly since your last round of updates, sales through the website have increased by 40% this quarter.\n\nWe would like to commission a performance audit and discuss adding a wholesale portal for our B2B customers. Could you send over a proposal?\n\nThanks,\nMonica',
       read: true,
       archived: false,
       receivedAt: new Date('2025-04-20T09:00:00'),
@@ -790,21 +698,20 @@ async function main() {
   for (const msg of messages) {
     await prisma.message.create({ data: msg })
   }
-  console.log(`  ✓ Created ${messages.length} messages`)
+  console.log(`Created ${messages.length} messages`)
 
-  // ==================== NEWSLETTER CAMPAIGNS ====================
-  console.log('📰 Creating newsletter campaigns...')
+  console.log('Creating newsletter campaigns...')
   const campaigns = [
     {
       subject: 'Building in Public, Q1 2025 Update',
-      bodyHtml: '<h2>What I\'ve been building</h2><p>The first quarter of 2025 has been intense. Rooibok Technologies launched two new client projects, and I\'ve been deep in the weeds of Next.js, Prisma, and building resilient systems for East African markets.</p><h3>Highlights</h3><ul><li><strong>Keri Naturals e-commerce rebuild</strong> — 40% increase in online sales since launch</li><li><strong>Lira University digital platform</strong> — now serving 2,000+ students</li><li><strong>Three new blog posts</strong> on sustainable web development, AI ethics, and the gender gap in CS education</li></ul><h3>What\'s next</h3><p>Q2 is shaping up to be about community. I\'m planning a series of tech workshops in Northern Uganda with Forus Foundation, and there are some exciting partnership conversations happening that I\'ll share more about soon.</p><p>As always, if you\'re building something meaningful and need a thought partner — my inbox is open.</p><p>— Bodo</p>',
+      bodyHtml: '<h2>What I\'ve been building</h2><p>The first quarter of 2025 has been intense. Rooibok Technologies launched two new client projects, and I\'ve been deep in the weeds of Next.js, Prisma, and building resilient systems for East African markets.</p><h3>Highlights</h3><ul><li><strong>Keri Naturals e-commerce rebuild</strong>, 40% increase in online sales since launch</li><li><strong>Lira University digital platform</strong>, now serving 2,000+ students</li><li><strong>Three new blog posts</strong> on sustainable web development, AI ethics, and the gender gap in CS education</li></ul><h3>What\'s next</h3><p>Q2 is shaping up to be about community. I\'m planning a series of tech workshops in Northern Uganda with Forus Foundation, and there are some exciting partnership conversations happening that I\'ll share more about soon.</p><p>As always, if you\'re building something meaningful and need a thought partner, my inbox is open.</p><p>— Bodo</p>',
       status: 'sent',
       sentAt: new Date('2025-04-01'),
       recipientCount: 8,
     },
     {
       subject: 'New essay: Corruption in Uganda\'s Health Sector',
-      bodyHtml: '<p>I was selected as a contributor to the Virtual National Students\' Anti-Corruption Challenge — a partnership with the Office of the Auditor General, Parliament of Uganda, and German Cooperation (GIZ).</p><p>The essay examines systemic corruption in Uganda\'s health sector and proposes institutional reforms. It was a deeply personal piece to write.</p><p><a href="/blog/responsible-ai-development-balancing-innovation-and-ethics">Read the full piece on my blog</a></p><p>I\'d love to hear your thoughts.</p><p>— Bodo</p>',
+      bodyHtml: '<p>I was selected as a contributor to the Virtual National Students\' Anti-Corruption Challenge, a partnership with the Office of the Auditor General, Parliament of Uganda, and German Cooperation (GIZ).</p><p>The essay examines systemic corruption in Uganda\'s health sector and proposes institutional reforms. It was a deeply personal piece to write.</p><p><a href="/blog/responsible-ai-development-balancing-innovation-and-ethics">Read the full piece on my blog</a></p><p>I\'d love to hear your thoughts.</p><p>— Bodo</p>',
       status: 'sent',
       sentAt: new Date('2025-02-15'),
       recipientCount: 5,
@@ -813,10 +720,9 @@ async function main() {
   for (const campaign of campaigns) {
     await prisma.newsletterCampaign.create({ data: campaign })
   }
-  console.log(`  ✓ Created ${campaigns.length} newsletter campaigns`)
+  console.log(`Created ${campaigns.length} newsletter campaigns`)
 
-  // ==================== ADMIN USER ====================
-  console.log('🔐 Creating admin user...')
+  console.log('Creating admin user...')
   await prisma.adminUser.create({
     data: {
       email: adminEmail,
@@ -830,17 +736,16 @@ async function main() {
     ],
     skipDuplicates: true,
   })
-  console.log('  ✓ Created admin user record')
+  console.log('Created admin user record')
 
   } // end !contentOnly demo-data block
 
-  // ==================== ABOUT PAGE CONTENT ====================
-  console.log('📄 Creating about page content...')
+  console.log('Creating about page content...')
   const aboutContentRows = [
     { page: 'about', section: 'hero', fieldKey: 'heading', value: 'About Bodo', fieldType: 'text' },
     { page: 'about', section: 'hero', fieldKey: 'subtitle', value: "I'm a founder, engineer, and community builder from Kampala. Here's the story, and why people come first.", fieldType: 'text' },
     { page: 'about', section: 'hero', fieldKey: 'image', value: '/images/hero/portrait-about.png', fieldType: 'image' },
-    { page: 'about', section: 'mission', fieldKey: 'statement', value: 'Technology is the means, not the mission, the mission is people.', fieldType: 'text' },
+    { page: 'about', section: 'mission', fieldKey: 'statement', value: 'Technology is the means. People are the mission.', fieldType: 'text' },
     {
       page: 'about',
       section: 'story',
@@ -905,10 +810,9 @@ async function main() {
       create: row,
     })
   }
-  console.log(`  ✓ Upserted ${aboutContentRows.length} about page content rows`)
+  console.log(`Upserted ${aboutContentRows.length} about page content rows`)
 
-  // ==================== SEO SETTINGS ====================
-  console.log('🔍 Creating SEO settings...')
+  console.log('Creating SEO settings...')
   const seoRows = [
     {
       page: 'home',
@@ -949,16 +853,15 @@ async function main() {
       create: seo,
     })
   }
-  console.log(`  ✓ Upserted ${seoRows.length} SEO settings`)
+  console.log(`Upserted ${seoRows.length} SEO settings`)
 
   if (contentOnly) {
     await syncCvProfile(prisma)
-    console.log('✅ CONTENT_ONLY: site copy + SEO refreshed. No other data touched.')
+    console.log('CONTENT_ONLY: site copy + SEO refreshed. No other data touched.')
     return
   }
 
-  // ==================== BANNERS ====================
-  console.log('🚩 Creating banners...')
+  console.log('Creating banners...')
 
   await prisma.banner.create({
     data: {
@@ -986,10 +889,9 @@ async function main() {
       newsletterHook: false,
     },
   })
-  console.log('  ✓ Created cookie consent banner')
+  console.log('Created cookie consent banner')
 
-  // ─── Projects ────────────────────────────────────
-  console.log('🚀 Creating projects...')
+  console.log('Creating projects...')
   const projects = [
     {
       title: 'Rooibok Technologies',
@@ -1054,10 +956,10 @@ async function main() {
   for (const project of projects) {
     await prisma.project.upsert({ where: { slug: project.slug }, update: project, create: project })
   }
-  console.log(`  ✓ Created ${projects.length} projects`)
+  console.log(`Created ${projects.length} projects`)
 
   await syncCvProfile(prisma)
-  console.log('✅ Seed completed successfully!')
+  console.log('Seed completed successfully!')
 }
 
 main()

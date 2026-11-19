@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
+import { ChevronRight } from 'lucide-react'
 import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
 
@@ -42,7 +42,7 @@ export default async function PagesIndex() {
                 <p className="font-serif text-base text-fg capitalize">{p.label}</p>
                 <p className="text-xs text-fg-muted mt-0.5">{n} editable fields</p>
               </div>
-              <ArrowRight className="h-4 w-4 text-fg-muted group-hover:text-brand transition-colors" />
+              <ChevronRight className="h-4 w-4 text-fg-muted group-hover:text-brand transition-colors" />
             </Link>
           )
         })}

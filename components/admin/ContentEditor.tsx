@@ -46,9 +46,7 @@ function groupBySection(rows: ContentRow[]): Record<string, ContentRow[]> {
   }, {})
 }
 
-// ---------------------------------------------------------------------------
 // Visual JSON array editor — renders structured form fields for known shapes
-// ---------------------------------------------------------------------------
 function JsonFieldEditor({
   value,
   onChange,

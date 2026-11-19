@@ -27,7 +27,8 @@ export async function PATCH(req: NextRequest) {
     clearConfigCache()
     if (SMTP_KEYS.includes(key)) resetTransporter()
     return NextResponse.json({ success: true })
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/config]', err)
     return NextResponse.json({ error: 'Update failed.' }, { status: 500 })
   }
 }

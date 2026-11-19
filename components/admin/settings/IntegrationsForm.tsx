@@ -59,7 +59,6 @@ export function IntegrationsForm({
 
   return (
     <div className="space-y-6">
-      {/* Analytics toggle */}
       <div className="rounded-2xl border border-hairline bg-card p-6 flex items-start justify-between gap-4">
         <div>
           <h2 className="font-serif text-lg text-fg">First-party analytics</h2>
@@ -79,7 +78,6 @@ export function IntegrationsForm({
         </button>
       </div>
 
-      {/* Reset analytics */}
       <div className="rounded-2xl border border-red-200 dark:border-red-900/50 bg-card p-6">
         <div className="flex items-start justify-between gap-4">
           <div>

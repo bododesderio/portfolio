@@ -60,7 +60,6 @@ function BannerPreviewModal({ form, onClose }: { form: FormState; onClose: () =>
     <div className="fixed inset-0 z-[99999] flex items-center justify-center">
       <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
       <div className="relative bg-card rounded-2xl border border-hairline shadow-2xl w-[90vw] max-w-3xl max-h-[85vh] flex flex-col overflow-hidden">
-        {/* Header */}
         <div className="flex items-center justify-between px-5 py-4 border-b border-hairline">
           <div>
             <h3 className="font-serif text-lg text-fg">Banner Preview</h3>
@@ -83,9 +82,7 @@ function BannerPreviewModal({ form, onClose }: { form: FormState; onClose: () =>
           </div>
         </div>
 
-        {/* Preview area — simulates a page */}
         <div className="relative flex-1 min-h-[400px] bg-surface overflow-hidden">
-          {/* Simulated page content */}
           <div className="p-8 space-y-4 opacity-30">
             <div className="h-6 w-48 bg-muted rounded" />
             <div className="h-4 w-full bg-muted rounded" />
@@ -96,7 +93,6 @@ function BannerPreviewModal({ form, onClose }: { form: FormState; onClose: () =>
             <div className="h-4 w-3/4 bg-muted rounded" />
           </div>
 
-          {/* The actual banner preview */}
           <div
             className={`absolute ${
               isBar && form.placement === 'top' ? 'top-0 left-0 right-0' :
@@ -145,7 +141,6 @@ function BannerPreviewModal({ form, onClose }: { form: FormState; onClose: () =>
           </div>
         </div>
 
-        {/* Animation thumbnails */}
         <div className="border-t border-hairline px-5 py-3">
           <p className="text-[10px] uppercase tracking-widest text-fg-muted mb-2">Quick switch animation</p>
           <div className="flex gap-2 overflow-x-auto pb-1">

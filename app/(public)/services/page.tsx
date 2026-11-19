@@ -45,8 +45,8 @@ export default async function CapabilitiesPage() {
         ))}
       </div>
       <div className="personal-intro-links">
-        <Link href="/projects">See the work ↗</Link>
-        <Link href="/contact">Get in touch ↗</Link>
+        <Link href="/projects">See the work →</Link>
+        <Link href="/contact">Get in touch →</Link>
       </div>
     </EntryLayout>
   )

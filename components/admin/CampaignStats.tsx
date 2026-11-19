@@ -75,7 +75,6 @@ export function CampaignStats({ campaigns }: { campaigns: Campaign[] }) {
           const isOpen = expanded === c.id
           return (
             <div key={c.id} className="border border-hairline rounded-xl overflow-hidden">
-              {/* Campaign header */}
               <button
                 type="button"
                 onClick={() => toggleExpand(c.id)}
@@ -88,7 +87,6 @@ export function CampaignStats({ campaigns }: { campaigns: Campaign[] }) {
                   </p>
                 </div>
 
-                {/* Compact stats */}
                 <div className="flex items-center gap-4 mr-3">
                   <Stat icon={Send} value={c.recipientCount} label="sent" />
                   <Stat icon={Mail} value={c.deliveredCount} label="delivered" color="text-emerald-500" />
@@ -100,10 +98,8 @@ export function CampaignStats({ campaigns }: { campaigns: Campaign[] }) {
                 {isOpen ? <ChevronUp className="h-4 w-4 text-fg-muted" /> : <ChevronDown className="h-4 w-4 text-fg-muted" />}
               </button>
 
-              {/* Expanded detail */}
               {isOpen && (
                 <div className="border-t border-hairline p-4 bg-muted/30">
-                  {/* Rate bars */}
                   <div className="grid grid-cols-3 gap-4 mb-4">
                     <div>
                       <p className="text-xs text-fg-muted mb-1">Open Rate</p>
@@ -119,7 +115,6 @@ export function CampaignStats({ campaigns }: { campaigns: Campaign[] }) {
                     </div>
                   </div>
 
-                  {/* Per-recipient table */}
                   {loading === c.id ? (
                     <p className="text-sm text-fg-muted">Loading recipients...</p>
                   ) : logs[c.id] && logs[c.id].length > 0 ? (

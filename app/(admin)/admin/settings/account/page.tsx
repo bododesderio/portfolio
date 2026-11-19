@@ -20,9 +20,7 @@ export default async function AccountPage() {
       <AdminPageHeader title="Account" description="Profile, security, and preferences." />
 
       <div className="grid lg:grid-cols-2 gap-6">
-        {/* Left column */}
         <div className="space-y-6">
-          {/* Profile card */}
           <div className="rounded-2xl border border-hairline bg-card p-6">
             <h2 className="font-serif text-lg text-fg mb-4">Profile</h2>
             <div className="space-y-3">
@@ -32,13 +30,10 @@ export default async function AccountPage() {
             </div>
           </div>
 
-          {/* Theme preference */}
           <ThemePreferenceSection initial={pref} />
         </div>
 
-        {/* Right column */}
         <div className="space-y-6">
-          {/* Password */}
           <div className="rounded-2xl border border-hairline bg-card p-6">
             <h2 className="font-serif text-lg text-fg mb-4">Change password</h2>
             <PasswordChangeForm />

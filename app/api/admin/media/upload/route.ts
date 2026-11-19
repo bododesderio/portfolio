@@ -68,7 +68,8 @@ export async function POST(req: NextRequest) {
     })
 
     return NextResponse.json(media)
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/media/upload]', err)
     return NextResponse.json({ error: 'Upload failed.' }, { status: 500 })
   }
 }

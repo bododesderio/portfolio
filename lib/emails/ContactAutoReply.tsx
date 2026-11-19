@@ -12,7 +12,7 @@ export function ContactAutoReply({ name }: { name: string }) {
         Hi {name}, thanks for reaching out. I&apos;ve received your message and will get back
         to you within 24–48 hours.
       </Text>
-      <Text style={p}>— Bodo Desderio</Text>
+      <Text style={p}>Bodo Desderio</Text>
     </EmailLayout>
   )
 }

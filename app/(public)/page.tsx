@@ -95,13 +95,12 @@ export default async function HomePage() {
   return (
     <EntryLayout contents={contents}>
       <EntryHeading
-        eyebrow="Life, work & everything in between"
+        eyebrow={profile.location}
         title={profile.name}
         description={profile.role}
       />
       <div className="personal-overview" id="introduction">
         <div className="personal-introduction">
-          <p className="personal-welcome">Hello, I’m Bodo.</p>
           {profile.introduction[0] ? (
             <RichText html={profile.introduction[0]} />
           ) : (
@@ -111,16 +110,16 @@ export default async function HomePage() {
             </p>
           )}
           <p>
-            This is my home on the internet. A place for my story, the things
-            I’m working on, the ideas I’m exploring, and the people and moments
-            along the way.
+            This site keeps my biography, the companies and software I work
+            on, what I write about, and photographs from tech camps, outreach
+            days and time with friends.
           </p>
           <div className="personal-intro-links">
             <Link href="/about">
-              More about me <span aria-hidden="true">↗</span>
+              More about me <span aria-hidden="true">→</span>
             </Link>
             <Link href="/contact">
-              Say hello <span aria-hidden="true">↗</span>
+              Say hello <span aria-hidden="true">→</span>
             </Link>
           </div>
           <div className="personal-interests-note">
@@ -157,8 +156,8 @@ export default async function HomePage() {
         linkLabel="Read the biography"
       >
         <p className="personal-section-intro">
-          The chapters that brought me here, and the things I’ve picked up along
-          the way.
+          Recent milestones in my education, work and community life. The full
+          history is on the About page.
         </p>
         <PersonalTimeline
           compact
@@ -207,10 +206,6 @@ export default async function HomePage() {
             ) : (
               <p>{getField(profile.home, 'community.body')}</p>
             )}
-            <p>
-              There’s more to my story than a job title. Community, education,
-              and the people around me are part of it too.
-            </p>
           </div>
         </div>
       </EntrySection>
@@ -225,10 +220,7 @@ export default async function HomePage() {
             {profile.interests
               .replace(/<[^>]*>/g, ' ')
               .replace(/\s+/g, ' ')
-              .trim()
-              .slice(0, 360)
-              .replace(/\s\S*$/, '')}
-            …
+              .trim()}
           </p>
         </EntrySection>
       )}
@@ -265,7 +257,7 @@ export default async function HomePage() {
           linkLabel="Open the gallery"
         >
           <p className="personal-section-intro">
-            A few moments from work, community, and life along the way.
+            Tech camps, outreach days, team work and time with friends.
           </p>
           <PhotoCollection items={photos} />
         </EntrySection>
@@ -296,7 +288,7 @@ export default async function HomePage() {
             </a>
           ))}
           <Link href="/contact">
-            Contact <span aria-hidden="true">↗</span>
+            Contact <span aria-hidden="true">→</span>
           </Link>
         </div>
       </EntrySection>

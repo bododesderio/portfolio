@@ -66,7 +66,7 @@ export default async function WorkPage({
           <article key={project.id} className="personal-project-entry">
             <Link
               href={`/projects/${project.slug}`}
-              className="personal-project-cover"
+              className={`personal-project-cover ${project.featuredImageUrl ? '' : 'is-placeholder'}`}
             >
               {project.featuredImageUrl ? (
                 <Image
@@ -79,7 +79,6 @@ export default async function WorkPage({
               ) : (
                 <div className="personal-project-type">
                   <PersonalIcon name="work" />
-                  <span>{project.category || 'Project'}</span>
                 </div>
               )}
               <span className="personal-project-state">
@@ -105,7 +104,7 @@ export default async function WorkPage({
                 className="personal-inline-link"
                 href={`/projects/${project.slug}`}
               >
-                Explore the project <span aria-hidden="true">↗</span>
+                Explore the project <span aria-hidden="true">→</span>
               </Link>
             </div>
           </article>

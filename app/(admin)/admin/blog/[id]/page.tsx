@@ -31,7 +31,7 @@ export default async function BlogEditorPage({ params }: Props) {
               rel="noopener noreferrer"
               className="text-sm text-brand"
             >
-              View published piece ↗
+              View published piece
             </Link>
           ) : undefined
         }

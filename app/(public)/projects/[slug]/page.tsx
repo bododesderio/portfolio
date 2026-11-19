@@ -98,15 +98,15 @@ export default async function ProjectPage({ params }: Props) {
           <dt>Timeline</dt>
           <dd>
             {project.startDate
-              ? `${month(project.startDate)}${project.ongoing ? ' — Present' : project.endDate ? ` — ${month(project.endDate)}` : ''}`
+              ? `${month(project.startDate)}${project.ongoing ? ' – Present' : project.endDate ? ` – ${month(project.endDate)}` : ''}`
               : project.ongoing
                 ? 'Ongoing'
-                : '—'}
+                : 'Undated'}
           </dd>
         </div>
         <div>
           <dt>Tools & technologies</dt>
-          <dd>{project.techStack.join(' · ') || '—'}</dd>
+          <dd>{project.techStack.join(' · ') || 'Not listed'}</dd>
         </div>
       </dl>
       {project.featuredImageUrl && (

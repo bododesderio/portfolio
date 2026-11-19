@@ -32,7 +32,7 @@ export function ConfirmSubscription({ name, confirmUrl }: { name?: string; confi
       <Text style={p}>
         If you didn&apos;t sign up, you can safely ignore this email.
       </Text>
-      <Text style={p}>— Bodo</Text>
+      <Text style={p}>Bodo</Text>
     </EmailLayout>
   )
 }

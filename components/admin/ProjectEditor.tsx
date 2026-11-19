@@ -229,7 +229,6 @@ export function ProjectEditor({ project }: { project: Project | null }) {
           {visible ? 'Visible on your portfolio' : 'Hidden from your portfolio'}{' '}
           · {statusOption.label}
         </span>
-        {/* Save */}
         <button
           type="button"
           onClick={handleSave}
@@ -241,7 +240,6 @@ export function ProjectEditor({ project }: { project: Project | null }) {
         </button>
       </div>
       <div className="grid lg:grid-cols-3 gap-6">
-        {/* Main content */}
         <div className="lg:col-span-2 space-y-6">
           <div>
             <label
@@ -288,7 +286,6 @@ export function ProjectEditor({ project }: { project: Project | null }) {
             />
           </div>
 
-          {/* Gallery images */}
           <div className="rounded-2xl border border-hairline bg-card p-6 space-y-4">
             <div className="flex items-center justify-between">
               <div>
@@ -339,10 +336,8 @@ export function ProjectEditor({ project }: { project: Project | null }) {
           </div>
         </div>
 
-        {/* Sidebar */}
         <div className="space-y-6">
           <div className="bg-card rounded-2xl border border-hairline p-6 space-y-5">
-            {/* Status */}
             <div>
               <span
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${statusOption.color}`}
@@ -424,7 +419,6 @@ export function ProjectEditor({ project }: { project: Project | null }) {
               <p className="text-xs text-fg-muted mt-1">Comma-separated tags</p>
             </div>
 
-            {/* Duration */}
             <div className="space-y-3">
               <label className="block text-sm font-medium text-fg-muted">
                 Duration
@@ -472,7 +466,6 @@ export function ProjectEditor({ project }: { project: Project | null }) {
               )}
             </div>
 
-            {/* Links */}
             <div className="space-y-3">
               <label className="block text-sm font-medium text-fg-muted">
                 Links
@@ -495,7 +488,6 @@ export function ProjectEditor({ project }: { project: Project | null }) {
               />
             </div>
 
-            {/* Order */}
             <div>
               <label
                 htmlFor="work-order"
@@ -512,7 +504,6 @@ export function ProjectEditor({ project }: { project: Project | null }) {
               />
             </div>
 
-            {/* Toggles */}
             <div className="space-y-3 pt-2 border-t border-hairline">
               <label className="flex items-center justify-between cursor-pointer">
                 <span className="text-sm text-fg flex items-center gap-2">
@@ -540,7 +531,6 @@ export function ProjectEditor({ project }: { project: Project | null }) {
           </div>
           <details className="admin-cover-details" open={!project}>
             <summary>Cover image & alt text</summary>
-            {/* Featured image */}
             <div className="rounded-2xl border border-hairline bg-card p-6 space-y-4">
               <div>
                 <h2 className="font-serif text-lg text-fg">Featured image</h2>

@@ -17,7 +17,7 @@ export function WelcomeEmail({ name, unsubscribeUrl }: { name?: string; unsubscr
       <Text style={p}>
         I&apos;ll send occasional updates on what I&apos;m building, thinking, and doing. No spam, ever.
       </Text>
-      <Text style={p}>— Bodo</Text>
+      <Text style={p}>Bodo</Text>
     </EmailLayout>
   )
 }

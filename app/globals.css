@@ -64,6 +64,8 @@ html {
   text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /* Keeps the sticky header from shifting sideways when a page grows a scrollbar. */
+  scrollbar-gutter: stable;
 }
 
 html.dark {
@@ -103,69 +105,6 @@ h1, h2, h3, h4, h5, h6 {
   }
   .bg-hairline {
     background-color: rgb(var(--hairline) / var(--hairline-a));
-  }
-
-  /* Subtle grain overlay — apply as ::before pseudo on a positioned container */
-  .noise::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.06 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-    background-size: 120px 120px;
-    pointer-events: none;
-    opacity: 1;
-    mix-blend-mode: overlay;
-  }
-
-  .glass {
-    background: color-mix(in srgb, rgb(var(--surface)) 80%, transparent);
-    -webkit-backdrop-filter: saturate(140%) blur(14px);
-    backdrop-filter: saturate(140%) blur(14px);
-    border: 1px solid rgb(var(--hairline) / var(--hairline-a));
-    box-shadow:
-      inset 0 1px 0 0 rgba(255,255,255,0.05),
-      0 1px 24px -8px rgba(0,0,0,0.35);
-  }
-
-  .text-gradient-brand {
-    background: linear-gradient(180deg, currentColor 0%, currentColor 55%, rgb(var(--brand) / 0.85) 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-  }
-
-  .divider-dot {
-    background-image: radial-gradient(circle, rgb(var(--hairline) / var(--hairline-a)) 1px, transparent 1.5px);
-    background-size: 10px 10px;
-    background-repeat: repeat-x;
-    background-position: center;
-    height: 1px;
-  }
-
-  .mask-fade-x {
-    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-            mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-  }
-
-  .ring-halo {
-    position: relative;
-    isolation: isolate;
-  }
-  .ring-halo::after {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: inherit;
-    background: conic-gradient(from 180deg at 50% 50%, rgb(var(--brand) / 0) 0deg, rgb(var(--brand) / 0.6) 120deg, rgb(var(--brand) / 0) 240deg);
-    filter: blur(14px);
-    z-index: -1;
-    opacity: 0;
-    transition: opacity 0.4s ease;
-  }
-  .ring-halo:hover::after {
-    opacity: 1;
   }
 
   .tabular {
@@ -209,7 +148,6 @@ h1, h2, h3, h4, h5, h6 {
     }
   }
 
-  /* Custom styled select dropdowns — replaces default browser selects */
   select.select-styled,
   .admin-select {
     appearance: none;

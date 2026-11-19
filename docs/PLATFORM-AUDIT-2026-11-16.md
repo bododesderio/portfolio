@@ -1,6 +1,6 @@
 # Portfolio audit and original redesign proposal
 
-**Design status:** The original visual proposal below was rejected and is superseded by the [implemented personal archive redesign](personal-redesign/README.md). Retain this document as the baseline audit; its findings describe the site before that implementation.
+**Design status:** The original visual proposal below was rejected and is superseded by the personal archive redesign (`c56e5e9`). Retain this document as the baseline audit; its findings describe the site before that implementation.
 
 **Site:** bododesderio.com · **Observed:** 16 November 2026 · **Scope:** public experience, CMS/admin, API boundaries, database, publishing/email, analytics, SEO, dependencies, and deployment configuration.
 
@@ -175,7 +175,7 @@ The next concrete decision is the visual direction shown in the prototype. The p
 
 ## Implemented follow-up
 
-The original design proposal above is superseded by [the personal archive implementation](personal-redesign/README.md). The follow-up fixes the ProfilePage JSON-LD, verifies concrete authenticated identities at admin boundaries, repairs uppercase gallery image optimization, makes the public content visible without JavaScript, and adds bounded public search and server-filtered archives. Production has been backed up before the app-only deployment.
+The original design proposal above is superseded by the personal archive implementation (`c56e5e9`). The follow-up fixes the ProfilePage JSON-LD, verifies concrete authenticated identities at admin boundaries, repairs uppercase gallery image optimization, makes the public content visible without JavaScript, and adds bounded public search and server-filtered archives. Production has been backed up before the app-only deployment.
 
 The second UI pass also redesigns the administration workspace, editors, inbox, and content lists. It removes analytics queries from the main overview, counts distinct visitor sessions in PostgreSQL, adds work to authenticated search, prevents stale search responses, corrects global list counts, retains filters during pagination, preserves in-progress fields during section collapse/filtering, and fixes the timeline editor's field-shape mismatch. All admin pages now inherit noindex metadata. See the release report and verification artifacts for actual checks.
 

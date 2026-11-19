@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { ArrowUpRight, ArrowDownRight, Minus } from 'lucide-react'
+import { TrendingUp, TrendingDown, Minus } from 'lucide-react'
 import { Sparkline } from './Sparkline'
 
 export function KpiCard({
@@ -73,7 +73,7 @@ function DeltaChip({ value }: { value: number }) {
   }
   const up = value > 0
   const color = up ? 'text-emerald-500 dark:text-emerald-400' : 'text-rose-500 dark:text-rose-400'
-  const Icon = up ? ArrowUpRight : ArrowDownRight
+  const Icon = up ? TrendingUp : TrendingDown
   return (
     <span className={`inline-flex items-center gap-1 text-[11px] font-medium ${color}`}>
       <Icon className="h-3 w-3" />

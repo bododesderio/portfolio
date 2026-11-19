@@ -164,7 +164,7 @@ export default async function AdminProjectsPage({
               href={all ? '/admin/projects' : '/admin/projects/new'}
               className="text-brand inline-block mt-3"
             >
-              {all ? 'Clear filters' : 'Add your first project'} ↗
+              {all ? 'Clear filters' : 'Add your first project'}
             </Link>
           </div>
         )}

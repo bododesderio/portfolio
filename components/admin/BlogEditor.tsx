@@ -50,9 +50,7 @@ type Attribution = {
   source_url?: string
 }
 
-// ---------------------------------------------------------------------------
 // Draft auto-save helpers
-// ---------------------------------------------------------------------------
 const AUTOSAVE_INTERVAL = 30_000 // 30 seconds
 
 function getDraftKey(postId: string | undefined) {
@@ -129,7 +127,6 @@ export function BlogEditor({ post }: { post: Post | null }) {
 
   const isPublished = status === 'published'
 
-  // --- Draft recovery on mount ---
   useEffect(() => {
     const draft = loadDraftFromStorage(draftKey)
     if (draft) {
@@ -158,7 +155,6 @@ export function BlogEditor({ post }: { post: Post | null }) {
     setDraftBanner(false)
   }, [draftKey])
 
-  // --- Auto-save timer ---
   useEffect(() => {
     autoSaveTimer.current = setInterval(() => {
       const payload: DraftPayload = {
@@ -349,7 +345,6 @@ export function BlogEditor({ post }: { post: Post | null }) {
 
   return (
     <div className="admin-editor space-y-6">
-      {/* Draft recovery banner */}
       {draftBanner && (
         <div className="flex items-center justify-between gap-4 rounded-xl border border-amber-300 dark:border-amber-700 bg-amber-50 dark:bg-amber-900/20 px-5 py-3 text-sm text-amber-800 dark:text-amber-300">
           <span>An unsaved draft was found. Resume where you left off?</span>
@@ -430,10 +425,8 @@ export function BlogEditor({ post }: { post: Post | null }) {
           </div>
         </div>
 
-        {/* Sidebar panel */}
         <div className="space-y-6">
           <div className="bg-card rounded-2xl border border-hairline p-6 space-y-5">
-            {/* Status badge */}
             <div className="flex items-center gap-2">
               <span
                 className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium ${
@@ -491,9 +484,7 @@ export function BlogEditor({ post }: { post: Post | null }) {
               />
             </div>
 
-            {/* Action buttons */}
             <div className="space-y-3 pt-2">
-              {/* Save Draft button */}
               {!isPublished && (
                 <button
                   type="button"
@@ -506,7 +497,6 @@ export function BlogEditor({ post }: { post: Post | null }) {
                 </button>
               )}
 
-              {/* Publish / Update button */}
               {!isPublished ? (
                 <button
                   type="button"
@@ -542,7 +532,6 @@ export function BlogEditor({ post }: { post: Post | null }) {
           </div>
           <details className="admin-cover-details" open={!post}>
             <summary>Cover image & alt text</summary>
-            {/* Featured image */}
             <div className="rounded-2xl border border-hairline bg-card p-6 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
@@ -613,7 +602,6 @@ export function BlogEditor({ post }: { post: Post | null }) {
         </div>
       </div>
 
-      {/* Publish confirmation dialog */}
       {publishDialogOpen && (
         <PublishDialog
           title={title}
@@ -683,7 +671,6 @@ function PublishDialog({
           </p>
         </div>
 
-        {/* Notify subscribers option */}
         <label className="flex items-start gap-3 p-4 rounded-xl border border-hairline hover:border-brand/30 cursor-pointer transition-colors">
           <input
             type="checkbox"

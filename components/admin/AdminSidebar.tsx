@@ -25,7 +25,7 @@ import {
   Settings,
   Image,
   BarChart3,
-  ArrowUpRight,
+  ExternalLink,
   ChevronDown,
   Navigation,
   Search,
@@ -199,7 +199,7 @@ export function AdminSidebar({
             className="admin-view-site"
           >
             <span>View portfolio</span>
-            <ArrowUpRight size={16} />
+            <ExternalLink size={15} aria-hidden="true" />
           </Link>
           <div className="admin-account">
             <span className="admin-avatar">{email[0]?.toUpperCase()}</span>

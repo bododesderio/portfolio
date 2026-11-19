@@ -118,7 +118,6 @@ export function MediaLibrary({ initialMedia }: { initialMedia: MediaItem[] }) {
 
   return (
     <div>
-      {/* Tabs */}
       <div className="flex items-center gap-1 mb-6 border-b border-hairline">
         <button
           onClick={() => setTab('all')}
@@ -139,7 +138,6 @@ export function MediaLibrary({ initialMedia }: { initialMedia: MediaItem[] }) {
         </button>
       </div>
 
-      {/* Upload zone */}
       <div
         {...getRootProps()}
         className={`border-2 border-dashed rounded-2xl p-12 text-center cursor-pointer transition-colors mb-8 ${
@@ -155,7 +153,6 @@ export function MediaLibrary({ initialMedia }: { initialMedia: MediaItem[] }) {
         </p>
       </div>
 
-      {/* Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {displayMedia.map(item => (
           <div
@@ -180,7 +177,6 @@ export function MediaLibrary({ initialMedia }: { initialMedia: MediaItem[] }) {
         ))}
       </div>
 
-      {/* Detail panel */}
       {selected && (
         <div className="fixed inset-y-0 right-0 w-80 bg-card border-l border-hairline p-6 shadow-xl z-40 overflow-y-auto">
           <div className="flex items-center justify-between mb-4">
@@ -193,7 +189,6 @@ export function MediaLibrary({ initialMedia }: { initialMedia: MediaItem[] }) {
           <p className="text-sm text-fg-muted mb-1 truncate">{selected.filename}</p>
           <p className="text-xs text-ink-400 mb-4">{new Date(selected.uploadedAt).toLocaleDateString()}</p>
 
-          {/* Gallery controls */}
           <div className="mb-4 p-3 rounded-xl bg-muted/50 space-y-2">
             <p className="text-xs font-medium text-fg-muted uppercase tracking-wider">Gallery</p>
             <button

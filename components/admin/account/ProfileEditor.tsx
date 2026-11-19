@@ -43,7 +43,6 @@ export function ProfileEditor({ initialName, initialAvatarUrl, email }: ProfileE
         <p className="text-sm text-fg-muted mt-1">Update your display name and avatar.</p>
       </div>
 
-      {/* Avatar preview */}
       <div className="flex items-center gap-5">
         <div className="relative h-20 w-20 rounded-full overflow-hidden bg-muted border border-hairline flex-shrink-0">
           {avatarUrl ? (
@@ -60,7 +59,6 @@ export function ProfileEditor({ initialName, initialAvatarUrl, email }: ProfileE
         </div>
       </div>
 
-      {/* Name field */}
       <div>
         <label htmlFor="profile-name" className="block text-xs text-fg-muted mb-1">Display name</label>
         <input
@@ -73,7 +71,6 @@ export function ProfileEditor({ initialName, initialAvatarUrl, email }: ProfileE
         />
       </div>
 
-      {/* Avatar picker */}
       <MediaPickerField
         value={avatarUrl}
         onChange={setAvatarUrl}

@@ -183,7 +183,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
 
   return (
     <div className="grid lg:grid-cols-2 gap-8">
-      {/* Left column: item list */}
       <div className="space-y-4">
         <button
           onClick={startAdd}
@@ -226,7 +225,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
                 </p>
               </div>
 
-              {/* Reorder buttons */}
               <div className="flex flex-col gap-0.5 flex-shrink-0">
                 <button
                   onClick={() => handleReorder(item.id, 'up')}
@@ -275,7 +273,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
         ))}
       </div>
 
-      {/* Right column: form */}
       {showForm && (
         <div className="bg-card rounded-2xl border border-hairline p-6 h-fit lg:sticky lg:top-8">
           <h2 className="font-serif text-xl text-fg mb-6">
@@ -283,7 +280,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
           </h2>
 
           <div className="space-y-4">
-            {/* Type */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">Type</label>
               <select
@@ -297,7 +293,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               </select>
             </div>
 
-            {/* Title */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">Title</label>
               <input
@@ -308,7 +303,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               />
             </div>
 
-            {/* Description */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">Description</label>
               <textarea
@@ -320,7 +314,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               />
             </div>
 
-            {/* Source */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">Source</label>
               <input
@@ -331,7 +324,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               />
             </div>
 
-            {/* Source URL */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">Source URL</label>
               <input
@@ -342,7 +334,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               />
             </div>
 
-            {/* Image */}
             <MediaPickerField
               label="Image"
               value={form.imageUrl}
@@ -350,7 +341,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               placeholder="Pick or paste an image..."
             />
 
-            {/* Image Alt */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">Image Alt Text</label>
               <input
@@ -361,7 +351,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               />
             </div>
 
-            {/* External URL */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">External URL</label>
               <input
@@ -372,7 +361,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               />
             </div>
 
-            {/* Download URL */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">Download URL</label>
               <input
@@ -383,7 +371,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               />
             </div>
 
-            {/* Date */}
             <div>
               <label className="block text-xs text-fg-muted mb-1">Date</label>
               <input
@@ -394,7 +381,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               />
             </div>
 
-            {/* Visible toggle */}
             <label className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
@@ -405,7 +391,6 @@ export function PressManager({ initialItems }: { initialItems: PressItem[] }) {
               <span className="text-sm text-fg-muted">Visible on site</span>
             </label>
 
-            {/* Actions */}
             <div className="flex gap-3 pt-2">
               <button
                 onClick={handleSave}

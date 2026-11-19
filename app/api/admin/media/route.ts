@@ -23,7 +23,8 @@ export async function GET() {
     })
 
     return NextResponse.json(media)
-  } catch {
+  } catch (err) {
+    console.error('[/api/admin/media]', err)
     return NextResponse.json({ error: 'Server error' }, { status: 500 })
   }
 }

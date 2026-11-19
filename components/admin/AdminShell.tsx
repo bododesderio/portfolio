@@ -19,7 +19,10 @@ export function AdminShell({
   useEffect(() => {
     try {
       setCollapsed(localStorage.getItem('bodo-admin-sidebar') === 'collapsed')
-    } catch {}
+    } catch {
+      // Storage is blocked in some private windows; the sidebar stays expanded.
+      setCollapsed(false)
+    }
   }, [])
   function toggleSidebar() {
     setCollapsed((value) => {
@@ -29,7 +32,9 @@ export function AdminShell({
           'bodo-admin-sidebar',
           next ? 'collapsed' : 'expanded'
         )
-      } catch {}
+      } catch {
+        // Storage is blocked in some private windows; the choice lasts for this visit only.
+      }
       return next
     })
   }

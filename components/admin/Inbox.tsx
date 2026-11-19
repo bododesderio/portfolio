@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react'
-import { ArrowLeft, Mail, ArrowUpRight } from 'lucide-react'
+import { ChevronLeft, Mail } from 'lucide-react'
 import { MessageActions } from './MessageActions'
 type Message = {
   id: string
@@ -62,7 +62,7 @@ export function Inbox({ messages }: { messages: Message[] }) {
               className="admin-inbox-back"
               onClick={() => setSelected(null)}
             >
-              <ArrowLeft size={16} />
+              <ChevronLeft size={16} />
               Back to messages
             </button>
             <header>
@@ -80,7 +80,7 @@ export function Inbox({ messages }: { messages: Message[] }) {
                   <strong>{active.name}</strong>
                   <a href={`mailto:${active.email}`}>
                     {active.email}
-                    <ArrowUpRight size={12} />
+                    <Mail size={12} aria-hidden="true" />
                   </a>
                 </span>
                 <MessageActions
