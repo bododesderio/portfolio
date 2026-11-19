@@ -1,9 +1,12 @@
+import { headers } from 'next/headers'
+import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import { PageViewTracker } from '@/components/analytics/PageViewTracker'
 import { BannerRenderer } from '@/components/ui/BannerRenderer'
 import { getSiteSetting } from '@/lib/data/content'
 import { readNavigation } from '@/lib/domain/profile'
+import { HEADER_BEHAVIOR_KEY, readHeaderBehavior } from '@/lib/domain/header-behavior'
 import './personal.css'
 
 type NavLink = { label: string; href: string; visible: boolean }
@@ -18,10 +21,13 @@ const DEFAULT_NAV_LINKS: NavLink[] = [
 ]
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
-  const [analyticsEnabled, navLinksRaw] = await Promise.all([
+  const [analyticsEnabled, navLinksRaw, requestHeaders, headerBehavior] = await Promise.all([
     getSiteSetting('admin.analytics_enabled').then(v => v !== 'false'),
     getSiteSetting('nav.links'),
+    headers(),
+    getSiteSetting(HEADER_BEHAVIOR_KEY).then(readHeaderBehavior),
   ])
+  const maintenancePreview = requestHeaders.get('x-maintenance-preview') === '1'
 
   const navLinks = readNavigation(navLinksRaw, DEFAULT_NAV_LINKS)
 
@@ -37,7 +43,14 @@ export default async function PublicLayout({ children }: { children: React.React
       >
         Skip to main content
       </a>
-      <Header navLinks={visibleLinks} />
+      {maintenancePreview && (
+        <p className="personal-maintenance-notice" role="status">
+          Maintenance mode is on. Visitors see the maintenance page; you are
+          seeing the site because you are signed in.{' '}
+          <Link href="/admin/system/maintenance">Turn it off</Link>
+        </p>
+      )}
+      <Header navLinks={visibleLinks} behavior={headerBehavior} />
       <main id="main-content" className="personal-main">
         {children}
       </main>

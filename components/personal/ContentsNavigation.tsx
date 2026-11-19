@@ -1,13 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import type { ContentsItem } from './EntryLayout'
-export function ContentsNavigation({
-  items,
-  mobile = false,
-}: {
-  items: ContentsItem[]
-  mobile?: boolean
-}) {
+export function ContentsNavigation({ items }: { items: ContentsItem[] }) {
   const [active, setActive] = useState(items[0]?.id || '')
   useEffect(() => {
     let frame = 0
@@ -40,13 +34,7 @@ export function ContentsNavigation({
           <a
             href={`#${item.id}`}
             aria-current={active === item.id ? 'location' : undefined}
-            onClick={(event) => {
-              setActive(item.id)
-              if (mobile) {
-                const details = event.currentTarget.closest('details')
-                if (details) details.open = false
-              }
-            }}
+            onClick={() => setActive(item.id)}
           >
             <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>
             {item.label}

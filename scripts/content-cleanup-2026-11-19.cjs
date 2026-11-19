@@ -2,6 +2,7 @@
 //  - Deletes the six sample articles the original seed published.
 //  - Removes em dashes from press items, fixes the mission statement, replaces
 //    the generic login subtitle, and clears file names used as photo alt text.
+//  - Replaces the "Founder. Leader. Builder." tagline and adds the YouTube channel.
 const { PrismaClient } = require('@prisma/client')
 const p = new PrismaClient()
 
@@ -19,6 +20,10 @@ const OLD_LOGIN_SUBTITLE =
   'Building companies, communities, and technology that move people forward.'
 const NEW_LOGIN_SUBTITLE =
   'Biography, work, writing and photographs, edited from one place.'
+
+const OLD_TAGLINE = 'Founder. Leader. Builder.'
+const NEW_TAGLINE = 'Software engineer and SEO specialist in Lira City, Uganda'
+const YOUTUBE_URL = 'https://www.youtube.com/@BodoDesderio'
 
 const titleWithoutDash = (text) =>
   text.replace(/Congress — Ugandan/g, 'Congress, Ugandan').replace(/ — /g, ': ')
@@ -47,7 +52,9 @@ async function plan(tx) {
   const fileNameAlts = await tx.media.count({
     where: { altText: { startsWith: 'Gallery image:' } },
   })
-  return { posts, press, mission, loginSubtitle, fileNameAlts }
+  const tagline = await tx.siteSettings.findFirst({ where: { key: 'site.tagline', value: OLD_TAGLINE } })
+  const youtube = await tx.siteSettings.findUnique({ where: { key: 'social.youtube' } })
+  return { posts, press, mission, loginSubtitle, fileNameAlts, tagline, youtubeMissing: !youtube?.value }
 }
 
 async function main(apply) {
@@ -61,6 +68,8 @@ async function main(apply) {
           missionStatement: Boolean(found.mission),
           loginSubtitle: Boolean(found.loginSubtitle),
           fileNameAltTexts: found.fileNameAlts,
+          tagline: Boolean(found.tagline),
+          youtubeMissing: found.youtubeMissing,
           apply,
         },
         null,
@@ -77,6 +86,14 @@ async function main(apply) {
       await tx.siteSettings.update({
         where: { key: 'login_overlay_subtitle' },
         data: { value: NEW_LOGIN_SUBTITLE },
+      })
+    if (found.tagline)
+      await tx.siteSettings.update({ where: { key: 'site.tagline' }, data: { value: NEW_TAGLINE } })
+    if (found.youtubeMissing)
+      await tx.siteSettings.upsert({
+        where: { key: 'social.youtube' },
+        update: { value: YOUTUBE_URL },
+        create: { key: 'social.youtube', value: YOUTUBE_URL },
       })
     await tx.media.updateMany({
       where: { altText: { startsWith: 'Gallery image:' } },

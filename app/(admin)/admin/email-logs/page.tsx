@@ -55,7 +55,7 @@ export default async function EmailLogsPage({ searchParams }: Props) {
       </div>
 
       <div className="mb-8">
-        <EmailStatsCard stats={stats} />
+        <EmailStatsCard stats={stats} period="Last 30 days" />
       </div>
 
       <div className="bg-card rounded-2xl border border-hairline overflow-hidden">

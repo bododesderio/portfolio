@@ -85,7 +85,12 @@
       "Bash(cmd.exe /c \"docker volume create portfolio_uploads_data\")",
       "Bash(cmd.exe /c \"docker info\")",
       "Bash(pnpm test:*)",
-      "Bash(DATABASE_URL=\"postgresql://build:build@localhost:5432/build\" pnpm exec next build --webpack)"
+      "Bash(DATABASE_URL=\"postgresql://build:build@localhost:5432/build\" pnpm exec next build --webpack)",
+      "Bash(scp -o BatchMode=yes -o ConnectTimeout=10 \"/tmp/claude-1000/-Data-Projects-portfolio/91d5945b-17fc-46aa-a251-dcfaae9c28b8/scratchpad/provision-env.sh\" root@195.110.59.36:/root/provision-env.sh)",
+      "Bash(echo \"=== scp exit: $? ===\")",
+      "Bash(ssh -o BatchMode=yes -o ConnectTimeout=10 root@195.110.59.36 'bash /root/provision-env.sh')",
+      "Bash(echo \"=== ssh exit: $? ===\")",
+      "Bash(ssh -o BatchMode=yes -o ConnectTimeout=10 root@195.110.59.36 'cd /opt/portfolio && docker compose -f compose.vps.yaml up -d --build 2>&1 | tail -40; echo \"=== up exit: ${PIPESTATUS[0]} ===\"')"
     ]
   }
 }

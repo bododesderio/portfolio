@@ -17,6 +17,7 @@ import { useRouter } from 'next/navigation'
 import toast from 'react-hot-toast'
 import slugify from 'slugify'
 import { Save, Eye, Star, X as XIcon } from 'lucide-react'
+import { useUnsavedChanges } from '@/components/admin/shell/UnsavedChanges'
 import { MediaPickerField, type PickedMedia } from './MediaPickerField'
 
 interface ProjectImage {
@@ -108,6 +109,12 @@ export function ProjectEditor({ project }: { project: Project | null }) {
   const [order, setOrder] = useState(project?.order ?? 0)
   const [images, setImages] = useState<ProjectImage[]>(project?.images ?? [])
   const [saving, setSaving] = useState(false)
+  const snapshot = JSON.stringify([
+    title, slug, excerpt, body, featuredImageUrl, featuredImageAlt, status, category,
+    techStackInput, liveUrl, githubUrl, startDate, endDate, ongoing, visible, featured, order, images,
+  ])
+  const [savedSnapshot, setSavedSnapshot] = useState(snapshot)
+  const unsaved = useUnsavedChanges(snapshot !== savedSnapshot)
 
   const handleTitleChange = useCallback(
     (val: string) => {
@@ -209,7 +216,9 @@ export function ProjectEditor({ project }: { project: Project | null }) {
         throw new Error((data as { error?: string }).error || 'Save failed')
       }
 
-      toast.success(project ? 'Project updated!' : 'Project created!')
+      setSavedSnapshot(snapshot)
+      unsaved.clear()
+      toast.success(project ? 'Project updated.' : 'Project created.')
       if (!project) router.push('/admin/projects')
       else router.refresh()
     } catch (err) {

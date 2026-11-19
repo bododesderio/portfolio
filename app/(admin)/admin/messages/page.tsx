@@ -10,7 +10,7 @@ export const dynamic = 'force-dynamic'
 export default async function MessagesPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string; status?: string; page?: string }>
+  searchParams: Promise<{ q?: string; status?: string; page?: string; id?: string }>
 }) {
   const params = await searchParams
   const query =
@@ -78,7 +78,12 @@ export default async function MessagesPage({
           { value: 'archived', label: 'Archived', count: archived },
         ]}
       />
-      <Inbox messages={messages} />
+      <Inbox
+        messages={messages}
+        initialSelected={
+          messages.some((message) => message.id === params.id) ? params.id : null
+        }
+      />
       <Pagination
         currentPage={page}
         totalPages={totalPages}

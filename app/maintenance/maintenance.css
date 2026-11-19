@@ -1,0 +1,71 @@
+.maintenance-page {
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: 32px 16px;
+  background: var(--paper);
+  color: var(--text);
+  font-family: var(--font-inter);
+}
+.maintenance-card {
+  width: min(460px, 100%);
+  text-align: center;
+}
+.maintenance-mark {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 20px;
+  color: var(--accent);
+}
+.maintenance-eyebrow {
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  color: var(--subtle);
+  margin: 0 0 10px;
+}
+.maintenance-card h1 {
+  font-size: 24px;
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  margin: 0 0 14px;
+}
+.maintenance-card p {
+  line-height: 1.7;
+  margin: 0 0 12px;
+}
+.maintenance-return {
+  color: var(--subtle);
+  font-size: 14px;
+}
+.maintenance-email {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--link);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 2px;
+}
+.maintenance-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 22px;
+}
+.maintenance-actions button,
+.maintenance-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+.maintenance-actions button {
+  background: rgb(var(--brand-700));
+  color: #fff;
+}
+.maintenance-actions a {
+  color: var(--text);
+  box-shadow: inset 0 0 0 1px var(--rule);
+}

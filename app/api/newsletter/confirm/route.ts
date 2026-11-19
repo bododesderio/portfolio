@@ -4,6 +4,7 @@ import { verifyConfirmToken } from '@/lib/domain/confirm-subscribe'
 import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderWelcomeEmail } from '@/lib/emails'
 import { unsubscribeUrl } from '@/lib/domain/unsubscribe'
+import { notifyAdmin } from '@/lib/domain/admin-notifications'
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url)
@@ -29,6 +30,12 @@ export async function GET(req: NextRequest) {
     await prisma.subscriber.update({
       where: { email },
       data: { confirmed: true },
+    })
+    await notifyAdmin({
+      type: 'subscriber',
+      title: 'New newsletter subscriber',
+      body: subscriber.name ? `${subscriber.name} (${email})` : email,
+      href: '/admin/newsletter',
     })
 
     // Send the welcome email now that they're confirmed

@@ -21,6 +21,7 @@ import {
   Trash2,
   GripVertical,
 } from 'lucide-react'
+import { useUnsavedChanges } from '@/components/admin/shell/UnsavedChanges'
 import { MediaPickerField } from './MediaPickerField'
 
 interface ContentRow {
@@ -313,8 +314,10 @@ function JsonFieldEditor({
 
 function FieldEditor({ row, page }: { row: ContentRow; page: string }) {
   const [value, setValue] = useState(row.value)
+  const [savedValue, setSavedValue] = useState(row.value)
   const [saving, setSaving] = useState(false)
   const [lastSaved, setLastSaved] = useState<Date | null>(null)
+  const unsaved = useUnsavedChanges(value !== savedValue)
 
   const save = useCallback(async () => {
     setSaving(true)
@@ -330,16 +333,19 @@ function FieldEditor({ row, page }: { row: ContentRow; page: string }) {
           field_type: row.fieldType,
         }),
       })
-      if (!res.ok) throw new Error()
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
       const data = await res.json()
       setLastSaved(new Date(data.updated_at))
-      toast.success('Saved!')
-    } catch {
+      setSavedValue(value)
+      unsaved.clear()
+      toast.success('Saved.')
+    } catch (error) {
+      console.error('[content] save failed', row.section, row.fieldKey, error)
       toast.error('Failed to save.')
     } finally {
       setSaving(false)
     }
-  }, [page, row.section, row.fieldKey, row.fieldType, value])
+  }, [page, row.section, row.fieldKey, row.fieldType, value, unsaved])
 
   const label = row.fieldKey.replace(/_/g, ' ')
 

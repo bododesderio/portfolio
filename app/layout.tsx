@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast'
 import { ThemeProvider } from 'next-themes'
 import { ThemeInjector } from '@/components/layout/ThemeInjector'
 import { preferenceBootScript } from '@/lib/domain/appearance'
+import { ErrorReporter } from '@/components/ErrorReporter'
 import { ldJson, personSchema, websiteSchema } from '@/lib/schema'
 
 const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
@@ -76,6 +77,7 @@ export default async function RootLayout({
         >
           <PreferencesProvider>{children}</PreferencesProvider>
           <Toaster position="bottom-right" />
+          <ErrorReporter />
         </ThemeProvider>
       </body>
     </html>

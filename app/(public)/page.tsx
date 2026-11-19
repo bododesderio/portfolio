@@ -3,12 +3,9 @@ import type { Metadata } from 'next'
 import { prisma } from '@/lib/data/db'
 import { getPersonalProfile } from '@/lib/data/profile'
 import { getField } from '@/lib/data/content'
-import {
-  EntryHeading,
-  EntryLayout,
-  EntrySection,
-} from '@/components/personal/EntryLayout'
+import { EntryLayout, EntrySection } from '@/components/personal/EntryLayout'
 import { ProfileCard } from '@/components/personal/ProfileCard'
+import { HomeHero } from '@/components/personal/HomeHero'
 import { PersonalIcon } from '@/components/personal/PersonalIcon'
 import { PhotoCollection } from '@/components/personal/PhotoCollection'
 import {
@@ -32,7 +29,7 @@ export const metadata: Metadata = {
   },
 }
 export default async function HomePage() {
-  const [profile, projects, posts, photos, press, services] = await Promise.all(
+  const [profile, projects, posts, photos, press, services, heroImage] = await Promise.all(
     [
       getPersonalProfile(),
       prisma.project.findMany({
@@ -77,8 +74,14 @@ export default async function HomePage() {
         take: 6,
         select: { id: true, title: true },
       }),
+      prisma.heroImage.findFirst({
+        where: { active: true },
+        orderBy: { order: 'asc' },
+        select: { media: { select: { url: true } } },
+      }),
     ]
   )
+  const heroField = (key: string) => getField(profile.home, `hero.${key}`)
   const contents = [
     { id: 'introduction', label: 'Introduction' },
     { id: 'story', label: 'My story' },
@@ -93,12 +96,24 @@ export default async function HomePage() {
     { id: 'elsewhere', label: 'Elsewhere' },
   ]
   return (
+    <>
+    <HomeHero
+      name={profile.name}
+      role={profile.role}
+      location={profile.location}
+      tagline={profile.tagline}
+      photo={profile.photo}
+      background={heroImage?.media.url || heroField('background_image') || null}
+      primary={{
+        label: heroField('cta_primary_label') || 'Get in touch',
+        href: heroField('cta_primary_url') || '/contact',
+      }}
+      secondary={{
+        label: heroField('cta_secondary_label') || 'See my work',
+        href: heroField('cta_secondary_url') || '/projects',
+      }}
+    />
     <EntryLayout contents={contents}>
-      <EntryHeading
-        eyebrow={profile.location}
-        title={profile.name}
-        description={profile.role}
-      />
       <div className="personal-overview" id="introduction">
         <div className="personal-introduction">
           {profile.introduction[0] ? (
@@ -132,7 +147,6 @@ export default async function HomePage() {
         </div>
         <ProfileCard
           name={profile.name}
-          photo={profile.photo}
           location={profile.location}
           resumeUrl={profile.resumeUrl}
           facts={[
@@ -293,5 +307,6 @@ export default async function HomePage() {
         </div>
       </EntrySection>
     </EntryLayout>
+    </>
   )
 }

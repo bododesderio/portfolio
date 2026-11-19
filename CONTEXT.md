@@ -1,5 +1,5 @@
 # Project Context
-Last updated: 2026-09-04
+Last updated: 2026-11-19
 
 ## What this is
 Personal brand site for Bodo Desderio — **not** a static portfolio. A

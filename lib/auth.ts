@@ -3,7 +3,8 @@ import Credentials from 'next-auth/providers/credentials'
 import bcrypt from 'bcryptjs'
 import type { DefaultSession } from 'next-auth'
 import { getConfig } from '@/lib/config'
-import { prisma } from '@/lib/data/db'
+import { prisma, recordAudit } from '@/lib/data/db'
+import { getClientIp } from '@/lib/util/rate-limit'
 
 // In-memory login attempt tracker (per-process; good enough for single-instance)
 const loginAttempts = new Map<string, { count: number; lastAttempt: number }>()
@@ -74,11 +75,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         password: { label: 'Password', type: 'password' },
         rememberMe: { label: 'Remember Me', type: 'text' },
       },
-      async authorize(credentials) {
+      async authorize(credentials, request) {
         if (!credentials?.email || !credentials?.password) return null
 
         const email = normalizeEmail(credentials.email as string)
-        if (!checkLoginThrottle(email)) return null
+        const ip = getClientIp(request)
+        const failed = (reason: string) => {
+          recordLoginAttempt(email, false)
+          void recordAudit({
+            actorEmail: email.slice(0, 120),
+            action: 'sign_in_failed',
+            entity: 'Session',
+            summary: `Failed sign-in: ${reason}`,
+            ip,
+          })
+          return null
+        }
+        if (!checkLoginThrottle(email)) return failed('too many attempts, locked for 15 minutes')
 
         const [configuredAdminEmail, adminHash] = await Promise.all([
           getConfig('ADMIN_EMAIL'),
@@ -86,10 +99,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         ])
         const adminEmail = normalizeEmail(configuredAdminEmail)
         if (!adminEmail || !adminHash) return null
-        if (email !== adminEmail) { recordLoginAttempt(email, false); return null }
+        if (email !== adminEmail) return failed('unknown email')
 
         const valid = await bcrypt.compare(credentials.password as string, adminHash)
-        if (!valid) { recordLoginAttempt(email, false); return null }
+        if (!valid) return failed('wrong password')
 
         recordLoginAttempt(email, true)
         const rememberMe = credentials.rememberMe === 'true' || credentials.rememberMe === true
@@ -97,7 +110,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         await prisma.adminUser.updateMany({
           where: { email: adminEmail },
           data: { lastLogin: new Date() },
-        }).catch(() => {})
+        }).catch((error) => console.error('[auth] could not record last login', error))
+        await recordAudit({
+          actorEmail: adminEmail,
+          action: 'sign_in',
+          entity: 'Session',
+          summary: rememberMe ? 'Signed in (remembered for 30 days)' : 'Signed in',
+          ip,
+        })
 
         return { id: '1', email: adminEmail, name: 'Admin', rememberMe }
       },

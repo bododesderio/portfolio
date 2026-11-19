@@ -416,3 +416,54 @@ model EmailEvent {
   @@index([emailLogId, event])
   @@map("email_events")
 }
+
+/// Every change made from the admin, with redacted before/after values.
+model AuditLog {
+  id         String   @id @default(cuid())
+  actorEmail String   @map("actor_email")
+  action     String // create | update | delete | upsert | bulk_update | bulk_delete | sign_in | sign_in_failed
+  entity     String // Prisma model name, or "Session" for sign-in events
+  entityId   String?  @map("entity_id")
+  summary    String
+  changes    Json?
+  ip         String?
+  createdAt  DateTime @default(now()) @map("created_at")
+
+  @@index([createdAt])
+  @@index([entity, createdAt])
+  @@index([actorEmail, createdAt])
+  @@map("audit_logs")
+}
+
+/// Browser and server errors, grouped by fingerprint so repeats increment a count.
+model ErrorReport {
+  id          String   @id @default(cuid())
+  fingerprint String   @unique
+  source      String // public | admin | server
+  message     String
+  stack       String?  @db.Text
+  path        String?
+  userAgent   String?  @map("user_agent")
+  count       Int      @default(1)
+  status      String   @default("open") // open | resolved | ignored
+  firstSeenAt DateTime @default(now()) @map("first_seen_at")
+  lastSeenAt  DateTime @default(now()) @map("last_seen_at")
+
+  @@index([status, lastSeenAt])
+  @@map("error_reports")
+}
+
+/// Admin notification feed shown behind the top-bar bell.
+model AdminNotification {
+  id        String    @id @default(cuid())
+  type      String // message | subscriber | error | maintenance | newsletter
+  title     String
+  body      String?
+  href      String?
+  readAt    DateTime? @map("read_at")
+  createdAt DateTime  @default(now()) @map("created_at")
+
+  @@index([readAt, createdAt])
+  @@index([createdAt])
+  @@map("admin_notifications")
+}

@@ -12,8 +12,14 @@ type Message = {
   archived: boolean
   receivedAt: Date
 }
-export function Inbox({ messages }: { messages: Message[] }) {
-  const [selected, setSelected] = useState<string | null>(null)
+export function Inbox({
+  messages,
+  initialSelected = null,
+}: {
+  messages: Message[]
+  initialSelected?: string | null
+}) {
+  const [selected, setSelected] = useState<string | null>(initialSelected)
   const active = messages.find((message) => message.id === selected)
   return (
     <div className={`admin-inbox ${active ? 'has-selection' : ''}`}>

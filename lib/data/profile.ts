@@ -6,6 +6,7 @@ import {
   safePublicHref,
   readDatedEntries,
   readStringList,
+  profileLinks,
 } from '@/lib/domain/profile'
 export async function getPersonalProfile() {
   const [home, about, settings] = await Promise.all([
@@ -52,16 +53,6 @@ export async function getPersonalProfile() {
     languages: readValues(getField(about, 'languages.items')),
     values: readValues(getField(about, 'values.items')),
     resumeUrl: safePublicHref(settings['site.resume_url'] || '') || undefined,
-    socials: [
-      { label: 'LinkedIn', key: 'social.linkedin' },
-      { label: 'GitHub', key: 'social.github' },
-      { label: 'Medium', key: 'social.medium' },
-      { label: 'Instagram', key: 'social.instagram' },
-      { label: 'Facebook', key: 'social.facebook' },
-      { label: 'X', key: 'social.twitter' },
-    ].flatMap((item) => {
-      const href = safePublicHref(settings[item.key] || '')
-      return href ? [{ label: item.label, href }] : []
-    }),
+    socials: profileLinks(settings),
   }
 }

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { auth } from '@/lib/auth'
 import { isAdminSession } from '@/lib/util/admin-session'
+import { getMaintenanceState, isMaintainedPath } from '@/lib/domain/maintenance'
 
 const isDev = process.env.NODE_ENV !== 'production'
 
@@ -73,7 +74,7 @@ function buildCsp(nonce: string): string {
   ].join('; ')
 }
 
-export default auth((req) => {
+export default auth(async (req) => {
   const { pathname } = req.nextUrl
 
   // Uppercase image extensions do not match the static-file matcher below.
@@ -130,6 +131,21 @@ export default auth((req) => {
 
   const requestHeaders = new Headers(req.headers)
   requestHeaders.set('x-nonce', nonce)
+  // Never trust a caller-supplied copy of the header the layout uses for the admin notice.
+  requestHeaders.delete('x-maintenance-preview')
+
+  const maintenance = isMaintainedPath(pathname) ? await getMaintenanceState() : null
+  if (maintenance?.enabled && !authenticated) {
+    const res = NextResponse.rewrite(new URL('/maintenance', req.url), {
+      request: { headers: requestHeaders },
+      status: 503,
+    })
+    res.headers.set('Retry-After', '1800')
+    res.headers.set('Cache-Control', 'no-store')
+    res.headers.set('Content-Security-Policy', buildCsp(nonce))
+    return res
+  }
+  if (maintenance?.enabled) requestHeaders.set('x-maintenance-preview', '1')
 
   const res = NextResponse.next({ request: { headers: requestHeaders } })
   res.headers.set('Content-Security-Policy', buildCsp(nonce))

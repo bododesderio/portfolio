@@ -1,7 +1,12 @@
 'use client'
 
 import { useEffect } from 'react'
+import Link from 'next/link'
+import { reportClientError } from '@/components/ErrorReporter'
+import { BrandMark } from '@/components/personal/BrandMark'
+import './maintenance/maintenance.css'
 
+/** Shown when a page fails to render. Same calm screen as maintenance mode; the error goes to the admin. */
 export default function GlobalError({
   error,
   reset,
@@ -11,21 +16,29 @@ export default function GlobalError({
 }) {
   useEffect(() => {
     console.error('[GlobalError]', error.message, error.digest ?? '')
+    reportClientError(
+      error.digest ? `${error.message} (digest ${error.digest})` : error.message,
+      error.stack
+    )
   }, [error])
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-surface text-fg px-6">
-      <p className="text-sm uppercase tracking-[0.3em] text-fg-muted mb-4">Something went wrong</p>
-      <h1 className="font-serif text-7xl md:text-9xl font-light mb-6">500</h1>
-      <p className="text-lg text-fg-muted mb-10 text-center max-w-md">
-        An unexpected error occurred. Please try again.
-      </p>
-      <button
-        onClick={reset}
-        className="px-8 py-3 bg-brand hover:bg-brand-dark text-white font-medium rounded-full transition-colors"
-      >
-        Try again
-      </button>
-    </div>
+    <main className="maintenance-page">
+      <div className="maintenance-card">
+        <BrandMark className="maintenance-mark" />
+        <p className="maintenance-eyebrow">Bodo Desderio</p>
+        <h1>This page is being worked on</h1>
+        <p>
+          Something on this page did not load properly. It has been reported and will be fixed shortly. Trying again usually
+          works.
+        </p>
+        <div className="maintenance-actions">
+          <button type="button" onClick={reset}>
+            Try again
+          </button>
+          <Link href="/">Go to the home page</Link>
+        </div>
+      </div>
+    </main>
   )
 }

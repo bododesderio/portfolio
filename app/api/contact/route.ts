@@ -5,6 +5,7 @@ import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderAdminNotification, renderContactAutoReply } from '@/lib/emails'
 import { rateLimit, getClientIp } from '@/lib/util/rate-limit'
 import { getConfig } from '@/lib/config'
+import { notifyAdmin } from '@/lib/domain/admin-notifications'
 
 const schema = z.object({
   name: z.string().min(1),
@@ -28,7 +29,13 @@ export async function POST(req: NextRequest) {
     const body = await req.json()
     const { name, email, subject, message } = schema.parse(body)
 
-    await prisma.message.create({ data: { name, email, subject, body: message } })
+    const saved = await prisma.message.create({ data: { name, email, subject, body: message } })
+    await notifyAdmin({
+      type: 'message',
+      title: `New message from ${name}`,
+      body: subject,
+      href: `/admin/messages?id=${saved.id}`,
+    })
 
     const adminEmail = await getConfig('ADMIN_EMAIL')
     if (!adminEmail) return NextResponse.json({ error: 'Server not configured' }, { status: 500 })
@@ -48,6 +55,7 @@ export async function POST(req: NextRequest) {
     if (err instanceof z.ZodError) {
       return NextResponse.json({ error: 'Invalid input.' }, { status: 400 })
     }
+    console.error('[/api/contact]', err)
     return NextResponse.json({ error: 'Server error.' }, { status: 500 })
   }
 }

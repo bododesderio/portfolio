@@ -1,47 +1,69 @@
 'use client'
 
-import { Menu } from 'lucide-react'
+import { useState } from 'react'
+import { Menu, Search, X } from 'lucide-react'
 import { AdminBreadcrumbs } from './AdminBreadcrumbs'
 import { AdminSearch } from './AdminSearch'
 import { AdminQuickCreate } from './AdminQuickCreate'
 import { AdminNotifications } from './AdminNotifications'
+import { AdminProfileMenu } from './AdminProfileMenu'
 import { AppearanceSettings } from '@/components/appearance/AppearanceSettings'
 import { FullscreenToggle } from '@/components/appearance/FullscreenToggle'
 
+/** Three columns so the search sits in the true centre whatever the side widths are. */
 export function AdminTopBar({
-  unreadMessageCount,
+  unreadNotificationCount,
   onOpenMobileSidebar,
+  name,
+  email,
 }: {
-  unreadMessageCount: number
+  unreadNotificationCount: number
   onOpenMobileSidebar: () => void
+  name: string
+  email: string
 }) {
+  const [searchOpen, setSearchOpen] = useState(false)
   return (
-    <header className="admin-topbar sticky top-0 z-20 h-16 bg-card border-b border-hairline">
-      <div className="h-full flex items-center gap-3 px-4 md:px-6">
-        <button
-          type="button"
-          onClick={onOpenMobileSidebar}
-          className="lg:hidden p-2 rounded-lg text-fg-muted hover:bg-muted"
-          aria-label="Open menu"
-        >
-          <Menu className="h-5 w-5" />
-        </button>
-
-        <div className="admin-breadcrumbs hidden lg:block flex-shrink-0 min-w-0">
-          <AdminBreadcrumbs />
+    <header className="admin-topbar sticky top-0 z-20 bg-card border-b border-hairline">
+      <div className="admin-topbar-grid">
+        <div className="admin-topbar-start">
+          <button
+            type="button"
+            onClick={onOpenMobileSidebar}
+            className="admin-icon-button admin-topbar-menu"
+            aria-label="Open menu"
+          >
+            <Menu className="h-5 w-5" />
+          </button>
+          <div className="admin-breadcrumbs hidden lg:block min-w-0">
+            <AdminBreadcrumbs />
+          </div>
         </div>
-
-        <div className="admin-search-wrap flex-1 max-w-md mx-auto lg:mx-0 lg:ml-auto">
+        <div className="admin-topbar-search">
           <AdminSearch />
         </div>
-
-        <div className="flex items-center gap-1.5">
+        <div className="admin-topbar-end">
+          <button
+            type="button"
+            className="admin-icon-button admin-topbar-search-toggle"
+            aria-label={searchOpen ? 'Close search' : 'Search the workspace'}
+            aria-expanded={searchOpen}
+            onClick={() => setSearchOpen((value) => !value)}
+          >
+            {searchOpen ? <X className="h-4 w-4" /> : <Search className="h-4 w-4" />}
+          </button>
           <AdminQuickCreate />
           <FullscreenToggle />
           <AppearanceSettings />
-          <AdminNotifications unreadCount={unreadMessageCount} />
+          <AdminNotifications initialUnread={unreadNotificationCount} />
+          <AdminProfileMenu name={name} email={email} />
         </div>
       </div>
+      {searchOpen && (
+        <div className="admin-topbar-search-row">
+          <AdminSearch />
+        </div>
+      )}
     </header>
   )
 }

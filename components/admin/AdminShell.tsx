@@ -1,16 +1,23 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import { AdminSidebar } from './AdminSidebar'
+import { Suspense, useCallback, useEffect, useState } from 'react'
+import { AdminSidebar, type AdminBadgeCounts } from './AdminSidebar'
 import { AdminTopBar } from './AdminTopBar'
+import { RouteProgress } from './shell/RouteProgress'
+import { OfflineBanner } from './shell/OfflineBanner'
+import { BackToTop } from './shell/BackToTop'
+import { SectionTabs } from './shell/SectionTabs'
+import { UnsavedChangesHost } from './shell/UnsavedChanges'
 
 export function AdminShell({
   email,
-  unreadMessageCount,
+  name,
+  badges,
   children,
 }: {
   email: string
-  unreadMessageCount: number
+  name: string
+  badges: AdminBadgeCounts
   children: React.ReactNode
 }) {
   const [mobileOpen, setMobileOpen] = useState(false)
@@ -43,16 +50,22 @@ export function AdminShell({
     <div
       className={`admin-site h-screen bg-surface flex overflow-hidden ${collapsed ? 'is-folded' : ''}`}
     >
+      <Suspense fallback={null}>
+        <RouteProgress />
+      </Suspense>
+      <UnsavedChangesHost />
       <AdminSidebar
-        email={email}
         mobileOpen={mobileOpen}
         onCloseMobile={closeMobile}
         collapsed={collapsed}
         onToggleCollapsed={toggleSidebar}
+        badges={badges}
       />
       <div className="flex-1 flex flex-col min-w-0">
         <AdminTopBar
-          unreadMessageCount={unreadMessageCount}
+          unreadNotificationCount={badges.notifications ?? 0}
+          name={name}
+          email={email}
           onOpenMobileSidebar={() => setMobileOpen(true)}
         />
         <main
@@ -60,7 +73,12 @@ export function AdminShell({
           className="admin-main flex-1 overflow-auto"
           tabIndex={-1}
         >
-          <div className="admin-main-inner">{children}</div>
+          <OfflineBanner />
+          <div className="admin-main-inner">
+            <SectionTabs />
+            {children}
+          </div>
+          <BackToTop />
         </main>
       </div>
     </div>

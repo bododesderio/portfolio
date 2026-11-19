@@ -36,6 +36,11 @@ export function AdminBreadcrumbs() {
             content: 'Pages',
             press: 'Mentions',
             newsletter: 'Newsletter',
+            'email-logs': 'Email delivery',
+            system: 'System',
+            audit: 'Audit trail',
+            errors: 'Error reports',
+            analytics: 'Analytics',
           }[seg] || humanize(seg),
       href: isLast ? null : pathAccumulator,
     })

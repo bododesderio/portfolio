@@ -1,75 +1,85 @@
 import Link from 'next/link'
 import { getSiteSettings } from '@/lib/data/content'
-import { safePublicHref } from '@/lib/domain/profile'
+import { profileLinks } from '@/lib/domain/profile'
 import { BrandMark } from '@/components/personal/BrandMark'
+import { ProfileIcon } from '@/components/personal/ProfileIcon'
+
 export default async function Footer({
   navLinks = [],
 }: { navLinks?: Array<{ label: string; href: string }> } = {}) {
   const settings = await getSiteSettings()
-  const socials = [
-    { label: 'LinkedIn', key: 'social.linkedin' },
-    { label: 'GitHub', key: 'social.github' },
-    { label: 'Medium', key: 'social.medium' },
-  ].flatMap((item) => {
-    const href = safePublicHref(settings[item.key] || '')
-    return href ? [{ ...item, href }] : []
-  })
+  const links = profileLinks(settings)
+  const social = links.filter((link) => link.kind === 'social')
+  const writing = links.filter((link) => link.kind === 'writing')
+  const pages = [
+    ...navLinks.filter((link) => link.href !== '/'),
+    { label: 'Capabilities', href: '/services' },
+    { label: 'Search', href: '/search' },
+    { label: 'RSS', href: '/feed.xml' },
+    { label: 'Privacy', href: '/privacy' },
+    { label: 'Terms', href: '/terms' },
+  ].filter((link, index, all) => all.findIndex((other) => other.href === link.href) === index)
+
   return (
-    <footer className="personal-footer personal-wrap">
-      <div className="personal-footer-top">
+    <footer className="personal-footer">
+      <div className="personal-wrap personal-footer-inner">
         <div className="personal-footer-identity">
-          <BrandMark className="personal-brand-mark" />
-          <div>
-            <Link href="/" className="personal-footer-name">
-              Bodo Desderio
-            </Link>
-            <p>A record of my life, work, and things I care about.</p>
-          </div>
+          <Link href="/" className="personal-footer-name">
+            <BrandMark className="personal-brand-mark" />
+            Bodo Desderio
+          </Link>
+          <p>
+            Software engineer and SEO specialist in{' '}
+            {settings['site.location'] || 'Lira City, Uganda'}.
+          </p>
         </div>
-        <nav aria-label="Footer">
-          {socials.map((item) => (
-            <a
-              key={item.key}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {item.label} ↗
-            </a>
-          ))}
-          <Link href="/contact">Say hello →</Link>
-        </nav>
-      </div>
-      <div className="personal-footer-bottom">
-        <p>
-          © {new Date().getFullYear()} Bodo Desderio
-          <span>{settings['site.location'] || 'Kampala, Uganda'}</span>
-        </p>
-        <nav aria-label="Site information">
-          <Link href="/services">Capabilities</Link>
-          {navLinks
-            .filter(
-              (link) =>
-                ![
-                  '/',
-                  '/about',
-                  '/projects',
-                  '/blog',
-                  '/contact',
-                  '/gallery',
-                  '/services',
-                ].includes(link.href)
-            )
-            .map((link) => (
-              <Link key={link.href} href={link.href}>
-                {link.label}
-              </Link>
+
+        {social.length > 0 && (
+          <nav aria-label="Social profiles" className="personal-footer-social">
+            {social.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${link.label}, opens in a new tab`}
+                title={link.label}
+              >
+                <ProfileIcon label={link.label} />
+              </a>
             ))}
-          <Link href="/search">Search</Link>
-          <Link href="/feed.xml">RSS</Link>
-          <Link href="/privacy">Privacy</Link>
-          <Link href="/terms">Terms</Link>
+          </nav>
+        )}
+
+        {writing.length > 0 && (
+          <nav aria-label="Code and writing elsewhere" className="personal-footer-writing">
+            <span>Code and writing on</span>
+            {writing.map((link) => (
+              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
+                <ProfileIcon label={link.label} size={14} />
+                {link.label}
+              </a>
+            ))}
+          </nav>
+        )}
+
+        <nav aria-label="Footer" className="personal-footer-pages">
+          {pages.map((link) => (
+            <Link key={link.href} href={link.href}>
+              {link.label}
+            </Link>
+          ))}
         </nav>
+
+        <div className="personal-footer-bottom">
+          <p>© {new Date().getFullYear()} Bodo Desderio. All rights reserved.</p>
+          <p>
+            Designed and powered by{' '}
+            <a href="https://rooibok.tech" target="_blank" rel="noopener noreferrer">
+              Rooibok Technologies Limited
+            </a>
+          </p>
+        </div>
       </div>
     </footer>
   )

@@ -105,3 +105,25 @@ export function readNavigation(
     return fallback
   }
 }
+
+/**
+ * Every public profile, in display order. "social" are where people follow the
+ * owner; "writing" are where the owner publishes code and articles.
+ */
+export const PROFILE_LINKS = [
+  { label: 'Facebook', key: 'social.facebook', kind: 'social' },
+  { label: 'Instagram', key: 'social.instagram', kind: 'social' },
+  { label: 'X', key: 'social.twitter', kind: 'social' },
+  { label: 'YouTube', key: 'social.youtube', kind: 'social' },
+  { label: 'LinkedIn', key: 'social.linkedin', kind: 'social' },
+  { label: 'GitHub', key: 'social.github', kind: 'writing' },
+  { label: 'Medium', key: 'social.medium', kind: 'writing' },
+] as const
+export type ProfileLink = { label: (typeof PROFILE_LINKS)[number]['label']; kind: 'social' | 'writing'; href: string }
+
+export function profileLinks(settings: Record<string, string | undefined>): ProfileLink[] {
+  return PROFILE_LINKS.flatMap((item) => {
+    const href = safePublicHref(settings[item.key] || '')
+    return href && /^https?:/.test(href) ? [{ label: item.label, kind: item.kind, href }] : []
+  })
+}

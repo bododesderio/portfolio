@@ -190,11 +190,6 @@
   font-size: calc(12px * var(--reader-scale));
   margin-bottom: 19px;
 }
-.admin-account {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
 .admin-avatar {
   background: rgb(var(--surface-2));
   border: 1px solid rgb(var(--hairline) / 0.1);
@@ -205,30 +200,6 @@
   border-radius: 50%;
   font-size: calc(12px * var(--reader-scale));
   flex-shrink: 0;
-}
-.admin-account > a {
-  min-width: 0;
-  flex: 1;
-}
-.admin-account strong,
-.admin-account small {
-  display: block;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.admin-account strong {
-  font-size: calc(11px * var(--reader-scale));
-  font-weight: 500;
-}
-.admin-account small {
-  color: rgb(var(--ink-muted));
-  font-size: calc(10px * var(--reader-scale));
-  margin-top: 2px;
-}
-.admin-account > button {
-  color: rgb(var(--ink-muted));
-  padding: 5px;
 }
 .admin-mobile-drawer {
   max-width: none;
@@ -1018,7 +989,6 @@
 .admin-site.is-folded .admin-sidebar .admin-nav-section > p,
 .admin-site.is-folded .admin-sidebar .admin-nav-section > summary,
 .admin-site.is-folded .admin-sidebar .admin-nav-section li > a > span,
-.admin-site.is-folded .admin-sidebar .admin-sidebar-footer .admin-account,
 .admin-site.is-folded .admin-sidebar .admin-view-site > span {
   display: none;
 }

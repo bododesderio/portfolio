@@ -24,6 +24,7 @@ import {
   Mail,
   X as XIcon,
 } from 'lucide-react'
+import { useUnsavedChanges } from '@/components/admin/shell/UnsavedChanges'
 import {
   MediaPickerField,
   MediaPickerDialogOnly,
@@ -124,6 +125,22 @@ export function BlogEditor({ post }: { post: Post | null }) {
   const autoSaveTimer = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const [body, setBody] = useState(post?.body ?? '')
+  const snapshot = JSON.stringify([
+    title,
+    slug,
+    excerpt,
+    category,
+    featuredImageUrl,
+    featuredImageAlt,
+    featuredAttribution,
+    body,
+  ])
+  const [savedSnapshot, setSavedSnapshot] = useState(snapshot)
+  const unsaved = useUnsavedChanges(snapshot !== savedSnapshot)
+  function markSaved() {
+    setSavedSnapshot(snapshot)
+    unsaved.clear()
+  }
 
   const isPublished = status === 'published'
 
@@ -271,7 +288,8 @@ export function BlogEditor({ post }: { post: Post | null }) {
       setStatus('draft')
       clearDraftFromStorage(draftKey)
       setLastAutoSaved(null)
-      toast.success('Draft saved!')
+      markSaved()
+      toast.success('Draft saved.')
       if (!post) router.push('/admin/blog')
     } catch (err) {
       toast.error(err instanceof Error ? err.message : 'Failed to save draft.')
@@ -306,6 +324,7 @@ export function BlogEditor({ post }: { post: Post | null }) {
       setStatus('published')
       clearDraftFromStorage(draftKey)
       setLastAutoSaved(null)
+      markSaved()
 
       if (result.subscribersNotified > 0) {
         toast.success(

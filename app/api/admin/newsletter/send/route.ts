@@ -6,6 +6,7 @@ import { prisma } from '@/lib/data/db'
 import { sendTrackedEmail } from '@/lib/domain/email-tracking'
 import { renderNewsletterCampaign } from '@/lib/emails'
 import { unsubscribeUrl } from '@/lib/domain/unsubscribe'
+import { notifyAdmin } from '@/lib/domain/admin-notifications'
 
 const schema = z.object({
   subject: z.string().min(1).max(300),
@@ -123,6 +124,12 @@ export async function POST(req: NextRequest) {
     await prisma.newsletterCampaign.update({
       where: { id: campaign.id },
       data: { status: 'sent' },
+    })
+    await notifyAdmin({
+      type: 'newsletter',
+      title: failed ? `“${subject}” sent with ${failed} failed` : `“${subject}” sent`,
+      body: `${sent} delivered${failed ? `, ${failed} failed` : ''}.`,
+      href: '/admin/newsletter',
     })
 
     return NextResponse.json({

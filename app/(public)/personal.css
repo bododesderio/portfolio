@@ -172,8 +172,7 @@
   color: var(--subtle);
   margin: 0 0 20px;
 }
-.personal-contents ol,
-.personal-mobile-contents ol {
+.personal-contents ol {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -201,9 +200,6 @@
   margin-top: 24px;
   padding-top: 20px;
   font-size: calc(11px * var(--reader-scale));
-}
-.personal-mobile-contents {
-  display: none;
 }
 .personal-entry-heading {
   border-bottom: 1px solid var(--rule);
@@ -731,60 +727,6 @@
   color: var(--paper);
   border-color: var(--text);
 }
-.personal-footer {
-  border-top: 1px solid var(--rule);
-  padding: 32px 0 24px;
-  font-size: calc(11px * var(--reader-scale));
-}
-.personal-footer-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 28px;
-}
-.personal-footer-identity {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-}
-.personal-footer-identity .personal-brand-mark {
-  width: 35px;
-  height: 35px;
-}
-.personal-footer-name {
-  font-weight: 500;
-  font-size: calc(13px * var(--reader-scale));
-  color: var(--text) !important;
-}
-.personal-footer p {
-  margin: 5px 0 0;
-  color: var(--subtle);
-  line-height: 1.7;
-}
-.personal-footer nav {
-  display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.personal-footer-bottom {
-  border-top: 1px solid var(--rule);
-  margin-top: 28px;
-  padding-top: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  font-size: calc(10px * var(--reader-scale));
-}
-.personal-footer-bottom p {
-  margin: 0;
-}
-.personal-footer-bottom p span {
-  margin-left: 20px;
-}
-.personal-footer-bottom a {
-  color: var(--subtle);
-}
 /* Reader tools use native dialogs for keyboard focus, Escape, and background isolation. */
 .personal-dialog {
   padding: 0;
@@ -1092,33 +1034,6 @@
   .personal-entry-heading h1 {
     font-size: clamp(24px, 2.3vw, 30px);
   }
-  .personal-mobile-contents {
-    display: block;
-    margin-bottom: 28px;
-    font-size: calc(12px * var(--reader-scale));
-    border-bottom: 1px solid var(--rule);
-    padding-bottom: 16px;
-  }
-  .personal-mobile-contents summary {
-    color: var(--subtle);
-    cursor: pointer;
-    min-height: 28px;
-  }
-  .personal-mobile-contents ol {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px 24px;
-    margin-top: 16px;
-  }
-  .personal-mobile-contents a {
-    display: flex;
-    gap: 10px;
-    padding: 6px 0;
-  }
-  .personal-mobile-contents a span {
-    color: var(--accent);
-    font-size: calc(10px * var(--reader-scale));
-  }
   .personal-header-inner {
     min-height: 82px;
   }
@@ -1213,16 +1128,6 @@
   .personal-deck {
     font-size: calc(15px * var(--reader-scale));
     max-width: 34ch;
-  }
-  .personal-mobile-contents {
-    margin-bottom: 24px;
-    padding-bottom: 13px;
-  }
-  .personal-mobile-contents summary {
-    font-size: calc(11px * var(--reader-scale));
-  }
-  .personal-mobile-contents ol {
-    gap: 5px 16px;
   }
   .personal-overview {
     grid-template-columns: 1fr;
@@ -1445,32 +1350,6 @@
   }
   .personal-values p {
     font-size: calc(14px * var(--reader-scale));
-  }
-  .personal-footer {
-    padding-top: 25px;
-  }
-  .personal-footer-top {
-    align-items: start;
-    flex-direction: column;
-    gap: 22px;
-  }
-  .personal-footer p {
-    font-size: calc(10px * var(--reader-scale));
-  }
-  .personal-footer nav {
-    gap: 17px;
-    font-size: calc(10px * var(--reader-scale));
-  }
-  .personal-footer-bottom {
-    align-items: start;
-    flex-direction: column;
-    gap: 16px;
-    margin-top: 23px;
-    padding-top: 19px;
-  }
-  .personal-footer-bottom p span {
-    display: block;
-    margin: 5px 0 0;
   }
   .personal-main {
     padding-bottom: 44px;
@@ -1887,10 +1766,6 @@
 .personal-contents nav > p {
   font-size: calc(12px * var(--reader-scale));
 }
-.personal-mobile-contents a[aria-current='location'] {
-  color: var(--link);
-  font-weight: 600;
-}
 .personal-eyebrow {
   font-size: calc(12px * var(--reader-scale)) !important;
   letter-spacing: 0.045em;
@@ -2068,4 +1943,334 @@
   overflow-y: auto;
   overscroll-behavior: contain;
   scrollbar-width: thin;
+}
+.personal-maintenance-notice {
+  margin: 0;
+  padding: 9px 16px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.5;
+  background: rgb(var(--brand-700));
+  color: #fff;
+}
+.personal-site .personal-maintenance-notice a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Footer: centred identity, social icons, writing profiles, pages, then credits. */
+.personal-footer {
+  margin-top: 40px;
+  border-top: 1px solid var(--rule);
+  background: var(--panel);
+}
+.personal-footer-inner {
+  display: grid;
+  justify-items: center;
+  gap: 22px;
+  padding: 44px 0 28px;
+  text-align: center;
+}
+.personal-footer-identity {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+}
+.personal-site .personal-footer-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: calc(15px * var(--reader-scale));
+  font-weight: 550;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+.personal-footer-name .personal-brand-mark {
+  width: 34px;
+  height: 34px;
+}
+.personal-footer-identity p {
+  margin: 0;
+  font-size: calc(13px * var(--reader-scale));
+  color: var(--subtle);
+}
+.personal-footer-social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.personal-site .personal-footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  color: var(--text);
+  background: var(--paper);
+  box-shadow: inset 0 0 0 1px var(--rule);
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+.personal-site .personal-footer-social a:hover {
+  color: #fff;
+  background: rgb(var(--brand-700));
+  text-decoration: none;
+}
+.personal-footer-writing {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 8px 16px;
+  font-size: calc(13px * var(--reader-scale));
+  color: var(--subtle);
+}
+.personal-footer-writing a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.personal-footer-pages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px 20px;
+  max-width: 720px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+  font-size: calc(13px * var(--reader-scale));
+}
+.personal-site .personal-footer-pages a {
+  color: var(--subtle);
+}
+.personal-site .personal-footer-pages a:hover {
+  color: var(--text);
+}
+.personal-footer-bottom {
+  display: grid;
+  gap: 4px;
+  font-size: calc(12px * var(--reader-scale));
+  color: var(--subtle);
+}
+.personal-footer-bottom p {
+  margin: 0;
+}
+@media (max-width: 760px) {
+  .personal-footer-inner {
+    padding: 36px 0 24px;
+    gap: 20px;
+  }
+  .personal-footer-pages {
+    gap: 4px 16px;
+  }
+  .personal-site .personal-footer-pages a {
+    display: inline-block;
+    padding: 6px 0;
+  }
+}
+
+/* Home hero: full screen below the sticky header; copy left, portrait right, photo behind a dark wash. */
+.personal-hero {
+  /* Sticky header height plus its 1px rule; the hero fills what is left of the screen. */
+  --hero-header: 73px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: calc(100svh - var(--hero-header));
+  display: flex;
+  flex-direction: column;
+  background: rgb(23 30 26);
+  color: #f4f1e8;
+}
+.personal-hero-backdrop {
+  z-index: -2;
+  opacity: 0.45;
+  filter: saturate(0.8);
+}
+.personal-hero-shade {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    linear-gradient(90deg, rgb(18 24 21 / 0.92) 0%, rgb(18 24 21 / 0.74) 42%, rgb(18 24 21 / 0.45) 100%),
+    linear-gradient(0deg, rgb(18 24 21 / 0.6) 0%, transparent 35%);
+}
+.personal-hero-inner {
+  position: relative;
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  align-items: center;
+  gap: 32px;
+}
+.personal-hero-copy {
+  position: relative;
+  z-index: 1;
+  padding: 72px 0 96px;
+  max-width: 560px;
+}
+.personal-hero-eyebrow {
+  margin: 0 0 16px;
+  font-size: calc(12px * var(--reader-scale));
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(var(--brand-300));
+}
+.personal-site .personal-hero h1 {
+  margin: 0;
+  font-size: clamp(40px, 6vw, 84px);
+  line-height: 0.98;
+  letter-spacing: -0.045em;
+  font-weight: 550;
+  color: #fff;
+}
+.personal-hero-role {
+  margin: 18px 0 0;
+  font-size: clamp(17px, 1.6vw, 22px);
+  color: #e8e3d4;
+}
+.personal-hero-tagline {
+  margin: 14px 0 0;
+  max-width: 42ch;
+  font-size: calc(15px * var(--reader-scale));
+  line-height: 1.7;
+  color: rgb(244 241 232 / 0.78);
+}
+.personal-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+.personal-site .personal-hero-actions a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 46px;
+  padding: 12px 22px;
+  border-radius: 6px;
+  font-size: calc(14px * var(--reader-scale));
+  font-weight: 500;
+  text-decoration: none;
+}
+.personal-site .personal-hero-primary {
+  background: rgb(var(--brand-500));
+  color: rgb(23 30 26);
+}
+.personal-site .personal-hero-primary:hover {
+  background: rgb(var(--brand-300));
+}
+.personal-site .personal-hero-secondary {
+  color: #fff;
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.45);
+}
+.personal-site .personal-hero-secondary:hover {
+  background: rgb(255 255 255 / 0.1);
+}
+.personal-hero-portrait {
+  position: relative;
+  align-self: end;
+  height: min(88%, 760px);
+  min-height: 420px;
+}
+.personal-site .personal-hero-next {
+  position: absolute;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: calc(11px * var(--reader-scale));
+  letter-spacing: 0.04em;
+  color: rgb(244 241 232 / 0.75);
+}
+.personal-site .personal-hero-next:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.personal-hero + .personal-entry-layout {
+  padding-top: 56px;
+}
+@media (max-width: 760px) {
+  .personal-hero-inner {
+    display: block;
+  }
+  .personal-hero-copy {
+    width: 58%;
+    max-width: none;
+    padding: 40px 0 120px;
+  }
+  .personal-site .personal-hero h1 {
+    font-size: clamp(34px, 10.5vw, 52px);
+  }
+  .personal-hero-role {
+    font-size: 15px;
+    margin-top: 12px;
+  }
+  .personal-hero-tagline {
+    font-size: 13px;
+  }
+  .personal-hero-actions {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+    margin-top: 24px;
+  }
+  .personal-site .personal-hero-actions a {
+    justify-content: center;
+    min-height: 44px;
+    padding: 11px 14px;
+    font-size: 13px;
+  }
+  .personal-hero-portrait {
+    position: absolute;
+    right: -14%;
+    bottom: 0;
+    width: 78%;
+    aspect-ratio: 3 / 4;
+    height: auto;
+    max-height: 62%;
+    min-height: 0;
+  }
+  .personal-site .personal-hero-next {
+    display: none;
+  }
+  .personal-hero-shade {
+    background:
+      linear-gradient(90deg, rgb(18 24 21 / 0.94) 0%, rgb(18 24 21 / 0.8) 50%, rgb(18 24 21 / 0.4) 100%),
+      linear-gradient(0deg, rgb(18 24 21 / 0.7) 0%, transparent 40%);
+  }
+  .personal-hero + .personal-entry-layout {
+    padding-top: 36px;
+  }
+}
+
+/* Header behaviour (Settings > Navigation). "hide" lifts the bar away like smoke. */
+.personal-header[data-behavior='static'] {
+  position: relative;
+}
+.personal-header[data-behavior='hide'] {
+  transition:
+    opacity 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, filter, transform;
+}
+.personal-header[data-behavior='hide'][data-hidden] {
+  opacity: 0;
+  filter: blur(12px);
+  transform: translateY(-18px) scale(1.015);
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .personal-header[data-behavior='hide'] {
+    transition: opacity 0.2s linear;
+  }
+  .personal-header[data-behavior='hide'][data-hidden] {
+    filter: none;
+    transform: none;
+  }
 }

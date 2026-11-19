@@ -30,14 +30,6 @@ export function EntryLayout({
         </aside>
       )}
       <div className="personal-entry">
-        {contents.length > 0 && (
-          <details className="personal-mobile-contents">
-            <summary>On this page</summary>
-            <nav aria-label="Page sections">
-              <ContentsNavigation items={contents} mobile />
-            </nav>
-          </details>
-        )}
         {children}
       </div>
     </div>

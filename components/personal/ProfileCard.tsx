@@ -9,29 +9,32 @@ export function ProfileCard({
   facts = [],
 }: {
   name: string
-  photo: string
+  /** Omitted where the page already shows the portrait, such as under the home hero. */
+  photo?: string
   location: string
   resumeUrl?: string
   facts?: Fact[]
 }) {
   return (
     <aside className="personal-profile-card" aria-label="At a glance">
-      <figure>
-        <div className="personal-portrait">
-          <Image
-            src={photo}
-            alt={name}
-            fill
-            priority
-            sizes="(max-width: 700px) 78vw, 280px"
-            className="object-contain object-bottom"
-          />
-        </div>
-        <figcaption>
-          {name}
-          <span>{location}</span>
-        </figcaption>
-      </figure>
+      {photo && (
+        <figure>
+          <div className="personal-portrait">
+            <Image
+              src={photo}
+              alt={name}
+              fill
+              priority
+              sizes="(max-width: 700px) 78vw, 280px"
+              className="object-contain object-bottom"
+            />
+          </div>
+          <figcaption>
+            {name}
+            <span>{location}</span>
+          </figcaption>
+        </figure>
+      )}
       <div className="personal-facts">
         <p className="personal-eyebrow">At a glance</p>
         <dl>

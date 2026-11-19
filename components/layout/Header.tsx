@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { Menu, X } from 'lucide-react'
 import { BrandMark } from '@/components/personal/BrandMark'
 import { ReaderTools } from '@/components/personal/ReaderTools'
+import type { HeaderBehavior } from '@/lib/domain/header-behavior'
 type NavLink = { label: string; href: string }
 const defaults: NavLink[] = [
   { label: 'Home', href: '/' },
@@ -14,10 +15,46 @@ const defaults: NavLink[] = [
   { label: 'Gallery', href: '/gallery' },
   { label: 'Contact', href: '/contact' },
 ]
-export function Header({ navLinks = defaults }: { navLinks?: NavLink[] }) {
+/** Scroll distance before the header may hide, and the movement that counts as a direction change. */
+const HIDE_AFTER = 140
+const JITTER = 8
+
+export function Header({
+  navLinks = defaults,
+  behavior = 'hide',
+}: {
+  navLinks?: NavLink[]
+  behavior?: HeaderBehavior
+}) {
   const [open, setOpen] = useState(false)
+  const [hidden, setHidden] = useState(false)
   const pathname = usePathname()
   const toggle = useRef<HTMLButtonElement>(null)
+  const header = useRef<HTMLElement>(null)
+  useEffect(() => {
+    if (behavior !== 'hide') return
+    let lastY = window.scrollY
+    let frame = 0
+    function update() {
+      frame = 0
+      const y = window.scrollY
+      const delta = y - lastY
+      if (Math.abs(delta) < JITTER) return
+      // Never hide while someone is using the header: menu open or focus inside it.
+      const busy = header.current?.contains(document.activeElement) ?? false
+      setHidden(delta > 0 && y > HIDE_AFTER && !busy)
+      lastY = y
+    }
+    function onScroll() {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(frame)
+    }
+  }, [behavior])
+  useEffect(() => setHidden(false), [pathname])
   useEffect(() => {
     function onEscape(event: KeyboardEvent) {
       if (event.key === 'Escape' && open) {
@@ -29,7 +66,13 @@ export function Header({ navLinks = defaults }: { navLinks?: NavLink[] }) {
     return () => document.removeEventListener('keydown', onEscape)
   }, [open])
   return (
-    <header className="personal-header">
+    <header
+      ref={header}
+      className="personal-header"
+      data-behavior={behavior}
+      data-hidden={(hidden && !open) || undefined}
+      onFocusCapture={() => setHidden(false)}
+    >
       <div className="personal-wrap personal-header-inner">
         <Link
           href="/"

@@ -53,7 +53,7 @@ export default async function NewsletterPage({ searchParams }: Props) {
       </div>
 
       <div className="mb-8">
-        <EmailStatsCard stats={emailStats} />
+        <EmailStatsCard stats={emailStats} period="Last 30 days" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-8">
