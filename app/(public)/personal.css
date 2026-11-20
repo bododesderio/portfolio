@@ -2071,7 +2071,14 @@
   }
 }
 
-/* Home hero: full screen below the sticky header; copy left, portrait right, photo behind a dark wash. */
+/* Dark green ground shared by the hero, the profile card caption, the community band and the footer. */
+.personal-site {
+  --hero-ground: 11 16 13;
+  --hero-ground-2: 30 46 36;
+  --hero-cream: 244 241 232;
+}
+
+/* Home hero: full screen below the sticky header on a dark green gradient; copy and portrait share a row. */
 .personal-hero {
   /* Sticky header height plus its 1px rule; the hero fills what is left of the screen. */
   --hero-header: 73px;
@@ -2081,42 +2088,27 @@
   min-height: calc(100svh - var(--hero-header));
   display: flex;
   flex-direction: column;
-  background: rgb(23 30 26);
-  color: #f4f1e8;
-}
-.personal-hero-backdrop {
-  z-index: -2;
-  opacity: 0.45;
-  filter: saturate(0.8);
-}
-.personal-hero-shade {
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background:
-    linear-gradient(90deg, rgb(18 24 21 / 0.92) 0%, rgb(18 24 21 / 0.74) 42%, rgb(18 24 21 / 0.45) 100%),
-    linear-gradient(0deg, rgb(18 24 21 / 0.6) 0%, transparent 35%);
+  background: linear-gradient(135deg, rgb(var(--hero-ground)) 0%, rgb(var(--hero-ground-2)) 100%);
+  color: rgb(var(--hero-cream));
 }
 .personal-hero-inner {
   position: relative;
   flex: 1;
   display: grid;
   grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-  align-items: center;
-  gap: 32px;
+  grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    'copy portrait'
+    'actions portrait';
+  column-gap: 32px;
 }
 .personal-hero-copy {
+  grid-area: copy;
+  align-self: end;
   position: relative;
   z-index: 1;
-  padding: 72px 0 96px;
+  padding-top: 72px;
   max-width: 560px;
-}
-.personal-hero-eyebrow {
-  margin: 0 0 16px;
-  font-size: calc(12px * var(--reader-scale));
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: rgb(var(--brand-300));
 }
 .personal-site .personal-hero h1 {
   margin: 0;
@@ -2129,24 +2121,30 @@
 .personal-hero-role {
   margin: 18px 0 0;
   font-size: clamp(17px, 1.6vw, 22px);
-  color: #e8e3d4;
+  color: rgb(var(--brand-200));
 }
 .personal-hero-tagline {
   margin: 14px 0 0;
   max-width: 42ch;
   font-size: calc(15px * var(--reader-scale));
   line-height: 1.7;
-  color: rgb(244 241 232 / 0.78);
+  color: rgb(var(--hero-cream) / 0.8);
 }
 .personal-hero-actions {
+  grid-area: actions;
+  align-self: start;
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
   margin-top: 32px;
+  padding-bottom: 96px;
 }
 .personal-site .personal-hero-actions a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   min-height: 46px;
   padding: 12px 22px;
   border-radius: 6px;
@@ -2156,7 +2154,7 @@
 }
 .personal-site .personal-hero-primary {
   background: rgb(var(--brand-500));
-  color: rgb(23 30 26);
+  color: rgb(var(--hero-ground));
 }
 .personal-site .personal-hero-primary:hover {
   background: rgb(var(--brand-300));
@@ -2169,6 +2167,7 @@
   background: rgb(255 255 255 / 0.1);
 }
 .personal-hero-portrait {
+  grid-area: portrait;
   position: relative;
   align-self: end;
   height: min(88%, 760px);
@@ -2185,7 +2184,7 @@
   gap: 2px;
   font-size: calc(11px * var(--reader-scale));
   letter-spacing: 0.04em;
-  color: rgb(244 241 232 / 0.75);
+  color: rgb(var(--hero-cream) / 0.75);
 }
 .personal-site .personal-hero-next:hover {
   color: #fff;
@@ -2196,55 +2195,141 @@
 }
 @media (max-width: 760px) {
   .personal-hero-inner {
-    display: block;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    grid-template-rows: auto auto;
+    grid-template-areas:
+      'copy portrait'
+      'actions actions';
+    align-content: center;
+    column-gap: 10px;
   }
   .personal-hero-copy {
-    width: 58%;
+    align-self: center;
     max-width: none;
-    padding: 40px 0 120px;
+    padding-top: 32px;
   }
   .personal-site .personal-hero h1 {
-    font-size: clamp(34px, 10.5vw, 52px);
+    font-size: clamp(30px, 9vw, 44px);
   }
   .personal-hero-role {
     font-size: 15px;
+    line-height: 1.45;
     margin-top: 12px;
   }
   .personal-hero-tagline {
     font-size: 13px;
+    line-height: 1.6;
+  }
+  /* Head-and-shoulders crop: the box matches the photo's 3:4 ratio and the photo is doubled from the head down. */
+  .personal-hero-portrait {
+    align-self: center;
+    margin-top: 32px;
+    height: auto;
+    min-height: 0;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
+    mask-image: linear-gradient(to bottom, #000 70%, transparent);
+  }
+  .personal-hero-portrait img {
+    transform: scale(2);
+    transform-origin: 50% 18%;
   }
   .personal-hero-actions {
-    flex-direction: column;
-    align-items: stretch;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 10px;
     margin-top: 24px;
+    padding-bottom: 36px;
   }
   .personal-site .personal-hero-actions a {
-    justify-content: center;
     min-height: 44px;
-    padding: 11px 14px;
+    padding: 11px 12px;
     font-size: 13px;
-  }
-  .personal-hero-portrait {
-    position: absolute;
-    right: -14%;
-    bottom: 0;
-    width: 78%;
-    aspect-ratio: 3 / 4;
-    height: auto;
-    max-height: 62%;
-    min-height: 0;
+    text-align: center;
   }
   .personal-site .personal-hero-next {
     display: none;
   }
-  .personal-hero-shade {
-    background:
-      linear-gradient(90deg, rgb(18 24 21 / 0.94) 0%, rgb(18 24 21 / 0.8) 50%, rgb(18 24 21 / 0.4) 100%),
-      linear-gradient(0deg, rgb(18 24 21 / 0.7) 0%, transparent 40%);
-  }
   .personal-hero + .personal-entry-layout {
     padding-top: 36px;
+  }
+}
+@media (max-width: 360px) {
+  .personal-hero-actions {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* The hero's ground, gold and cream carried into the rest of the page. */
+.personal-section-heading h2 {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.personal-section-heading h2::before {
+  content: '';
+  width: 9px;
+  height: 9px;
+  flex-shrink: 0;
+  background: rgb(var(--brand-500));
+  transform: rotate(45deg);
+}
+.personal-profile-card figcaption {
+  background: rgb(var(--hero-ground));
+  color: rgb(var(--hero-cream));
+  border-bottom-color: rgb(var(--brand-500) / 0.5);
+}
+.personal-profile-card figcaption span {
+  color: rgb(var(--brand-300));
+}
+.personal-entry-section#community {
+  --text: rgb(var(--hero-cream));
+  --subtle: rgb(var(--hero-cream) / 0.72);
+  --link: rgb(var(--brand-300));
+  --accent: rgb(var(--brand-300));
+  --panel: rgb(var(--hero-ground-2));
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 30px 32px 34px;
+  border: 1px solid rgb(var(--brand-500) / 0.28);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgb(var(--hero-ground)) 0%, rgb(var(--hero-ground-2)) 100%);
+  color: var(--text);
+}
+.personal-entry-section#interests .personal-section-intro {
+  padding: 18px 22px;
+  border-left: 3px solid rgb(var(--brand-500));
+  border-radius: 0 6px 6px 0;
+  background: rgb(var(--brand-50));
+  color: var(--text);
+}
+:root.dark .personal-entry-section#interests .personal-section-intro {
+  background: rgb(var(--brand-900) / 0.35);
+}
+.personal-footer {
+  --text: rgb(var(--hero-cream));
+  --subtle: rgb(var(--hero-cream) / 0.7);
+  --link: rgb(var(--brand-300));
+  --rule: rgb(var(--hero-cream) / 0.14);
+  --paper: rgb(var(--hero-ground-2));
+  position: relative;
+  isolation: isolate;
+  border-top: 0;
+  background: linear-gradient(180deg, rgb(var(--hero-ground-2)) 0%, rgb(var(--hero-ground)) 100%);
+  color: var(--text);
+}
+.personal-footer::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 4px;
+  background: rgb(var(--brand-500));
+}
+@media (max-width: 760px) {
+  .personal-entry-section#community {
+    padding: 24px 20px 26px;
   }
 }
 
@@ -2262,7 +2347,7 @@
 .personal-header[data-behavior='hide'][data-hidden] {
   opacity: 0;
   filter: blur(12px);
-  transform: translateY(-18px) scale(1.015);
+  transform: translateY(-18px);
   pointer-events: none;
 }
 @media (prefers-reduced-motion: reduce) {

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   },
 }
 export default async function HomePage() {
-  const [profile, projects, posts, photos, press, services, heroImage] = await Promise.all(
+  const [profile, projects, posts, photos, press, services] = await Promise.all(
     [
       getPersonalProfile(),
       prisma.project.findMany({
@@ -74,11 +74,6 @@ export default async function HomePage() {
         take: 6,
         select: { id: true, title: true },
       }),
-      prisma.heroImage.findFirst({
-        where: { active: true },
-        orderBy: { order: 'asc' },
-        select: { media: { select: { url: true } } },
-      }),
     ]
   )
   const heroField = (key: string) => getField(profile.home, `hero.${key}`)
@@ -100,10 +95,8 @@ export default async function HomePage() {
     <HomeHero
       name={profile.name}
       role={profile.role}
-      location={profile.location}
       tagline={profile.tagline}
       photo={profile.photo}
-      background={heroImage?.media.url || heroField('background_image') || null}
       primary={{
         label: heroField('cta_primary_label') || 'Get in touch',
         href: heroField('cta_primary_url') || '/contact',

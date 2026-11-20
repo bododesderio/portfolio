@@ -106,6 +106,7 @@ export async function POST(req: NextRequest) {
             html: template.split(UNSUBSCRIBE_PLACEHOLDER).join(unsubscribeUrl(subscriber.email)),
             type: 'campaign',
             campaignId: campaign.id,
+            unsubscribeUrl: unsubscribeUrl(subscriber.email),
           })
             .then(() => true)
             .catch((err) => {

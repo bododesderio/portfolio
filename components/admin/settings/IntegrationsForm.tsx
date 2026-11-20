@@ -127,8 +127,41 @@ export function IntegrationsForm({
           <div className="space-y-4">
             {group.keys.map(k => <ConfigField key={k} k={k} entry={config[k]} />)}
           </div>
+          {group.keys.includes('SMTP_HOST') && <TestEmailButton />}
         </div>
       ))}
+    </div>
+  )
+}
+
+function TestEmailButton() {
+  const [sending, setSending] = useState(false)
+
+  async function sendTest() {
+    setSending(true)
+    try {
+      const res = await fetch('/api/admin/config/test-email', { method: 'POST' })
+      const body = await res.json().catch(() => ({}))
+      if (!res.ok) throw new Error(body.error || 'The test email could not be sent.')
+      toast.success(`Test email sent to ${body.to}.`)
+    } catch (err) {
+      toast.error(err instanceof Error ? err.message : 'The test email could not be sent.')
+    } finally {
+      setSending(false)
+    }
+  }
+
+  return (
+    <div className="mt-5 flex flex-wrap items-center justify-between gap-3 border-t border-hairline pt-4">
+      <p className="text-xs text-fg-muted">Brevo: host smtp-relay.brevo.com, port 587, your Brevo login, an SMTP key, and a verified sender.</p>
+      <button
+        type="button"
+        onClick={sendTest}
+        disabled={sending}
+        className="px-4 py-2.5 bg-muted hover:bg-brand/10 disabled:opacity-40 text-fg text-sm rounded-lg whitespace-nowrap"
+      >
+        {sending ? 'Sending...' : 'Send test email'}
+      </button>
     </div>
   )
 }
@@ -149,7 +182,7 @@ function ConfigField({ k, entry }: { k: string; entry?: ConfigEntry }) {
         body: JSON.stringify({ key: k, value: val }),
       })
       if (!res.ok) throw new Error()
-      toast.success('Saved. Restart the server to apply.')
+      toast.success('Saved.')
       setVal('')
     } catch {
       toast.error('Failed to save.')

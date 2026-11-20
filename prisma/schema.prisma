@@ -377,19 +377,19 @@ model ProjectImage {
 
 /// Tracks every email sent by the system (transactional + campaigns).
 model EmailLog {
-  id          String    @id @default(cuid())
-  campaignId  String?   @map("campaign_id")
-  to          String
-  subject     String
-  type        String // campaign | welcome | contact_reply | admin_notify | new_post | digest
-  status      String    @default("sent") // sent | delivered | bounced | failed
-  postalMsgId String?   @map("postal_msg_id")
-  openedAt    DateTime? @map("opened_at")
-  clickedAt   DateTime? @map("clicked_at")
-  bouncedAt   DateTime? @map("bounced_at")
-  deliveredAt DateTime? @map("delivered_at")
-  failReason  String?   @map("fail_reason")
-  sentAt      DateTime  @default(now()) @map("sent_at")
+  id            String    @id @default(cuid())
+  campaignId    String?   @map("campaign_id")
+  to            String
+  subject       String
+  type          String // campaign | welcome | contact_reply | admin_notify | new_post | digest
+  status        String    @default("sent") // sent | delivered | bounced | failed
+  providerMsgId String?   @map("postal_msg_id") // relay Message-ID (column name predates Brevo)
+  openedAt      DateTime? @map("opened_at")
+  clickedAt     DateTime? @map("clicked_at")
+  bouncedAt     DateTime? @map("bounced_at")
+  deliveredAt   DateTime? @map("delivered_at")
+  failReason    String?   @map("fail_reason")
+  sentAt        DateTime  @default(now()) @map("sent_at")
 
   events EmailEvent[]
 
@@ -404,11 +404,11 @@ model EmailLog {
 model EmailEvent {
   id         String   @id @default(cuid())
   emailLogId String   @map("email_log_id")
-  event      String // open | click | delivered | bounced | failed | held
+  event      String // open | click | delivered | bounced | soft_bounce | spam | deferred | failed
   url        String? // for click events
   ip         String?
   userAgent  String?  @map("user_agent")
-  metadata   Json? // extra data from Postal webhooks
+  metadata   Json? // raw payload from the Brevo webhook
   createdAt  DateTime @default(now()) @map("created_at")
 
   emailLog EmailLog @relation(fields: [emailLogId], references: [id], onDelete: Cascade)
@@ -466,4 +466,28 @@ model AdminNotification {
   @@index([readAt, createdAt])
   @@index([createdAt])
   @@map("admin_notifications")
+}
+
+/// Mail sent to any @domain address. MX points at Brevo, which parses each
+/// message and posts it to /api/webhooks/brevo-inbound; the site keeps a copy
+/// and forwards it to INBOUND_FORWARD_TO, since the domain has no mailboxes.
+model InboundEmail {
+  id           String    @id @default(cuid())
+  messageId    String    @unique @map("message_id")
+  fromAddress  String    @map("from_address")
+  fromName     String    @default("") @map("from_name")
+  replyTo      String?   @map("reply_to")
+  recipients   String[]
+  subject      String
+  textBody     String    @default("") @map("text_body") @db.Text
+  htmlBody     String    @default("") @map("html_body") @db.Text
+  attachments  Json      @default("[]")
+  spamScore    Float?    @map("spam_score")
+  forwardedTo  String?   @map("forwarded_to")
+  forwardedAt  DateTime? @map("forwarded_at")
+  forwardError String?   @map("forward_error")
+  receivedAt   DateTime  @default(now()) @map("received_at")
+
+  @@index([receivedAt])
+  @@map("inbound_emails")
 }

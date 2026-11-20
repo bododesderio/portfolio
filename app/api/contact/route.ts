@@ -46,7 +46,13 @@ export async function POST(req: NextRequest) {
     ])
 
     await Promise.allSettled([
-      sendTrackedEmail({ to: adminEmail, subject: `New message: ${subject}`, html: adminHtml, type: 'admin_notify' }),
+      sendTrackedEmail({
+        to: adminEmail,
+        subject: `New message: ${subject}`,
+        html: adminHtml,
+        type: 'admin_notify',
+        replyTo: email,
+      }),
       sendTrackedEmail({ to: email, subject: 'Got your message.', html: autoReplyHtml, type: 'contact_reply' }),
     ])
 

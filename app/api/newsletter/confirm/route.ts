@@ -45,7 +45,8 @@ export async function GET(req: NextRequest) {
       subject: "Welcome, you're in the loop.",
       html,
       type: 'welcome',
-    }).catch(() => null)
+      unsubscribeUrl: unsubscribeUrl(email),
+    }).catch((err) => console.error('[Newsletter] Welcome email failed:', (err as Error).message))
   }
 
   return NextResponse.redirect(`${baseUrl}/subscribe/confirmed?success=true`)

@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/data/db'
 import { sendEmail } from '@/lib/domain/mailer'
 import { signTrackedUrl } from '@/lib/util/link-signing'
+import { senderFor } from '@/lib/domain/senders'
 
 const siteUrl = () => process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3001'
 
@@ -37,9 +38,13 @@ interface TrackedEmailOptions {
   to: string
   subject: string
   html: string
+  /** Overrides the sender chosen for this email type in senders.ts. */
   from?: string
+  replyTo?: string
   type: string
   campaignId?: string
+  /** Signed one-click unsubscribe URL; mailbox providers show it as an unsubscribe button. */
+  unsubscribeUrl?: string
 }
 
 /**
@@ -51,22 +56,33 @@ export async function sendTrackedEmail({
   subject,
   html,
   from,
+  replyTo,
   type,
   campaignId,
+  unsubscribeUrl,
 }: TrackedEmailOptions) {
   // Create the log entry first so we have an ID for the tracking pixel
   const log = await prisma.emailLog.create({
     data: { to, subject, type, campaignId, status: 'sent' },
   })
 
-  // Inject tracking
   let trackedHtml = injectTrackingPixel(html, log.id)
   trackedHtml = rewriteLinks(trackedHtml, log.id)
 
-  try {
-    const result = await sendEmail({ to, subject, html: trackedHtml, from })
+  // Brevo echoes X-Mailin-custom back on every webhook event, which ties a
+  // delivery or bounce to this row without relying on the relay's message id.
+  const headers: Record<string, string> = {
+    'X-Mailin-custom': log.id,
+    'X-Mailin-Tag': type,
+  }
+  if (unsubscribeUrl) {
+    headers['List-Unsubscribe'] = `<${unsubscribeUrl}>`
+    headers['List-Unsubscribe-Post'] = 'List-Unsubscribe=One-Click'
+  }
 
-    // If Postal returns a message ID, store it for webhook correlation
+  try {
+    const sender = from || (await senderFor(type))
+    const result = await sendEmail({ to, subject, html: trackedHtml, from: sender, replyTo, headers })
     const msgId =
       result && typeof result === 'object' && 'messageId' in result
         ? String(result.messageId)
@@ -75,7 +91,7 @@ export async function sendTrackedEmail({
     if (msgId) {
       await prisma.emailLog.update({
         where: { id: log.id },
-        data: { postalMsgId: msgId },
+        data: { providerMsgId: msgId },
       })
     }
 

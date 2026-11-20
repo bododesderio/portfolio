@@ -73,7 +73,9 @@ services:
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASS: ${SMTP_PASS:-}
       SMTP_FROM: ${SMTP_FROM:-}
-      POSTAL_WEBHOOK_SECRET: ${POSTAL_WEBHOOK_SECRET:-}
+      EMAIL_WEBHOOK_SECRET: ${EMAIL_WEBHOOK_SECRET:-}
+      INBOUND_FORWARD_TO: ${INBOUND_FORWARD_TO:-}
+      BREVO_API_KEY: ${BREVO_API_KEY:-}
       # Fresh volume → seed once; every later boot is a no-op.
       RUN_SEED_ON_START: ${RUN_SEED_ON_START:-auto}
     volumes:

@@ -7,9 +7,18 @@ import { rateLimit, getClientIp } from '@/lib/util/rate-limit'
 import { confirmUrl } from '@/lib/domain/confirm-subscribe'
 
 const schema = z.object({
-  email: z.string().email(),
-  name: z.string().optional(),
+  email: z.string().trim().toLowerCase().pipe(z.string().email().max(254)),
+  name: z.string().trim().max(120).optional(),
 })
+
+async function sendConfirmation(email: string, name: string | undefined) {
+  const html = await renderConfirmSubscription(name, confirmUrl(email))
+  // The EmailLog row records the failure for the admin; the visitor still gets a
+  // neutral reply so the endpoint cannot be used to probe the mail setup.
+  await sendTrackedEmail({ to: email, subject: 'Confirm your subscription', html, type: 'welcome' }).catch(
+    (err) => console.error('[Newsletter] Confirmation email failed:', (err as Error).message),
+  )
+}
 
 export async function POST(req: NextRequest) {
   const ip = getClientIp(req)
@@ -44,30 +53,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: true, message: 'Already subscribed.' })
     }
 
-    if (existing && !existing.confirmed) {
-      // Resend confirmation email
-      const url = confirmUrl(email)
-      const html = await renderConfirmSubscription(existing.name ?? undefined, url)
-      await sendTrackedEmail({
-        to: email,
-        subject: 'Confirm your subscription',
-        html,
-        type: 'welcome',
-      }).catch(() => null)
-
+    if (existing) {
+      await sendConfirmation(email, existing.name ?? undefined)
       return NextResponse.json({ success: true, message: 'Check your email to confirm.' })
     }
 
     await prisma.subscriber.create({ data: { email, name, confirmed: false } })
-
-    const url = confirmUrl(email)
-    const html = await renderConfirmSubscription(name, url)
-    await sendTrackedEmail({
-      to: email,
-      subject: 'Confirm your subscription',
-      html,
-      type: 'welcome',
-    }).catch(() => null)
+    await sendConfirmation(email, name)
 
     return NextResponse.json({ success: true, message: 'Check your email to confirm.' })
   } catch (err) {

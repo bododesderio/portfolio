@@ -37,9 +37,9 @@ is covered in step 3 below and is a once-ever action.
 ssh your-user@your-vps
 cd /path/to/portfolio            # the repo dir on the VPS
 
-# Set the Postal webhook secret (must match what's configured in Postal).
-# Without it, delivery/bounce/open/click events are silently rejected.
-#   POSTAL_WEBHOOK_SECRET="<the-secret-from-postal>"
+# Set the Brevo webhook secret (must match the token in the Brevo webhook URL).
+# Without it, delivery and bounce events are rejected.
+#   EMAIL_WEBHOOK_SECRET="<openssl rand -hex 32>"
 nano .env
 ```
 

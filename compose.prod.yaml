@@ -74,7 +74,9 @@ services:
       SMTP_USER: ${SMTP_USER:-}
       SMTP_PASS: ${SMTP_PASS:-}
       SMTP_FROM: ${SMTP_FROM:-}
-      POSTAL_WEBHOOK_SECRET: ${POSTAL_WEBHOOK_SECRET:-}
+      EMAIL_WEBHOOK_SECRET: ${EMAIL_WEBHOOK_SECRET:-}
+      INBOUND_FORWARD_TO: ${INBOUND_FORWARD_TO:-}
+      BREVO_API_KEY: ${BREVO_API_KEY:-}
       # Seeding overwrites site content. Never default this to true in prod.
       RUN_SEED_ON_START: ${RUN_SEED_ON_START:-false}
     volumes:
