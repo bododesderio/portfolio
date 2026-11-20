@@ -28,10 +28,7 @@ export default async function Footer({
             <BrandMark className="personal-brand-mark" />
             Bodo Desderio
           </Link>
-          <p>
-            Software engineer and SEO specialist in{' '}
-            {settings['site.location'] || 'Lira City, Uganda'}.
-          </p>
+          <p>Software engineer and SEO specialist.</p>
         </div>
 
         {social.length > 0 && (
