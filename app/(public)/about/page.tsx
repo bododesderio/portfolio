@@ -1,5 +1,5 @@
+import { pageMetadata } from '@/lib/seo/page-metadata'
 import Link from 'next/link'
-import type { Metadata } from 'next'
 import { prisma } from '@/lib/data/db'
 import { getPersonalProfile } from '@/lib/data/profile'
 import { getField } from '@/lib/data/content'
@@ -18,13 +18,15 @@ import {
 import { PhotoCollection } from '@/components/personal/PhotoCollection'
 import { safePublicHref } from '@/lib/domain/profile'
 export const dynamic = 'force-dynamic'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-export const metadata: Metadata = {
-  title: 'About',
-  description:
-    'The biography of Bodo Desderio: personal history, education, career, community, interests, and the chapters along the way.',
-  alternates: { canonical: `${SITE_URL}/about` },
-  openGraph: { title: 'About Bodo Desderio', type: 'profile', url: '/about' },
+export function generateMetadata() {
+  return pageMetadata({
+    page: 'about',
+    title: "About Bodo Desderio · Biography, education & career",
+    description:
+      "The biography of Bodo Desderio: education, his work at Kakebe Technologies, founding Rooibok Technologies, community leadership and the chapters along the way.",
+    path: '/about',
+    type: 'profile',
+  })
 }
 export default async function AboutPage() {
   const [profile, press, photos] = await Promise.all([

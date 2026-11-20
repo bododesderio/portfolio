@@ -1,3 +1,5 @@
+import { Zoomable } from '@/components/personal/Lightbox'
+import { pageMetadata } from '@/lib/seo/page-metadata'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import Image from 'next/image'
@@ -15,27 +17,19 @@ export const dynamic = 'force-dynamic'
 interface Props {
   params: Promise<{ slug: string }>
 }
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params
   const project = await prisma.project.findFirst({
     where: { slug, visible: true },
   })
   if (!project) return {}
-  return {
-    title: project.title,
+  return pageMetadata({
+    title: `${project.title} · Bodo Desderio`,
     description: project.excerpt,
-    alternates: { canonical: `${SITE_URL}/projects/${project.slug}` },
-    openGraph: {
-      type: 'article',
-      title: project.title,
-      description: project.excerpt,
-      url: `${SITE_URL}/projects/${project.slug}`,
-      images: project.featuredImageUrl
-        ? [{ url: project.featuredImageUrl }]
-        : undefined,
-    },
-  }
+    path: `/projects/${project.slug}`,
+    type: 'article',
+    image: project.featuredImageUrl,
+  })
 }
 const statuses: Record<string, string> = {
   completed: 'Completed',
@@ -111,14 +105,20 @@ export default async function ProjectPage({ params }: Props) {
       </dl>
       {project.featuredImageUrl && (
         <figure className="personal-detail-image">
-          <Image
+          <Zoomable
+            group="project"
             src={project.featuredImageUrl}
             alt={project.featuredImageAlt || project.title}
-            fill
-            sizes="(max-width: 760px) 90vw, 850px"
-            className="object-cover"
-            priority
-          />
+          >
+            <Image
+              src={project.featuredImageUrl}
+              alt={project.featuredImageAlt || project.title}
+              fill
+              sizes="(max-width: 760px) 90vw, 850px"
+              className="object-cover"
+              priority
+            />
+          </Zoomable>
         </figure>
       )}
       <EntrySection id="overview" title="About the work">

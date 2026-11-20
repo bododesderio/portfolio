@@ -1,9 +1,7 @@
 import {
-  BarChart3,
   Bell,
   Briefcase,
   FileText,
-  FolderOpen,
   Image,
   Layers,
   LayoutDashboard,
@@ -49,8 +47,16 @@ export const ADMIN_NAV: AdminNavGroup[] = [
       { label: 'Pages & biography', href: '/admin/content', icon: PenLine },
       { label: 'Writing', href: '/admin/blog', icon: FileText },
       { label: 'Work & ventures', href: '/admin/projects', icon: Layers },
-      { label: 'Photographs', href: '/admin/gallery', icon: Image },
-      { label: 'Media library', href: '/admin/media', icon: FolderOpen },
+      {
+        label: 'Photos & media',
+        href: '/admin/gallery',
+        icon: Image,
+        match: ['/admin/media'],
+        tabs: [
+          { label: 'Gallery photos', href: '/admin/gallery' },
+          { label: 'All uploaded files', href: '/admin/media' },
+        ],
+      },
       { label: 'Mentions', href: '/admin/press', icon: Newspaper },
     ],
   },
@@ -69,10 +75,6 @@ export const ADMIN_NAV: AdminNavGroup[] = [
         ],
       },
     ],
-  },
-  {
-    label: 'Insights',
-    items: [{ label: 'Analytics', href: '/admin/analytics', icon: BarChart3 }],
   },
   {
     label: 'Website',

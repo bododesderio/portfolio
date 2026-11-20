@@ -1,10 +1,12 @@
 import Image from 'next/image'
+import { Zoomable } from '@/components/personal/Lightbox'
 import Link from 'next/link'
 type Fact = { label: string; value: string; href?: string }
 export function ProfileCard({
   name,
   photo,
   location,
+  caption,
   resumeUrl,
   facts = [],
 }: {
@@ -12,26 +14,30 @@ export function ProfileCard({
   /** Omitted where the page already shows the portrait, such as under the home hero. */
   photo?: string
   location: string
+  /** Line under the name in the photo caption; defaults to the location. */
+  caption?: string
   resumeUrl?: string
   facts?: Fact[]
 }) {
   return (
     <aside className="personal-profile-card" aria-label="At a glance">
       {photo && (
-        <figure>
+        <figure className="personal-profile-figure">
           <div className="personal-portrait">
-            <Image
-              src={photo}
-              alt={name}
-              fill
-              priority
-              sizes="(max-width: 700px) 78vw, 280px"
-              className="object-contain object-bottom"
-            />
+            <Zoomable group="profile" src={photo} alt={name}>
+              <Image
+                src={photo}
+                alt={name}
+                fill
+                priority
+                sizes="(max-width: 700px) 78vw, 320px"
+                className="object-cover object-top"
+              />
+            </Zoomable>
           </div>
           <figcaption>
             {name}
-            <span>{location}</span>
+            <span>{caption ?? location}</span>
           </figcaption>
         </figure>
       )}

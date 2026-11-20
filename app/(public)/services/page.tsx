@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo/page-metadata'
 import Link from 'next/link'
 import { prisma } from '@/lib/data/db'
 import {
@@ -9,12 +9,14 @@ import {
 import { PersonalIcon } from '@/components/personal/PersonalIcon'
 import { ldJson, servicesSchema } from '@/lib/schema'
 export const dynamic = 'force-dynamic'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-export const metadata: Metadata = {
-  title: 'Areas of work',
-  description:
-    'Engineering, entrepreneurship, strategy, and community: the disciplines that shape Bodo Desderio’s work.',
-  alternates: { canonical: `${SITE_URL}/services` },
+export function generateMetadata() {
+  return pageMetadata({
+    page: 'services',
+    title: "Areas of work · Bodo Desderio",
+    description:
+      "Software engineering, SEO, digital marketing, technical consulting, company building and community programmes by Bodo Desderio, a Ugandan engineer.",
+    path: '/services',
+  })
 }
 export default async function CapabilitiesPage() {
   const services = await prisma.service.findMany({

@@ -671,20 +671,6 @@
   margin-right: 7px;
   vertical-align: middle;
 }
-.admin-analytics-link {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px 5px 0;
-  color: var(--link);
-  font-size: calc(13px * var(--reader-scale));
-}
-.admin-analytics-link small {
-  display: block;
-  font-size: calc(11px * var(--reader-scale));
-  margin-top: 5px;
-  color: rgb(var(--ink-muted));
-}
 .admin-analytics-rows {
   padding: 8px 24px;
 }

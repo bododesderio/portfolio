@@ -232,3 +232,32 @@ Created: 2026-07-20
   - In compose labels, Traefik redirectregex replacement needs a doubled dollar (compose
     eats a single one).
 - **Files changed:** compose.vps.yaml (host/name/router), CONTEXT.md, .claude/MEMORY.md.
+
+## [2026-11-20] — Brevo email end to end, hero/lightbox/SEO overhaul, admin Overview merge
+
+- **Decisions:**
+  - Brevo for all mail (SMTP relay + transactional webhook + inbound parsing on the
+    root domain, same as rooibok.tech). Per-purpose senders: news@, work@, no-reply@,
+    info@ default. Inbound forwarded to the owner's Gmail with Reply-To = sender.
+  - `pageMetadata()` is the only way pages build metadata; Settings > SEO wins.
+  - One public image viewer (`Lightbox.tsx`) replaced the gallery's boxed dialog.
+  - Admin Analytics merged into `/admin`; Photographs + Media library merged into
+    one "Photos & media" item with tabs.
+- **Patterns:**
+  - Brevo echoes `X-Mailin-custom` on every webhook event; we put the EmailLog id
+    there, so correlation does not depend on the relay's Message-ID.
+  - Abspos grid items inherit `align-self`; set `align-self: stretch` or they
+    collapse to zero height.
+  - A page-level `openGraph` replaces the root one wholesale in Next, so the
+    file-based OG image disappears unless `images` is set explicitly.
+- **Gotchas:**
+  - `createContext` in anything imported by a route handler fails `next build`
+    (RSC graph) even though dev works.
+  - Class-name collisions: the gallery already used `.personal-lightbox`.
+  - Brevo API keys are IP-restricted: run webhook registration on the VPS.
+  - Hostinger hosting MCP (mail forwarders) was down; inbound handled via Brevo.
+- **Files changed:** lib/domain/{senders,brevo-webhook,inbound-email,image-alpha}.ts,
+  lib/seo/page-metadata.ts, lib/emails/{brand.ts,Layout.tsx}, components/personal/
+  {HomeHero,HeroSlides,Lightbox,ProfileCard,PhotoCollection}.tsx, app/(public)/
+  personal.css, app/(admin)/admin/page.tsx, components/admin/analytics/
+  AnalyticsSection.tsx, prisma migration 20261120134543_inbound_emails.

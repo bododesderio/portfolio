@@ -1,3 +1,4 @@
+import { Lightbox } from '@/components/personal/Lightbox'
 import { headers } from 'next/headers'
 import Link from 'next/link'
 import { Header } from '@/components/layout/Header'
@@ -55,6 +56,7 @@ export default async function PublicLayout({ children }: { children: React.React
         {children}
       </main>
       <Footer navLinks={visibleLinks} />
+      <Lightbox />
       <BannerRenderer />
       {analyticsEnabled && <PageViewTracker />}
     </div>

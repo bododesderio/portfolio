@@ -739,8 +739,7 @@
   max-height: 80vh;
   margin: 12vh auto auto;
 }
-.personal-dialog::backdrop,
-.personal-lightbox::backdrop {
+.personal-dialog::backdrop {
   background: #101c1c70;
   backdrop-filter: blur(5px);
 }
@@ -755,9 +754,7 @@
   font-size: calc(20px * var(--reader-scale));
   margin: 0;
 }
-.personal-dialog-heading button,
-.personal-lightbox-toolbar button,
-.personal-lightbox-caption button {
+.personal-dialog-heading button {
   border: 0;
   background: none;
   color: inherit;
@@ -947,43 +944,6 @@
 }
 .personal-search-page-results .personal-search-result {
   padding: 24px 0;
-}
-.personal-lightbox {
-  padding: 16px;
-  border: 1px solid var(--rule);
-  border-radius: 8px;
-  background: var(--paper);
-  color: var(--text);
-  width: min(1100px, calc(100vw - 24px));
-  max-height: 94vh;
-}
-.personal-lightbox-inner {
-  width: 100%;
-}
-.personal-lightbox-toolbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: calc(12px * var(--reader-scale));
-  color: var(--subtle);
-}
-.personal-lightbox-image {
-  position: relative;
-  height: 66vh;
-}
-.personal-lightbox-caption {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-}
-.personal-lightbox-caption p {
-  font-size: calc(13px * var(--reader-scale));
-  margin: 12px 0;
-  text-align: center;
-}
-.personal-lightbox-caption button {
-  flex-shrink: 0;
 }
 .personal-site .personal-main > article.pt-24 {
   padding-top: 24px;
@@ -1399,15 +1359,6 @@
   }
   .personal-settings-dialog fieldset {
     margin-inline: 18px;
-  }
-  .personal-lightbox {
-    padding: 10px;
-  }
-  .personal-lightbox-image {
-    height: 60vh;
-  }
-  .personal-lightbox-caption p {
-    font-size: calc(11px * var(--reader-scale));
   }
   .personal-search-page-form input {
     font-size: calc(13px * var(--reader-scale));
@@ -2071,14 +2022,30 @@
   }
 }
 
-/* Dark green ground shared by the hero, the profile card caption, the community band and the footer. */
+/*
+ * Brand band shared by the hero, the profile card caption, the community band and
+ * the footer. It follows the reader's theme: warm cream in light mode, deep green
+ * in dark mode (and so "Automatic" tracks the device).
+ */
 .personal-site {
-  --hero-ground: 11 16 13;
-  --hero-ground-2: 30 46 36;
-  --hero-cream: 244 241 232;
+  --band-from: 250 247 238;
+  --band-to: 236 229 205;
+  --band-ink: 43 52 46;
+  --band-strong: 14 20 16;
+  --band-accent: var(--brand-700);
+  --band-line: 14 20 16;
+  --on-gold: 14 20 16;
+}
+:root.dark .personal-site {
+  --band-from: 11 16 13;
+  --band-to: 30 46 36;
+  --band-ink: 244 241 232;
+  --band-strong: 255 255 255;
+  --band-accent: var(--brand-200);
+  --band-line: 255 255 255;
 }
 
-/* Home hero: full screen below the sticky header on a dark green gradient; copy and portrait share a row. */
+/* Home hero: full screen below the sticky header on the brand band gradient; copy and portrait share a row. */
 .personal-hero {
   /* Sticky header height plus its 1px rule; the hero fills what is left of the screen. */
   --hero-header: 73px;
@@ -2088,8 +2055,8 @@
   min-height: calc(100svh - var(--hero-header));
   display: flex;
   flex-direction: column;
-  background: linear-gradient(135deg, rgb(var(--hero-ground)) 0%, rgb(var(--hero-ground-2)) 100%);
-  color: rgb(var(--hero-cream));
+  background: linear-gradient(135deg, rgb(var(--band-from)) 0%, rgb(var(--band-to)) 100%);
+  color: rgb(var(--band-ink));
 }
 .personal-hero-inner {
   position: relative;
@@ -2116,19 +2083,19 @@
   line-height: 0.98;
   letter-spacing: -0.045em;
   font-weight: 550;
-  color: #fff;
+  color: rgb(var(--band-strong));
 }
 .personal-hero-role {
   margin: 18px 0 0;
   font-size: clamp(17px, 1.6vw, 22px);
-  color: rgb(var(--brand-200));
+  color: rgb(var(--band-accent));
 }
 .personal-hero-tagline {
   margin: 14px 0 0;
   max-width: 42ch;
   font-size: calc(15px * var(--reader-scale));
   line-height: 1.7;
-  color: rgb(var(--hero-cream) / 0.8);
+  color: rgb(var(--band-ink) / 0.82);
 }
 .personal-hero-actions {
   grid-area: actions;
@@ -2154,17 +2121,17 @@
 }
 .personal-site .personal-hero-primary {
   background: rgb(var(--brand-500));
-  color: rgb(var(--hero-ground));
+  color: rgb(var(--on-gold));
 }
 .personal-site .personal-hero-primary:hover {
   background: rgb(var(--brand-300));
 }
 .personal-site .personal-hero-secondary {
-  color: #fff;
-  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.45);
+  color: rgb(var(--band-strong));
+  box-shadow: inset 0 0 0 1px rgb(var(--band-line) / 0.45);
 }
 .personal-site .personal-hero-secondary:hover {
-  background: rgb(255 255 255 / 0.1);
+  background: rgb(var(--band-line) / 0.08);
 }
 .personal-hero-portrait {
   grid-area: portrait;
@@ -2184,28 +2151,31 @@
   gap: 2px;
   font-size: calc(11px * var(--reader-scale));
   letter-spacing: 0.04em;
-  color: rgb(var(--hero-cream) / 0.75);
+  color: rgb(var(--band-ink) / 0.75);
 }
 .personal-site .personal-hero-next:hover {
-  color: #fff;
+  color: rgb(var(--band-strong));
   text-decoration: none;
 }
 .personal-hero + .personal-entry-layout {
   padding-top: 56px;
 }
 @media (max-width: 760px) {
+  /* Phones use the same backdrop idea as wide screens: the portrait fills the
+     right side top to bottom, the copy sits over the overlay on the left, and
+     the actions run across the faded bottom edge. */
   .personal-hero-inner {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+    position: static;
+    grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto auto;
     grid-template-areas:
-      'copy portrait'
-      'actions actions';
+      'copy'
+      'actions';
     align-content: center;
-    column-gap: 10px;
   }
   .personal-hero-copy {
     align-self: center;
-    max-width: none;
+    max-width: 62%;
     padding-top: 32px;
   }
   .personal-site .personal-hero h1 {
@@ -2220,20 +2190,35 @@
     font-size: 13px;
     line-height: 1.6;
   }
-  /* Head-and-shoulders crop: the box matches the photo's 3:4 ratio and the photo is doubled from the head down. */
   .personal-hero-portrait {
-    align-self: center;
-    margin-top: 32px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 66%;
     height: auto;
     min-height: 0;
-    aspect-ratio: 3 / 4;
+    align-self: stretch;
     overflow: hidden;
-    -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent);
-    mask-image: linear-gradient(to bottom, #000 70%, transparent);
   }
-  .personal-hero-portrait img {
-    transform: scale(2);
-    transform-origin: 50% 18%;
+  .personal-site .personal-hero-portrait img {
+    object-fit: cover;
+    object-position: 50% 8%;
+  }
+  .personal-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 85% 110% at 0% 45%, rgb(var(--band-from)) 0%, rgb(var(--band-from) / 0.86) 50%, rgb(var(--band-from) / 0) 100%),
+      linear-gradient(0deg, rgb(var(--band-from)) 0%, rgb(var(--band-from) / 0) 30%);
+  }
+  .personal-hero-copy,
+  .personal-hero-actions {
+    z-index: 1;
   }
   .personal-hero-actions {
     display: grid;
@@ -2248,6 +2233,10 @@
     font-size: 13px;
     text-align: center;
   }
+  /* This button can sit over the photo, so it gets the band behind its outline. */
+  .personal-site .personal-hero-secondary {
+    background: rgb(var(--band-from) / 0.88);
+  }
   .personal-site .personal-hero-next {
     display: none;
   }
@@ -2260,8 +2249,54 @@
     grid-template-columns: minmax(0, 1fr);
   }
 }
+.personal-hero-figure {
+  position: absolute;
+  inset: 0;
+}
+@media (min-width: 761px) {
+  /* The portrait is positioned against the hero itself so it can run edge to edge. */
+  .personal-hero-inner {
+    position: static;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .personal-hero-portrait {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 50%;
+    height: auto;
+    min-height: 0;
+    overflow: hidden;
+    align-self: stretch;
+  }
+  /* The cut-out has a band of empty space above the head; 108% tall lifts the head to the top edge. */
+  .personal-hero-figure {
+    inset: auto 0 0;
+    height: 108%;
+  }
+  .personal-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      ellipse 62% 120% at 0% 50%,
+      rgb(var(--band-from)) 0%,
+      rgb(var(--band-from) / 0.92) 55%,
+      rgb(var(--band-from) / 0) 100%
+    );
+  }
+  .personal-hero-copy,
+  .personal-hero-actions,
+  .personal-site .personal-hero-next {
+    z-index: 1;
+  }
+}
 
-/* The hero's ground, gold and cream carried into the rest of the page. */
+/* The hero's band and gold carried into the rest of the page. */
 .personal-section-heading h2 {
   display: inline-flex;
   align-items: center;
@@ -2276,27 +2311,30 @@
   transform: rotate(45deg);
 }
 .personal-profile-card figcaption {
-  background: rgb(var(--hero-ground));
-  color: rgb(var(--hero-cream));
+  background: linear-gradient(135deg, rgb(var(--band-from)) 0%, rgb(var(--band-to)) 100%);
+  color: rgb(var(--band-strong));
   border-bottom-color: rgb(var(--brand-500) / 0.5);
 }
 .personal-profile-card figcaption span {
-  color: rgb(var(--brand-300));
+  color: rgb(var(--band-accent));
 }
 .personal-entry-section#community {
-  --text: rgb(var(--hero-cream));
-  --subtle: rgb(var(--hero-cream) / 0.72);
-  --link: rgb(var(--brand-300));
-  --accent: rgb(var(--brand-300));
-  --panel: rgb(var(--hero-ground-2));
+  --text: rgb(var(--band-ink));
+  --subtle: rgb(var(--band-ink) / 0.72);
+  --link: rgb(var(--band-accent));
+  --accent: rgb(var(--band-accent));
+  --panel: rgb(var(--band-to));
   position: relative;
   isolation: isolate;
   overflow: hidden;
   padding: 30px 32px 34px;
   border: 1px solid rgb(var(--brand-500) / 0.28);
   border-radius: 8px;
-  background: linear-gradient(135deg, rgb(var(--hero-ground)) 0%, rgb(var(--hero-ground-2)) 100%);
+  background: linear-gradient(135deg, rgb(var(--band-from)) 0%, rgb(var(--band-to)) 100%);
   color: var(--text);
+}
+.personal-entry-section#community h2 {
+  color: rgb(var(--band-strong));
 }
 .personal-entry-section#interests .personal-section-intro {
   padding: 18px 22px;
@@ -2309,15 +2347,15 @@
   background: rgb(var(--brand-900) / 0.35);
 }
 .personal-footer {
-  --text: rgb(var(--hero-cream));
-  --subtle: rgb(var(--hero-cream) / 0.7);
-  --link: rgb(var(--brand-300));
-  --rule: rgb(var(--hero-cream) / 0.14);
-  --paper: rgb(var(--hero-ground-2));
+  --text: rgb(var(--band-ink));
+  --subtle: rgb(var(--band-ink) / 0.7);
+  --link: rgb(var(--band-accent));
+  --rule: rgb(var(--band-ink) / 0.14);
+  --paper: rgb(var(--band-from));
   position: relative;
   isolation: isolate;
   border-top: 0;
-  background: linear-gradient(180deg, rgb(var(--hero-ground-2)) 0%, rgb(var(--hero-ground)) 100%);
+  background: linear-gradient(180deg, rgb(var(--band-to)) 0%, rgb(var(--band-from)) 100%);
   color: var(--text);
 }
 .personal-footer::before {
@@ -2357,5 +2395,198 @@
   .personal-header[data-behavior='hide'][data-hidden] {
     filter: none;
     transform: none;
+  }
+}
+.personal-profile-card .personal-portrait {
+  background: linear-gradient(160deg, rgb(var(--band-from)) 0%, rgb(var(--band-to)) 100%);
+}
+.personal-intro-photos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin: 26px 0 0;
+  padding: 0;
+  list-style: none;
+}
+.personal-intro-photos li {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border-radius: 6px;
+  background: rgb(var(--band-to));
+}
+.personal-intro-photos .personal-zoom {
+  position: absolute;
+  inset: 0;
+}
+.personal-intro-photos img {
+  transition: transform 0.4s ease;
+}
+.personal-intro-photos .personal-zoom:hover img {
+  transform: scale(1.04);
+}
+@media (prefers-reduced-motion: reduce) {
+  .personal-intro-photos img {
+    transition: none;
+  }
+}
+/* Profile photo fills its frame; the name and role sit over a fade at the bottom. */
+.personal-profile-figure {
+  position: relative;
+}
+.personal-profile-card .personal-profile-figure figcaption {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 1;
+  padding: 44px 17px 14px;
+  border-bottom: 0;
+  background: linear-gradient(to top, rgb(14 20 16 / 0.88) 0%, rgb(14 20 16 / 0.55) 55%, rgb(14 20 16 / 0) 100%);
+  color: #fff;
+  pointer-events: none;
+}
+.personal-profile-card .personal-profile-figure figcaption span {
+  color: rgb(var(--brand-200));
+}
+.personal-profile-figure + .personal-facts {
+  border-top: 2px solid rgb(var(--brand-500) / 0.6);
+}
+/* Image viewer shared by every zoomable picture on the public site. */
+.personal-site .personal-zoom {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+.personal-site .personal-prose img {
+  cursor: zoom-in;
+}
+.personal-viewer {
+  width: 100vw;
+  max-width: none;
+  height: 100dvh;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: rgb(8 11 9 / 0.94);
+  color: #f4f1e8;
+}
+.personal-viewer::backdrop {
+  background: rgb(8 11 9 / 0.6);
+}
+.personal-viewer[open] {
+  display: grid;
+  place-items: center;
+}
+.personal-viewer-figure {
+  display: grid;
+  justify-items: center;
+  gap: 12px;
+  margin: 0;
+  max-width: calc(100vw - 32px);
+}
+.personal-viewer-figure img {
+  max-width: min(92vw, 1600px);
+  max-height: 82dvh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 4px;
+}
+.personal-viewer-figure figcaption {
+  display: flex;
+  gap: 16px;
+  align-items: baseline;
+  font-size: 13px;
+  color: rgb(244 241 232 / 0.82);
+}
+.personal-viewer-count {
+  font-variant-numeric: tabular-nums;
+  color: rgb(var(--brand-200));
+}
+.personal-site .personal-viewer button {
+  position: absolute;
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(244 241 232 / 0.12);
+  color: #fff;
+  cursor: pointer;
+}
+.personal-site .personal-viewer button:hover {
+  background: rgb(244 241 232 / 0.22);
+}
+.personal-viewer-close {
+  top: 16px;
+  right: 16px;
+}
+.personal-viewer-step {
+  top: 50%;
+  transform: translateY(-50%);
+}
+.personal-viewer-prev {
+  left: 16px;
+}
+.personal-viewer-next {
+  right: 16px;
+}
+@media (max-width: 760px) {
+  .personal-viewer-step {
+    top: auto;
+    bottom: 20px;
+    transform: none;
+  }
+}
+/* Hero slides cross-fade; only the active one is visible. */
+.personal-hero-figure {
+  opacity: 0;
+  transition: opacity 1.1s ease;
+}
+.personal-hero-figure[data-active] {
+  opacity: 1;
+}
+@media (min-width: 761px) {
+  .personal-hero-figure[data-kind='photo'] {
+    inset: 0;
+    height: 100%;
+    /* An ellipse anchored on the right edge gives the fade a curved, organic edge. */
+    -webkit-mask-image: radial-gradient(ellipse 100% 125% at 100% 50%, #000 58%, rgb(0 0 0 / 0.55) 74%, transparent 92%);
+    mask-image: radial-gradient(ellipse 100% 125% at 100% 50%, #000 58%, rgb(0 0 0 / 0.55) 74%, transparent 92%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .personal-hero-figure {
+    transition: none;
+  }
+}
+/* Desktop header: brand left, page links centred, search and reading settings right. */
+@media (min-width: 761px) {
+  .personal-header-inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    grid-template-areas: 'brand nav tools';
+  }
+  .personal-wordmark {
+    grid-area: brand;
+    justify-self: start;
+  }
+  .personal-navigation {
+    grid-area: nav;
+    justify-self: center;
+    margin-left: 0;
+  }
+  .personal-header-controls {
+    grid-area: tools;
+    justify-self: end;
+    padding-left: 0;
+    border-left: 0;
   }
 }

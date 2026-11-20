@@ -1,3 +1,5 @@
+import { Zoomable } from '@/components/personal/Lightbox'
+import { pageMetadata } from '@/lib/seo/page-metadata'
 import type { Metadata } from 'next'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -22,25 +24,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     where: { slug, status: 'published' },
   })
   if (!post) return {}
-  return {
-    title: post.title,
+  return pageMetadata({
+    title: `${post.title} · Bodo Desderio`,
     description: post.excerpt,
-    alternates: { canonical: `${SITE_URL}/blog/${post.slug}` },
-    openGraph: {
-      type: 'article',
-      title: post.title,
-      description: post.excerpt,
-      url: `${SITE_URL}/blog/${post.slug}`,
-      images: post.featuredImageUrl
-        ? [{ url: post.featuredImageUrl }]
-        : undefined,
+    path: `/blog/${post.slug}`,
+    type: 'article',
+    image: post.featuredImageUrl,
+    article: {
       publishedTime: (post.publishedAt ?? post.createdAt).toISOString(),
       modifiedTime: post.updatedAt.toISOString(),
-      authors: ['Bodo Desderio'],
       tags: post.tags,
     },
-    twitter: { card: 'summary_large_image' },
-  }
+  })
 }
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params
@@ -134,14 +129,16 @@ export default async function ArticlePage({ params }: Props) {
       {post.featuredImageUrl && (
         <>
           <figure className="personal-detail-image">
-            <Image
-              src={post.featuredImageUrl}
-              alt={post.featuredImageAlt || post.title}
-              fill
-              priority
-              sizes="(max-width: 760px) 90vw, 850px"
-              className="object-cover"
-            />
+            <Zoomable group="article" src={post.featuredImageUrl} alt={post.featuredImageAlt || post.title}>
+              <Image
+                src={post.featuredImageUrl}
+                alt={post.featuredImageAlt || post.title}
+                fill
+                priority
+                sizes="(max-width: 760px) 90vw, 850px"
+                className="object-cover"
+              />
+            </Zoomable>
           </figure>
           {attribution && (
             <p className="personal-detail-image-caption">

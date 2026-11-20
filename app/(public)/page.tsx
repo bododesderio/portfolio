@@ -1,5 +1,6 @@
+import { pageMetadata } from '@/lib/seo/page-metadata'
+import Image from 'next/image'
 import Link from 'next/link'
-import type { Metadata } from 'next'
 import { prisma } from '@/lib/data/db'
 import { getPersonalProfile } from '@/lib/data/profile'
 import { getField } from '@/lib/data/content'
@@ -8,6 +9,8 @@ import { ProfileCard } from '@/components/personal/ProfileCard'
 import { HomeHero } from '@/components/personal/HomeHero'
 import { PersonalIcon } from '@/components/personal/PersonalIcon'
 import { PhotoCollection } from '@/components/personal/PhotoCollection'
+import { Zoomable } from '@/components/personal/Lightbox'
+import { isCutout } from '@/lib/domain/image-alpha'
 import {
   PersonalTimeline,
   PressList,
@@ -16,20 +19,17 @@ import {
   WritingRows,
 } from '@/components/personal/ProfileContent'
 export const dynamic = 'force-dynamic'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-export const metadata: Metadata = {
-  title: { absolute: 'Bodo Desderio · Life, work & ideas' },
-  description:
-    'The personal website of Bodo Desderio. Biography, work, community, writing, and photographs from Lira City, Uganda.',
-  alternates: { canonical: SITE_URL },
-  openGraph: {
-    title: 'Bodo Desderio · Life, work & ideas',
-    url: '/',
-    type: 'website',
-  },
+export function generateMetadata() {
+  return pageMetadata({
+    page: 'home',
+    title: "Bodo Desderio · Software engineer & SEO specialist in Uganda",
+    description:
+      "Bodo Desderio is a Ugandan software engineer and SEO specialist and the founder of Rooibok Technologies. His biography, work, writing and photographs.",
+    path: '/',
+  })
 }
 export default async function HomePage() {
-  const [profile, projects, posts, photos, press, services] = await Promise.all(
+  const [profile, projects, posts, photos, press, services, heroImages] = await Promise.all(
     [
       getPersonalProfile(),
       prisma.project.findMany({
@@ -60,7 +60,7 @@ export default async function HomePage() {
       }),
       prisma.galleryItem.findMany({
         orderBy: [{ featured: 'desc' }, { order: 'asc' }],
-        take: 3,
+        take: 6,
         include: { media: { select: { url: true, altText: true } } },
       }),
       prisma.pressItem.findMany({
@@ -74,9 +74,24 @@ export default async function HomePage() {
         take: 6,
         select: { id: true, title: true },
       }),
+      prisma.heroImage.findMany({
+        where: { active: true },
+        orderBy: { order: 'asc' },
+        select: { media: { select: { url: true } } },
+      }),
     ]
   )
   const heroField = (key: string) => getField(profile.home, `hero.${key}`)
+  const heroSlides = await Promise.all(
+    heroImages.map(async ({ media }) => ({
+      src: media.url,
+      kind: (await isCutout(media.url)) ? ('portrait' as const) : ('photo' as const),
+    })),
+  )
+  // The first three gallery photos fill the Photographs section; the next three
+  // sit beside the profile card, so the two never repeat each other.
+  const featuredPhotos = photos.slice(0, 3)
+  const introPhotos = photos.slice(3, 6)
   const contents = [
     { id: 'introduction', label: 'Introduction' },
     { id: 'story', label: 'My story' },
@@ -97,6 +112,7 @@ export default async function HomePage() {
       role={profile.role}
       tagline={profile.tagline}
       photo={profile.photo}
+      backdrops={heroSlides}
       primary={{
         label: heroField('cta_primary_label') || 'Get in touch',
         href: heroField('cta_primary_url') || '/contact',
@@ -137,9 +153,37 @@ export default async function HomePage() {
                 'Technology, people, and a curiosity about the world.'}
             </p>
           </div>
+          {introPhotos.length > 0 && (
+            <ul className="personal-intro-photos" aria-label="Recent photographs">
+              {introPhotos.map((photo) => (
+                <li key={photo.id}>
+                  <Zoomable
+                    group="home-photos"
+                    src={photo.media.url}
+                    alt={
+                      photo.caption ||
+                    (photo.media.altText && !/\.(jpe?g|png|webp|gif|avif)$/i.test(photo.media.altText)
+                      ? photo.media.altText
+                      : 'Photograph from the gallery')
+                    }
+                  >
+                    <Image
+                      src={photo.media.url}
+                      alt=""
+                      fill
+                      sizes="(max-width: 760px) 30vw, 200px"
+                      className="object-cover"
+                    />
+                  </Zoomable>
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
         <ProfileCard
           name={profile.name}
+          photo={getField(profile.home, 'profile.photo') || undefined}
+          caption={profile.role}
           location={profile.location}
           resumeUrl={profile.resumeUrl}
           facts={[
@@ -158,23 +202,20 @@ export default async function HomePage() {
       </div>
       <EntrySection
         id="story"
-        title="A little of my story"
+        title={getField(profile.home, 'story.heading') || 'A little of my story'}
         href="/about"
-        linkLabel="Read the biography"
+        linkLabel="Read the full biography"
       >
-        <p className="personal-section-intro">
-          Recent milestones in my education, work and community life. The full
-          history is on the About page.
-        </p>
-        <PersonalTimeline
-          compact
-          items={(profile.timeline.some((item) => item.featured)
-            ? profile.timeline.filter((item) => item.featured)
-            : profile.timeline
-          ).slice(-4)}
-        />
-        {profile.timeline.length === 0 && profile.introduction[2] && (
-          <RichText html={profile.introduction[2]} />
+        {getField(profile.home, 'story.body') ? (
+          <RichText html={getField(profile.home, 'story.body')} />
+        ) : (
+          <PersonalTimeline
+            compact
+            items={(profile.timeline.some((item) => item.featured)
+              ? profile.timeline.filter((item) => item.featured)
+              : profile.timeline
+            ).slice(-4)}
+          />
         )}
       </EntrySection>
       {projects.length > 0 && (
@@ -266,7 +307,7 @@ export default async function HomePage() {
           <p className="personal-section-intro">
             Tech camps, outreach days, team work and time with friends.
           </p>
-          <PhotoCollection items={photos} />
+          <PhotoCollection items={featuredPhotos} />
         </EntrySection>
       )}
       {press.length > 0 && (

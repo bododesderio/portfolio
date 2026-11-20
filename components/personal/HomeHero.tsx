@@ -1,18 +1,20 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { ChevronDown } from 'lucide-react'
 import { safePublicHref } from '@/lib/domain/profile'
+import { HeroSlides, type HeroSlide } from '@/components/personal/HeroSlides'
 
 /**
- * Full-screen opening for the home page on the dark green gradient. The
- * actions sit in their own grid area so phones can stack them under both the
- * copy and the head-and-shoulders crop of the portrait.
+ * Full-screen opening for the home page. At every width the portrait fills the
+ * right side from top to bottom like a backdrop, and an overlay sits behind the
+ * copy on the left so the photo itself stays uncovered. The portrait and the
+ * active hero images rotate every few seconds.
  */
 export function HomeHero({
   name,
   role,
   tagline,
   photo,
+  backdrops = [],
   primary,
   secondary,
 }: {
@@ -20,11 +22,17 @@ export function HomeHero({
   role: string
   tagline: string
   photo: string
+  /** Active images from Content > Home > hero images, shown after the portrait. */
+  backdrops?: HeroSlide[]
   primary: { label: string; href: string }
   secondary: { label: string; href: string }
 }) {
   const primaryHref = safePublicHref(primary.href) || '/contact'
   const secondaryHref = safePublicHref(secondary.href) || '/about'
+  const slides: HeroSlide[] = [
+    { src: photo, kind: 'portrait' },
+    ...backdrops.filter((slide) => slide.src && slide.src !== photo),
+  ]
   return (
     <section className="personal-hero" aria-labelledby="hero-title">
       <div className="personal-wrap personal-hero-inner">
@@ -34,14 +42,7 @@ export function HomeHero({
           {tagline && <p className="personal-hero-tagline">{tagline}</p>}
         </div>
         <div className="personal-hero-portrait">
-          <Image
-            src={photo}
-            alt={`Portrait of ${name}`}
-            fill
-            priority
-            sizes="(max-width: 760px) 90vw, 46vw"
-            className="object-contain object-bottom"
-          />
+          <HeroSlides slides={slides} alt={`Portrait of ${name}`} />
         </div>
         <div className="personal-hero-actions">
           <Link href={primaryHref} className="personal-hero-primary">

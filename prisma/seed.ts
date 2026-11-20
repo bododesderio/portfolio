@@ -81,13 +81,12 @@ async function main() {
     // HOME PAGE - HERO
     { page: 'home', section: 'hero', fieldKey: 'pretitle', value: 'Software engineer & founder', fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'headline', value: 'Bodo Desderio', fieldType: 'text' },
-    { page: 'home', section: 'hero', fieldKey: 'tagline', value: 'I build software companies and lead youth-tech programs across East Africa.', fieldType: 'text' },
+    { page: 'home', section: 'hero', fieldKey: 'tagline', value: "I'm a techpreneur building software for businesses across Africa and helping young people lead in emerging technologies.", fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'cta_primary_label', value: "Let's work together", fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'cta_primary_url', value: '/contact', fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'cta_secondary_label', value: 'See my work', fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'cta_secondary_url', value: '/services', fieldType: 'text' },
     { page: 'home', section: 'hero', fieldKey: 'photo', value: '/images/hero/portrait-home.png', fieldType: 'image' },
-    { page: 'home', section: 'hero', fieldKey: 'background_image', value: '/images/hero/bg-pattern.svg', fieldType: 'image' },
 
     // HOME PAGE - STATS BAR
   // HOME PAGE - STATS BAR
@@ -122,6 +121,9 @@ async function main() {
 
 <p>I studied at Kampala International University and I'm based in Kampala, Uganda.</p>`, fieldType: 'html' },
     { page: 'home', section: 'bio', fieldKey: 'pullquote', value: 'Technology is the means, not the mission.', fieldType: 'text' },
+    { page: 'home', section: 'story', fieldKey: 'heading', value: 'A little of my story', fieldType: 'text' },
+    { page: 'home', section: 'story', fieldKey: 'body', value: "<p>I'm a Ugandan software engineer and SEO specialist. I joined <a href=\"https://kakebe.tech/about.html\">Kakebe Technologies</a> as a volunteer junior developer in December 2021, and since November 2023 I have worked there as a Software Engineer &amp; SEO Specialist, building mobile apps and websites and leading technical SEO.</p><p>I founded <a href=\"https://rooibok.tech\">Rooibok Technologies Limited</a> to build software and digital solutions for businesses and organisations. Beyond engineering, I manage social media for A Better Life International, serve on the board of Transform Open Arena, and was President of the African Youth Congress, Uganda Chapter, from 2023 to 2024.</p><p>I studied electrical engineering at FIMAT and computer science at IUEA and Kampala International University, completed Advanced SEO Engineering through Udemy, and am an ALX alumnus. I am also a member of YOUNGO, the official children and youth constituency of the UNFCCC.</p>", fieldType: 'html' },
+    { page: 'home', section: 'profile', fieldKey: 'photo', value: '/images/hero/portrait-about.png', fieldType: 'image' },
     { page: 'home', section: 'bio', fieldKey: 'roles', value: JSON.stringify([
       { title: 'Founder & CEO', org: 'Rooibok Technologies Limited', period: 'Present', url: 'https://rooibok.tech' },
       { title: 'Software Engineer & Head of Software', org: 'Kakebe Technologies Limited', period: 'Present', url: 'https://kakebe.tech/about.html' },
@@ -356,11 +358,19 @@ async function main() {
       visible: true,
     },
     {
+      title: 'Digital Marketing',
+      description: 'Digital marketing that ties search, social and content together. I plan campaigns, run social media, and build content and metadata strategies, then measure what works with Google Analytics and Search Console.',
+      icon: 'trending-up',
+      homeFeatured: true,
+      order: 3,
+      visible: true,
+    },
+    {
       title: 'Technical Consulting',
       description: 'Strategic technology guidance for organisations navigating digital transformation, from architecture decisions to team capability building.',
       icon: 'lightbulb',
       homeFeatured: true,
-      order: 3,
+      order: 4,
       visible: true,
     },
     {
@@ -368,7 +378,7 @@ async function main() {
       description: 'I design and run technology education programmes, workshops, and community events. Built on my experience leading the African Youth Congress Uganda Chapter.',
       icon: 'users',
       homeFeatured: true,
-      order: 4,
+      order: 5,
       visible: true,
     },
   ]
@@ -817,33 +827,38 @@ async function main() {
   const seoRows = [
     {
       page: 'home',
-      metaTitle: 'Bodo Desderio, Founder, Engineer & Community Leader | Kampala, Uganda',
-      metaDesc: 'Bodo Desderio is a Ugandan entrepreneur, software engineer, and community leader. Founder & CEO of Rooibok Technologies. Former President, African Youth Congress Uganda.',
+      metaTitle: "Bodo Desderio · Software engineer & SEO specialist in Uganda",
+      metaDesc: "Bodo Desderio is a Ugandan software engineer and SEO specialist and the founder of Rooibok Technologies. His biography, work, writing and photographs.",
     },
     {
       page: 'about',
-      metaTitle: 'About Bodo Desderio, Story, Values & Career',
-      metaDesc: 'The story behind Bodo Desderio, Ugandan founder, software engineer, and former President of the African Youth Congress Uganda Chapter. Values, milestones, and the why behind the work.',
+      metaTitle: "About Bodo Desderio · Biography, education & career",
+      metaDesc: "The biography of Bodo Desderio: education, his work at Kakebe Technologies, founding Rooibok Technologies, community leadership and the chapters along the way.",
     },
     {
       page: 'services',
-      metaTitle: 'Services, Bodo Desderio | Software, Strategy & Company Building',
-      metaDesc: 'Services offered by Bodo Desderio: software engineering, SEO & digital strategy, technical consulting, company building, and community programmes. Based in Kampala, working across Africa.',
+      metaTitle: "Areas of work · Bodo Desderio",
+      metaDesc: "Software engineering, SEO, digital marketing, technical consulting, company building and community programmes by Bodo Desderio, a Ugandan engineer.",
+    },
+    {
+      page: 'projects',
+      metaTitle: "Work & ventures · Bodo Desderio",
+      metaDesc: "The companies, software and ventures Bodo Desderio has built or worked on, including Rooibok Technologies and Kakebe Technologies.",
     },
     {
       page: 'gallery',
-      metaTitle: 'Gallery, Bodo Desderio | Tech Camps, Community & Projects',
-      metaDesc: 'Photos from tech camps, community events, school outreaches, and projects led by Bodo Desderio across Uganda and East Africa.',
+      metaTitle: "Photographs · Bodo Desderio",
+      metaDesc: "Photographs from tech camps, community outreach, events and time with friends, from the personal archive of Bodo Desderio.",
     },
     {
       page: 'blog',
-      metaTitle: 'Writing, Bodo Desderio | Tech, Business & Africa',
-      metaDesc: 'Essays and articles on technology, entrepreneurship, and building in Africa by Bodo Desderio, founder, engineer, and community leader from Kampala.',
+      metaTitle: "Writing · Bodo Desderio",
+      metaDesc: "Essays and notes by Bodo Desderio on technology, software engineering, SEO, leadership and building in Africa.",
     },
     {
       page: 'contact',
-      metaTitle: 'Contact Bodo Desderio, Start a Conversation',
-      metaDesc: 'Get in touch with Bodo Desderio, founder, software engineer, and community builder in Kampala, Uganda. Open to consulting, partnerships, and speaking engagements.',
+      metaTitle: "Contact · Bodo Desderio",
+      metaDesc: "Get in touch with Bodo Desderio about software projects, SEO and digital marketing work, partnerships or speaking.",
     },
   ]
 
@@ -923,21 +938,6 @@ async function main() {
       visible: true,
       featured: true,
       order: 1,
-    },
-    {
-      title: 'Portfolio Website',
-      slug: 'portfolio-website',
-      excerpt: 'This very website, a full-stack Next.js portfolio with a custom CMS, newsletter system, and analytics.',
-      body: '<p>A comprehensive portfolio and blog platform built from scratch with Next.js 16, Prisma, PostgreSQL, and Tailwind CSS.</p><p>Features include a custom admin panel with media management, blog editor with CKEditor, newsletter campaigns with tracking, banner management, and built-in analytics.</p>',
-      status: 'completed',
-      category: 'Web App',
-      techStack: ['Next.js', 'TypeScript', 'Prisma', 'PostgreSQL', 'Tailwind CSS', 'Redis'],
-      ongoing: false,
-      startDate: new Date('2024-12-01'),
-      endDate: new Date('2025-03-01'),
-      visible: true,
-      featured: false,
-      order: 2,
     },
     {
       title: 'Community Platform',

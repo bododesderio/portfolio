@@ -8,10 +8,16 @@ import {
   Plus,
   FileText,
   ChevronRight,
+  ImagePlus,
+  Send,
+  Home,
+  ExternalLink,
 } from 'lucide-react'
 import { prisma } from '@/lib/data/db'
 import { AdminPageHeader } from '@/components/admin/AdminPageHeader'
-export const metadata: Metadata = { title: 'Workspace' }
+import { AnalyticsSection } from '@/components/admin/analytics/AnalyticsSection'
+import { parseRange } from '@/lib/domain/analytics-range'
+export const metadata: Metadata = { title: 'Overview' }
 export const dynamic = 'force-dynamic'
 const date = (value: Date) =>
   value.toLocaleDateString('en-GB', {
@@ -19,7 +25,20 @@ const date = (value: Date) =>
     month: 'short',
     timeZone: 'UTC',
   })
-export default async function AdminDashboard() {
+const QUICK_ACTIONS = [
+  { label: 'Write a post', href: '/admin/blog/new', icon: Plus },
+  { label: 'Add work', href: '/admin/projects/new', icon: Layers },
+  { label: 'Upload photos', href: '/admin/gallery', icon: ImagePlus },
+  { label: 'Send a newsletter', href: '/admin/newsletter', icon: Send },
+  { label: 'Edit the home page', href: '/admin/content/home', icon: Home },
+]
+
+export default async function AdminDashboard({
+  searchParams,
+}: {
+  searchParams: Promise<{ range?: string; from?: string; to?: string }>
+}) {
+  const range = parseRange(await searchParams)
   const [
     posts,
     projects,
@@ -59,15 +78,23 @@ export default async function AdminDashboard() {
   return (
     <div>
       <AdminPageHeader
-        title="Your personal archive"
-        description="Drafts, unread messages and the pages that need updating."
+        title="Overview"
+        description="Site activity, drafts, unread messages and the pages that need updating, in one place."
         actions={
-          <Link href="/admin/blog/new" className="admin-primary-button">
-            <Plus size={16} />
-            Write something
-          </Link>
+          <a href="/" target="_blank" rel="noopener noreferrer" className="admin-secondary-button">
+            <ExternalLink size={14} aria-hidden="true" />
+            View the site
+          </a>
         }
       />
+      <nav className="admin-quick-actions" aria-label="Quick actions">
+        {QUICK_ACTIONS.map((action) => (
+          <Link key={action.href} href={action.href}>
+            <action.icon size={16} aria-hidden="true" />
+            {action.label}
+          </Link>
+        ))}
+      </nav>
       <div className="admin-stat-grid">
         {[
           {
@@ -104,6 +131,7 @@ export default async function AdminDashboard() {
           </Link>
         ))}
       </div>
+      <AnalyticsSection range={range} />
       <div className="admin-home-grid">
         <div className="admin-stack">
           <section className="admin-panel">
@@ -224,13 +252,6 @@ export default async function AdminDashboard() {
               ))}
             </div>
           </section>
-          <Link href="/admin/analytics" className="admin-analytics-link">
-            <span>
-              Site activity
-              <small>Visits, popular pages, and newsletter activity</small>
-            </span>
-            <ChevronRight size={18} />
-          </Link>
         </div>
       </div>
     </div>

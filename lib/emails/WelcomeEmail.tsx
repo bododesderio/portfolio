@@ -12,7 +12,7 @@ export function WelcomeEmail({ name, unsubscribeUrl }: { name?: string; unsubscr
       <Text style={p}>{greeting}</Text>
       <Text style={p}>
         You&apos;re now subscribed to updates from Bodo Desderio, founder, engineer, and
-        community builder based in Kampala, Uganda.
+        community builder in Uganda.
       </Text>
       <Text style={p}>
         I&apos;ll send occasional updates on what I&apos;m building, thinking, and doing. No spam, ever.

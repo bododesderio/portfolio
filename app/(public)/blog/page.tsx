@@ -1,5 +1,5 @@
+import { pageMetadata } from '@/lib/seo/page-metadata'
 import Link from 'next/link'
-import type { Metadata } from 'next'
 import { prisma } from '@/lib/data/db'
 import { getPageContent, getField, getSiteSetting } from '@/lib/data/content'
 import { EntryHeading, EntryLayout } from '@/components/personal/EntryLayout'
@@ -8,13 +8,14 @@ import { NewsletterForm } from '@/components/layout/NewsletterForm'
 import { ldJson, blogIndexSchema } from '@/lib/schema'
 import { safePublicHref } from '@/lib/domain/profile'
 export const dynamic = 'force-dynamic'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-export const metadata: Metadata = {
-  title: 'Writing',
-  description:
-    'Essays, notes, and reflections by Bodo Desderio on technology, leadership, community, and life.',
-  alternates: { canonical: `${SITE_URL}/blog` },
-  openGraph: { title: 'Writing · Bodo Desderio', url: '/blog' },
+export function generateMetadata() {
+  return pageMetadata({
+    page: 'blog',
+    title: "Writing · Bodo Desderio",
+    description:
+      "Essays and notes by Bodo Desderio on technology, software engineering, SEO, leadership and building in Africa.",
+    path: '/blog',
+  })
 }
 export default async function WritingPage({
   searchParams,

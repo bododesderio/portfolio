@@ -1,4 +1,6 @@
+import type { ReactElement } from 'react'
 import { render } from '@react-email/render'
+import { loadEmailBrand } from './brand'
 import { WelcomeEmail } from './WelcomeEmail'
 import { ConfirmSubscription } from './ConfirmSubscription'
 import { ContactAutoReply } from './ContactAutoReply'
@@ -7,16 +9,21 @@ import { NewsletterCampaign } from './NewsletterCampaign'
 import { NewPostNotification } from './NewPostNotification'
 import { AnalyticsDigest } from './AnalyticsDigest'
 
+async function renderBranded(email: ReactElement): Promise<string> {
+  await loadEmailBrand()
+  return render(email)
+}
+
 export async function renderWelcomeEmail(name?: string, unsubscribeUrl?: string) {
-  return render(<WelcomeEmail name={name} unsubscribeUrl={unsubscribeUrl} />)
+  return renderBranded(<WelcomeEmail name={name} unsubscribeUrl={unsubscribeUrl} />)
 }
 
 export async function renderConfirmSubscription(name: string | undefined, confirmUrl: string) {
-  return render(<ConfirmSubscription name={name} confirmUrl={confirmUrl} />)
+  return renderBranded(<ConfirmSubscription name={name} confirmUrl={confirmUrl} />)
 }
 
 export async function renderContactAutoReply(name: string) {
-  return render(<ContactAutoReply name={name} />)
+  return renderBranded(<ContactAutoReply name={name} />)
 }
 
 export async function renderAdminNotification(args: {
@@ -25,15 +32,15 @@ export async function renderAdminNotification(args: {
   subject: string
   message: string
 }) {
-  return render(<AdminNotification {...args} />)
+  return renderBranded(<AdminNotification {...args} />)
 }
 
 export async function renderNewsletterCampaign(subject: string, bodyHtml: string, unsubscribeUrl?: string) {
-  return render(<NewsletterCampaign subject={subject} bodyHtml={bodyHtml} unsubscribeUrl={unsubscribeUrl} />)
+  return renderBranded(<NewsletterCampaign subject={subject} bodyHtml={bodyHtml} unsubscribeUrl={unsubscribeUrl} />)
 }
 
 export async function renderNewPostNotification(args: { title: string; excerpt: string; url: string; unsubscribeUrl?: string }) {
-  return render(<NewPostNotification {...args} />)
+  return renderBranded(<NewPostNotification {...args} />)
 }
 
 export async function renderAnalyticsDigest(args: {
@@ -44,5 +51,5 @@ export async function renderAnalyticsDigest(args: {
   newMessages: number
   periodDays: number
 }) {
-  return render(<AnalyticsDigest {...args} />)
+  return renderBranded(<AnalyticsDigest {...args} />)
 }

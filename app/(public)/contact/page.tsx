@@ -1,17 +1,18 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo/page-metadata'
 import { getPersonalProfile } from '@/lib/data/profile'
 import { EntryHeading, EntryLayout } from '@/components/personal/EntryLayout'
 import { ContactForm } from '@/components/sections/ContactForm'
 import { ldJson, contactPageSchema } from '@/lib/schema'
 import { safePublicHref } from '@/lib/domain/profile'
 export const dynamic = 'force-dynamic'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-export const metadata: Metadata = {
-  title: 'Contact',
-  description:
-    'Get in touch with Bodo Desderio. Email, social profiles, and a place to say hello.',
-  alternates: { canonical: `${SITE_URL}/contact` },
-  openGraph: { title: 'Contact · Bodo Desderio', url: '/contact' },
+export function generateMetadata() {
+  return pageMetadata({
+    page: 'contact',
+    title: "Contact · Bodo Desderio",
+    description:
+      "Get in touch with Bodo Desderio about software projects, SEO and digital marketing work, partnerships or speaking.",
+    path: '/contact',
+  })
 }
 export default async function ContactPage() {
   const profile = await getPersonalProfile()

@@ -1,28 +1,44 @@
-import { Body, Container, Head, Html, Preview, Section, Text } from '@react-email/components'
+import { Body, Container, Head, Html, Img, Link, Preview, Section, Text } from '@react-email/components'
 import { ReactNode } from 'react'
+import { emailBrand } from './brand'
 
 const body = {
-  backgroundColor: '#ffffff',
+  backgroundColor: '#f4f1e8',
   fontFamily: 'Georgia, "Times New Roman", serif',
-  color: '#0f172a',
+  color: '#14221a',
   margin: 0,
-  padding: 0,
+  padding: '24px 0',
 }
 
 const container = {
   maxWidth: '560px',
   margin: '0 auto',
-  padding: '40px 24px',
+  padding: '32px 28px',
+  backgroundColor: '#ffffff',
+  borderRadius: '8px',
+  borderTop: '4px solid #c9a84c',
+}
+
+const header = { paddingBottom: '20px', marginBottom: '24px', borderBottom: '1px solid #ece6d4' }
+const wordmark = {
+  fontFamily: 'Arial, Helvetica, sans-serif',
+  fontSize: '16px',
+  fontWeight: 600,
+  color: '#14221a',
+  textDecoration: 'none',
+  verticalAlign: 'middle',
 }
 
 const footerSection = {
-  borderTop: '1px solid #e2e8f0',
+  borderTop: '1px solid #ece6d4',
   marginTop: '32px',
-  paddingTop: '16px',
+  paddingTop: '20px',
+  textAlign: 'center' as const,
 }
 
 const footerText = {
-  color: '#94a3b8',
+  color: '#6b7a70',
+  fontFamily: 'Arial, Helvetica, sans-serif',
   fontSize: '12px',
   lineHeight: '18px',
   margin: 0,
@@ -39,24 +55,49 @@ export function EmailLayout({
   footer?: ReactNode
   unsubscribeUrl?: string
 }) {
+  const brand = emailBrand()
   return (
     <Html>
       <Head />
       <Preview>{preview}</Preview>
       <Body style={body}>
         <Container style={container}>
+          <Section style={header}>
+            <Link href={brand.siteUrl} style={wordmark}>
+              <Img
+                src={brand.logoUrl}
+                width="36"
+                height="36"
+                alt="BD"
+                style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '10px', border: 0 }}
+              />
+              Bodo Desderio
+            </Link>
+          </Section>
           {children}
           <Section style={footerSection}>
+            {brand.socials.length > 0 && (
+              <Text style={{ margin: '0 0 14px' }}>
+                {brand.socials.map((social) => (
+                  <Link key={social.label} href={social.href} style={{ display: 'inline-block', margin: '0 5px' }}>
+                    <Img src={social.icon} width="28" height="28" alt={social.label} style={{ border: 0 }} />
+                  </Link>
+                ))}
+              </Text>
+            )}
             {footer ?? (
               <Text style={footerText}>
-                Bodo Desderio · Kampala, Uganda · bododesderio.com
+                Bodo Desderio ·{' '}
+                <Link href={brand.siteUrl} style={{ color: '#8e7029' }}>
+                  bododesderio.com
+                </Link>
               </Text>
             )}
             {unsubscribeUrl && (
               <Text style={{ ...footerText, marginTop: '8px' }}>
-                <a href={unsubscribeUrl} style={{ color: '#94a3b8', textDecoration: 'underline' }}>
+                <Link href={unsubscribeUrl} style={{ color: '#6b7a70', textDecoration: 'underline' }}>
                   Unsubscribe
-                </a>
+                </Link>
               </Text>
             )}
           </Section>

@@ -54,10 +54,10 @@ App: http://localhost:3001 · Admin: http://localhost:3001/admin/login
 | Styling | Tailwind CSS 3, `darkMode: 'class'`, CSS-variable-driven semantic tokens |
 | DB | PostgreSQL 16 (Prisma 5) — self-hosted in Docker, same in dev and prod |
 | Auth | NextAuth v5 beta, single admin, JWT session, DB-overridable password hash |
-| Email | SMTP via Nodemailer + React Email templates |
+| Email | Brevo SMTP relay via Nodemailer + React Email templates; Brevo webhooks for delivery events and inbound mail |
 | Media | Local uploads in `public/uploads`; Unsplash stock pack via fetch script; local `sharp` for login background webp |
 | Rich text | CKEditor 5 |
-| Charts | Custom inline SVG sparklines + `recharts` (dynamic import) for the admin visits chart |
+| Charts | `recharts` for the analytics series on the admin Overview |
 | Analytics | First-party page-view table, DNT-respecting, rate-limited |
 | Deployment | Docker Compose (app + db), security headers in `next.config.js` |
 
@@ -170,8 +170,8 @@ Admin edits content at `/admin/content/{page}` with CKEditor for HTML fields and
 
 | Group | Pages |
 |---|---|
-| Overview | Dashboard (`/admin`), Analytics (`/admin/analytics`) |
-| Content | Blog Posts, Pages, Gallery, Media Library, Services, Testimonials |
+| Overview | `/admin`: quick actions, counts, site analytics with date ranges and CSV export, recent activity (`/admin/analytics` redirects here) |
+| Content | Pages & biography, Writing, Work & ventures, Photos & media (tabs: gallery photos, all uploaded files), Mentions |
 | Audience | Subscribers, Messages, Clients |
 | Site | Appearance (brand colour, login bg, availability), Site Settings, Navigation, SEO & Meta, Integrations |
 | Account | Profile, Preferences (theme), Security (password) |
@@ -213,7 +213,10 @@ See `.env.example` for the full list. Key ones:
 - `DATABASE_URL` — PostgreSQL
 - `NEXTAUTH_SECRET` — random 32 bytes
 - `ADMIN_EMAIL` / `ADMIN_PASSWORD_HASH` — initial admin creds
-- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` — transactional + newsletter email
+- `SMTP_HOST`, `SMTP_PORT`, `SMTP_USER`, `SMTP_PASS`, `SMTP_FROM` — Brevo SMTP relay (also editable, encrypted, in Settings > Integrations)
+- `EMAIL_WEBHOOK_SECRET` — token on both Brevo webhook URLs
+- `INBOUND_FORWARD_TO` — inbox that mail sent to any @domain address is forwarded to
+- `BREVO_API_KEY` — downloads attachments on inbound mail; also used by `scripts/register-brevo-webhooks.mjs`
 - `ANALYTICS_SALT` — page-view UA hashing
 - `UNSPLASH_ACCESS_KEY` — stock fetch script (optional; only for running `scripts/fetch-stock-pack.mjs`)
 - `NEXT_PUBLIC_SITE_URL` — canonical URL for sitemap/OG
@@ -287,6 +290,18 @@ schema. Instead:
 pnpm prisma migrate dev --name describe_your_change   # writes the migration
 git add prisma/migrations                             # commit it
 ```
+
+### Email
+
+Outbound mail goes through the Brevo SMTP relay, and each kind of email has its
+own verified sender (`lib/domain/senders.ts`): `news@` for the newsletter,
+confirmations, welcomes and new-post alerts, `work@` for contact-form replies,
+`no-reply@` for admin mail and forwards. The domain has no mailboxes: its MX
+points at Brevo inbound parsing, which posts each message to
+`/api/webhooks/brevo-inbound`; the site stores it (`inbound_emails`) and forwards
+it to `INBOUND_FORWARD_TO` with Reply-To set to the sender. Delivery, bounce,
+spam and unsubscribe events arrive at `/api/webhooks/brevo`. Setup steps are in
+`docs/DEPLOY.md`.
 
 ### Backups
 

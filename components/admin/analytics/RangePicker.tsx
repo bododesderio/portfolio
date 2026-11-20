@@ -10,14 +10,14 @@ export function RangePicker({ range }: { range: AnalyticsRange }) {
         {Object.entries(RANGE_PRESETS).map(([value, preset]) => (
           <Link
             key={value}
-            href={value === '30d' ? '/admin/analytics' : `/admin/analytics?range=${value}`}
+            href={value === '30d' ? '/admin#analytics' : `/admin?range=${value}#analytics`}
             aria-current={range.preset === value ? 'page' : undefined}
           >
             {preset.label}
           </Link>
         ))}
       </nav>
-      <form action="/admin/analytics" method="get" className="admin-range-custom">
+      <form action="/admin#analytics" method="get" className="admin-range-custom">
         <input type="hidden" name="range" value="custom" />
         <label>
           <span>From</span>

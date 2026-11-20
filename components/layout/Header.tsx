@@ -31,6 +31,23 @@ export function Header({
   const pathname = usePathname()
   const toggle = useRef<HTMLButtonElement>(null)
   const header = useRef<HTMLElement>(null)
+  // Tapping a header link leaves focus on it, so focus alone cannot mean "in use";
+  // only a keyboard user tabbing through the header keeps it pinned.
+  const keyboardUser = useRef(false)
+  useEffect(() => {
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Tab') keyboardUser.current = true
+    }
+    const onPointer = () => {
+      keyboardUser.current = false
+    }
+    window.addEventListener('keydown', onKey, true)
+    window.addEventListener('pointerdown', onPointer, true)
+    return () => {
+      window.removeEventListener('keydown', onKey, true)
+      window.removeEventListener('pointerdown', onPointer, true)
+    }
+  }, [])
   useEffect(() => {
     if (behavior !== 'hide') return
     let lastY = window.scrollY
@@ -40,8 +57,7 @@ export function Header({
       const y = window.scrollY
       const delta = y - lastY
       if (Math.abs(delta) < JITTER) return
-      // Never hide while someone is using the header: menu open or focus inside it.
-      const busy = header.current?.contains(document.activeElement) ?? false
+      const busy = keyboardUser.current && (header.current?.contains(document.activeElement) ?? false)
       setHidden(delta > 0 && y > HIDE_AFTER && !busy)
       lastY = y
     }
@@ -71,7 +87,9 @@ export function Header({
       className="personal-header"
       data-behavior={behavior}
       data-hidden={(hidden && !open) || undefined}
-      onFocusCapture={() => setHidden(false)}
+      onFocusCapture={() => {
+        if (keyboardUser.current) setHidden(false)
+      }}
     >
       <div className="personal-wrap personal-header-inner">
         <Link

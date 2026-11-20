@@ -1,7 +1,6 @@
 'use client'
-import { useEffect, useRef, useState } from 'react'
+import { useId, useState } from 'react'
 import Image from 'next/image'
-import { ArrowLeft, ArrowRight, X } from 'lucide-react'
 export type PersonalPhoto = {
   id: string
   caption: string | null
@@ -15,6 +14,7 @@ function describePhoto(photo: PersonalPhoto, fallback: string) {
     !altText || /\.(jpe?g|png|webp|gif|avif)$/i.test(altText)
   return (isFileName ? '' : altText) || photo.caption || fallback
 }
+/** Photo grid; each photo opens in the site-wide viewer with the rest of this collection. */
 export function PhotoCollection({
   items,
   filterable = false,
@@ -23,9 +23,7 @@ export function PhotoCollection({
   filterable?: boolean
 }) {
   const [category, setCategory] = useState('All')
-  const [selected, setSelected] = useState<number | null>(null)
-  const dialog = useRef<HTMLDialogElement>(null)
-  const opener = useRef<HTMLButtonElement | null>(null)
+  const group = `photos-${useId()}`
   const categories = [
     'All',
     ...Array.from(
@@ -40,22 +38,6 @@ export function PhotoCollection({
     category === 'All'
       ? items
       : items.filter((item) => item.category === category)
-  const active = selected === null ? null : visible[selected]
-  useEffect(() => {
-    if (active && !dialog.current?.open) dialog.current?.showModal()
-  }, [active])
-  function close() {
-    dialog.current?.close()
-    setSelected(null)
-    opener.current?.focus()
-  }
-  function step(direction: number) {
-    setSelected((current) =>
-      current === null
-        ? null
-        : (current + direction + visible.length) % visible.length
-    )
-  }
   return (
     <>
       {filterable && (
@@ -79,101 +61,34 @@ export function PhotoCollection({
       <div
         className={`personal-photo-grid ${filterable ? 'personal-photo-grid-full' : ''}`}
       >
-        {visible.map((item, index) => (
-          <figure key={item.id}>
-            <button
-              type="button"
-              className="personal-photo-button"
-              onClick={(event) => {
-                opener.current = event.currentTarget
-                setSelected(index)
-              }}
-              aria-label={`Open photograph: ${describePhoto(item, String(index + 1))}`}
-            >
-              <Image
-                src={item.media.url}
-                alt={describePhoto(item, 'Photograph from Bodo’s archive')}
-                fill
-                sizes="(max-width: 700px) 85vw, (max-width: 1100px) 40vw, 320px"
-                className="object-cover"
-              />
-            </button>
-            {item.caption && <figcaption>{item.caption}</figcaption>}
-          </figure>
-        ))}
+        {visible.map((item, index) => {
+          const description = describePhoto(item, 'Photograph from Bodo’s archive')
+          return (
+            <figure key={item.id}>
+              <button
+                type="button"
+                className="personal-photo-button"
+                data-lightbox={group}
+                data-lightbox-src={item.media.url}
+                data-lightbox-alt={item.caption || description}
+                aria-label={`Open photograph: ${describePhoto(item, String(index + 1))}`}
+              >
+                <Image
+                  src={item.media.url}
+                  alt={description}
+                  fill
+                  sizes="(max-width: 700px) 85vw, (max-width: 1100px) 40vw, 320px"
+                  className="object-cover"
+                />
+              </button>
+              {item.caption && <figcaption>{item.caption}</figcaption>}
+            </figure>
+          )
+        })}
       </div>
       {visible.length === 0 && (
         <p className="personal-empty">No photographs in this collection yet.</p>
       )}
-      <dialog
-        ref={dialog}
-        className="personal-lightbox"
-        onClose={() => {
-          setSelected(null)
-          opener.current?.focus()
-        }}
-        onCancel={() => {
-          setSelected(null)
-          opener.current?.focus()
-        }}
-        onClick={(event) => {
-          if (event.target === event.currentTarget) close()
-        }}
-        onKeyDown={(event) => {
-          if (event.key === 'ArrowLeft') {
-            event.preventDefault()
-            step(-1)
-          }
-          if (event.key === 'ArrowRight') {
-            event.preventDefault()
-            step(1)
-          }
-        }}
-        aria-label="Photograph viewer"
-      >
-        {active && (
-          <div className="personal-lightbox-inner">
-            <div className="personal-lightbox-toolbar">
-              <span>
-                {(selected ?? 0) + 1} / {visible.length}
-              </span>
-              <button
-                type="button"
-                onClick={close}
-                aria-label="Close photograph"
-              >
-                <X size={20} />
-              </button>
-            </div>
-            <div className="personal-lightbox-image">
-              <Image
-                src={active.media.url}
-                alt={describePhoto(active, 'Photograph from Bodo’s archive')}
-                fill
-                sizes="90vw"
-                className="object-contain"
-              />
-            </div>
-            <div className="personal-lightbox-caption">
-              <button
-                type="button"
-                onClick={() => step(-1)}
-                aria-label="Previous photograph"
-              >
-                <ArrowLeft size={20} />
-              </button>
-              <p>{active.caption || describePhoto(active, '')}</p>
-              <button
-                type="button"
-                onClick={() => step(1)}
-                aria-label="Next photograph"
-              >
-                <ArrowRight size={20} />
-              </button>
-            </div>
-          </div>
-        )}
-      </dialog>
     </>
   )
 }

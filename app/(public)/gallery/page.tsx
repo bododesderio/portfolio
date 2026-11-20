@@ -1,17 +1,18 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo/page-metadata'
 import { prisma } from '@/lib/data/db'
 import { getPageContent, getField } from '@/lib/data/content'
 import { ldJson, imageGallerySchema } from '@/lib/schema'
 import { EntryHeading, EntryLayout } from '@/components/personal/EntryLayout'
 import { PhotoCollection } from '@/components/personal/PhotoCollection'
 export const dynamic = 'force-dynamic'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-export const metadata: Metadata = {
-  title: 'Photographs',
-  description:
-    'A personal photo archive of Bodo Desderio: work, community, people, and moments along the way.',
-  alternates: { canonical: `${SITE_URL}/gallery` },
-  openGraph: { title: 'Photographs · Bodo Desderio', url: '/gallery' },
+export function generateMetadata() {
+  return pageMetadata({
+    page: 'gallery',
+    title: "Photographs · Bodo Desderio",
+    description:
+      "Photographs from tech camps, community outreach, events and time with friends, from the personal archive of Bodo Desderio.",
+    path: '/gallery',
+  })
 }
 export default async function GalleryPage() {
   const [content, items] = await Promise.all([

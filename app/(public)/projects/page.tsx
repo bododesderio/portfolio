@@ -1,17 +1,18 @@
-import type { Metadata } from 'next'
+import { pageMetadata } from '@/lib/seo/page-metadata'
 import Link from 'next/link'
 import Image from 'next/image'
 import { prisma } from '@/lib/data/db'
 import { EntryHeading, EntryLayout } from '@/components/personal/EntryLayout'
 import { PersonalIcon } from '@/components/personal/PersonalIcon'
 export const dynamic = 'force-dynamic'
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://bododesderio.com'
-export const metadata: Metadata = {
-  title: 'Work',
-  description:
-    'The companies, software, and projects Bodo Desderio has worked on, is building, and is exploring.',
-  alternates: { canonical: `${SITE_URL}/projects` },
-  openGraph: { title: 'Work · Bodo Desderio', url: '/projects' },
+export function generateMetadata() {
+  return pageMetadata({
+    page: 'projects',
+    title: "Work & ventures · Bodo Desderio",
+    description:
+      "The companies, software and ventures Bodo Desderio has built or worked on, including Rooibok Technologies and Kakebe Technologies.",
+    path: '/projects',
+  })
 }
 const statuses: Record<string, string> = {
   completed: 'Completed',

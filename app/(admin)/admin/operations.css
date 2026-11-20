@@ -1082,3 +1082,53 @@
     display: none;
   }
 }
+
+/* Overview: quick actions, then the analytics section above recent activity. */
+.admin-quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+.admin-quick-actions a {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  padding: 8px 14px;
+  border: 1px solid rgb(var(--hairline) / 0.14);
+  border-radius: 8px;
+  background: rgb(var(--card));
+  color: rgb(var(--ink));
+  font-size: calc(13px * var(--reader-scale));
+  text-decoration: none;
+}
+.admin-quick-actions a:hover {
+  border-color: rgb(var(--brand-500) / 0.6);
+  color: rgb(var(--brand-700));
+}
+.admin-quick-actions svg {
+  color: rgb(var(--brand-600));
+}
+.admin-analytics-section {
+  margin: 28px 0;
+  padding-top: 24px;
+  border-top: 1px solid rgb(var(--hairline) / 0.1);
+}
+.admin-analytics-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 14px;
+}
+.admin-analytics-heading p {
+  max-width: 68ch;
+  margin: 4px 0 0;
+  font-size: calc(12px * var(--reader-scale));
+}
+.admin-analytics-actions {
+  display: flex;
+  gap: 8px;
+}

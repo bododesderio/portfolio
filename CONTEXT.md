@@ -1,266 +1,102 @@
 # Project Context
-Last updated: 2026-11-19
+Last updated: 2026-11-20
 
 ## What this is
-Personal brand site for Bodo Desderio — **not** a static portfolio. A
-single-tenant CMS: copy, SEO, navigation, theming, banners and SMTP credentials
-are all runtime-editable database rows, managed through `/admin`.
+Personal brand site for Bodo Desderio, live at **https://bododesderio.com**. It is
+a single-tenant CMS, not a static portfolio: copy, SEO, navigation, theming,
+images, banners and SMTP credentials are runtime-editable database rows managed
+through `/admin`.
 
 ## Stack
 - Next.js 16 (App Router, standalone output) · TypeScript strict · Tailwind 3
-- PostgreSQL 16 + Prisma 5 — **self-hosted in Docker**, dev and prod alike
-- NextAuth v5 beta — single admin, bcrypt-12, JWT sessions (8h / 30d "remember me")
-- Redis (rate limiting) · Nodemailer → self-hosted Postal · CKEditor 5 · sharp
+- PostgreSQL 16 + Prisma 5, self-hosted in Docker in dev and prod
+- NextAuth v5 beta: single admin, bcrypt-12, JWT sessions
+- Redis (rate limiting) · Nodemailer → Brevo SMTP relay · React Email · CKEditor 5 · sharp
 - Uploads on local disk (`public/uploads`) via a Docker volume
 
 ## Architecture
 ```
-app/(public)/*  RSC → Prisma directly (no API layer). 20 pages force-dynamic.
+app/(public)/*  RSC → Prisma directly (no API layer)
 app/(admin)/*   client components → fetch /api/admin/* → router.refresh()
-app/api/*       53 routes: 41 admin (all auth-guarded) + 12 public
-lib/data/       db, content, analytics
-lib/domain/     banners, embed, email-tracking, mailer, notifications,
-                media-uploads, medium, unsubscribe, confirm-subscribe
-lib/util/       sanitize, image-utils, local-storage, rate-limit,
-                link-signing, theme
-lib/            auth.ts, config.ts, schema.ts, emails/
+app/api/*       admin routes (auth-guarded), public routes, Brevo webhooks
+lib/data/       db, content, profile, site-analytics, cache tags
+lib/domain/     mailer, senders, email-tracking, brevo-webhook, inbound-email,
+                image-alpha, analytics-range, maintenance, audit, notifications …
+lib/seo/        page-metadata (every page's title/description/OG/canonical)
+lib/emails/     React Email templates + brand (logo, social links)
+lib/util/       sanitize, rate-limit, link-signing, csv, with-admin …
 ```
-`app/` is deliberately NOT restructured — in App Router the directory tree is
-the URL structure, so `app/api` and `app/(admin)` already are the backend and
-admin boundaries.
+`app/` stays as-is: in the App Router the directory tree is the URL structure.
 
 ## The only command
 ```bash
 docker compose up -d --build
 ```
-Builds, generates the Prisma client, applies migrations, seeds only if the DB is
-empty, starts the app. `COMPOSE_FILE=compose.prod.yaml` in `.env` selects the
-production stack; unset selects dev. Same command on both.
+Migrations run on boot; seeding only on an empty DB. Production uses
+`compose.vps.yaml` behind the shared Traefik edge; see `docs/DEPLOY.md`.
+
+## How the main features work
+- **Home hero**: portrait plus the active rows in Content > Home > hero images,
+  cross-faded every 3.5 s (`HeroSlides`). Cut-outs (images with transparency,
+  detected by `image-alpha.ts`) show whole; photos are cropped and faded in with
+  a curved mask. Light/dark/auto theme drives the `--band-*` tokens.
+- **Images**: every public image opens in one viewer (`Lightbox.tsx`, mounted in
+  the public layout) with previous/next, keyboard and swipe; `Zoomable` wraps an
+  image, rich-text images are picked up automatically.
+- **SEO**: `pageMetadata()` reads Settings > SEO first, then page defaults; always
+  emits a share image (generated `/opengraph-image` fallback), canonical and card.
+- **Email**: senders per purpose (`news@`, `work@`, `no-reply@`); Brevo webhook
+  `/api/webhooks/brevo` records delivery/bounce/spam/unsubscribe once per message
+  and stops newsletters to suppressed addresses; inbound mail to any
+  @bododesderio.com address arrives at `/api/webhooks/brevo-inbound`, is stored
+  in `inbound_emails` and forwarded to `INBOUND_FORWARD_TO`.
+- **Admin Overview** (`/admin`): quick actions, counts, site analytics and recent
+  activity on one page; `/admin/analytics` redirects there.
 
 ## Recent decisions
-- **2026-07-21 — Single-branch repo; no CI.** The hardening branch merged to
-  `main` (PR #1, `ffb3ec1`) and was deleted. GitHub Actions was removed entirely
-  (`c6fcaf3`): every run failed at startup — the account is locked over a billing
-  issue, which halts Actions even on public repos. Workflow is now edit → commit
-  → `git push origin main`; checks run locally before push.
-- **2026-07-21 — `isomorphic-dompurify` kept server-external.** It pulls in
-  `jsdom`, whose runtime asset load webpack-bundling breaks, failing the prod
-  build. `serverExternalPackages` in `next.config.js` fixes it; Docker builder
-  pins `NODE_ENV=production` so a polluted env can't bundle React's dev runtime.
+- **2026-11-20 — Brevo for all email, Postal removed.** Postal was never
+  deployed. Brevo matches the other Rooibok projects (rooibok.tech uses the same
+  inbound-parsing setup). Webhooks are registered by
+  `scripts/register-brevo-webhooks.mjs` from the VPS (API keys are IP-restricted).
+- **2026-11-20 — Inbound mail forwarded inline, retried by Brevo.** No worker
+  queue here, so the webhook forwards synchronously and returns 500 on failure;
+  Brevo redelivers and stored rows are reused, so nothing is sent twice.
+- **2026-11-20 — Admin SEO settings now drive metadata.** They were stored but
+  never read; page-level `openGraph` also dropped the share image on 9 of 10 pages.
+  The stale seeded SEO rows (which said Kampala) were rewritten.
+- **2026-11-20 — Header hides on scroll for pointer users.** Tapping a link left
+  focus in the header and pinned it; only keyboard users keep it pinned now.
+- **2026-11-20 — Email brand is module state, not React context.** Templates are
+  imported by server routes, where `createContext` breaks the build.
+- **2026-11-20 — `instrumentation.ts` imports inside the `NEXT_RUNTIME` check.**
+  An early return left the Prisma/ioredis chain in the Edge bundle and broke
+  `next build`.
+- **2026-09-04 — Apex domain `bododesderio.com`**, compose project `myportfolio`
+  in `/opt/myportfolio`, fresh DB.
+- **2026-07-21 — Single branch, no CI.** The GitHub account is billing-locked,
+  so checks run locally before push.
 - **2026-07-20 — Migration history is the source of truth.** `prisma db push` is
-  banned. It had produced 4 tables + 5 column sets present in the running DB but
-  in no migration file, so a from-source deploy built a broken schema. Both
-  start scripts now use `migrate deploy`; schema changes go through
-  `prisma migrate dev --name ...` and get committed.
-- **2026-07-20 — Dropped Supabase for self-hosted Postgres.** It was only
-  referenced in two README lines; the containerised DB is now the only path.
-- **2026-07-20 — Click-tracking destinations are HMAC-signed.** The tracker took
-  an unvalidated `?url=`, and a valid EmailLog id is self-serve by subscribing —
-  an open redirect on the apex domain. Signed with a distinct purpose string so
-  a signature can never be replayed as a session token.
-- **2026-07-20 — `lib/` layered into data/domain/util** rather than a flat
-  drawer. `auth.ts`/`config.ts`/`schema.ts` stay at root as widely-imported
-  integration points.
-- **2026-07-20 — Subdomain split will be host routing into one app**, not
-  separate services. See `.claude/adrs/ADR-001-subdomain-architecture.md`.
+  banned.
 
 ## Known issues
-- **`POSTAL_WEBHOOK_SECRET` is unset in prod**, so the webhook rejects everything
-  and delivery/bounce events are silently not recorded. Email stats undercount.
-  Set it during the next deploy (`docs/DEPLOY.md`).
-- **CSP `script-src` is now nonce-based** (per-request, via `proxy.ts`); only
-  `style-src` keeps `unsafe-inline` (Tailwind/theme inline styles — low risk).
-- **20 public pages remain `force-dynamic`.** Content/settings/SEO reads are now
-  `unstable_cache`d, but the pages themselves aren't statically rendered.
-- **No CI — intentional.** The GitHub account is billing-locked, so Actions can't
-  run. Verify locally before push: `pnpm typecheck && pnpm lint && pnpm test &&
-  pnpm build` (build needs `env -u NODE_ENV` + a scratch DB).
-- **Backups are manual** (`pnpm db:backup`) — no cron on the server.
-- `compose.yaml` contains a hardcoded `ADMIN_PASSWORD_HASH` and a personal email
-  as dev defaults; both are already in git history.
-
-## Session summary (2026-07-21) — hardening + refactors + live audit shipped
-
-The audit-remediation work, five of the six deferred refactors, AND a live
-Playwright audit (with four bug fixes) are **merged to `main`**. Repo is
-single-branch; deploy runbook is `docs/DEPLOY.md`. Only the nonce-CSP hardening
-is left, on purpose. Nothing is in flight.
-
-### Live audit (2026-07-21) — ran the app end-to-end via Playwright, twice
-Isolated scratch stack (Postgres+Redis on ports 55444/63977, seeded with a known
-admin password hash so login is controllable), `next dev` on :3011. Verified live
-**and re-confirmed on a second pass**: all public pages; contact form + newsletter
-subscribe (persisted, visible in dashboard); login (wrong+right); Services CRUD
-(201/200/200); Banners create/toggle/duplicate + preview modal; media upload
-(file on disk); SMTP config save; CKEditor mounts; every admin page loads.
-
-Four bugs found and **fixed + verified live** (all on `main`):
-1. **CKEditor was fully broken** (`1ee137a`) — ckeditor5 v48 throws
-   `license-key-missing` with no `licenseKey`. Added `licenseKey: 'GPL'`.
-2. **Sidebar missing after login** (`ec063be`) — `admin/layout.tsx` gates the
-   shell on session; `router.push` reused the login page's stale no-session
-   layout. Fixed with a full-nav redirect (`window.location.assign`).
-3. **Hydration mismatch + double file-chooser** (`1b1f4bc`) — AxiomUI's script
-   (`public/js/axiom-ui.js`, mounted in root layout) replaced React-managed
-   `<select>`/`<input type=file>`/`<input type=color>` on admin pages. Now skips
-   `/admin` in `upgradeAll()`.
-4. **CSP blocked external images** (`710769d`) — `img-src` broadened to `https:`.
-
-Setup gotcha: a stale webpack `.next` makes `next dev` (Turbopack) 404 every
-route-group page — `rm -rf .next` before `next dev`.
-
-**Production build verified (exit 0, 57/57 static pages).** The `unstable_cache`
-change compiles clean. Verifying surfaced two build-only issues, both fixed in
-`c9db5da`:
-- The `isomorphic-dompurify` sanitizer pulls in `jsdom`; webpack-bundling it
-  broke jsdom's runtime asset load (`browser/default-stylesheet.css`) and failed
-  page-data collection on every route importing the sanitizer. Fixed with
-  `serverExternalPackages: ['isomorphic-dompurify', 'jsdom']` in `next.config.js`.
-  This would also have turned CI red.
-- Building with `NODE_ENV=development` (leaks from the dev shell profile) makes
-  Next bundle React's dev runtime → prerender crashes with a `useContext` null
-  error. Docker's builder stage now pins `ENV NODE_ENV=production`. Locally,
-  build with `env -u NODE_ENV`.
-
-Repro (scratch Postgres, then migrate + build):
-```bash
-docker run -d --name bodo_migrate_tmp -e POSTGRES_PASSWORD=tmp \
-  -e POSTGRES_USER=tmp -e POSTGRES_DB=freshdb -p 55432:5432 postgres:16-alpine
-DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" npx prisma migrate deploy
-env -u NODE_ENV DATABASE_URL="postgresql://tmp:tmp@localhost:55432/freshdb" \
-  NEXTAUTH_SECRET="build-dummy" NEXT_PUBLIC_SITE_URL="http://localhost:3001" \
-  ANALYTICS_SALT="build-dummy" npx next build --webpack
-```
-
-### Done in the remediation pass
-- Sanitizer → isomorphic-dompurify (all known bypasses tested and closed)
-- SSRF-safe fetch for link-check; rate-limit fail-closed on mail routes;
-  per-target subscribe limit; banner/tracking endpoints limited; XFF read from
-  the trusted end; HKDF per-purpose token keys + confirm-token TTL with legacy
-  acceptance; ANALYTICS_SALT no longer degrades silently
-- Newsletter made resumable using EmailLog as the progress ledger (no schema
-  change), status now `sending` → `sent`, template rendered once not per
-  subscriber
-- Missing indexes migration `20260720010000_add_missing_query_indexes` (verified
-  zero drift from a fresh DB)
-- `unstable_cache` on content/settings/SEO reads with tag invalidation wired
-  into all four admin writers — **note:** the settings single-key branch was
-  missing invalidation and was fixed; zod validation added to that route
-- CI workflow (typecheck/lint/test/build + drift guard) — later removed because
-  the GitHub account is billing-locked; checks now run locally before push
-- EmbedSection no longer imports Prisma; blog image `alt` now uses post title
-
-### Refactor pass (2026-07-21) — ALL SIX shipped
-The §5 pure-churn refactors, done as their own reviewable commits (all verified
-by typecheck + lint + 159 tests + a clean production build):
-1. ✅ `withAdmin` wrapper (`lib/util/with-admin.ts`) — 23 CRUD route files. Auth
-   guard can no longer be forgotten. Hardened routes (content/seo/settings/
-   config), uploads, newsletter, auth, analytics keep inline guards on purpose.
-2. ✅ `useResourceCrud` (`components/admin/useResourceCrud.ts`) — adopted in
-   Clients + Services (full), Testimonials + Press (partial). HeroImages/Embed
-   left inline: they drive lists off local optimistic state, not router.refresh.
-3. ✅ `BannersManager` split → orchestrator + banner-types + BannerForm /
-   BannerList / BannerPreviewModal (782 → 155-line orchestrator).
-4. ✅ `lib/motion.ts` (EASE + fadeUp/fadeIn) + `components/ui/SectionHeader.tsx`
-   (adopted in the 3 exact-match slate sections).
-5. ✅ Loading skeletons — `components/ui/Skeleton.tsx` + `loading.tsx` for the
-   public and admin route groups (there were none).
-6. ✅ CSP `unsafe-inline` → nonce-based (`7830bb9`). CSP moved from
-   next.config.js to the middleware (`proxy.ts`) with a fresh per-request nonce;
-   prod `script-src 'self' 'nonce-<n>' 'strict-dynamic'`, no script unsafe-inline.
-   Next auto-nonces its scripts; next-themes gets the nonce via `x-nonce` header
-   read in the root layout; strict-dynamic covers AxiomUI + CKEditor bundles.
-   JSON-LD scripts needed NO nonce (browsers don't apply script-src to
-   `application/ld+json`). style-src stays unsafe-inline. Dev stays relaxed for
-   HMR. Trade-off: root-layout `headers()` makes all routes dynamic (privacy/
-   terms were static). Verified live against `next start`: 0 CSP violations
-   across public + admin; login/sidebar/CRUD/theme/CKEditor all work.
-
-## MIGRATED — live at https://bododesderio.com (2026-09-04)
-
-Moved off the `bodo.rooibok.tech` subdomain onto the newly-registered apex
-domain **bododesderio.com** (Hostinger DNS, apex A → 195.110.59.36, www CNAME →
-apex). Re-deployed **fresh** (empty DB, re-seeded — prior subscribers/messages
-were seed sample data, not real signups) as compose project **`myportfolio`** in
-**`/opt/myportfolio`**; the old `portfolio` project, its volumes, and
-`/opt/portfolio` were removed. New secrets generated; admin login unchanged email
-(`rooiboktechltd@gmail.com`), new password (rotate in `/admin`). Traefik router
-`myportfolio` serves apex + `www` with a permanent www→apex 301 and an LE cert
-covering both (`compose.vps.yaml`, `2e66e98`). Verified: HTTPS 200, valid cert,
-www 301, `bodo.rooibok.tech` now 404.
-
-**Redeploy (routine):**
-```bash
-ssh root@195.110.59.36 'cd /opt/myportfolio && git pull --ff-only origin main \
-  && docker compose -f compose.vps.yaml up -d --build'
-```
-Left to do: delete the stale `bodo` A record from the `rooibok.tech` zone in
-hPanel (the DNS MCP delete tool can't scope to one record, so it wasn't removed
-automatically — the subdomain already 404s regardless).
-
-## (superseded) DEPLOYED — live at https://bodo.rooibok.tech (2026-07-27)
-
-First production deploy done. The site is live with valid Let's Encrypt TLS.
-
-**The VPS is a shared multi-tenant box** (Hostinger KVM2, `195.110.59.36`,
-Ubuntu 24.04) already running two other prod stacks (`arova`, `rooibok`) behind
-a **shared Traefik v3 edge** at `/opt/infra/traefik` that owns :80/:443 and
-issues LE certs (resolver `le`, HTTP-01, email rooiboktechltd@gmail.com). So the
-generic `docs/DEPLOY.md` (host-port bind, standalone edge, drift-resolve) does
-NOT apply here. What was actually done:
-- **`compose.vps.yaml`** (new, committed `20142c8`) — mirrors the rooibok
-  pattern: app on the external `web` network with Traefik labels routing
-  `Host(bodo.rooibok.tech)` → :3000, `tls.certresolver=le`; Postgres/Redis on a
-  private `internal` net; NO host ports. Deployed as compose project `portfolio`
-  in `/opt/portfolio` (public GitHub clone).
-- **DNS**: `bodo.rooibok.tech` A → `195.110.59.36` (Hostinger DNS, TTL 300).
-- **No drift-resolve needed** — fresh Postgres volume, so all 9 migrations ran
-  clean (the baseline creates its tables on an empty DB with no conflict).
-- **`.env`** generated on the box (`0600`): random Postgres/Redis/NEXTAUTH_SECRET
-  /ANALYTICS_SALT; `ADMIN_EMAIL=rooiboktechltd@gmail.com`; bcrypt-12
-  `ADMIN_PASSWORD_HASH` (single-quoted so compose won't interpolate the `$`).
-  `POSTAL_WEBHOOK_SECRET` still empty (email tracking off — set when Postal is wired).
-
-**Seed-in-prod bug — FIXED (`4672d4e`).** The prod runner image has no `tsx`, so
-`prisma db seed` (= `tsx prisma/seed.ts`) failed first boot with `spawn tsx
-ENOENT` and left the DB unseeded. Now the Docker builder precompiles the seed to
-`prisma/seed.cjs` via `scripts/build-seed.mjs` (esbuild resolved from tsx's own
-dep tree — pnpm doesn't link the esbuild bin in the builder), and
-`seed-if-empty.sh` runs `node prisma/seed.cjs` when present, falling back to
-`prisma db seed` (tsx) for local dev. `seed.cjs` is gitignored. Verified in the
-running image (`node --check` OK; `@prisma/client` loads under plain node).
-The very first deploy was seeded manually via the builder image before this fix;
-fresh deploys now self-seed.
-
-### Redeploy on this box (routine)
-```bash
-ssh root@195.110.59.36 'cd /opt/portfolio && git pull --ff-only origin main \
-  && docker compose -f compose.vps.yaml up -d --build'
-```
-(Seeding only runs once on the empty volume; later boots are no-ops.)
+- 20 public pages are `force-dynamic`; content reads are `unstable_cache`d.
+- Backups are manual (pre-deploy dumps in `/opt/myportfolio/backups`).
+- `compose.yaml` holds a dev admin hash and personal email as dev defaults; both
+  are already in git history.
+- The seed's `about.story.items` are older sample entries; production content
+  was corrected in place and is the source of truth.
+- Timeline entries for Rooibok, YOUNGO and ALX have no dates yet ("Present" /
+  "Alumnus"); the owner can add them in Content > About > story.
+- The Brevo SMTP and API keys were shared in a chat transcript; rotate them in
+  Brevo if that matters.
 
 ## Next steps
-1. Log into https://bodo.rooibok.tech/admin (creds generated at deploy) and edit
-   the seeded placeholder content; rotate the admin password there.
-2. Wire `POSTAL_WEBHOOK_SECRET` + SMTP when email is set up (currently blank).
-3. `/privacy` and `/terms` are dynamic now (nonce CSP reads `headers()` in the
-   root layout) — expected, not a regression.
-4. Later: ADR-001 subdomain phases if a dedicated domain is acquired.
+1. Owner picks hero images (Content > Home > hero images); cut-outs look best.
+2. Owner confirms whether the "Community Platform" project is real.
+3. Add dates to the Rooibok, YOUNGO and ALX timeline entries.
+4. Submit the sitemap in Google Search Console and watch coverage.
 
-**To re-run the live audit tomorrow:** scratch stack recipe is in MEMORY.md
-([2026-07-21] live-audit entry) — Postgres+Redis on ports 55444/63977, seed with
-the known hash, `rm -rf .next` then `next dev -p 3011` (or `next build`+`next
-start` to test the nonce CSP, which dev can't).
-
-Merged to `main`: DOMPurify sanitizer, resumable newsletter, `unstable_cache` on
-content/settings/SEO, build fixes — all verified by a clean production build.
-
-**No CI.** GitHub Actions is removed because the account is billing-locked, so
-every run failed at startup. Run checks locally before pushing:
-`pnpm typecheck && pnpm lint && pnpm test && pnpm build`. Drift guard:
-`pnpm prisma migrate diff --from-url "$DATABASE_URL" --to-schema-datamodel prisma/schema.prisma --script`
-should be empty.
-
-## Active branches
-- `main`: stable, single-branch repo. First prod deploy shipped (`compose.vps.yaml`,
-  `20142c8`). Live at https://bodo.rooibok.tech.
+## Re-running a local check
+Scratch Postgres on port 16432 (`postgres:16-alpine`), `prisma migrate deploy`,
+`prisma db seed`, then `next dev -p 16001` (ports stay in the 16000 block).
+`rm -rf .next` before switching between `next dev` and `next build`.
